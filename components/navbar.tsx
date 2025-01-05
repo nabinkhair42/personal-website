@@ -1,8 +1,10 @@
 import { ModeToggle } from "@/components/theme-toggle";
-import { GithubIcon, TwitterIcon, CommandIcon } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import Anchor from "./anchor";
+import { SiApacheopenoffice } from "react-icons/si";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa";
 
 export const NAVLINKS = [
   {
@@ -45,7 +47,7 @@ export function Navbar() {
                 href="https://github.com/nabinkhair42"
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
-                <GithubIcon className="h-4 w-4" />
+                <FaGithub className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
@@ -54,7 +56,7 @@ export function Navbar() {
                   size: "icon",
                 })}
               >
-                <TwitterIcon className="h-4 w-4" />
+                <FaXTwitter className="h-4 w-4" />
               </Link>
               <ModeToggle />
             </div>
@@ -68,7 +70,7 @@ export function Navbar() {
 export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
-      <CommandIcon className="w-6 h-6 text-muted-foreground" strokeWidth={2} />
+      <SiApacheopenoffice className="w-6 h-6" />
       <h2 className="text-md font-bold font-code">nKhair</h2>
     </Link>
   );
