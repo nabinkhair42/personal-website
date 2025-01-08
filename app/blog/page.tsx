@@ -1,15 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Author, BlogMdxFrontmatter, getAllBlogs } from "@/lib/markdown";
-import { formatDate2, stringToDate } from "@/lib/utils";
 import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { getAllBlogs } from "@/lib/markdown";
+import { stringToDate } from "@/lib/utils";
+import BlogCard from "@/app/blog/_components/BlogCard";
+import BlogCardSkeleton from "@/app/blog/_components/BlogCardSkeleton";
+
 export const metadata: Metadata = {
   title: "Blogs | Nabin Khair",
   description: "The latest blogs and news, straight from the team.",
@@ -19,93 +13,42 @@ export default async function BlogIndexPage() {
   const blogs = (await getAllBlogs()).sort(
     (a, b) => stringToDate(b.date).getTime() - stringToDate(a.date).getTime()
   );
+
   return (
-    <div className="w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2">
-      <div className="mb-7 flex flex-col gap-2">
-        <h1 className="text-3xl font-extrabold">
-          The latest blogs of this product
+    <div className="container mx-auto px-4 py-8 min-h-screen">
+      <div className="mb-12 text-center">
+        <h1 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          The Latest Blogs
         </h1>
-        <p className="text-muted-foreground">
-          All the latest blogs and news, straight from the team.
+        <p className="text-xl text-muted-foreground">
+          Discover insights and stories, straight from Nabin.
         </p>
       </div>
-      <div className="flex flex-wrap gap-4 items-center justify-center lg:justify-start w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs.map((blog) => (
-          <BlogCard {...blog} slug={blog.slug} key={blog.slug} />
+          <BlogCard key={blog.slug} {...blog} slug={blog.slug} />
         ))}
       </div>
     </div>
   );
 }
 
-function BlogCard({
-  date,
-  title,
-  description,
-  slug,
-  cover,
-  authors,
-}: BlogMdxFrontmatter & { slug: string }) {
+export function Loading() {
   return (
-    <Link
-      href={`/blog/${slug}`}
-      className="flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px] max-w-[400px]"
-    >
-      <h3 className="text-md font-semibold -mt-1 pr-7">{title}</h3>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Image
-              src={cover}
-              alt={title}
-              width={400}
-              height={150}
-              quality={100}
-              className="w-full rounded-md object-cover h-[180px] border"
-            />
-          </TooltipTrigger>
-          <TooltipContent className="w-[200px]">
-            <p>{title}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <p className="text-sm text-muted-foreground">
-        {description.slice(0, 50)}...
-      </p>
-      <div className="flex items-center justify-between w-full mt-auto">
-        <p className="text-[13px] text-muted-foreground">
-          Published on {formatDate2(date)}
+    <div className="container mx-auto px-4 py-8 min-h-screen">
+      <div className="mb-12 text-center">
+        <h1 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          The Latest Blogs
+        </h1>
+        <p className="text-xl text-muted-foreground">
+          Discover insights and stories, straight from Nabin.
         </p>
-        <AvatarGroup users={authors} />
       </div>
-    </Link>
-  );
-}
-
-function AvatarGroup({ users, max = 4 }: { users: Author[]; max?: number }) {
-  const displayUsers = users.slice(0, max);
-  const remainingUsers = Math.max(users.length - max, 0);
-
-  return (
-    <div className="flex items-center">
-      {displayUsers.map((user, index) => (
-        <Avatar
-          key={user.username}
-          className={`inline-block border-2 w-9 h-9 border-background ${
-            index !== 0 ? "-ml-3" : ""
-          } `}
-        >
-          <AvatarImage src={user.avatar} alt={user.username} />
-          <AvatarFallback>
-            {user.username.slice(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-      ))}
-      {remainingUsers > 0 && (
-        <Avatar className="-ml-3 inline-block border-2 border-background hover:translate-y-1 transition-transform">
-          <AvatarFallback>+{remainingUsers}</AvatarFallback>
-        </Avatar>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(6)].map((_, index) => (
+          <BlogCardSkeleton key={index} />
+        ))}
+      </div>
     </div>
   );
 }
