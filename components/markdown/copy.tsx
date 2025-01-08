@@ -3,12 +3,14 @@
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import {toast} from "sonner"
 
 export default function Copy({ content }: { content: string }) {
   const [isCopied, setIsCopied] = useState(false);
 
   async function handleCopy() {
     await navigator.clipboard.writeText(content);
+    toast.success("Copied to clipboard");
     setIsCopied(true);
 
     setTimeout(() => {

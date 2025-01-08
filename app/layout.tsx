@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Nabin Khair - Full Stack Developer",
@@ -34,6 +35,7 @@ export default function RootLayout({
           <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
             {children}
           </main>
+          <Toaster richColors/>
           <Footer />
         </ThemeProvider>
       </body>

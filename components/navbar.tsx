@@ -50,7 +50,7 @@ export function Navbar() {
                 <FaGithub className="h-4 w-4" />
               </Link>
               <Link
-                href="#"
+                href="https://x.com/khairnabin"
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",
