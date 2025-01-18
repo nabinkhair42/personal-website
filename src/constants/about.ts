@@ -26,6 +26,8 @@ import {
   SiC,
   SiCplusplus,
 } from "react-icons/si";
+import { TbBrandFramerMotion } from "react-icons/tb";
+
 
 export const aboutMe = {
   intro:
@@ -82,6 +84,7 @@ export const skills: SkillCategory[] = [
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
       { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Framer Motion", icon: TbBrandFramerMotion, color: "#FF0055" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
     ],
   },
