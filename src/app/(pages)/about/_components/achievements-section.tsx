@@ -71,11 +71,7 @@ export const AchievementsSection = () => {
                       animate={{
                         x: ["0%", "200%"],
                       }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
+                     
                     />
                   </motion.div>
                 </div>

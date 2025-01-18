@@ -59,8 +59,10 @@ export const SkillsSection = () => {
                         }}
                       >
                         <SkillIcon 
-                          className="h-5 w-5 transition-transform group-hover:scale-110"
-                          style={{ color: skill.color }}
+                          className="h-5 w-5 transition-transform group-hover:scale-110 [&>path]:fill-current [&>path]:stroke-current dark:text-white"
+                          style={{ 
+                            color: skill.color,
+                          }}
                         />
                       </div>
                       <span className="text-muted-foreground">
@@ -70,18 +72,6 @@ export const SkillsSection = () => {
                   );
                 })}
               </div>
-
-              <motion.div
-                className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0"
-                animate={{
-                  x: ["0%", "200%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
             </motion.div>
           );
         })}

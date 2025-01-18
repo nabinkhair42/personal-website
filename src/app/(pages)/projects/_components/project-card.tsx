@@ -49,7 +49,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     }}
                   >
                     <Icon
-                      className="h-4 w-4"
+                      className="h-4 w-4 [&>path]:fill-current [&>path]:stroke-current dark:text-white"
                       style={{ color: tech.color }}
                     />
                   </div>
@@ -60,7 +60,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         </motion.div>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl" hideClose>
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <div className="relative aspect-video w-full overflow-hidden rounded-lg">
           <Image
             src={project.image}
@@ -113,7 +113,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     }}
                   >
                     <Icon
-                      className="h-4 w-4"
+                      className="h-4 w-4 [&>path]:fill-current [&>path]:stroke-current dark:text-white"
                       style={{ color: tech.color }}
                     />
                     <span className="text-sm text-muted-foreground">

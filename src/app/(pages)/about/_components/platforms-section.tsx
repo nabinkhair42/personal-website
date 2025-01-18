@@ -65,15 +65,11 @@ export const PlatformsSection = () => {
               </ul>
 
               <motion.div
-                className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0"
+                className="absolute inset-0 rounded-2xl "
                 animate={{
                   x: ["0%", "200%"],
                 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
+                
               />
             </motion.div>
           );

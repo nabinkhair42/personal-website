@@ -189,7 +189,7 @@ export const projects: Project[] = [
     image: "/projects/algodocs.png",
     technologies: [
       { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
-      { name: "MDX", icon: SiMdx, color: "#1B1F24" },
+      { name: "MDX", icon: SiMdx, color: "#ffca28" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     ],
     liveUrl: "https://algodocs.nepalieducate.com",
