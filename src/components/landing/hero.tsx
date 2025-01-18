@@ -17,7 +17,7 @@ export function Hero() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold sm:text-6xl">
           Hi, I&apos;m{" "}
-          <span className="bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
+          <span>
             Nabin Khair
           </span>
         </h1>
