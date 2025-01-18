@@ -111,7 +111,8 @@ export async function getAllBlogStaticPaths() {
     const res = await fs.readdir(blogFolder);
     return res.map((file) => file.split(".")[0]);
   } catch (err) {
-    console.log(err);
+    console.error("Error in getAllBlogStaticPaths", err);
+    return [];
   }
 }
 export async function getAllBlogs() {
