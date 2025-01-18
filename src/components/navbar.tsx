@@ -1,65 +1,92 @@
+"use client";
+
 import { ModeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import Anchor from "./anchor";
 import { SiApacheopenoffice } from "react-icons/si";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaGithub } from "react-icons/fa";
-
-export const NAVLINKS = [
-  {
-    title: "Contact",
-    href: "/contact",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-  },
-];
+import { Menu, Mail } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { usePathname } from "next/navigation";
+import { NAVLINKS } from "@/constants/navigation";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const pathname = usePathname();
+
   return (
-    <nav className="w-full border-b h-16 sticky top-0 z-50 bg-background">
-      <div className="sm:container mx-auto w-[95vw] h-full flex items-center justify-between md:gap-2">
-        <div className="flex items-center gap-5">
-          <div className="flex items-center gap-6">
-            <div className="">
-              <Logo />
-            </div>
-            <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
-              {NAVLINKS.map((navlink) => (
-                <Anchor
-                  key={navlink.title}
-                  href={navlink.href}
-                  className="hover:text-accent-foreground"
-                >
-                  {navlink.title}
-                </Anchor>
-              ))}
-            </div>
+    <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background">
+      <div className="mx-auto flex h-full w-[95vw] items-center justify-between sm:container">
+        {/* Logo and Desktop Navigation */}
+        <div className="flex items-center gap-8">
+          <Logo />
+          <div className="hidden items-center gap-6 md:flex">
+            {NAVLINKS.map((navlink) => (
+              <Anchor
+                key={navlink.title}
+                href={navlink.href}
+                className={cn(
+                  "text-sm font-medium text-muted-foreground transition-colors hover:text-accent-foreground",
+                  pathname === navlink.href && "text-foreground"
+                )}
+              >
+                {navlink.title}
+              </Anchor>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <div className="flex ml-2.5 sm:ml-0">
-              <Link
-                href="https://github.com/nabinkhair42"
-                className={buttonVariants({ variant: "ghost", size: "icon" })}
-              >
-                <FaGithub className="h-4 w-4" />
-              </Link>
-              <Link
-                href="https://x.com/khairnabin"
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                })}
-              >
-                <FaXTwitter className="h-4 w-4" />
-              </Link>
-              <ModeToggle />
-            </div>
+        {/* Desktop Actions */}
+        <div className="flex items-center gap-4">
+
+
+          {/* Hire Me Button - Always Visible */}
+          <Link
+            href="/hire-me"
+            className={cn(
+              buttonVariants(),
+              "gap-2 ",
+              pathname === "/hire-me" && "bg-primary/90"
+            )}
+          >
+            <Mail className="h-4 w-4" />
+            Hire Me
+          </Link>
+          <ModeToggle />
+          {/* Mobile Menu */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
+                <div className="mt-4 flex flex-col gap-4">
+                  {NAVLINKS.map((navlink) => (
+                    <Link
+                      key={navlink.title}
+                      href={navlink.href}
+                      className={cn(
+                        "text-sm font-medium text-muted-foreground transition-colors hover:text-accent-foreground",
+                        pathname === navlink.href && "text-foreground"
+                      )}
+                    >
+                      {navlink.title}
+                    </Link>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
@@ -70,8 +97,8 @@ export function Navbar() {
 export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
-      <SiApacheopenoffice className="w-6 h-6" />
-      <h2 className="text-md font-bold font-code">nKhair</h2>
+      <SiApacheopenoffice className="h-6 w-6" />
+      <h2 className="font-code text-md font-bold">nKhair</h2>
     </Link>
   );
 }
