@@ -20,6 +20,7 @@ export const PlatformsSection = () => {
       <div className="mt-12 grid gap-8 md:grid-cols-3">
         {platforms.map((platform, index) => {
           const Icon = platform.icon as IconType;
+
           return (
             <motion.div
               key={index}
@@ -30,8 +31,16 @@ export const PlatformsSection = () => {
               className="group relative overflow-hidden rounded-2xl bg-card p-6 shadow-lg ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50"
             >
               <div className="flex items-center gap-4">
-                <div className="rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-primary/20">
-                  <Icon className="h-6 w-6 text-primary" />
+                <div
+                  className="rounded-xl p-3 transition-colors"
+                  style={{
+                    backgroundColor: `color-mix(in srgb, ${platform.color} 10%, transparent)`,
+                  }}
+                >
+                  <Icon
+                    className="h-6 w-6 transition-transform group-hover:scale-110"
+                    style={{ color: platform.color }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold">{platform.name}</h3>
               </div>

@@ -28,8 +28,10 @@ import {
 } from "react-icons/si";
 
 export const aboutMe = {
-  intro: "MERN and Next.js Developer with hands-on experience in DevOps, cloud platforms like AWS and Cloudflare, and a strong foundation in full-stack development.",
-  description: "3+ years of expertise in UI/UX design and 1+ year of full-stack development, collaborating with clients to deliver high-quality projects. Adept at deploying, managing, and scaling applications using Vercel, Cloudflare Pages, and AWS."
+  intro:
+    "MERN and Next.js Developer with hands-on experience in DevOps, cloud platforms like AWS and Cloudflare, and a strong foundation in full-stack development.",
+  description:
+    "3+ years of expertise in UI/UX design and 1+ year of full-stack development, collaborating with clients to deliver high-quality projects. Adept at deploying, managing, and scaling applications using Vercel, Cloudflare Pages, and AWS.",
 };
 
 export const education = [
@@ -55,12 +57,14 @@ interface SkillCategory {
   skills: Array<{
     name: string;
     icon: IconComponent;
+    color: string;
   }>;
 }
 
 interface Platform {
   name: string;
   icon: IconType;
+  color: string;
   services: string[];
 }
 
@@ -75,44 +79,45 @@ export const skills: SkillCategory[] = [
     category: "Frontend Development",
     icon: Layout,
     skills: [
-      { name: "React.js", icon: SiReact },
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Vite", icon: SiVite },
+      { name: "React.js", icon: SiReact, color: "#61DAFB" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Vite", icon: SiVite, color: "#646CFF" },
     ],
   },
   {
     category: "Backend Development",
     icon: Server,
     skills: [
-      { name: "Express.js", icon: SiExpress },
-      { name: "Node.js", icon: SiNodedotjs },
+      { name: "Express.js", icon: SiExpress, color: "#000000" },
+      { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
     ],
   },
   {
     category: "Database",
     icon: Database,
     skills: [
-      { name: "MongoDB", icon: SiMongodb },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      { name: "KV Storage", icon: Database, color: "#0EA5E9" },
     ],
   },
   {
     category: "UI/UX Design",
     icon: Palette,
     skills: [
-      { name: "Figma", icon: SiFigma },
-      { name: "Adobe XD", icon: SiAdobexd },
-      { name: "Responsive Design", icon: Layout },
+      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+      { name: "Adobe XD", icon: SiAdobexd, color: "#2e001e" },
+      { name: "Responsive Design", icon: Layout, color: "#0284C7" },
     ],
   },
   {
     category: "Programming",
     icon: Code2,
     skills: [
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "C", icon: SiC },
-      { name: "C++", icon: SiCplusplus },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "C", icon: SiC, color: "#A8B9CC" },
+      { name: "C++", icon: SiCplusplus, color: "#00599C" },
     ],
   },
 ];
@@ -121,37 +126,43 @@ export const platforms: Platform[] = [
   {
     name: "AWS",
     icon: SiAmazon,
+    color: "#FF9900",
     services: [
       "EC2 (Virtual Servers)",
       "S3 (Object Storage)",
       "CloudFront (CDN)",
       "Route 53 (DNS)",
       "Lambda (Serverless)",
-      "RDS (Databases)"
+      "RDS (Databases)",
+      "DynamoDB (NoSQL)",
     ],
   },
   {
     name: "Cloudflare",
     icon: SiCloudflare,
+    color: "#F38020",
     services: [
       "Workers (Serverless)",
       "Pages (Static/JAMstack)",
       "KV Storage (Key-Value)",
       "R2 (Object Storage)",
       "DNS Management",
-      "DDoS Protection"
+      "DDoS Protection",
+      "D1 (SQL Database)",
     ],
   },
   {
     name: "Vercel",
     icon: SiVercel,
+    color: "#000000",
     services: [
       "Edge Functions",
       "Serverless Functions",
       "CI/CD Pipeline",
       "Analytics & Monitoring",
       "Image Optimization",
-      "Zero Config Deployments"
+      "Zero Config Deployments",
+      "KV Storage (Redis)",
     ],
   },
 ];
@@ -159,17 +170,20 @@ export const platforms: Platform[] = [
 export const achievements: Achievement[] = [
   {
     title: "Nepali Educate Platform",
-    description: "Built a content platform from scratch achieving 100,000+ monthly visits",
+    description:
+      "Built a content platform from scratch achieving 100,000+ monthly visits",
     icon: Trophy,
   },
   {
     title: "Client Success",
-    description: "Delivered multiple high-quality projects as a freelance developer, exceeding client expectations",
+    description:
+      "Delivered multiple high-quality projects as a freelance developer, exceeding client expectations",
     icon: Users,
   },
   {
     title: "Technical Writing",
-    description: "Published comprehensive technical documentation and tutorials",
+    description:
+      "Published comprehensive technical documentation and tutorials",
     icon: BookOpen,
   },
 ];
