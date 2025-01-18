@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import NextTopLoader from 'nextjs-toploader';
 import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -31,11 +32,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NextTopLoader
+            showSpinner={false}
+            color="gray"
+          />
           <Navbar />
           <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
             {children}
           </main>
-          <Toaster richColors/>
+          <Toaster richColors />
           <Footer />
         </ThemeProvider>
       </body>
