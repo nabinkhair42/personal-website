@@ -202,7 +202,7 @@ export const projects: Project[] = [
     category: "personal",
   },
   {
-    title: "PIRA",
+    title: "Pira",
     description: "A team management system with project tracking features.",
     image: "/projects/pira.png",
     technologies: [

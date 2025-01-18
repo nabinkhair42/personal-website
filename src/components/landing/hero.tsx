@@ -1,0 +1,61 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Download, Mail } from "lucide-react";
+import Link from "next/link";
+import { TypeAnimation } from "react-type-animation";
+
+export function Hero() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex min-h-[calc(100vh-10rem)] flex-col items-center justify-center space-y-8 text-center"
+    >
+      <div className="space-y-4">
+        <h1 className="text-4xl font-bold sm:text-6xl">
+          Hi, I&apos;m{" "}
+          <span className="bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
+            Nabin Khair
+          </span>
+        </h1>
+        <h2 className="text-xl font-medium text-muted-foreground sm:text-2xl">
+          <TypeAnimation
+            sequence={[
+              "Full Stack Developer",
+              2000,
+              "UI/UX Enthusiast",
+              2000,
+              "Problem Solver",
+              2000,
+            ]}
+            wrapper="span"
+            speed={50}
+            repeat={Infinity}
+          />
+        </h2>
+        <p className="mx-auto max-w-[42rem] text-muted-foreground">
+          Crafting elegant solutions to complex problems. Passionate about creating
+          intuitive and performant web applications that make a difference.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Link href="/hire-me">
+          <Button size="lg" className="gap-2">
+            <Mail className="h-4 w-4" />
+            Work with me
+          </Button>
+        </Link>
+        <Link href="/nkhair.cv.pdf" target="_blank" download>
+          <Button variant="outline" size="lg" className="gap-2">
+            <Download className="h-4 w-4" />
+            Download CV
+          </Button>
+        </Link>
+      </div>
+    </motion.div>
+  );
+}
