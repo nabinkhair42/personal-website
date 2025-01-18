@@ -16,7 +16,7 @@ export default async function BlogIndexPage() {
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <h1 className="text-4xl font-extrabold mb-4">
           The Latest Blogs
         </h1>
         <p className="text-xl text-muted-foreground">
