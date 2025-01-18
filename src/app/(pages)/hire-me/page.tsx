@@ -7,7 +7,7 @@ import { benefits, packages, process } from "@/constants/hire";
 
 export default function HireMePage() {
   const openMail = () => {
-    window.open("mailto:2yjI4@example.com", "_blank");
+    window.open("mailto:nabinkhair12@gmail.com", "_blank");
   }
   return (
     <main className="container py-16">
