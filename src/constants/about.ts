@@ -134,10 +134,6 @@ export const platforms: Platform[] = [
       "EC2 (Virtual Servers)",
       "S3 (Object Storage)",
       "CloudFront (CDN)",
-      "Route 53 (DNS)",
-      "Lambda (Serverless)",
-      "RDS (Databases)",
-      "DynamoDB (NoSQL)",
     ],
   },
   {
@@ -149,9 +145,7 @@ export const platforms: Platform[] = [
       "Pages (Static/JAMstack)",
       "KV Storage (Key-Value)",
       "R2 (Object Storage)",
-      "DNS Management",
-      "DDoS Protection",
-      "D1 (SQL Database)",
+      "DNS Management",     
     ],
   },
   {
@@ -164,8 +158,6 @@ export const platforms: Platform[] = [
       "CI/CD Pipeline",
       "Analytics & Monitoring",
       "Image Optimization",
-      "Zero Config Deployments",
-      "KV Storage (Redis)",
     ],
   },
 ];
@@ -173,14 +165,17 @@ export const platforms: Platform[] = [
 export const achievements: Achievement[] = [
   {
     title: "Nepali Educate Platform",
-    description:
-      "Built a content platform from scratch achieving 100,000+ monthly visits",
+    description: "Built a content platform achieving 100,000+ monthly visits",
     icon: Trophy,
   },
   {
-    title: "Client Success",
-    description:
-      "Delivered multiple high-quality projects as a freelance developer, exceeding client expectations",
+    title: "Chrome Extension",
+    description: "Successfully developed and published Google Bulk Photos Deleter with Stripe integration",
+    icon: Code2,
+  },
+  {
+    title: "Client Projects",
+    description: "Delivered multiple successful projects including Express News, UncleSams Tech, and Receipt Vault",
     icon: Users,
   },
   {

@@ -1,14 +1,8 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { BsGithub, BsInstagram, BsLinkedin, BsThreads } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 
 export const contactInfo = [
-  {
-    icon: Phone,
-    title: "Phone",
-    value: "+977-9848989898",
-    link: "tel:+9779848989898",
-  },
   {
     icon: Mail,
     title: "Email",

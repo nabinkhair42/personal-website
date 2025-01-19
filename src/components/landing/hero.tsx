@@ -24,11 +24,11 @@ export function Hero() {
         <h2 className="text-xl font-medium text-muted-foreground sm:text-2xl">
           <TypeAnimation
             sequence={[
-              "Full Stack Developer",
+              "MERN Stack Developer",
               2000,
-              "UI/UX Enthusiast",
+              "Cloud Enthusiast",
               2000,
-              "Problem Solver",
+              "UI/UX Specialist",
               2000,
             ]}
             wrapper="span"
@@ -37,8 +37,7 @@ export function Hero() {
           />
         </h2>
         <p className="mx-auto max-w-[42rem] text-muted-foreground">
-          Crafting elegant solutions to complex problems. Passionate about creating
-          intuitive and performant web applications that make a difference.
+          Building scalable and user-friendly applications using modern web technologies. Passionate about delivering high-quality solutions and exploring emerging tech trends.
         </p>
       </div>
 
@@ -46,13 +45,13 @@ export function Hero() {
         <Link href="/hire-me">
           <Button size="lg" className="gap-2">
             <Mail className="h-4 w-4" />
-            Work with me
+            Let&apos;s Collaborate
           </Button>
         </Link>
         <Link href="/nkhair.cv.pdf" target="_blank" download>
           <Button variant="outline" size="lg" className="gap-2">
             <Download className="h-4 w-4" />
-            Download CV
+            Download Resume
           </Button>
         </Link>
       </div>

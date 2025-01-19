@@ -1,16 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   SiNextdotjs,
   SiReact,
-
   SiTypescript,
   SiMongodb,
   SiExpress,
   // node
   SiNodedotjs,
 } from "react-icons/si";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 const skills = [
   {
@@ -43,7 +45,7 @@ const skills = [
     name: "Node.js",
     icon: SiNodedotjs,
     color: "hover:text-[#3C873A]",
-  }
+  },
 ];
 
 export function SkillsOverview() {
@@ -56,11 +58,19 @@ export function SkillsOverview() {
         viewport={{ once: true }}
         className="space-y-8"
       >
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold">Skills & Technologies</h2>
-          <p className="text-muted-foreground">
-            Technologies I work with on a daily basis
-          </p>
+        <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-bold mb-4">Skills & Technologies</h2>
+            <p className="text-muted-foreground">
+              Technologies I work with on a daily basis
+            </p>
+          </div>
+          <Link href="/about">
+            <Button variant="outline" className="group">
+              View all skills
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 gap-8 sm:grid-cols-4 md:grid-cols-6">

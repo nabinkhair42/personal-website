@@ -43,7 +43,7 @@ export const EducationSection = () => {
                   <div className="absolute -inset-2 animate-ping rounded-full bg-primary/20" />
                 </div>
 
-                <div className="w-full rounded-2xl bg-card p-6 shadow-lg ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md">
+                <div className="w-full rounded-2xl bg-card p-6  ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <GraduationCap className="h-5 w-5" />

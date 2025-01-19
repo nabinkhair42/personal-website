@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
-    <section className="container relative py-12 md:py-24">
+    <section className="container max-w-5xl relative py-12 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

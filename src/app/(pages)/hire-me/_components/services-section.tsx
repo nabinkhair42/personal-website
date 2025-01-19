@@ -25,7 +25,9 @@ export const ServicesSection = () => {
             >
               <div className="mb-4 text-4xl">{pkg.icon}</div>
               <h3 className="mb-2 text-xl font-semibold">{pkg.title}</h3>
-              <p className="mb-4 text-sm text-muted-foreground">{pkg.description}</p>
+              <p className="mb-4 text-sm text-muted-foreground">
+                {pkg.description}
+              </p>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {pkg.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2">
@@ -34,9 +36,6 @@ export const ServicesSection = () => {
                   </li>
                 ))}
               </ul>
-              <div className="mt-4 text-sm text-muted-foreground">
-                Timeline: {pkg.timeline}
-              </div>
             </motion.div>
           ))}
         </div>

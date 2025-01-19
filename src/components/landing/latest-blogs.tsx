@@ -5,6 +5,8 @@ import { getAllBlogs } from "@/lib/markdown";
 import { formatDate2 } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default async function LatestBlogs() {
   const allBlogs = await getAllBlogs();
@@ -13,18 +15,23 @@ export default async function LatestBlogs() {
     .slice(0, 3);
 
   return (
-    <section className="py-16 px-4 md:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold">Latest Blogs</h2>
-          <Anchor
-            href="/blog"
-            className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1"
-          >
-            View all blogs
-            <ArrowRight className="w-4 h-4" />
-          </Anchor>
+    <section className="py-16">
+      <div className="mx-auto">
+      <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-bold mb-4">Latest Blogs</h2>
+            <p className="text-muted-foreground">
+              Here are some of my latest blog posts where I share my thoughts, experiences, and tips on web development and programming.
+            </p>
+          </div>
+          <Link href="/blogs">
+            <Button variant="outline" className="group">
+              Explore More
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {latestBlogs.map((blog) => (

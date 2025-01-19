@@ -31,7 +31,7 @@ export default function HireMePage() {
               Hire Me Now
             </Button>
           </div>
-          <div className="mt-6 flex items-center justify-center gap-6 text-sm text-muted-foreground">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               <span>Available from March 2024</span>
@@ -51,9 +51,10 @@ export default function HireMePage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
+          className="flex justify-center w-full flex-col"
         >
-          <h2 className="text-center text-3xl font-bold">Service Packages</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <h2 className="text-center text-3xl font-bold ">Service Packages</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-3 place-content-center w-full">
             {packages.map((pkg, index) => (
               <motion.div
                 key={pkg.title}
@@ -74,9 +75,7 @@ export default function HireMePage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 text-sm text-muted-foreground">
-                  Timeline: {pkg.timeline}
-                </div>
+
               </motion.div>
             ))}
           </div>

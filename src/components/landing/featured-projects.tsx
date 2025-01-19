@@ -17,8 +17,8 @@ export function FeaturedProjects() {
 
   return (
     <section className="py-20 ">
-      <div className="container">
-        <div className="flex items-center justify-between mb-12">
+      <div className="">
+        <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
             <p className="text-muted-foreground">
@@ -26,7 +26,7 @@ export function FeaturedProjects() {
             </p>
           </div>
           <Link href="/projects">
-            <Button variant="ghost" className="group">
+            <Button variant="outline" className="group">
               View All Projects
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>

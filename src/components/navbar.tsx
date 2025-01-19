@@ -22,7 +22,7 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background">
-      <div className="mx-auto flex h-full w-[95vw] items-center justify-between sm:container">
+      <div className="mx-auto flex h-full  items-center justify-between px-6 max-w-5xl">
         {/* Logo and Desktop Navigation */}
         <div className="flex items-center gap-8">
           <Logo />

@@ -28,7 +28,7 @@ export const SkillsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group relative overflow-hidden rounded-2xl bg-card p-6 shadow-lg ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50"
+              className="group relative overflow-hidden rounded-2xl bg-card p-6 ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50"
             >
               <div className="mb-6 flex items-center gap-4">
                 <div className="rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-primary/20">
@@ -70,8 +70,6 @@ export const SkillsSection = () => {
                   );
                 })}
               </div>
-
-              <motion.div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0" />
             </motion.div>
           );
         })}

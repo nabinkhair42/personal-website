@@ -36,6 +36,24 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Receipt Vault",
+    description: "A receipt management application with robust backend and intuitive UI.",
+    image: "/projects/receiptvault.png",
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    ],
+    liveUrl: "https://receiptvault.co",
+    features: [
+      "Designed a comprehensive receipt digitization system",
+      "Integrated advanced filtering and search options",
+      "Implemented a robust user authentication system",
+      "Built an analytics dashboard for user insights",
+    ],
+    category: "collaborative",
+  },{
     title: "Express News",
     description: "A regional news platform for Koshi Province, offering real-time news updates and Stripe integration for monetization.",
     image: "/projects/birat-express.png",
@@ -72,6 +90,24 @@ export const projects: Project[] = [
     category: "client",
   },
   {
+    title: "Nepali Educate",
+    description: "An educational platform for Nepali learners with rich resources and interactivity.",
+    image: "/projects/nepali-educate.png",
+    technologies: [
+      { name: "HTML", icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS", icon: SiCss3, color: "#1572B6" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "jQuery", icon: SiJquery, color: "#0769AD" },
+    ],
+    liveUrl: "https://nepalieducate.com",
+    features: [
+      "Designed and developed the platform with interactive lessons",
+      "Achieved over 100,000 monthly visitors through SEO optimization",
+      "Built resource-rich pages for learners using HTML and CSS",
+      "Integrated jQuery for dynamic interactivity",
+    ],
+    category: "personal",
+  },{
     title: "UncleSams Tech",
     description: "A tech blog and resource platform with Cloudflare KV storage for AI-powered real-time features.",
     image: "/projects/unclesams-tech.png",
@@ -127,25 +163,7 @@ export const projects: Project[] = [
     ],
     category: "client",
   },
-  {
-    title: "Receipt Vault",
-    description: "A receipt management application with robust backend and intuitive UI.",
-    image: "/projects/receiptvault.png",
-    technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
-      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-    ],
-    liveUrl: "https://receiptvault.co",
-    features: [
-      "Designed a comprehensive receipt digitization system",
-      "Integrated advanced filtering and search options",
-      "Implemented a robust user authentication system",
-      "Built an analytics dashboard for user insights",
-    ],
-    category: "collaborative",
-  },
+ 
   {
     title: "Auto Inspector",
     description: "A vehicle inspection automation platform for streamlined processes.",
@@ -164,25 +182,7 @@ export const projects: Project[] = [
     ],
     category: "collaborative",
   },
-  {
-    title: "Nepali Educate",
-    description: "An educational platform for Nepali learners with rich resources and interactivity.",
-    image: "/projects/nepali-educate.png",
-    technologies: [
-      { name: "HTML", icon: SiHtml5, color: "#E34F26" },
-      { name: "CSS", icon: SiCss3, color: "#1572B6" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "jQuery", icon: SiJquery, color: "#0769AD" },
-    ],
-    liveUrl: "https://nepalieducate.com",
-    features: [
-      "Designed and developed the platform with interactive lessons",
-      "Achieved over 100,000 monthly visitors through SEO optimization",
-      "Built resource-rich pages for learners using HTML and CSS",
-      "Integrated jQuery for dynamic interactivity",
-    ],
-    category: "personal",
-  },
+  
   {
     title: "AlgoDocs",
     description: "A documentation platform for algorithms and data structures.",

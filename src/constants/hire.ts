@@ -13,7 +13,6 @@ interface ServicePackage {
   title: string;
   description: string;
   features: string[];
-  timeline: string;
 }
 
 interface ProcessStep {
@@ -30,47 +29,31 @@ interface Benefit {
 export const packages: ServicePackage[] = [
   {
     icon: "🚀",
-    title: "Full Website Development",
-    description:
-      "Complete web application development from concept to deployment.",
+    title: "Full-Stack Development",
+    description: "End-to-end web development solutions using MERN stack and Next.js, focusing on scalability and performance.",
     features: [
-      "Custom web application",
-      "Frontend and backend implementation",
-      "Database design and setup",
-      "API integration",
-      "Responsive design",
-      "SEO optimization",
+      "Custom web application development",
+      "Modern UI with Next.js and ShadCN",
+      "Database integration (MongoDB/Cloudflare KV)",
+      "RESTful API development",
+      "Payment integration with Stripe",
+      "Deployment on Vercel/Cloudflare/AWS",
     ],
-    timeline: "4-8 weeks",
+   
   },
   {
-    icon: "💻",
-    title: "Frontend Development",
-    description:
-      "Modern, responsive frontend development with the latest technologies.",
+    icon: "🎨",
+    title: "UI/UX Design",
+    description: "Professional UI/UX design services with 3+ years of experience using Figma and Adobe XD.",
     features: [
-      "Next.js/React implementation",
+      "User interface design",
+      "Wireframing and prototyping",
       "Responsive design",
-      "Performance optimization",
-      "Animation and interactions",
-      "Component development",
-      "UI/UX implementation",
+      "User experience optimization",
+      "Design system creation",
+      "Interactive prototypes",
     ],
-    timeline: "2-4 weeks",
-  },
-  {
-    icon: "🛠️",
-    title: "Technical Consultation",
-    description: "Expert advice and solutions for your technical challenges.",
-    features: [
-      "Code review",
-      "Architecture planning",
-      "Performance optimization",
-      "Best practices guidance",
-      "Technical documentation",
-      "Team mentoring",
-    ],
-    timeline: "Weekly/Monthly basis",
+  
   },
 ];
 
@@ -78,60 +61,60 @@ export const process: ProcessStep[] = [
   {
     title: "Discovery",
     description:
-      "Understanding your goals, requirements, and project scope through detailed discussion.",
+      "Collaborative discussions to understand your business goals, technical requirements, and project scope.",
   },
   {
     title: "Planning",
     description:
-      "Creating a comprehensive plan including timeline, milestones, and technical specifications.",
+      "Developing a detailed project roadmap, including timelines, milestones, and technology stack.",
   },
   {
     title: "Development",
     description:
-      "Iterative development with regular updates and continuous feedback integration.",
+      "Iterative development with frequent updates, incorporating feedback to ensure quality and alignment with goals.",
   },
   {
     title: "Delivery",
     description:
-      "Thorough testing, deployment, and post-launch support to ensure everything runs smoothly.",
+      "Comprehensive testing, deployment, and post-launch support for seamless project handover and success.",
   },
 ];
 
 export const benefits: Benefit[] = [
   {
     icon: Zap,
-    title: "Fast Turnaround",
+    title: "Efficient Delivery",
     description:
-      "Quick development cycles with regular updates and efficient project management.",
+      "Timely development cycles with a focus on delivering high-quality work within agreed deadlines.",
   },
   {
     icon: Code2,
-    title: "Clean Code",
+    title: "Maintainable Code",
     description:
-      "Well-structured, maintainable code following best practices and industry standards.",
+      "Clean, modular, and maintainable code following industry best practices for scalability and reliability.",
   },
   {
     icon: MessageSquare,
-    title: "Clear Communication",
+    title: "Transparent Communication",
     description:
-      "Regular updates and open communication channels throughout the project lifecycle.",
+      "Regular updates and transparent communication throughout the project lifecycle to keep you informed.",
   },
   {
     icon: Shield,
-    title: "Secure & Reliable",
+    title: "Secure Applications",
     description:
-      "Implementation of security best practices and reliable, scalable solutions.",
+      "Implementation of security best practices to protect data and ensure application reliability.",
   },
   {
     icon: Sparkles,
-    title: "Quality Focused",
+    title: "Detail-Oriented",
     description:
-      "Attention to detail and commitment to delivering high-quality results.",
+      "Meticulous attention to detail, ensuring a polished and professional outcome for every project.",
   },
   {
     icon: CheckCircle,
-    title: "Support Guarantee",
+    title: "Dedicated Support",
     description:
-      "Dedicated post-launch support and maintenance to ensure continued success.",
+      "Post-launch support and maintenance to address any issues and keep your application running smoothly.",
   },
 ];

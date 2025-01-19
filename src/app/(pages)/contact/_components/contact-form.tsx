@@ -83,7 +83,7 @@ export const ContactForm = () => {
         variants={container}
         initial="hidden"
         animate="show"
-        className="mx-auto max-w-2xl space-y-8"
+        className="mx-auto space-y-8"
         onSubmit={handleSubmit}
       >
         <div className="grid gap-6 md:grid-cols-2">
