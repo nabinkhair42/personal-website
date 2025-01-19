@@ -46,7 +46,7 @@ export default async function BlogPage(props: PageProps) {
           variant: "link",
           className: "!mx-0 !px-0 mb-7 !-ml-1 ",
         })}
-        href="/blog"
+        href="/blogs"
       >
         <ArrowLeftIcon className="w-4 h-4 mr-1.5" /> Back to blog
       </Link>

@@ -211,7 +211,7 @@ export const projects: Project[] = [
       { name: "Express", icon: SiExpress, color: "#000000" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
     ],
-    liveUrl: "https://pira.com",
+    liveUrl: "https://pira.vercel.app",
     features: [
       "Built project and team management modules",
       "Integrated real-time notifications",
