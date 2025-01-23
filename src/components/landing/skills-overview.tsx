@@ -84,7 +84,7 @@ export function SkillsOverview() {
               className="group flex flex-col items-center gap-2"
             >
               <div
-                className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-card shadow-lg ring-1 ring-border/50 transition-colors ${skill.color}`}
+                className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-card hover:shadow-lg ring-1 ring-border/50 transition-colors ${skill.color}`}
               >
                 <skill.icon className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
               </div>

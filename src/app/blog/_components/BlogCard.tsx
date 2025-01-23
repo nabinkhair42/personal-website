@@ -15,7 +15,7 @@ export default function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group relative bg-card rounded-xl overflow-hidden border shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+      className="group relative bg-card rounded-xl overflow-hidden border hover:shadow-xl transition-all duration-300 flex flex-col h-full"
     >
       <div className="relative h-48 overflow-hidden">
         <Image

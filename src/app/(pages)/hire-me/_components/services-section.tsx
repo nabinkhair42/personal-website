@@ -12,7 +12,7 @@ export const ServicesSection = () => {
         viewport={{ once: true }}
         className="flex flex-col items-center"
       >
-        <h2 className="text-center text-3xl font-bold mb-8">Service Packages</h2>
+        <h2 className="text-center text-3xl font-bold mb-8">I can help with</h2>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 w-full max-w-3xl mx-auto">
           {packages.map((pkg, index) => (
             <motion.div
@@ -21,7 +21,7 @@ export const ServicesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="rounded-2xl bg-card p-6 shadow-lg ring-1 ring-border/50"
+              className="rounded-2xl bg-card p-6 hover:shadow-lg ring-1 ring-border/50 transition-shadow duration-300 cursor-pointer" 
             >
               <div className="mb-4 text-4xl">{pkg.icon}</div>
               <h3 className="mb-2 text-xl font-semibold">{pkg.title}</h3>

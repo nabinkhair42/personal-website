@@ -7,6 +7,8 @@ import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Toaster } from "@/components/ui/sonner";
+import { RightClick } from "@/components/ui/ui-extend/RightClick";
+import { navigationMenuItems } from "@/constants/menu-items";
 
 export const metadata: Metadata = {
   title: "Nabin Khair - Full Stack Developer",
@@ -36,12 +38,16 @@ export default function RootLayout({
             showSpinner={false}
             color="gray"
           />
-          <Navbar />
-          <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-            {children}
-          </main>
-          <Toaster richColors />
-          <Footer />
+          <RightClick
+            customMenuItems={navigationMenuItems}
+          >
+            <Navbar />
+            <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+              {children}
+            </main>
+            <Toaster richColors />
+            <Footer />
+          </RightClick>
         </ThemeProvider>
       </body>
     </html>
