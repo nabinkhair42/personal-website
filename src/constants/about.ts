@@ -7,9 +7,17 @@ import {
   Trophy,
   Users,
   BookOpen,
+  Settings,
   type LucideIcon,
 } from "lucide-react";
-import { SiAmazon, SiCloudflare, SiVercel } from "react-icons/si";
+import {
+  SiAmazon,
+  SiCloudflare,
+  SiGit,
+  SiGithub,
+  SiPostman,
+  SiVercel,
+} from "react-icons/si";
 import { IconType } from "react-icons";
 import {
   SiReact,
@@ -27,7 +35,6 @@ import {
   SiCplusplus,
 } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
-
 
 export const aboutMe = {
   intro:
@@ -82,7 +89,7 @@ export const skills: SkillCategory[] = [
     icon: Layout,
     skills: [
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "Framer Motion", icon: TbBrandFramerMotion, color: "#FF0055" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
@@ -123,6 +130,17 @@ export const skills: SkillCategory[] = [
       { name: "C++", icon: SiCplusplus, color: "#00599C" },
     ],
   },
+  {
+    category: "Tools",
+    icon: Settings,
+    skills: [
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub },
+      { name: "Postman", icon: SiPostman, color: "#FF6C6C" },
+      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+      { name: "AWS", icon: SiAmazon, color: "#FF9900" },
+    ],
+  },
 ];
 
 export const platforms: Platform[] = [
@@ -145,7 +163,7 @@ export const platforms: Platform[] = [
       "Pages (Static/JAMstack)",
       "KV Storage (Key-Value)",
       "R2 (Object Storage)",
-      "DNS Management",     
+      "DNS Management",
     ],
   },
   {
@@ -169,12 +187,14 @@ export const achievements: Achievement[] = [
   },
   {
     title: "Chrome Extension",
-    description: "Successfully developed and published Google Bulk Photos Deleter with Stripe integration",
+    description:
+      "Successfully developed and published Google Bulk Photos Deleter with Stripe integration",
     icon: Code2,
   },
   {
     title: "Client Projects",
-    description: "Delivered multiple successful projects including Express News, UncleSams Tech, and Receipt Vault",
+    description:
+      "Delivered multiple successful projects including Express News, UncleSams Tech, and Receipt Vault",
     icon: Users,
   },
   {
