@@ -9,7 +9,7 @@ export const HeroSection = () => {
     window.open("mailto:nabinkhair12@gmail.com", "_blank");
   }
   return (
-    <section className="text-center">
+    <section className="text-center px-4 py-20 border-b">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

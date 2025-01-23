@@ -12,18 +12,19 @@ export function Hero() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex min-h-[calc(100vh-10rem)] flex-col items-center justify-center space-y-8 text-center"
+      className="flex min-h-[calc(100vh-10rem)] flex-col items-center justify-center space-y-8 text-center border-b"
     >
-      <div className="space-y-4">
+      <div className="space-y-4 flex flex-col items-center">
         <h1 className="text-4xl font-bold sm:text-6xl">
           Hi, I&apos;m{" "}
           <span>
             Nabin Khair
           </span>
         </h1>
-        <h2 className="text-xl font-medium text-muted-foreground sm:text-2xl">
+        <h2 className="text-xl font-medium bg-secondary w-fit px-4 py-2 min-w-[14rem]">
           <TypeAnimation
             sequence={[
+              "Next.js Developer", 2000,
               "MERN Stack Developer",
               2000,
               "Cloud Enthusiast",

@@ -8,7 +8,7 @@ import { Quote } from 'lucide-react';
 
 export const TestimonialsSection = () => {
   return (
-    <section className="mt-20">
+    <section className="py-20 px-4 border-b">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export const AchievementsSection = () => {
   return (
-    <section className="py-16">
+    <section className="py-16 px-4">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -31,15 +31,13 @@ export const AchievementsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative flex flex-col gap-8 md:flex-row ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
+                className={`relative flex flex-col gap-8 md:flex-row ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
               >
                 {/* Achievement Content */}
                 <div
-                  className={`flex w-full items-center gap-8 md:w-1/2 ${
-                    index % 2 === 0 ? "md:justify-start md:mr-8" : "md:justify-end md:ml-8"
-                  }`}
+                  className={`flex w-full items-center gap-8 md:w-1/2 ${index % 2 === 0 ? "md:justify-start md:mr-8" : "md:justify-end md:ml-8"
+                    }`}
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-0 z-10 h-4 w-4 rounded-full bg-gradient-to-br from-primary to-primary-foreground shadow-lg md:left-1/2 md:-translate-x-1/2">
@@ -71,7 +69,7 @@ export const AchievementsSection = () => {
                       animate={{
                         x: ["0%", "200%"],
                       }}
-                     
+
                     />
                   </motion.div>
                 </div>

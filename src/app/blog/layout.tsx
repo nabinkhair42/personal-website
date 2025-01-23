@@ -1,23 +1,7 @@
-"use client";
 import { PropsWithChildren } from "react";
-import { motion } from "framer-motion";
 export default function BlogLayout({ children }: PropsWithChildren) {
   return (
-    <div className="max-w-5xl flex flex-col justify-center mx-auto items-start pb-10 w-full relative">
-      {/* Background Elements */}
-      <motion.div
-        className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        transition={{ duration: 1 }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        transition={{ duration: 1, delay: 0.2 }}
-      />
-
+    <div className="max-w-5xl flex flex-col justify-center mx-auto items-start w-full relative">
       {children}
     </div>
   );

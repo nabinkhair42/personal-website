@@ -6,7 +6,7 @@ import { IconType } from "react-icons";
 
 export const PlatformsSection = () => {
   return (
-    <section className="py-16">
+    <section className="py-16 border-b px-4">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

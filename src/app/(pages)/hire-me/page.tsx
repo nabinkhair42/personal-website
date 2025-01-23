@@ -6,7 +6,7 @@ import { TestimonialsSection } from "@/app/(pages)/hire-me/_components/testimoni
 
 export default function HireMePage() {
   return (
-    <main className="max-w-5xl mx-auto py-16">
+    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r gap-10">
       <HeroSection />
       <ServicesSection />
       <TestimonialsSection />

@@ -13,7 +13,7 @@ export function ContactCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="rounded-2xl bg-card p-8 text-center shadow-lg ring-1 ring-border/50"
+        className=" p-8 text-center"
       >
         <h2 className="text-3xl font-bold">Let&apos;s Work Together</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

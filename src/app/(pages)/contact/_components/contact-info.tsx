@@ -9,7 +9,7 @@ export const ContactInfo = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div ref={ref} className="space-y-12">
+    <div ref={ref} className="space-y-12 px-4 py-16">
       <motion.div
         style={{
           transform: isInView ? "none" : "translateY(20px)",

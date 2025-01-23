@@ -7,7 +7,7 @@ import { LucideIcon } from "lucide-react";
 
 export const SkillsSection = () => {
   return (
-    <section className="py-16">
+    <section className="px-4 py-10 border-b">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

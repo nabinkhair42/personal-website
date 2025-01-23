@@ -72,6 +72,7 @@ export const ContactForm = () => {
 
   return (
     <motion.div
+      className="px-4 py-16 md:border-l border-b"
       ref={formRef}
       style={{
         transform: isInView ? "none" : "translateY(50px)",
@@ -98,11 +99,10 @@ export const ContactForm = () => {
                 value={formData[field.id as keyof typeof formData]}
                 onChange={handleInputChange}
                 placeholder={field.placeholder}
-                className={`h-14 border-none bg-card px-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${
-                  focusedInput === field.id
+                className={`h-14 border-none bg-card px-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${focusedInput === field.id
                     ? "shadow-xl shadow-primary/20 ring-2 ring-primary"
                     : "ring-1 ring-border hover:ring-2 hover:ring-primary/50"
-                }`}
+                  }`}
                 onFocus={() => setFocusedInput(field.id)}
                 onBlur={() => setFocusedInput(null)}
                 required
@@ -125,11 +125,10 @@ export const ContactForm = () => {
             value={formData.subject}
             onChange={handleInputChange}
             placeholder="Subject"
-            className={`h-14 border-none bg-card px-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${
-              focusedInput === "subject"
+            className={`h-14 border-none bg-card px-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${focusedInput === "subject"
                 ? "shadow-xl shadow-primary/20 ring-2 ring-primary"
                 : "ring-1 ring-border hover:ring-2 hover:ring-primary/50"
-            }`}
+              }`}
             onFocus={() => setFocusedInput("subject")}
             onBlur={() => setFocusedInput(null)}
             required
@@ -150,11 +149,10 @@ export const ContactForm = () => {
             value={formData.message}
             onChange={handleInputChange}
             placeholder="Your Message"
-            className={`min-h-[200px] border-none bg-card p-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${
-              focusedInput === "message"
+            className={`min-h-[200px] border-none bg-card p-6 shadow-lg transition-all duration-300 placeholder:text-muted-foreground/50 ${focusedInput === "message"
                 ? "shadow-xl shadow-primary/20 ring-2 ring-primary"
                 : "ring-1 ring-border hover:ring-2 hover:ring-primary/50"
-            }`}
+              }`}
             onFocus={() => setFocusedInput("message")}
             onBlur={() => setFocusedInput(null)}
             required

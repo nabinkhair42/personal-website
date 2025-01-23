@@ -14,8 +14,7 @@ export function FeaturedProjects() {
   );
 
   return (
-    <section className="w-full py-16 sm:py-20">
-      <div className="px-4">
+    <section className="w-full py-16 sm:py-20 border-b px-4">
         <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
@@ -36,7 +35,6 @@ export function FeaturedProjects() {
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
-      </div>
     </section>
   );
 }

@@ -8,7 +8,7 @@ const processIcons = [Search, Lightbulb, Code2, Rocket];
 
 export const ProcessSection = () => {
   return (
-    <section className="mt-20">
+    <section className="px-4 py-20 border-b">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

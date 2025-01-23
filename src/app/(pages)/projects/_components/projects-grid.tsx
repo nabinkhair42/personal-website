@@ -12,7 +12,9 @@ export const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
   return (
     <motion.div
       layout
-      className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3
+      px-4 py-20 
+      "
     >
       {projects.map((project, index) => (
         <ProjectCard key={project.title} project={project} index={index} />

@@ -59,14 +59,14 @@ interface SkillCategory {
   skills: Array<{
     name: string;
     icon: IconComponent;
-    color: string;
+    color?: string;
   }>;
 }
 
 interface Platform {
   name: string;
   icon: IconType;
-  color: string;
+  color?: string;
   services: string[];
 }
 
@@ -82,7 +82,7 @@ export const skills: SkillCategory[] = [
     icon: Layout,
     skills: [
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "Framer Motion", icon: TbBrandFramerMotion, color: "#FF0055" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
@@ -92,7 +92,7 @@ export const skills: SkillCategory[] = [
     category: "Backend Development",
     icon: Server,
     skills: [
-      { name: "Express.js", icon: SiExpress, color: "#000000" },
+      { name: "Express.js", icon: SiExpress },
       { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
     ],
   },
@@ -151,7 +151,6 @@ export const platforms: Platform[] = [
   {
     name: "Vercel",
     icon: SiVercel,
-    color: "#000000",
     services: [
       "Edge Functions",
       "Serverless Functions",

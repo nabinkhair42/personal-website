@@ -22,7 +22,7 @@ import { FaBlogger } from "react-icons/fa";
 interface Technology {
   name: string;
   icon: IconType;
-  color: string;
+  color?: string;
 }
 
 export interface Project {
@@ -43,12 +43,12 @@ export const projects: Project[] = [
       "Effortlessly store and categorize your receipts. ReceiptVault is your small business partner in smart expense management.",
     image: "/projects/receiptvault.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       // express
-      { name: "Express", icon: SiExpress, color: "#000000" },
+      { name: "Express", icon: SiExpress},
     ],
     liveUrl: "https://receiptvault.co",
     features: [
@@ -65,7 +65,7 @@ export const projects: Project[] = [
       "A regional news platform for Koshi Province, offering real-time news updates and a user-friendly interface.",
     image: "/projects/birat-express.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
@@ -125,7 +125,7 @@ export const projects: Project[] = [
       "A US based tech startup, developed the website using Next.js and Tailwind CSS, and deployed it on Cloudflare Pages.",
     image: "/projects/unclesams-tech.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "Cloudflare Workers", icon: SiCloudflare, color: "#F38020" },
@@ -144,7 +144,7 @@ export const projects: Project[] = [
       "A web application that helps users calculate Bitcoin values based on the latest market rates. It provides an intuitive interface for tracking and converting Bitcoin amounts.",
     image: "/projects/trackyourbtc.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
     ],
@@ -163,11 +163,11 @@ export const projects: Project[] = [
       "A fitness tracking and prediction platform offering personalized workout plans.",
     image: "/projects/predictmyfitness.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "Gemini AI", icon: SiGooglegemini, color: "#00ADD8" },
-      
+
     ],
     liveUrl: "https://predictmyfitness.com",
     features: [
@@ -185,7 +185,7 @@ export const projects: Project[] = [
       "A vehicle inspection automation platform for streamlined processes.",
     image: "/projects/autoinspector.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       {name: "Express", icon: SiExpress, color: "#000000"},
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     description: "A documentation platform for algorithms and data structures.",
     image: "/projects/algodocs.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs},
       { name: "MDX", icon: SiMdx, color: "#ffca28" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       {name: "Vercel", icon: SiVercel, color: "#000000"}
@@ -227,7 +227,7 @@ export const projects: Project[] = [
     technologies: [
       { name: "React", icon: SiReact, color: "#61DAFB" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "Express", icon: SiExpress, color: "#000000" },
+      { name: "Express", icon: SiExpress},
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       {name: "Vercel", icon: SiVercel, color: "#000000"}
     ],

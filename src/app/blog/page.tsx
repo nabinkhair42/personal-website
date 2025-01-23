@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getAllBlogs } from "@/lib/markdown";
 import { stringToDate } from "@/lib/utils";
 import BlogCard from "@/app/blog/_components/BlogCard";
+import BlogHero from "./_components/hero-section";
 
 export const metadata: Metadata = {
   title: "Blogs | Nabin Khair",
@@ -14,18 +15,13 @@ export default async function BlogIndexPage() {
   );
 
   return (
-    <div className="w-full">
-      <div className="mb-12 text-center px-4">
-        <h1 className="text-3xl sm:text-4xl font-extrabold mb-4">The Latest Blogs</h1>
-        <p className="text-lg sm:text-xl text-muted-foreground">
-          Discover insights and stories, straight from Nabin.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r">
+      <BlogHero />
+      <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 ">
         {blogs.map((blog) => (
           <BlogCard key={blog.slug} {...blog} slug={blog.slug} />
         ))}
       </div>
-    </div>
+    </main>
   );
 }

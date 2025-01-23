@@ -25,7 +25,6 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background">
       <div className="mx-auto flex h-full  items-center justify-between px-6 max-w-5xl">
-        {/* Logo and Desktop Navigation */}
         <div className="flex items-center gap-8">
           <Logo />
           <div className="hidden items-center gap-6 md:flex">
@@ -98,7 +97,7 @@ export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
       <SiApacheopenoffice className="h-6 w-6" />
-      <h2 className="font-code text-md font-bold">nKhair</h2>
+      <span className="font-code font-bold">nKhair</span>
     </Link>
   );
 }
