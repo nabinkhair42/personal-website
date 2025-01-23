@@ -1,4 +1,3 @@
-import { Typography } from "@/components/typography";
 import { buttonVariants } from "@/components/ui/button";
 import { Author, getAllBlogStaticPaths, getBlogForSlug } from "@/lib/markdown";
 import { ArrowLeftIcon } from "lucide-react";
@@ -7,7 +6,7 @@ import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
-
+import { Typography } from "@/components/typography";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -15,7 +14,9 @@ type PageProps = {
 export async function generateMetadata(props: PageProps) {
   const params = await props.params;
 
-  const { slug } = params;
+  const {
+    slug
+  } = params;
 
   const res = await getBlogForSlug(slug);
   if (!res) return null;
@@ -35,18 +36,20 @@ export async function generateStaticParams() {
 export default async function BlogPage(props: PageProps) {
   const params = await props.params;
 
-  const { slug } = params;
+  const {
+    slug
+  } = params;
 
   const res = await getBlogForSlug(slug);
   if (!res) notFound();
   return (
-    <div className="mx-auto">
+    <div className="lg:w-[60%] sm:[95%] md:[75%] mx-auto">
       <Link
         className={buttonVariants({
           variant: "link",
           className: "!mx-0 !px-0 mb-7 !-ml-1 ",
         })}
-        href="/blogs"
+        href="/blog"
       >
         <ArrowLeftIcon className="w-4 h-4 mr-1.5" /> Back to blog
       </Link>
@@ -66,7 +69,7 @@ export default async function BlogPage(props: PageProps) {
         <div className="w-full mb-7">
           <Image
             src={res.frontmatter.cover}
-            alt="cover"
+            alt={res.frontmatter.title}
             width={1920}
             height={1080}
             className="w-full rounded-md border object-cover"
@@ -85,7 +88,7 @@ function Authors({ authors }: { authors: Author[] }) {
         return (
           <Link
             href={author.handleUrl}
-            className="flex items-center gap-2"
+            className="flex items-center gap-4"
             key={author.username}
           >
             <Avatar className="w-10 h-10">
@@ -95,7 +98,7 @@ function Authors({ authors }: { authors: Author[] }) {
               </AvatarFallback>
             </Avatar>
             <div className="">
-              <p className="text-sm font-medium">{author.username}</p>
+              {author.username}
               <p className="font-code text-[13px] text-muted-foreground">
                 @{author.handle}
               </p>
