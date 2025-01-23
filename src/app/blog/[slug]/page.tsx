@@ -18,9 +18,28 @@ export async function generateMetadata(props: PageProps) {
   const res = await getBlogForSlug(slug);
   if (!res) return null;
   const { frontmatter } = res;
+  
   return {
     title: frontmatter.title,
     description: frontmatter.description,
+    openGraph: {
+      title: frontmatter.title,
+      description: frontmatter.description,
+      images: [
+        {
+          url: frontmatter.cover,
+          width: 1200,
+          height: 630,
+          alt: frontmatter.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      images: [frontmatter.cover],
+    },
   };
 }
 
@@ -57,4 +76,3 @@ export default async function BlogPage(props: PageProps) {
     </div>
   );
 }
-
