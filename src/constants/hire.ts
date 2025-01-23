@@ -30,32 +30,44 @@ export const packages: ServicePackage[] = [
   {
     icon: "🚀",
     title: "Full-Stack Development",
-    description: "End-to-end web development solutions using MERN stack and Next.js, focusing on scalability and performance.",
+    description: "Build modern, scalable, and high-performance web applications tailored to your business needs using the MERN stack and modern tools like Next.js and TypeScript.",
     features: [
       "Custom web application development",
-      "Modern UI with Next.js and ShadCN",
-      "Database integration (MongoDB/Cloudflare KV)",
-      "RESTful API development",
-      "Payment integration with Stripe",
-      "Deployment on Vercel/Cloudflare/AWS",
+      "Responsive design and mobile optimization",
+      "Backend API development with Node.js and Express.js",
+      "Database integration with MongoDB",
+      "Cloud deployment (AWS, Vercel, Cloudflare)",
+      "Third-party service integrations (Stripe, AuthJS, etc.)",
     ],
-   
   },
   {
     icon: "🎨",
     title: "UI/UX Design",
-    description: "Professional UI/UX design services with 3+ years of experience using Figma and Adobe XD.",
+    description: "Craft intuitive and visually appealing user interfaces to provide seamless user experiences across devices.",
     features: [
-      "User interface design",
-      "Wireframing and prototyping",
-      "Responsive design",
-      "User experience optimization",
-      "Design system creation",
-      "Interactive prototypes",
+      "Wireframes and prototypes using Figma and Adobe XD",
+      "User-centric design with a focus on usability",
+      "Interactive mockups for better project visualization",
+      "Responsive design for mobile and desktop",
+      "Design systems and component libraries using Tailwind CSS",
+      "Collaboration with developers for smooth implementation",
     ],
-  
+  },
+  {
+    icon: "☁️",
+    title: "DevOps and Cloud Services",
+    description: "Streamline your development and deployment processes with reliable cloud services and DevOps strategies.",
+    features: [
+      "AWS setup (EC2, S3, CloudFront)",
+      "Cloudflare configuration (Workers, KV Storage, Pages)",
+      "CI/CD pipeline setup for seamless deployments",
+      "Scalability and performance optimization",
+      "Domain and DNS management",
+      "Monitoring and troubleshooting production environments",
+    ],
   },
 ];
+
 
 export const process: ProcessStep[] = [
   {

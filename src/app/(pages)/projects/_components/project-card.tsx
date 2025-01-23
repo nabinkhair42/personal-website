@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { IconType } from "react-icons";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Globe, Github } from "lucide-react";
+import { Globe} from "lucide-react";
+import Link from "next/link";
+import { SiGithub } from "react-icons/si";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,7 +23,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           viewport={{ once: true }}
-          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-card shadow-lg ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50"
+          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-card ring-1 ring-border/50 hover:shadow-xl hover:ring-primary/50 transition-shadow duration-500"
         >
           <div className="relative aspect-video w-full overflow-hidden">
             <Image
@@ -49,7 +51,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     }}
                   >
                     <Icon
-                      className="h-4 w-4 [&>path]:fill-current [&>path]:stroke-current dark:text-white"
+                      className="h-4 w-4"
                       style={{ color: tech.color }}
                     />
                   </div>
@@ -61,7 +63,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       </DialogTrigger>
 
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
-        <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg ">
           <Image
             src={project.image}
             alt={project.title}
@@ -69,37 +71,36 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             className="object-cover"
           />
         </div>
-
-        <div className="mt-6">
+                <div className="mt-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">{project.title}</h2>
             <div className="flex gap-2">
               {project.liveUrl && (
-                <a
+                <Link
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                 >
                   <Globe className="h-5 w-5" />
-                </a>
+                </Link>
               )}
               {project.githubUrl && (
-                <a
+                <Link
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                 >
-                  <Github className="h-5 w-5" />
-                </a>
+                  <SiGithub className="h-5 w-5" />
+                </Link>
               )}
             </div>
           </div>
 
-          <p className="mt-4 text-muted-foreground">{project.description}</p>
+          <p className="mt-2 text-muted-foreground">{project.description}</p>
 
-          <div className="mt-6">
+          <div className="mt-4">
             <h3 className="text-lg font-semibold">Technologies Used</h3>
             <div className="mt-2 flex flex-wrap gap-2">
               {project.technologies.map((tech, techIndex) => {
@@ -113,7 +114,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     }}
                   >
                     <Icon
-                      className="h-4 w-4 [&>path]:fill-current [&>path]:stroke-current dark:text-white"
+                      className="h-4 w-4 [&>path]:fill-current [&>path]:stroke-current "
                       style={{ color: tech.color }}
                     />
                     <span className="text-sm text-muted-foreground">
@@ -126,7 +127,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </div>
 
           <div className="mt-6">
-            <h3 className="text-lg font-semibold">Key Features</h3>
+            <h3 className="text-lg font-semibold">What I Did ?</h3>
             <ul className="mt-2 grid gap-2">
               {project.features.map((feature, featureIndex) => (
                 <li
