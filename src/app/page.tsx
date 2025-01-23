@@ -6,7 +6,7 @@ import { SkillsOverview } from "@/components/landing/skills-overview";
 
 export default function Home() {
   return (
-    <main className="max-w-5xl flex flex-col justify-center mx-auto px-6">
+    <main className="max-w-5xl flex flex-col justify-center mx-auto">
       <Hero />
       <FeaturedProjects />
       <SkillsOverview />

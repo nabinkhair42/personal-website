@@ -1,5 +1,4 @@
 "use client";
-
 import { packages } from "@/constants/hire";
 import { motion } from "framer-motion";
 
@@ -11,9 +10,10 @@ export const ServicesSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
+        className="flex flex-col items-center"
       >
-        <h2 className="text-center text-3xl font-bold">Service Packages</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <h2 className="text-center text-3xl font-bold mb-8">Service Packages</h2>
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 w-full max-w-3xl mx-auto">
           {packages.map((pkg, index) => (
             <motion.div
               key={pkg.title}
@@ -25,9 +25,7 @@ export const ServicesSection = () => {
             >
               <div className="mb-4 text-4xl">{pkg.icon}</div>
               <h3 className="mb-2 text-xl font-semibold">{pkg.title}</h3>
-              <p className="mb-4 text-sm text-muted-foreground">
-                {pkg.description}
-              </p>
+              <p className="mb-4 text-sm text-muted-foreground">{pkg.description}</p>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {pkg.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2">

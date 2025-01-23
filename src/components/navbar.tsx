@@ -16,9 +16,11 @@ import {
 import { usePathname } from "next/navigation";
 import { NAVLINKS } from "@/constants/navigation";
 import { cn } from "@/lib/utils";
+import React from "react";
 
 export function Navbar() {
   const pathname = usePathname();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background">
@@ -44,9 +46,6 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="flex items-center gap-4">
-
-
-          {/* Hire Me Button - Always Visible */}
           <Link
             href="/hire-me"
             className={cn(
@@ -61,7 +60,7 @@ export function Navbar() {
           <ModeToggle />
           {/* Mobile Menu */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-5 w-5" />
@@ -76,6 +75,7 @@ export function Navbar() {
                     <Link
                       key={navlink.title}
                       href={navlink.href}
+                      onClick={() => setOpen(false)}
                       className={cn(
                         "text-sm font-medium text-muted-foreground transition-colors hover:text-accent-foreground",
                         pathname === navlink.href && "text-foreground"

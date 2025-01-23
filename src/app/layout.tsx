@@ -37,7 +37,7 @@ export default function RootLayout({
             color="gray"
           />
           <Navbar />
-          <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
+          <main className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-4rem)] py-8">
             {children}
           </main>
           <Toaster richColors />

@@ -14,8 +14,8 @@ export default function ProjectsPage() {
   );
 
   return (
-    <main className="container py-24">
-      <motion.h1
+    <main className="px-4 md:px-0 py-24 max-w-5xl mx-auto">
+       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -24,23 +24,23 @@ export default function ProjectsPage() {
         My Projects
       </motion.h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground"
-      >
-        A collection of my projects, ranging from web applications to browser
-        extensions. Each project showcases different skills and technologies.
-      </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground"
+        >
+          A collection of my projects, ranging from web applications to browser
+          extensions. Each project showcases different skills and technologies.
+        </motion.p>
 
-      <div className="mt-12 space-y-12">
-        <ProjectsFilter
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-        />
-        <ProjectsGrid projects={filteredProjects} />
-      </div>
+        <div className="mt-12 space-y-12">
+          <ProjectsFilter
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+          />
+          <ProjectsGrid projects={filteredProjects} />
+        </div> 
     </main>
   );
 }

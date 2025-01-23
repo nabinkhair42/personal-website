@@ -14,14 +14,14 @@ export default async function BlogIndexPage() {
   );
 
   return (
-    <div className="container mx-auto py-8 min-h-screen">
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl font-extrabold mb-4">The Latest Blogs</h1>
-        <p className="text-xl text-muted-foreground">
+    <div className="w-full">
+      <div className="mb-12 text-center px-4">
+        <h1 className="text-3xl sm:text-4xl font-extrabold mb-4">The Latest Blogs</h1>
+        <p className="text-lg sm:text-xl text-muted-foreground">
           Discover insights and stories, straight from Nabin.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
         {blogs.map((blog) => (
           <BlogCard key={blog.slug} {...blog} slug={blog.slug} />
         ))}

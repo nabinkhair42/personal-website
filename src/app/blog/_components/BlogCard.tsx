@@ -15,25 +15,25 @@ export default function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="flex flex-col gap-4 border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full"
+      className="group relative bg-card rounded-xl overflow-hidden border shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full"
     >
-      <div className="relative h-48">
+      <div className="relative h-48 overflow-hidden">
         <Image
           src={cover}
           alt={title}
           layout="fill"
           objectFit="cover"
-          className="transition-transform duration-300 hover:scale-105"
+          className="transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold mb-2 line-clamp-2">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-4 flex-grow">
-          {description.length > 100
-            ? `${description.slice(0, 100)}...`
-            : description}
+        <h3 className="text-xl font-semibold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+          {title}
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+          {description}
         </p>
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex items-center justify-between mt-auto pt-4 border-t">
           <p className="text-xs text-muted-foreground">
             {formatDate2(date)}
           </p>
@@ -43,4 +43,3 @@ export default function BlogCard({
     </Link>
   );
 }
-
