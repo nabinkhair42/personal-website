@@ -189,7 +189,7 @@ export const projects: Project[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       {name: "Express", icon: SiExpress, color: "#000000"},
-      {name: "Vercel", icon: SiVercel, color: "#000000"}
+      {name: "Vercel", icon: SiVercel}
 
     ],
     liveUrl: "https://autoinspector.com.au",
@@ -209,7 +209,7 @@ export const projects: Project[] = [
       { name: "Next.js", icon: SiNextdotjs},
       { name: "MDX", icon: SiMdx, color: "#ffca28" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      {name: "Vercel", icon: SiVercel, color: "#000000"}
+      {name: "Vercel", icon: SiVercel}
     ],
     liveUrl: "https://algodocs.nepalieducate.com",
     features: [
@@ -229,7 +229,7 @@ export const projects: Project[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "Express", icon: SiExpress},
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      {name: "Vercel", icon: SiVercel, color: "#000000"}
+      {name: "Vercel", icon: SiVercel}
     ],
     liveUrl: "https://pira.vercel.app",
     features: [
