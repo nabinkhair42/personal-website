@@ -1,7 +1,8 @@
 "use client";
-
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
 import { defaultMenuItems, type MenuItem } from "@/constants/menu-items";
 import {
   ContextMenu,
@@ -18,7 +19,40 @@ interface RightClickProps {
 }
 
 export function RightClick({ children, customMenuItems, className = "" }: RightClickProps) {
-  const menuItems = [...defaultMenuItems, ...(customMenuItems || [])];
+  const { theme, setTheme } = useTheme();
+  const [hasSelection, setHasSelection] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check for text selection
+  useEffect(() => {
+    const checkSelection = () => {
+      const selection = window.getSelection();
+      setHasSelection(!!selection && selection.toString().length > 0);
+    };
+
+    document.addEventListener('selectionchange', checkSelection);
+    return () => document.removeEventListener('selectionchange', checkSelection);
+  }, []);
+
+  // Check scroll position
+  useEffect(() => {
+    const checkScrollPosition = () => {
+      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      setShowScrollTop(scrollPosition > 100); // Show after 100px scroll
+    };
+
+    checkScrollPosition(); // Initial check
+    window.addEventListener('scroll', checkScrollPosition);
+    return () => window.removeEventListener('scroll', checkScrollPosition);
+  }, []);
+
+  const themeMenuItem: MenuItem = {
+    label: theme === 'dark' ? 'Light Mode' : 'Dark Mode',
+    icon: theme === 'dark' ? Sun : Moon,
+    onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+  };
+
+  const menuItems = [...defaultMenuItems, themeMenuItem, ...(customMenuItems || [])];
 
   const renderMenuItem = (item: MenuItem) => {
     if ('type' in item && item.type === 'divider') {
@@ -27,9 +61,29 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
 
     if (!('label' in item)) return null;
 
+    // Special handling for Copy Selection menu item
+    if (item.label === "Copy Selection" && !hasSelection) {
+      return (
+        <ContextMenuItem disabled className="text-muted-foreground">
+          {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+          {item.label}
+        </ContextMenuItem>
+      );
+    }
+
+    // Special handling for Scroll to Top menu item
+    if (item.label === "Scroll to Top" && !showScrollTop) {
+      return (
+        <ContextMenuItem disabled className="text-muted-foreground">
+          {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+          {item.label}
+        </ContextMenuItem>
+      );
+    }
+
     const content = (
       <>
-        {item.icon && <span className="mr-2">{item.icon}</span>}
+        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
         {item.label}
       </>
     );
@@ -37,7 +91,7 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     if (item.href) {
       return (
         <ContextMenuItem asChild>
-          <Link href={item.href} target="_blank" className="w-full cursor-pointer">
+          <Link href={item.href} className="w-full cursor-pointer">
             {content}
           </Link>
         </ContextMenuItem>

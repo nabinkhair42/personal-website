@@ -1,6 +1,19 @@
+"use client";
+import { LucideIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  RotateCcw,
+  ArrowUp,
+  Copy,
+  User,
+  Rocket,
+  FileText,
+  Mail,
+} from "lucide-react";
+
 export type MenuItem = {
   label: string;
-  icon?: string;
+  icon?: LucideIcon;
   onClick?: () => void;
   href?: string;
 } | {
@@ -11,22 +24,22 @@ export const navigationMenuItems: MenuItem[] = [
   { type: 'divider' },
   {
     label: "About Me",
-    icon: "👨‍💻",
+    icon: User,
     href: "/about",
   },
   {
     label: "My Projects",
-    icon: "🚀",
+    icon: Rocket,
     href: "/projects",
   },
   {
     label: "Blog",
-    icon: "📝",
+    icon: FileText,
     href: "/blog",
   },
   {
     label: "Contact",
-    icon: "📧",
+    icon: Mail,
     href: "/contact",
   },
 ];
@@ -34,22 +47,22 @@ export const navigationMenuItems: MenuItem[] = [
 export const defaultMenuItems: MenuItem[] = [
   {
     label: "Go Back",
-    icon: "←",
+    icon: ArrowLeft,
     onClick: () => window.history.back(),
   },
   {
     label: "Refresh Page",
-    icon: "↻",
+    icon: RotateCcw,
     onClick: () => window.location.reload(),
   },
   {
     label: "Scroll to Top",
-    icon: "↑",
+    icon: ArrowUp,
     onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
   },
   {
     label: "Copy Selection",
-    icon: "📋",
+    icon: Copy,
     onClick: () => {
       const selection = window.getSelection()?.toString();
       if (selection) {
@@ -58,5 +71,4 @@ export const defaultMenuItems: MenuItem[] = [
     },
   },
   { type: 'divider' },
-  
 ];
