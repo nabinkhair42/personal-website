@@ -1,0 +1,38 @@
+import mongoose, { Document, Schema } from "mongoose";
+
+export interface IBlogMetrics extends Document {
+  slug: string;
+  views: number;
+  lastViewed: Date;
+}
+
+const blogMetricsSchema = new Schema({
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true
+  },
+  views: {
+    type: Number,
+    default: 0,
+  },
+  lastViewed: {
+    type: Date,
+    default: Date.now,
+  }
+}, {
+  timestamps: true,
+});
+
+// Drop existing indexes and create new ones when the model is compiled
+if (mongoose.models.BlogMetrics) {
+  delete mongoose.models.BlogMetrics;
+}
+
+const BlogMetrics = mongoose.model<IBlogMetrics>('BlogMetrics', blogMetricsSchema);
+
+// Ensure indexes are created/updated
+BlogMetrics.syncIndexes();
+
+export { BlogMetrics };

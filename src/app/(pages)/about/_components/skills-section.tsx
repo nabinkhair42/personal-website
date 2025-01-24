@@ -17,24 +17,16 @@ export const SkillsSection = () => {
         viewport={{ once: true }}
         className="space-y-12"
       >
-        <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
-          <div className="max-w-2xl">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
-            >
-              Skills & Technologies
-            </motion.h2>
-            <p className="text-muted-foreground text-lg">
+        <div className="flex items-start justify-center flex-wrap gap-4">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4">Skills & Technologies</h2>
+            <p className="text-muted-foreground">
               Technologies I work with on a daily basis
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-8 w-full items-center justify-center">
+        <div className="flex flex-wrap gap-4 w-full items-center justify-center">
           {skills.map((category) => (
             <div key={category.category}>
               <Button

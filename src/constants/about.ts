@@ -85,7 +85,7 @@ interface Achievement {
 
 export const skills: SkillCategory[] = [
   {
-    category: "Frontend",
+    category: "Frontend Development",
     icon: Layout,
     skills: [
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
@@ -96,7 +96,7 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    category: "Backend",
+    category: "Backend Development",
     icon: Server,
     skills: [
       { name: "Express.js", icon: SiExpress },
@@ -112,14 +112,12 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    category: "Tools",
-    icon: Settings,
+    category: "UI/UX Design",
+    icon: Palette,
     skills: [
-      { name: "Git", icon: SiGit, color: "#F05032" },
-      { name: "GitHub", icon: SiGithub },
-      { name: "Postman", icon: SiPostman, color: "#FF6C6C" },
-      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
-      { name: "AWS", icon: SiAmazon, color: "#FF9900" },
+      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+      { name: "Adobe XD", icon: SiAdobexd, color: "#2e001e" },
+      { name: "Responsive Design", icon: Layout, color: "#0284C7" },
     ],
   },
   {
@@ -128,17 +126,19 @@ export const skills: SkillCategory[] = [
     skills: [
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-      { name: "C", icon: SiC, color: "#00599C" },
+      { name: "C", icon: SiC, color: "#A8B9CC" },
       { name: "C++", icon: SiCplusplus, color: "#00599C" },
     ],
   },
   {
-    category: "UI/UX Design",
-    icon: Palette,
+    category: "Tools",
+    icon: Settings,
     skills: [
-      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
-      { name: "Adobe XD", icon: SiAdobexd, color: "#2e001e" },
-      { name: "Responsive Design", icon: Layout, color: "#0284C7" },
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub },
+      { name: "Postman", icon: SiPostman, color: "#FF6C6C" },
+      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+      { name: "AWS", icon: SiAmazon, color: "#FF9900" },
     ],
   },
 ];

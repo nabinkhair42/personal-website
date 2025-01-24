@@ -1,19 +1,22 @@
 "use client";
 
-import { Author } from "@/lib/markdown";
+import { BlogMdxFrontmatter } from "@/lib/markdown";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import ViewCounter from "./view-counter";
+import { formatDate } from "@/lib/utils";
+import { ShareButton } from "./share";
 
 interface TitleProps {
-    title: string;
-    date: string;
-    authors: Author[]
+    formatter: BlogMdxFrontmatter;
+    slug: string;
+    currentURL: string;
 }
-import { formatDate } from "@/lib/utils";
 
-export const Title = ({ title, date, authors }: TitleProps) => {
+export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
+
     return (
         <section className="text-center px-4 py-20 border-b">
             <motion.div
@@ -22,18 +25,18 @@ export const Title = ({ title, date, authors }: TitleProps) => {
                 transition={{ duration: 0.5 }}
                 className="space-y-4 flex flex-col items-center"
             >
-                <h1 className="text-4xl font-bold">{title}</h1>
+                <h1 className="text-4xl font-bold">{formatter.title}</h1>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
                         <span>
-                            {formatDate(date)}
+                            {formatDate(formatter.date)}
                         </span>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-8 flex-wrap">
-                    {authors.map((author) => {
+                    {formatter.authors.map((author) => {
                         return (
                             <Link
                                 href={author.handleUrl}
@@ -56,7 +59,12 @@ export const Title = ({ title, date, authors }: TitleProps) => {
                         );
                     })}
                 </div>
-                {/* Views & Comments */}
+                <div className="flex items-center gap-4"> <ViewCounter slug={slug} />
+                    <ShareButton
+                        currentURL={currentURL}
+                        formatter={formatter}
+
+                    /></div>
             </motion.div>
         </section>
     );
