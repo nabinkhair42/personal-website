@@ -85,7 +85,7 @@ interface Achievement {
 
 export const skills: SkillCategory[] = [
   {
-    category: "Frontend Development",
+    category: "Frontend",
     icon: Layout,
     skills: [
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
@@ -96,7 +96,7 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    category: "Backend Development",
+    category: "Backend",
     icon: Server,
     skills: [
       { name: "Express.js", icon: SiExpress },
@@ -112,25 +112,6 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    category: "UI/UX Design",
-    icon: Palette,
-    skills: [
-      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
-      { name: "Adobe XD", icon: SiAdobexd, color: "#2e001e" },
-      { name: "Responsive Design", icon: Layout, color: "#0284C7" },
-    ],
-  },
-  {
-    category: "Programming",
-    icon: Code2,
-    skills: [
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-      { name: "C", icon: SiC, color: "#A8B9CC" },
-      { name: "C++", icon: SiCplusplus, color: "#00599C" },
-    ],
-  },
-  {
     category: "Tools",
     icon: Settings,
     skills: [
@@ -139,6 +120,25 @@ export const skills: SkillCategory[] = [
       { name: "Postman", icon: SiPostman, color: "#FF6C6C" },
       { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
       { name: "AWS", icon: SiAmazon, color: "#FF9900" },
+    ],
+  },
+  {
+    category: "Programming",
+    icon: Code2,
+    skills: [
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "C", icon: SiC, color: "#00599C" },
+      { name: "C++", icon: SiCplusplus, color: "#00599C" },
+    ],
+  },
+  {
+    category: "UI/UX Design",
+    icon: Palette,
+    skills: [
+      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+      { name: "Adobe XD", icon: SiAdobexd, color: "#2e001e" },
+      { name: "Responsive Design", icon: Layout, color: "#0284C7" },
     ],
   },
 ];
