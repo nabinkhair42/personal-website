@@ -46,7 +46,7 @@ export const Title = ({ title, date, authors }: TitleProps) => {
                                         {author.username.slice(0, 2).toUpperCase()}
                                     </AvatarFallback>
                                 </Avatar>
-                                <div className="">
+                                <div className="text-left">
                                     {author.username}
                                     <p className="font-code text-[13px] text-muted-foreground">
                                         @{author.handle}
@@ -56,6 +56,7 @@ export const Title = ({ title, date, authors }: TitleProps) => {
                         );
                     })}
                 </div>
+                {/* Views & Comments */}
             </motion.div>
         </section>
     );
