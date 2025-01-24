@@ -10,6 +10,7 @@ import {
   FileText,
   Mail,
 } from "lucide-react";
+import { toast } from "sonner";
 
 export type MenuItem = {
   label: string;
@@ -67,6 +68,7 @@ export const defaultMenuItems: MenuItem[] = [
       const selection = window.getSelection()?.toString();
       if (selection) {
         navigator.clipboard.writeText(selection);
+        toast.success("Copied to clipboard");
       }
     },
   },

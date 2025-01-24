@@ -4,9 +4,12 @@ interface NavLink {
 }
 
 export const NAVLINKS: NavLink[] = [
-  
   {
-    title:"Hire Me",
+    title: "About",
+    href: "/about",
+  },
+  {
+    title: "Hire Me",
     href: "/hire-me",
   },
   {
@@ -14,15 +17,11 @@ export const NAVLINKS: NavLink[] = [
     href: "/projects",
   },
   {
-    title: "Blog",
-    href: "/blog",
-  },
-  {
-    title: "About",
-    href: "/about",
-  },
-  {
     title: "Contact",
     href: "/contact",
   },
+  {
+    title: "Blog",
+    href: "/blog",
+  }
 ];
