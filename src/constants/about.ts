@@ -40,7 +40,7 @@ export const aboutMe = {
   intro:
     "MERN and Next.js Developer with hands-on experience in DevOps, cloud platforms like AWS and Cloudflare, and a strong foundation in full-stack development.",
   description:
-    "3+ years of expertise in UI/UX design and 1+ year of full-stack development, collaborating with clients to deliver high-quality projects. Adept at deploying, managing, and scaling applications using Vercel, Cloudflare Pages, and AWS.",
+    "3+ years of expertise in UI/UX design and one and half year of full-stack development, collaborating with clients to deliver high-quality projects. Adept at deploying, managing, and scaling applications using Vercel, Cloudflare Pages, and AWS.",
 };
 
 export const education = [

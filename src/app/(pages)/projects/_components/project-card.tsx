@@ -4,8 +4,8 @@ import { Project } from "@/constants/projects";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { IconType } from "react-icons";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Globe} from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 
@@ -61,8 +61,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </div>
         </motion.div>
       </DialogTrigger>
-
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+      <DialogHeader>
         <div className="relative aspect-video w-full overflow-hidden rounded-lg ">
           <Image
             src={project.image}
@@ -71,7 +71,9 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             className="object-cover"
           />
         </div>
-                <div className="mt-6">
+      </DialogHeader>
+
+        <div className="mt-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">{project.title}</h2>
             <div className="flex gap-2">
@@ -82,7 +84,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   rel="noopener noreferrer"
                   className="rounded-lg bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                 >
-                  <Globe className="h-5 w-5" />
+                  <ExternalLink className="h-5 w-5" />
                 </Link>
               )}
               {project.githubUrl && (

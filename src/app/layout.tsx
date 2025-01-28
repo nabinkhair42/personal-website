@@ -4,11 +4,17 @@ import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import "@/styles/globals.css";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import { Toaster } from "@/components/ui/sonner";
 import { RightClick } from "@/components/ui/ui-extend/RightClick";
 import { navigationMenuItems } from "@/constants/menu-items";
+import {JetBrains_Mono
+} from "next/font/google";
+
+const firaCode = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 
 export const metadata: Metadata = {
   title: "Nabin Khair - Full Stack Developer",
@@ -23,16 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased tracking-wide`}
-        suppressHydrationWarning
+  className={firaCode.className}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
         >
           <NextTopLoader
             showSpinner={false}

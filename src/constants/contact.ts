@@ -1,5 +1,5 @@
 import { Mail, MapPin } from "lucide-react";
-import { BsGithub, BsInstagram, BsLinkedin, BsThreads } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsLinkedin, BsThreads, BsTwitterX } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 
 export const contactInfo = [
@@ -39,8 +39,8 @@ export const socialLinks = [
     url: "https://www.facebook.com/nabinkhair2",
   },
   {
-    icon: BsThreads,
+    icon: BsTwitterX,
     name: "Threads",
-    url: "https://www.threads.net/@nabinkhair2",
+    url: "https://x.com/khairnabin",
   },
 ];
