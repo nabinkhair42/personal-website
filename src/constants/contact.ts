@@ -1,5 +1,5 @@
 import { Mail, MapPin } from "lucide-react";
-import { BsGithub, BsInstagram, BsLinkedin, BsThreads, BsTwitterX } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsLinkedin,  BsTwitterX } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 
 export const contactInfo = [
