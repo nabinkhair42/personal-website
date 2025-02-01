@@ -7,8 +7,11 @@ import { getAllBlogs } from "@/lib/markdown";
 export default async function LatestBlogs() {
   const allBlogs = await getAllBlogs();
   const latestBlogs = allBlogs
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime();
+    })
 
   return (
     <section className="py-16 border-b px-4">
@@ -30,9 +33,9 @@ export default async function LatestBlogs() {
 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {latestBlogs.map((blog) => (
+            {latestBlogs.slice(0, 3).map((blog) => (
             <BlogCard key={blog.slug} {...blog} slug={blog.slug} />
-          ))}
+            ))}
         </div>
       </div>
     </section>

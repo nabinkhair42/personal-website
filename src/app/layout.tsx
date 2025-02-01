@@ -7,14 +7,9 @@ import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { RightClick } from "@/components/ui/ui-extend/RightClick";
 import { navigationMenuItems } from "@/constants/menu-items";
-import {JetBrains_Mono
-} from "next/font/google";
+import { Inter } from 'next/font/google'
 
-const firaCode = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Nabin Khair - Full Stack Developer",
@@ -30,9 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-  className={firaCode.className}
-      >
+      <body className={inter.className}      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

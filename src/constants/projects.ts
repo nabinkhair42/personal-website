@@ -38,6 +38,26 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Pira",
+    description: "A team management system with project tracking features.",
+    image: "/projects/pira.png",
+    technologies: [
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Express", icon: SiExpress},
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      {name: "Vercel", icon: SiVercel}
+    ],
+    liveUrl: "https://pira.vercel.app",
+    features: [
+      "Built project and team management modules",
+      "Implemented user roles and permissions",
+      "Developed dashboards for project tracking",
+      "Deployed the app on Vercel",
+    ],
+    category: "personal",
+  },
+  {
     title: "Receipt Vault",
     description:
       "Effortlessly store and categorize your receipts. ReceiptVault is your small business partner in smart expense management.",
@@ -219,25 +239,5 @@ export const projects: Project[] = [
       "Documented algorithms with MDX",
     ],
     category: "personal",
-  },
-  {
-    title: "Pira",
-    description: "A team management system with project tracking features.",
-    image: "/projects/pira.png",
-    technologies: [
-      { name: "React", icon: SiReact, color: "#61DAFB" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "Express", icon: SiExpress},
-      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      {name: "Vercel", icon: SiVercel}
-    ],
-    liveUrl: "https://pira.vercel.app",
-    features: [
-      "Built project and team management modules",
-      "Implemented user roles and permissions",
-      "Developed dashboards for project tracking",
-      "Deployed the app on Vercel",
-    ],
-    category: "collaborative",
-  },
+  }
 ];
