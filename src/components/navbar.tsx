@@ -1,6 +1,6 @@
 "use client";
 
-import { ModeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
 import Anchor from "./anchor";
@@ -56,7 +56,7 @@ export function Navbar() {
             <Mail className="h-4 w-4" />
             Hire Me
           </Link>
-          <ModeToggle />
+          <ThemeToggle />
           {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
