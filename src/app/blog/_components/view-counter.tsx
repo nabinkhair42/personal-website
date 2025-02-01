@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { Eye, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ViewCounterProps {
@@ -14,6 +14,7 @@ interface BlogMetrics {
 
 export default function ViewCounter({ slug, className }: ViewCounterProps) {
   const [metrics, setMetrics] = useState<BlogMetrics>({ views: 0 });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const trackView = async () => {
@@ -48,8 +49,10 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
 
         const data = await response.json();
         setMetrics(data.metrics);
+        setLoading(false);
       } catch (error) {
         console.error('Error getting metrics:', error);
+        setLoading(false);
       }
     };
 
@@ -59,8 +62,14 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
 
   return (
     <div className={`flex items-center gap-2 text-muted-foreground ${className}`}>
-      <Eye className="h-4 w-4" />
-      <span>{metrics.views.toLocaleString()} views</span>
+      {loading ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <>
+          <Eye className="h-4 w-4" />
+          <span>{metrics.views.toLocaleString()} views</span>
+        </>
+      )}
     </div>
   );
 }
