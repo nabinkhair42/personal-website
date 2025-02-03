@@ -231,7 +231,7 @@ export const projects: Project[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       {name: "Vercel", icon: SiVercel}
     ],
-    liveUrl: "https://algodocs.nepalieducate.com",
+    liveUrl: "https://algodocs.dev",
     features: [
       "Developed AI Based Document Search",
       "Built a responsive platform for developers",
