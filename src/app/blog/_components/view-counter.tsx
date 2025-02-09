@@ -2,6 +2,7 @@
 
 import { Eye, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface ViewCounterProps {
   slug: string;
@@ -17,9 +18,8 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const trackView = async () => {
+    const fetchAndTrackView = async () => {
       try {
-        // Track the view
         const response = await fetch('/api/blog/metrics', {
           method: 'POST',
           headers: {
@@ -28,40 +28,22 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
           body: JSON.stringify({ slug }),
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to track view');
+        if (response.ok) {
+          const data = await response.json();
+          setMetrics(data.metrics);
         }
-
-        const data = await response.json();
-        setMetrics(data.metrics);
       } catch (error) {
-        console.error('Error tracking view:', error);
-      }
-    };
-
-    // Get initial metrics
-    const getMetrics = async () => {
-      try {
-        const response = await fetch(`/api/blog/metrics?slug=${slug}`);
-        if (!response.ok) {
-          throw new Error('Failed to get metrics');
-        }
-
-        const data = await response.json();
-        setMetrics(data.metrics);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error getting metrics:', error);
+        console.error('Error:', error);
+      } finally {
         setLoading(false);
       }
     };
 
-    getMetrics();
-    trackView();
+    fetchAndTrackView();
   }, [slug]);
 
   return (
-    <div className={`flex items-center gap-2 text-muted-foreground ${className}`}>
+    <div className={cn("flex items-center gap-2 text-muted-foreground", className)}>
       {loading ? (
         <Loader2 className="h-4 w-4 animate-spin" />
       ) : (

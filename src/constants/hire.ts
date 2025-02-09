@@ -7,9 +7,13 @@ import {
   CheckCircle,
   LucideIcon,
 } from "lucide-react";
+import { IconType } from 'react-icons';
+import { FaReact } from 'react-icons/fa';
+import { MdDesignServices } from 'react-icons/md';
+import { SiJfrogpipelines } from "react-icons/si";
 
 interface ServicePackage {
-  icon: string;
+  icon: IconType;
   title: string;
   description: string;
   features: string[];
@@ -28,7 +32,7 @@ interface Benefit {
 
 export const packages: ServicePackage[] = [
   {
-    icon: "🚀",
+    icon: FaReact,  // Changed to React icon for Full-stack development
     title: "Full-Stack Development",
     description: "Build modern, scalable, and high-performance web applications tailored to your business needs using the MERN stack and modern tools like Next.js and TypeScript.",
     features: [
@@ -41,7 +45,7 @@ export const packages: ServicePackage[] = [
     ],
   },
   {
-    icon: "🎨",
+    icon: MdDesignServices,  // Changed to Design services icon for UI/UX
     title: "UI/UX Design",
     description: "Craft intuitive and visually appealing user interfaces to provide seamless user experiences across devices.",
     features: [
@@ -54,7 +58,7 @@ export const packages: ServicePackage[] = [
     ],
   },
   {
-    icon: "☁️",
+    icon: SiJfrogpipelines,  // Changed to AWS icon for DevOps/Cloud
     title: "DevOps and Cloud Services",
     description: "Streamline your development and deployment processes with reliable cloud services and DevOps strategies.",
     features: [

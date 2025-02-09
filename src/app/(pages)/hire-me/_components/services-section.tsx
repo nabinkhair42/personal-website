@@ -23,7 +23,9 @@ export const ServicesSection = () => {
               viewport={{ once: true }}
               className="rounded-2xl bg-card p-6 hover:shadow-lg ring-1 ring-border/50 transition-shadow duration-300 cursor-pointer" 
             >
-              <div className="mb-4 text-4xl">{pkg.icon}</div>
+              <div className="mb-4 text-4xl bg-primary/10 rounded-md p-2 w-fit">
+                {pkg.icon && <pkg.icon size={40} className="text-primary" />}
+              </div>
               <h3 className="mb-2 text-xl font-semibold">{pkg.title}</h3>
               <p className="mb-4 text-sm text-muted-foreground">{pkg.description}</p>
               <ul className="space-y-2 text-sm text-muted-foreground">

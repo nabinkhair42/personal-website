@@ -8,11 +8,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { BlogMdxFrontmatter } from "@/lib/markdown";
-import { Share, Linkedin, Copy } from "lucide-react"
+import {  Linkedin, Copy } from "lucide-react"
 import Image from "next/image";
 import { BsTwitterX, BsWhatsapp } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { toast } from "sonner";
+import { CiShare2 } from "react-icons/ci";
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
 interface ShareButtonProps {
     currentURL: string;
@@ -53,12 +55,13 @@ export function ShareButton({ formatter, currentURL }: ShareButtonProps) {
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:text-primary">
-                    <Share className="h-4 w-4" />
+                    <CiShare2 className="h-4 w-4" />
+                    <VisuallyHidden>Share this post</VisuallyHidden>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle className="text-center">Share this post</DialogTitle>
+                    <DialogTitle>Share {formatter.title}</DialogTitle>
                     <DialogDescription className="text-center">
                         Share this insightful article with your network
                     </DialogDescription>
@@ -125,6 +128,7 @@ export function ShareButton({ formatter, currentURL }: ShareButtonProps) {
                         </div>
                         <Button variant="secondary" size="icon" onClick={copyURL}>
                             <Copy className="h-4 w-4" />
+                            
                         </Button>
                     </div>
                 </div>
