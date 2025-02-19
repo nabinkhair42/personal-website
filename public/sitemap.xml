@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+
+<url>
+  <loc>https://www.nabinkhair.com.np/</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/about</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/hire-me</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/projects</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/contact</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/nkhair.cv.pdf</loc>
+  <lastmod>2025-02-19T06:07:12+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/allow-all-domains-nextjs-images</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/announcing-snip-ui</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/ui-ux-guide</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/what-are-ai-agents</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/understand-llm</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nabinkhair.com.np/blog/web-objects</loc>
+  <lastmod>2025-02-19T06:07:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

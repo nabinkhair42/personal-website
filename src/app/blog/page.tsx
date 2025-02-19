@@ -3,11 +3,9 @@ import { getAllBlogs } from "@/lib/markdown";
 import { stringToDate } from "@/lib/utils";
 import BlogCard from "@/app/blog/_components/BlogCard";
 import BlogHero from "./_components/hero-section";
+import { blogMetadata } from "@/config/metadata";
 
-export const metadata: Metadata = {
-  title: "Blogs | Nabin Khair",
-  description: "The latest blogs and news, straight from the team.",
-};
+export const metadata = blogMetadata;
 
 export default async function BlogIndexPage() {
   const blogs = (await getAllBlogs()).sort(
