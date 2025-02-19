@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 // import { ProcessSection } from "@/app/(pages)/hire-me/_components/process-section";
 import { ServicesSection } from "@/app/(pages)/hire-me/_components/services-section";
 // import { BenefitsSection } from "@/app/(pages)/hire-me/_components/benefits-section";

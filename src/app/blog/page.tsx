@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { getAllBlogs } from "@/lib/markdown";
 import { stringToDate } from "@/lib/utils";
 import BlogCard from "@/app/blog/_components/BlogCard";
