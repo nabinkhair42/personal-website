@@ -6,25 +6,29 @@ import { PlatformsSection } from "./_components/platforms-section";
 import { SkillsSection } from "./_components/skills-section";
 import { siteConfig } from "@/config/site";
 
-export const metadata = aboutMetadata;
-
-export const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: siteConfig.name,
-  jobTitle: siteConfig.title,
-  description: "Full Stack Developer specializing in modern web technologies",
-  url: siteConfig.baseUrl,
-  sameAs: [
-    siteConfig.social.github,
-    siteConfig.social.linkedin,
-    siteConfig.social.twitter
-  ],
-  image: `${siteConfig.baseUrl}/og/about.png`,
-  email: `mailto:${siteConfig.social.email}`,
-  alumniOf: {
-    "@type": "EducationalOrganization",
-    name: siteConfig.education.university
+// Combine metadata with JSON-LD
+export const metadata = {
+  ...aboutMetadata,
+  other: {
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: siteConfig.name,
+      jobTitle: siteConfig.title,
+      description: "Full Stack Developer specializing in modern web technologies",
+      url: siteConfig.baseUrl,
+      sameAs: [
+        siteConfig.social.github,
+        siteConfig.social.linkedin,
+        siteConfig.social.twitter
+      ],
+      image: `${siteConfig.baseUrl}/og/about.png`,
+      email: `mailto:${siteConfig.social.email}`,
+      alumniOf: {
+        "@type": "EducationalOrganization",
+        name: siteConfig.education.university
+      }
+    }
   }
 };
 
