@@ -28,6 +28,7 @@ export default async function sitemap() {
       lastModified = new Date(post.date).toISOString();
     } catch (e) {
       lastModified = currentDate;
+      console.log(e);
     }
 
     return {
