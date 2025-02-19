@@ -1,9 +1,11 @@
 import { getAllBlogs } from "@/lib/markdown";
+import { siteConfig } from "@/config/site";
 
 export default async function sitemap() {
   const blogs = await getAllBlogs();
-  const baseUrl = "https://www.nabinkhair.com.np";
+  const currentDate = new Date().toISOString();
 
+  // Base routes
   const routes = [
     "",
     "/about",
@@ -12,19 +14,29 @@ export default async function sitemap() {
     "/contact",
     "/blog"
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
+    url: `${siteConfig.baseUrl}${route}`,
+    lastModified: currentDate,
     changeFrequency: 'monthly',
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // Blog routes
-  const blogRoutes = blogs.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date).toISOString(),
-    changeFrequency: 'weekly',
-    priority: 0.6,
-  }));
+  // Blog routes - with safe date handling
+  const blogRoutes = blogs.map((post) => {
+    // Ensure we have a valid date
+    let lastModified;
+    try {
+      lastModified = new Date(post.date).toISOString();
+    } catch (e) {
+      lastModified = currentDate;
+    }
+
+    return {
+      url: `${siteConfig.baseUrl}/blog/${post.slug}`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    };
+  });
 
   return [...routes, ...blogRoutes];
 } 
