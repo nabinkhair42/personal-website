@@ -68,8 +68,8 @@ export const ContactInfo = () => {
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary/50 via-primary/25 to-primary/50 opacity-0 blur transition duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-background shadow-lg ring-1 ring-border/50">
+              <div className="absolute -inset-2 rounded-xl  duration-500 group-hover:opacity-100 " />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-background hover:border border-primary transition-all duration-200">
                 <social.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                 <span className="sr-only">{social.name}</span>
               </div>

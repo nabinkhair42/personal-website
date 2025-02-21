@@ -14,7 +14,7 @@ export default async function LatestBlogs() {
     })
 
   return (
-    <section className="py-16 border-b px-4">
+    <section className="py-16 border-b border-dashed px-4">
       <div className="mx-auto">
         <div className="flex items-start justify-between mb-12 flex-wrap gap-4">
           <div className="max-w-2xl">

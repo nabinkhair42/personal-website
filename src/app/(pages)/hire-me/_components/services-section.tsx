@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 
 export const ServicesSection = () => {
   return (
-    <section className="px-4 py-20 border-b">
+    <section className="px-4 py-20 
+    border-b border-dashed    ">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

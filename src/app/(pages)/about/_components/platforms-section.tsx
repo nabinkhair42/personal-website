@@ -28,7 +28,7 @@ const serviceIcons: Record<string, IconComponent> = {
 
 export const PlatformsSection = () => {
   return (
-    <section className="py-20 border-b px-4">
+    <section className="py-20 border-b border-dashed px-4">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Cloud Platforms</h2>

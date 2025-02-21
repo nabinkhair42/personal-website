@@ -47,7 +47,7 @@ export const AchievementsSection = () => {
                   {/* Content Box */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-card to-card/80 p-6  ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md"
+                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-card to-card/80 p-6  ring-1  ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md"
                   >
                     <div className="mb-4 flex items-start gap-4">
                       <div className="rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-primary/20">

@@ -9,7 +9,7 @@ export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState(skills[0].category);
 
   return (
-    <section className="py-20 border-b px-4">
+    <section className="py-20 border-b border-dashed px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

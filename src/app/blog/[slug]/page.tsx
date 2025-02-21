@@ -57,7 +57,7 @@ export default async function BlogPage(props: PageProps) {
   const currentURL = process.env.PORTFOLIO_URL + `/blog/` + slug;
 
   return (
-    <div className="max-w-5xl mx-auto border-l border-r">
+    <div className="max-w-5xl mx-auto border-l border-r border-dashed">
       <Title
         formatter={frontmatter}
         slug={slug}
@@ -70,7 +70,7 @@ export default async function BlogPage(props: PageProps) {
             alt={frontmatter.title}
             width={1920}
             height={1080}
-            className="w-full rounded-md border object-cover"
+            className="w-full rounded-md border border-dashed object-cover"
           />
         </div>
         <Typography>{res.content}</Typography>

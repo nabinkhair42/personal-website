@@ -9,7 +9,7 @@ import { TestimonialSkeleton } from "@/components/ui/ui-extend/testimonial-skele
 
 export const TestimonialsSection = () => {
   return (
-    <section className="py-20 px-4 border-b">
+    <section className="py-20 px-4 border-b border-dashed">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

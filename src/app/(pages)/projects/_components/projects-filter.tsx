@@ -20,7 +20,7 @@ export const ProjectsFilter = ({
   onCategoryChange,
 }: ProjectsFilterProps) => {
   return (
-    <div className="px-4 border-b py-8">
+    <div className="px-4 border-b border-dashed py-8">
       <div className="flex flex-wrap justify-center gap-2">
         {categories.map((category) => (
           <motion.div

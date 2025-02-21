@@ -72,7 +72,7 @@ export const ContactForm = () => {
 
   return (
     <motion.div
-      className="px-4 py-16 md:border-l border-b"
+      className="px-4 py-16 md:border-l border-b border-dashed"
       ref={formRef}
       style={{
         transform: isInView ? "none" : "translateY(50px)",

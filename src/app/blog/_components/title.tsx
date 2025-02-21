@@ -18,7 +18,7 @@ interface TitleProps {
 export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
 
     return (
-        <section className="text-center px-4 py-20 border-b grainy dark:grainy-dark">
+        <section className="text-center px-4 py-20 border-b border-dashed">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

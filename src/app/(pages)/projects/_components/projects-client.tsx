@@ -14,7 +14,7 @@ export function ProjectsClient() {
   );
 
   return (
-    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r">
+    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r border-dashed">
       <ProjectHero />
       <ProjectsFilter
         activeCategory={activeCategory}

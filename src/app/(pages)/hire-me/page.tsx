@@ -26,7 +26,7 @@ export const metadata = {
 
 export default function HireMePage() {
   return (
-    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r gap-10">
+    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r border-dashed gap-10">
       <HeroSection />
       <ServicesSection />
       {/* <TestimonialsSection />

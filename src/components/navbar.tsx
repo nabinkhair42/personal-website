@@ -23,7 +23,7 @@ export function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background">
+    <nav className="sticky top-0 z-50 h-16 w-full border-b bg-background border-dashed">
       <div className="mx-auto flex h-full  items-center justify-between px-6 max-w-5xl">
         <div className="flex items-center gap-8">
           <Logo />

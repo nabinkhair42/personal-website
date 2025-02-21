@@ -3,7 +3,7 @@ import { SiApacheopenoffice } from "react-icons/si";
 
 export function Footer() {
   return (
-    <footer className="flex h-16 items-center justify-center border-t">
+    <footer className="flex h-16 items-center justify-center border-t border-dashed">
       <div className="flex flex-1 items-center justify-center gap-2 ">
         <SiApacheopenoffice className="h-5 w-5" />
 

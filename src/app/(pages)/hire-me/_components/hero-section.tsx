@@ -10,7 +10,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 
 export const HeroSection = () => {
   return (
-    <section className="text-center px-4 py-20 border-b">
+    <section className="text-center px-4 py-20 border-b border-dashed">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
