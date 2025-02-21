@@ -4,7 +4,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
 import Anchor from "./anchor";
-import { SiApacheopenoffice } from "react-icons/si";
+// import { SiApacheopenoffice } from "react-icons/si";
+import MyProfileImage from "@/app/icon.png";
+import Image from "next/image";
 import { Menu, Mail } from "lucide-react";
 import {
   Sheet,
@@ -96,7 +98,8 @@ export function Navbar() {
 export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
-      <SiApacheopenoffice className="h-6 w-6" />
+      {/* <SiApacheopenoffice className="h-6 w-6" /> */}
+      <Image src={MyProfileImage} height={20} width={20} alt="Nabin Khair" />
       <span className="font-code font-bold">nKhair</span>
     </Link>
   );

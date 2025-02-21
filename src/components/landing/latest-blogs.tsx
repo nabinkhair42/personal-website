@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import BlogCard from "@/app/blog/_components/BlogCard";
 import { getAllBlogs } from "@/lib/markdown";
-
 export default async function LatestBlogs() {
   const allBlogs = await getAllBlogs();
   const latestBlogs = allBlogs

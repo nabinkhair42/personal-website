@@ -3,6 +3,7 @@ import Image from "next/image";
 import { BlogMdxFrontmatter } from "@/lib/markdown";
 import { formatDate2 } from "@/lib/utils";
 import AvatarGroup from "./AvatarGroup";
+import { Calendar } from "lucide-react";
 
 export default function BlogCard({
   date,
@@ -34,7 +35,8 @@ export default function BlogCard({
           {description}
         </p>
         <div className="flex items-center justify-between mt-auto pt-4 border-t">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground flex items-center gap-2">
+            <Calendar className="h-4 w-4" />
             {formatDate2(date)}
           </p>
           <AvatarGroup users={authors} />
