@@ -1,177 +1,239 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { motion, useAnimate } from "framer-motion";
-import { Download, ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles, ChevronDown } from 'lucide-react';
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { useRef, useState } from "react";
+import { BsFillFilePdfFill } from "react-icons/bs";
+import { FaUserFriends } from "react-icons/fa";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [scope, animate] = useAnimate();
-  
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = (clientX - left - width / 2) / 25;
-    const y = (clientY - top - height / 2) / 25;
-    setMousePosition({ x, y });
-  };
-
-  const handleNameClick = async () => {
-    await animate(scope.current, { scale: 0.95 }, { duration: 0.1 });
-    await animate(scope.current, { scale: 1 }, { duration: 0.1 });
-    
-    // Create sparkle effect
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const sparkles = Array.from({ length: 5 }).map((_, i) => {
-      const sparkle = document.createElement("div");
-      sparkle.className = "absolute w-2 h-2 bg-primary rounded-full";
-      sparkle.style.left = `${50 + Math.random() * 20 - 10}%`;
-      sparkle.style.top = `${50 + Math.random() * 20 - 10}%`;
-      return sparkle;
+  const [scrolled, setScrolled] = useState(false);
+  const clickToScroll = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth"
     });
+  }
 
-    sparkles.forEach((sparkle, i) => {
-      scope.current?.appendChild(sparkle);
-      animate(
-        sparkle,
-        {
-          opacity: [1, 0],
-          y: [-20 - i * 10, -40 - i * 10],
-          x: [0, (i - 2) * 20],
-        },
-        {
-          duration: 0.6,
-          ease: "easeOut",
-          onComplete: () => sparkle.remove(),
-        }
-      );
-    });
-  };
+  // Handle scroll effect for the scroll indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden perspective-1000"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Background Grid */}
+    <div className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden">
+      {/* Enhanced Background with Gradient and Blur */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background to-background/80">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+      </div>
+
+      {/* Animated Grid Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="grid grid-cols-6 grid-rows-6 h-full w-full">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ duration: 1 }}
+          className="grid grid-cols-6 grid-rows-6 h-full w-full"
+        >
           {[...Array(36)].map((_, i) => (
             <motion.div
               key={i}
-              className="border border-primary/5 backdrop-blur-sm"
-              animate={{
-                backgroundColor: `rgba(var(--primary), ${0.01 + Math.abs(Math.sin(i * 0.1 + mousePosition.x * 0.1)) * 0.05})`,
-                scale: 1 + Math.abs(Math.cos(i * 0.1 + mousePosition.y * 0.1)) * 0.05,
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: i * 0.01,
+                ease: "easeInOut"
               }}
-              whileHover={{
-                backgroundColor: "rgba(var(--primary), 0.1)",
-              }}
-              transition={{ type: "spring", stiffness: 100 }}
+              className="border border-primary/5 backdrop-blur-sm hover:bg-primary/10 transition-colors duration-300"
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <div className="container px-4 md:px-6">
-        <div className="relative z-10 flex flex-col items-center gap-8">
-          {/* Availability Badge */}
-          <motion.div
-            className="relative cursor-pointer"
-            whileHover={{ scale: 1.05 }}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 flex flex-col items-center gap-8"
+        >
+          {/* Availability Badge with Animation */}
+          <motion.div 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="relative"
           >
             <Badge 
               variant="secondary" 
-              className="group relative overflow-hidden px-4 py-2"
+              className="px-4 py-2 shadow-sm"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <motion.span 
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  repeatType: "reverse", 
+                  duration: 2 
+                }}
+                className="flex items-center gap-2"
+              >
                 <Sparkles className="w-4 h-4 text-primary" />
-                Available for Freelance Projects
-              </span>
+                Available for Full-Time Projects
+              </motion.span>
             </Badge>
           </motion.div>
 
-          {/* Name Section */}
-          <motion.div
-            ref={scope}
-            style={{
-              rotateX: mousePosition.y,
-              rotateY: mousePosition.x,
-            }}
-            className="space-y-4 text-center cursor-pointer"
-            onClick={handleNameClick}
+          {/* Name Section with Enhanced Animation */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="space-y-4 text-center"
           >
             <h1 className="text-4xl font-bold sm:text-6xl md:text-7xl tracking-tight">
-              Hi 👋, I&apos;m{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">Nabin Khair</span>
-                <motion.span
-                  className="absolute -inset-2 bg-primary/10 rounded-lg -z-10"
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [0.98, 1.02, 0.98],
+              Hi{" "}
+              <motion.span
+                animate={{ rotate: [0, 20, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  repeatType: "reverse", 
+                  duration: 1.5,
+                  repeatDelay: 2
+                }}
+                className="inline-block"
+              >
+                👋
+              </motion.span>
+              , I&apos;m{" "}
+              <motion.span 
+                className="relative inline-flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                  Nabin Khair
+                </span>
+                <motion.div
+                  initial={{ rotate: -5 }}
+                  animate={{ rotate: 5 }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    repeatType: "reverse", 
+                    duration: 2 
                   }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Image 
+                    src="/nabin.png" 
+                    alt="Nabin Khair" 
+                    width={100} 
+                    height={100} 
+                    quality={100}
+                    className="rounded-full border-2 border-primary/20 shadow-lg"
+                  />
+                </motion.div>
+                <motion.span
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    repeatType: "reverse", 
+                    duration: 2 
+                  }}
+                  className="absolute -inset-2"
                 />
-              </span>
+              </motion.span>
             </h1>
           </motion.div>
 
-          {/* Description */}
-          <div className="relative max-w-2xl text-center">
+          {/* Description with Animated Underline */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="relative max-w-2xl text-center"
+          >
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
               Crafting digital experiences that blend creativity with functionality. 
               Transforming ideas into elegant solutions.
             </p>
             
             <motion.div
-              className="absolute -bottom-4 left-1/2 h-px w-24 bg-primary"
-              initial={{ width: 0, left: "50%", x: "-50%" }}
-              animate={{ width: 96 }}
-              whileHover={{ width: 120 }}
-              transition={{ duration: 0.3 }}
+              initial={{ width: 0 }}
+              animate={{ width: "6rem" }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="absolute -bottom-4 left-1/2 h-1 bg-gradient-to-r from-primary/50 to-primary rounded-full transform -translate-x-1/2"
             />
-          </div>
+          </motion.div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Link href="/hire-me">
-              <Button 
-                size="lg" 
-                className="group relative px-8 py-6 overflow-hidden border-2 border-primary hover:border-primary/80 transition-colors"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/10"
-                  initial={{ y: "100%" }}
-                  whileHover={{ y: "0%" }}
-                  transition={{ type: "spring", stiffness: 200 }}
-                />
-                <span className="relative z-10 flex items-center gap-2 text-lg font-medium group-hover:translate-x-1 transition-transform">
-                  Let&apos;s Collaborate
-                  <ArrowRight className="h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-            <Link href="/nkhair.cv.pdf" target="_blank" download>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="group relative px-8 py-6 overflow-hidden border-2 hover:text-primary transition-all hover:shadow-[inset_0_0_0_2px_hsl(var(--primary))]"
-              >
-                <span className="relative z-10 flex items-center gap-2 text-lg font-medium group-hover:translate-y-[-2px] transition-transform">
-                  Download Resume
-                  <Download className="h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
+          {/* CTA Buttons with Hover Effects */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 mt-8"
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/hire-me">
+                <Button 
+                  size="lg" 
+                  className="px-8 py-6 border-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-md"
+                >
+                  <span className="flex items-center gap-2 text-lg font-medium">
+                    <FaUserFriends className="h-5 w-5" />
+                    Let&apos;s Collaborate
+                  </span>
+                </Button>
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/nkhair.cv.pdf" target="_blank" download>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="px-8 py-6 border-2 backdrop-blur-sm hover:bg-primary/10 shadow-md"
+                >
+                  <span className="flex items-center gap-2 text-lg font-medium">
+                    <BsFillFilePdfFill className="h-5 w-5" />
+                    Download Resume
+                  </span>
+                </Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.3 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        onClick={clickToScroll}
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 1.5 
+          }}
+          className="flex flex-col items-center gap-2 text-muted-foreground"
+        >
+          <span className="text-sm">Scroll Down</span>
+          <ChevronDown className="h-5 w-5" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
