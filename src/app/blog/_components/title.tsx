@@ -66,7 +66,8 @@ export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
                         formatter={formatter}
 
                     /></div>
-                    <ReactionButton slug={slug} />
+                    <ReactionButton slug={slug} title="How did you find this article?"
+        description="Your feedback helps us improve our content" />
             </motion.div>
         </section>
     );
