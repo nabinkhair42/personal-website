@@ -5,7 +5,7 @@ import { sendAdminNotification, sendUserConfirmation } from "@/lib/mail";
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDatabase();
+    await connectDatabase("portfolio", process.env.MONGODB_URI);
     const data = await req.json();
     const { name, email, subject, message } = data;
 

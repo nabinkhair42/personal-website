@@ -4,6 +4,8 @@ export interface IBlogMetrics extends Document {
   slug: string;
   views: number;
   lastViewed: Date;
+  reactions: Map<string, number>;
+  ip: string;
 }
 
 const blogMetricsSchema = new Schema({
@@ -20,6 +22,11 @@ const blogMetricsSchema = new Schema({
   lastViewed: {
     type: Date,
     default: Date.now,
+  },
+  reactions: {
+    type: Map,
+    of: Number,
+    default: new Map(),
   }
 }, {
   timestamps: true,

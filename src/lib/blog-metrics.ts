@@ -34,13 +34,36 @@ export const trackBlogView = async (blogId: string, slug: string) => {
 };
 
 // Function to get blog metrics
-export const getBlogMetrics = async (blogId: string) => {
+export const getBlogMetrics = async (slug: string) => {
   try {
-    const response = await fetch(`/api/blog/metrics?blogId=${blogId}`);
+    const response = await fetch(`/api/blog/metrics?slug=${encodeURIComponent(slug)}`);
     const data = await response.json();
     return data.metrics;
   } catch (error) {
     console.error('Error getting blog metrics:', error);
+    return null;
+  }
+};
+
+// Function to update blog reaction
+export const updateBlogReaction = async (slug: string, emoji: string, action: 'add' | 'remove') => {
+  try {
+    const response = await fetch('/api/blog/metrics', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        slug,
+        emoji,
+        action,
+      }),
+    });
+
+    const data = await response.json();
+    return data.metrics;
+  } catch (error) {
+    console.error('Error updating blog reaction:', error);
     return null;
   }
 };

@@ -8,6 +8,7 @@ import Link from "next/link";
 import ViewCounter from "./view-counter";
 import { formatDate } from "@/lib/utils";
 import { ShareButton } from "./share";
+import ReactionButton from "./reaction";
 
 interface TitleProps {
     formatter: BlogMdxFrontmatter;
@@ -65,6 +66,7 @@ export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
                         formatter={formatter}
 
                     /></div>
+                    <ReactionButton slug={slug} />
             </motion.div>
         </section>
     );

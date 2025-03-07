@@ -10,7 +10,7 @@ interface MongoDBError {
 
 export async function POST(request: Request) {
   try {
-    await connectDatabase();
+    await connectDatabase("portfolio", process.env.MONGODB_URI);
     const { slug } = await request.json();
     console.log("Data in POST request:", { slug });
 
@@ -30,7 +30,8 @@ export async function POST(request: Request) {
         metrics = await BlogMetrics.create({
           slug,
           views: 1,
-          lastViewed: now
+          lastViewed: now,
+          reactions: new Map()
         });
       } catch (error) {
         // Check if it's a MongoDB duplicate key error
@@ -61,7 +62,8 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       metrics: {
-        views: metrics.views
+        views: metrics.views,
+        reactions: Object.fromEntries(metrics.reactions || new Map())
       }
     });
 
@@ -76,7 +78,7 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    await connectDatabase();
+    await connectDatabase("portfolio", process.env.MONGODB_URI);
     const url = new URL(request.url);
     const slug = url.searchParams.get('slug');
 
@@ -94,7 +96,8 @@ export async function GET(request: Request) {
         success: true,
         metrics: {
           views: 0,
-          lastViewed: null
+          lastViewed: null,
+          reactions: {}
         }
       });
     }
@@ -103,13 +106,68 @@ export async function GET(request: Request) {
       success: true,
       metrics: {
         views: metrics.views,
-        lastViewed: metrics.lastViewed
+        lastViewed: metrics.lastViewed,
+        reactions: Object.fromEntries(metrics.reactions || new Map())
       }
     });
   } catch (error) {
     console.error('Error fetching blog metrics:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog metrics' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    await connectDatabase("portfolio", process.env.MONGODB_URI);
+    const { slug, emoji, action } = await request.json();
+
+    if (!slug || !emoji || !action) {
+      return NextResponse.json(
+        { error: 'Slug, emoji, and action are required' },
+        { status: 400 }
+      );
+    }
+
+    if (!['add', 'remove'].includes(action)) {
+      return NextResponse.json(
+        { error: 'Invalid action. Must be "add" or "remove"' },
+        { status: 400 }
+      );
+    }
+
+    let metrics = await BlogMetrics.findOne({ slug });
+
+    if (!metrics) {
+      metrics = await BlogMetrics.create({
+        slug,
+        views: 0,
+        lastViewed: new Date(),
+        reactions: new Map([[emoji, 1]])
+      });
+    } else {
+      const currentCount = metrics.reactions?.get(emoji) || 0;
+      if (!metrics.reactions) {
+        metrics.reactions = new Map();
+      }
+      metrics.reactions.set(emoji, action === 'add' ? currentCount + 1 : Math.max(0, currentCount - 1));
+      await metrics.save();
+    }
+
+    return NextResponse.json({
+      success: true,
+      metrics: {
+        views: metrics.views,
+        lastViewed: metrics.lastViewed,
+        reactions: Object.fromEntries(metrics.reactions || new Map())
+      }
+    });
+  } catch (error) {
+    console.error('Error updating reaction:', error);
+    return NextResponse.json(
+      { error: 'Failed to update reaction' },
       { status: 500 }
     );
   }
