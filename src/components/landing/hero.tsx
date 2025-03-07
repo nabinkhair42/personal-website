@@ -31,7 +31,7 @@ export function Hero() {
   return (
     <div className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden">
       {/* Enhanced Background with Gradient and Blur */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background to-background/80">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background to-blue-500/10 dark:bg-gradient-to-b dark:from-background dark:to-blue-950/20">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
@@ -118,7 +118,6 @@ export function Hero() {
               , I&apos;m{" "}
               <motion.span 
                 className="relative inline-flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
