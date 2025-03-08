@@ -68,7 +68,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover"
+            className="object-cover border border-dashed rounded-lg"
           />
         </div>
       </DialogHeader>
