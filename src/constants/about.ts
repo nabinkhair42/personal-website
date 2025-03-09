@@ -15,7 +15,6 @@ import {
   SiCloudflare,
   SiGit,
   SiGithub,
-  SiPostman,
   SiVercel,
 } from "react-icons/si";
 import { IconType } from "react-icons";
@@ -136,7 +135,7 @@ export const skills: SkillCategory[] = [
     skills: [
       { name: "Git", icon: SiGit, color: "#F05032" },
       { name: "GitHub", icon: SiGithub },
-      { name: "Postman", icon: SiPostman, color: "#FF6C6C" },
+  
       { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
       { name: "AWS", icon: SiAmazon, color: "#FF9900" },
     ],
