@@ -8,9 +8,33 @@ interface MongoDBError {
   keyValue?: Record<string, unknown>;
 }
 
+// Define interface for the metrics response
+interface MetricsResponse {
+  success: boolean;
+  metrics: {
+    views: number;
+    lastViewed: Date | null;
+    reactions: Record<string, number>;
+  };
+}
+
+// Add a simple in-memory cache with TTL
+const metricsCache = new Map<string, { data: MetricsResponse, timestamp: number }>();
+const CACHE_TTL = 60 * 1000; // 60 seconds cache
+
+// Reuse database connection
+let isConnected = false;
+
+async function ensureDbConnection() {
+  if (!isConnected) {
+    await connectDatabase("portfolio", process.env.MONGODB_URI);
+    isConnected = true;
+  }
+}
+
 export async function POST(request: Request) {
   try {
-    await connectDatabase("portfolio", process.env.MONGODB_URI);
+    await ensureDbConnection();
     const { slug } = await request.json();
     console.log("Data in POST request:", { slug });
 
@@ -78,7 +102,6 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    await connectDatabase("portfolio", process.env.MONGODB_URI);
     const url = new URL(request.url);
     const slug = url.searchParams.get('slug');
 
@@ -89,27 +112,38 @@ export async function GET(request: Request) {
       );
     }
 
+    // Check cache first
+    const cacheKey = `metrics-${slug}`;
+    const now = Date.now();
+    const cachedData = metricsCache.get(cacheKey);
+    
+    if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
+      console.log("Serving metrics from cache for:", slug);
+      return NextResponse.json(cachedData.data);
+    }
+    
+    // If not in cache, get from database
+    await ensureDbConnection();
+    
     const metrics = await BlogMetrics.findOne({ slug });
     
-    if (!metrics) {
-      return NextResponse.json({
-        success: true,
-        metrics: {
-          views: 0,
-          lastViewed: null,
-          reactions: {}
-        }
-      });
-    }
-
-    return NextResponse.json({
+    const response = {
       success: true,
-      metrics: {
+      metrics: metrics ? {
         views: metrics.views,
         lastViewed: metrics.lastViewed,
         reactions: Object.fromEntries(metrics.reactions || new Map())
+      } : {
+        views: 0,
+        lastViewed: null,
+        reactions: {}
       }
-    });
+    };
+    
+    // Update cache
+    metricsCache.set(cacheKey, { data: response, timestamp: now });
+    
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching blog metrics:', error);
     return NextResponse.json(
@@ -121,7 +155,7 @@ export async function GET(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
-    await connectDatabase("portfolio", process.env.MONGODB_URI);
+    await ensureDbConnection();
     const { slug, emoji, action } = await request.json();
 
     if (!slug || !emoji || !action) {
@@ -156,6 +190,10 @@ export async function PATCH(request: Request) {
       await metrics.save();
     }
 
+    // Invalidate cache after updating reactions
+    const cacheKey = `metrics-${slug}`;
+    metricsCache.delete(cacheKey);
+    
     return NextResponse.json({
       success: true,
       metrics: {

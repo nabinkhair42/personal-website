@@ -68,6 +68,10 @@ export default function ReactionButton({
   const confettiRef = useRef<HTMLDivElement>(null);
   const [recentlyChanged, setRecentlyChanged] = useState<string | null>(null);
 
+  // Add client-side cache for metrics
+  const clientCache = useRef<{[key: string]: {data: { reactions?: { [key: string]: number } }, timestamp: number}}>({});
+  const CACHE_TTL = 60 * 1000; // 60 seconds cache
+
   const loadReactions = useCallback(async () => {
     try {
       // Load user's previous reaction first (this is fast as it's local)
@@ -77,8 +81,44 @@ export default function ReactionButton({
         setUserReaction(reactions[slug] || null);
       }
 
-      // Then load reaction metrics
+      // Check client cache first
+      const now = Date.now();
+      const cachedData = clientCache.current[slug];
+      
+      if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
+        const metrics = cachedData.data;
+        if (metrics?.reactions) {
+          setReactions(metrics.reactions);
+          
+          // Calculate total reactions and top reaction
+          let total = 0;
+          let top = { emoji: '', count: 0 };
+          
+          Object.entries(metrics.reactions).forEach(([emoji, count]) => {
+            total += count as number;
+            if ((count as number) > top.count) {
+              top = { emoji, count: count as number };
+            }
+          });
+          
+          setTotalReactions(total);
+          if (top.count > 0) {
+            setTopReaction(top);
+          }
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Then load reaction metrics from server
       const metrics = await getBlogMetrics(slug);
+      
+      // Update client cache
+      clientCache.current[slug] = {
+        data: metrics,
+        timestamp: now
+      };
+      
       if (metrics?.reactions) {
         setReactions(metrics.reactions);
         
@@ -195,12 +235,17 @@ export default function ReactionButton({
       setRecentlyChanged(emoji);
       setTimeout(() => setRecentlyChanged(null), 1000);
 
-      // Server update
+      // Server update and invalidate client cache
       if (isRemoving) {
         const updatedMetrics = await updateBlogReaction(slug, emoji, 'remove');
         if (updatedMetrics?.reactions) {
           setReactions(updatedMetrics.reactions);
           saveUserReaction(null);
+          // Update cache
+          clientCache.current[slug] = {
+            data: updatedMetrics,
+            timestamp: Date.now()
+          };
         }
       } else {
         if (userReaction) {
@@ -210,6 +255,13 @@ export default function ReactionButton({
         if (updatedMetrics?.reactions) {
           setReactions(updatedMetrics.reactions);
           saveUserReaction(emoji);
+          // Update cache with new data
+          if (updatedMetrics) {
+            clientCache.current[slug] = {
+              data: updatedMetrics,
+              timestamp: Date.now()
+            };
+          }
         }
       }
     } catch (err) {

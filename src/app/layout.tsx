@@ -84,7 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning
-      className={cn(inter.className, "bg-background antialiased")}
+      className={cn(inter.className, "bg-background antialiased font-mono")}
       >
         <ThemeProvider
           attribute="class"
