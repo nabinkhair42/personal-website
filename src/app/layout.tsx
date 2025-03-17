@@ -9,7 +9,10 @@ import { RightClick } from "@/components/ui/ui-extend/RightClick";
 import { navigationMenuItems } from "@/constants/menu-items";
 import { Inter } from 'next/font/google'
 import { cn } from "@/lib/utils";
+import { AppProvider } from "@/components/app-provider";
 const inter = Inter({ subsets: ['latin'] })
+
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nabinkhair.com.np/"),
   title: {
@@ -86,27 +89,29 @@ export default function RootLayout({
       <body suppressHydrationWarning
       className={cn(inter.className, "bg-background antialiased font-mono")}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextTopLoader
-            showSpinner={false}
-            color="gray"
-          />
-          <RightClick
-            customMenuItems={navigationMenuItems}
+        <AppProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
           >
-            <Navbar />
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </main>
-            <Toaster richColors />
-            <Footer />
-          </RightClick>
-        </ThemeProvider>
+            <NextTopLoader
+              showSpinner={false}
+              color="gray"
+            />
+            <RightClick
+              customMenuItems={navigationMenuItems}
+            >
+              <Navbar />
+              <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+                {children}
+              </main>
+              <Toaster richColors />
+              <Footer />
+            </RightClick>
+          </ThemeProvider>
+        </AppProvider>
       </body>
     </html>
   );
