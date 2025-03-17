@@ -9,7 +9,6 @@ import { RightClick } from "@/components/ui/ui-extend/RightClick";
 import { navigationMenuItems } from "@/constants/menu-items";
 import { Inter } from 'next/font/google'
 import { cn } from "@/lib/utils";
-import { AppProvider } from "@/components/app-provider";
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -89,29 +88,27 @@ export default function RootLayout({
       <body suppressHydrationWarning
       className={cn(inter.className, "bg-background antialiased font-mono")}
       >
-        <AppProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextTopLoader
+            showSpinner={false}
+            color="gray"
+          />
+          <RightClick
+            customMenuItems={navigationMenuItems}
           >
-            <NextTopLoader
-              showSpinner={false}
-              color="gray"
-            />
-            <RightClick
-              customMenuItems={navigationMenuItems}
-            >
-              <Navbar />
-              <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-                {children}
-              </main>
-              <Toaster richColors />
-              <Footer />
-            </RightClick>
-          </ThemeProvider>
-        </AppProvider>
+            <Navbar />
+            <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+              {children}
+            </main>
+            <Toaster richColors />
+            <Footer />
+          </RightClick>
+        </ThemeProvider>
       </body>
     </html>
   );
