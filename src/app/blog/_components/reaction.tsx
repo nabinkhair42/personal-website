@@ -289,10 +289,10 @@ export default function ReactionButton({
   };
 
   return (
-    <Card className={cn("w-full max-w-2xl mx-auto !shadow-none !border-none overflow-visible", className)}>
-      <div ref={confettiRef} className="absolute inset-0 pointer-events-none" />
+    <Card className={cn("w-full max-w-2xl mx-auto !shadow-none !border-none overflow-visible !bg-transparent", className)}>
+      <div ref={confettiRef} className="absolute inset-0 pointer-events-none " />
       
-      <CardHeader className="pb-2 pt-4">
+      <CardHeader className="pb-2 pt-4 ">
         <CardTitle className="text-center text-base font-medium">{title}</CardTitle>
         {description && <CardDescription className="text-center">{description}</CardDescription>}
       </CardHeader>

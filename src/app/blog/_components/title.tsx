@@ -9,66 +9,71 @@ import ViewCounter from "./view-counter";
 import { formatDate } from "@/lib/utils";
 import { ShareButton } from "./share";
 import ReactionButton from "./reaction";
+import { AnimatedBackground } from "@/components/ui/animated-background";
 
 interface TitleProps {
-    formatter: BlogMdxFrontmatter;
-    slug: string;
-    currentURL: string;
+  formatter: BlogMdxFrontmatter;
+  slug: string;
+  currentURL: string;
 }
 
 export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
+  return (
+    <section className="relative text-center px-4 py-20 border-b border-dashed overflow-hidden">
+      {/* Add animated background */}
+      <AnimatedBackground />
+      
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 space-y-4 flex flex-col items-center"
+      >
+        <h1 className="text-4xl font-bold">{formatter.title}</h1>
+        <div className="h-1 w-20 bg-gradient-to-r from-primary to-emerald-500 rounded-full mx-auto"></div>
+        
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4" />
+            <span>{formatDate(formatter.date)}</span>
+          </div>
+        </div>
 
-    return (
-        <section className="text-center px-4 py-20 border-b border-dashed">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-4 flex flex-col items-center"
-            >
-                <h1 className="text-4xl font-bold">{formatter.title}</h1>
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
-                        <span>
-                            {formatDate(formatter.date)}
-                        </span>
-                    </div>
+        <div className="flex items-center gap-8 flex-wrap">
+          {formatter.authors.map((author) => {
+            return (
+              <Link
+                href={author.handleUrl}
+                className="flex items-center gap-4"
+                key={author.username}
+              >
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={author.avatar} />
+                  <AvatarFallback>
+                    {author.username.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="text-left">
+                  {author.username}
+                  <p className="font-code text-[13px] text-muted-foreground">
+                    @{author.handle}
+                  </p>
                 </div>
-
-                <div className="flex items-center gap-8 flex-wrap">
-                    {formatter.authors.map((author) => {
-                        return (
-                            <Link
-                                href={author.handleUrl}
-                                className="flex items-center gap-4"
-                                key={author.username}
-                            >
-                                <Avatar className="w-10 h-10">
-                                    <AvatarImage src={author.avatar} />
-                                    <AvatarFallback>
-                                        {author.username.slice(0, 2).toUpperCase()}
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div className="text-left">
-                                    {author.username}
-                                    <p className="font-code text-[13px] text-muted-foreground">
-                                        @{author.handle}
-                                    </p>
-                                </div>
-                            </Link>
-                        );
-                    })}
-                </div>
-                <div className="flex items-center gap-4"> <ViewCounter slug={slug} />
-                    <ShareButton
-                        currentURL={currentURL}
-                        formatter={formatter}
-
-                    /></div>
-                    <ReactionButton slug={slug} title="How did you find this article?"
-        description="Your feedback helps us improve our content" />
-            </motion.div>
-        </section>
-    );
+              </Link>
+            );
+          })}
+        </div>
+        <div className="flex items-center gap-4">
+          {" "}
+          <ViewCounter slug={slug} />
+          <ShareButton currentURL={currentURL} formatter={formatter} />
+        </div>
+        <ReactionButton
+          slug={slug}
+          title="How did you find this article?"
+          description="Your feedback helps us improve our content"
+        />
+      </motion.div>
+    </section>
+  );
 };

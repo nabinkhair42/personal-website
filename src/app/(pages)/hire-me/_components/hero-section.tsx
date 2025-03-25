@@ -12,19 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import { ContactForm } from "../../contact/_components/contact-form";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { AnimatedBackground } from "@/components/ui/animated-background";
 
 export const HeroSection = () => {
   return (
     <section className="relative text-center px-4 py-20 border-b border-dashed overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle gradients */}
-        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-gradient-to-r from-primary/5 to-emerald-500/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-1/3 h-1/3 bg-gradient-to-l from-blue-500/5 to-emerald-500/5 rounded-full filter blur-3xl"></div>
-
-        {/* Grid pattern with improved mask */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(120,120,120,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,120,120,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_center,black_50%,transparent_90%)]"></div>
-      </div>
+      {/* Replace static background with animated background */}
+      <AnimatedBackground />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

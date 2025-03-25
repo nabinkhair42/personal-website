@@ -8,6 +8,7 @@ import { BsFillFilePdfFill } from "react-icons/bs";
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { AnimatedBackground } from "../ui/animated-background";
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,15 +30,8 @@ export function Hero() {
 
   return (
     <div className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden">
-      {/* Background elements - keeping these as requested */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle gradients */}
-        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-gradient-to-r from-primary/5 to-emerald-500/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-1/3 h-1/3 bg-gradient-to-l from-blue-500/5 to-emerald-500/5 rounded-full filter blur-3xl"></div>
-        
-        {/* Grid pattern with improved mask - preserved as requested */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(120,120,120,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,120,120,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_center,black_50%,transparent_90%)]"></div>
-      </div>
+      {/* Replace static background with animated background */}
+      <AnimatedBackground />
 
       <div className="container relative z-10 px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
