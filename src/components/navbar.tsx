@@ -1,10 +1,9 @@
 "use client";
 
-import { ThemeToggle } from "@/components/theme-toggle";
+// import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
 import Anchor from "./anchor";
-// import { SiApacheopenoffice } from "react-icons/si";
 import MyProfileImage from "@/app/icon.png";
 import Image from "next/image";
 import { Menu, Mail } from "lucide-react";
@@ -58,7 +57,7 @@ export function Navbar() {
             <Mail className="h-4 w-4" />
             Hire Me
           </Link>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>

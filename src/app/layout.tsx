@@ -84,9 +84,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning >
       <body suppressHydrationWarning
-      className={cn(inter.className, "bg-background antialiased font-mono")}
+      className={cn(inter.className, "bg-background antialiased")}
       >
         <ThemeProvider
           attribute="class"
@@ -96,7 +96,7 @@ export default function RootLayout({
         >
           <NextTopLoader
             showSpinner={false}
-            color="gray"
+            color="green"
           />
           <RightClick
             customMenuItems={navigationMenuItems}
