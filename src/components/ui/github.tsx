@@ -1,33 +1,38 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-
 import { Activity, ActivityCalendar } from "react-activity-calendar";
 
+// Define a custom error interface for API responses
+interface ApiError {
+  error: string;
+}
+
 type GithubGraphProps = {
-  username: string;
   blockMargin?: number;
-  colorPallete?: string[];
+  colorPalette?: string[];
 };
 
 export const GithubGraph = ({
-  username,
   blockMargin,
-  colorPallete,
+  colorPalette,
 }: GithubGraphProps) => {
   const [contribution, setContribution] = useState<Activity[]>([]);
   const [loading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     try {
-      const contributions = await fetchContributionData(username);
+      const contributions = await fetchContributionData();
       setContribution(contributions);
+      setError(null);
     } catch (error) {
       console.error(error);
-      throw Error("Error fetching contribution data: ");
+      setError("Failed to load GitHub contributions");
+      setContribution([]);
     } finally {
       setIsLoading(false);
     }
-  }, [username]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -39,6 +44,7 @@ export const GithubGraph = ({
 
   return (
     <>
+      {error && <div className="text-red-500 mb-2">{error}</div>}
       <ActivityCalendar
         data={contribution}
         maxLevel={4}
@@ -46,7 +52,7 @@ export const GithubGraph = ({
         loading={loading}
         labels={label}
         theme={{
-          dark: colorPallete ?? [
+          dark: colorPalette ?? [
             "#ebedf0",
             "#9be9a8",
             "#40c463",
@@ -58,12 +64,15 @@ export const GithubGraph = ({
     </>
   );
 };
-async function fetchContributionData(username: string): Promise<Activity[]> {
-  const response = await fetch(`https://github.vineet.tech/api/${username}`);
+
+async function fetchContributionData(): Promise<Activity[]> {
+  const response = await fetch('/api/github');
   const responseBody = await response.json();
 
   if (!response.ok) {
-    throw Error("Erroring fetching contribution data");
+    const errorMessage = (responseBody as ApiError).error || "Error fetching contribution data";
+    throw new Error(errorMessage);
   }
-  return responseBody.data;
+  
+  return responseBody.data as Activity[];
 }

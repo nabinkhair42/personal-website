@@ -19,23 +19,13 @@ export function GitGraphUI() {
         className=" p-8 text-center"
       >
         <h2 className="text-3xl font-bold">
-            Building projects and working on projects
+          Building projects and working on projects
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground">
-            Love to code and working on multiple projects.
+          Love to code and working on multiple projects.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <GithubGraph
-            username="nabinkhair42"
-            blockMargin={2}
-            colorPallete={[
-              "#0d1117",
-              "#0e4429",
-              "#006d32",
-              "#26a641",
-              "#39d353",
-            ]}
-          />
+          <GithubGraph blockMargin={2} />
         </div>
       </motion.div>
     </section>

@@ -144,7 +144,7 @@ export default function ReactionButton({
       setError('Failed to load reactions');
       setLoading(false);
     }
-  }, [slug]);
+  }, [slug, CACHE_TTL]);
 
   useEffect(() => {
     loadReactions();
