@@ -60,16 +60,29 @@ export type BaseMdxFrontmatter = {
   description: string;
 };
 
+// Extract headings from markdown content for table of contents
+export function extractHeadings(content: string) {
+  const headingRegex = /^(#+)\s+(.+?)(?:\s+#+)?$/gm;
+  const headings = [];
+  let match;
 
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2].trim();
+    const id = text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+    
+    headings.push({ level, text, id });
+  }
 
-
-
+  return headings;
+}
 
 function justGetFrontmatterFromMD<Frontmatter>(rawMd: string): Frontmatter {
   return matter(rawMd).data as Frontmatter;
 }
-
-
 
 // for copying the code in pre
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -139,7 +152,9 @@ export async function getBlogForSlug(slug: string) {
   const blogFile = path.join(process.cwd(), "/src/contents/blogs/", `${slug}.mdx`);
   try {
     const rawMdx = await fs.readFile(blogFile, "utf-8");
-    return await parseMdx<BlogMdxFrontmatter>(rawMdx);
+    const { content, frontmatter } = await parseMdx<BlogMdxFrontmatter>(rawMdx);
+    const headings = extractHeadings(rawMdx);
+    return { content, frontmatter, headings };
   } catch {
     return undefined;
   }
