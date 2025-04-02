@@ -22,7 +22,7 @@ export default async function LatestBlogs() {
               Here are some of my latest blog posts where I share my thoughts, experiences, and tips on web development and programming.
             </p>
           </div>
-          <Link href="/blogs">
+          <Link href="/blog">
             <Button variant="outline" className="group">
               Explore More
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
