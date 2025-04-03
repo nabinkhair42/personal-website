@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ProjectCard } from "@/app/(pages)/projects/_components/project-card";
 
-const FEATURED_PROJECTS = ["Pira", "Receipt Vault", "AlgoDocs"];
+const FEATURED_PROJECTS = ["Civen AI", "Pira", "AlgoDocs"];
 
 export function FeaturedProjects() {
   const featuredProjects = projects.filter((project) =>

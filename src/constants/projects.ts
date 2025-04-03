@@ -16,6 +16,7 @@ import {
   SiCloudflare,
   SiGooglegemini,
   SiVercel,
+  SiPython,
 } from "react-icons/si";
 import { FaBlogger } from "react-icons/fa";
 
@@ -38,15 +39,37 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Civen AI",
+    description: "Civen AI is a platform that allows you to create AI-powered cover letters that will help you get your dream job",
+    image: "/projects/civen-ai.png",
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      { name: "Gemini AI", icon: SiGooglegemini, color: "#00ADD8" },
+    ],
+    liveUrl: "https://civen.vercel.app",
+    features: [
+      "Generate AI based Cover Letter for job application",
+      "Provide AI based Resume Review",
+      "Deployed the app on Vercel",
+      "Integrated Gemini AI for AI based features",
+    ],
+    category: "personal",
+  },
+
+  {
     title: "Pira",
     description: "A team management system with project tracking features.",
     image: "/projects/pira.png",
     technologies: [
       { name: "React", icon: SiReact, color: "#61DAFB" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "Express", icon: SiExpress},
+      { name: "Express", icon: SiExpress },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      {name: "Vercel", icon: SiVercel}
+      { name: "Vercel", icon: SiVercel },
     ],
     liveUrl: "https://pira.vercel.app",
     features: [
@@ -63,12 +86,12 @@ export const projects: Project[] = [
       "Effortlessly store and categorize your receipts. ReceiptVault is your small business partner in smart expense management.",
     image: "/projects/receiptvault.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       // express
-      { name: "Express", icon: SiExpress},
+      { name: "Express", icon: SiExpress },
     ],
     liveUrl: "https://receiptvault.co",
     features: [
@@ -85,7 +108,7 @@ export const projects: Project[] = [
       "A regional news platform for Koshi Province, offering real-time news updates and a user-friendly interface.",
     image: "/projects/birat-express.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
@@ -109,7 +132,8 @@ export const projects: Project[] = [
       { name: "Chrome Web Store", icon: SiChromewebstore, color: "#4285F4" },
       { name: "Stripe", icon: SiStripe, color: "#5167FC" },
     ],
-    liveUrl: "https://chromewebstore.google.com/detail/google-bulk-photos-delete/ejimjaolhecpjkpbfkbccbigfdmdcpom",
+    liveUrl:
+      "https://chromewebstore.google.com/detail/google-bulk-photos-delete/ejimjaolhecpjkpbfkbccbigfdmdcpom",
     features: [
       "Built a Chrome extension using JavaScript",
       "Integrated Stripe for payment processing",
@@ -128,7 +152,7 @@ export const projects: Project[] = [
       { name: "CSS", icon: SiCss3, color: "#1572B6" },
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
       { name: "jQuery", icon: SiJquery, color: "#0769AD" },
-      {name: "Blogger", icon: FaBlogger, color: "#FF8B38"}
+      { name: "Blogger", icon: FaBlogger, color: "#FF8B38" },
     ],
     liveUrl: "https://nepalieducate.com",
     features: [
@@ -145,7 +169,7 @@ export const projects: Project[] = [
       "A US based tech startup, developed the website using Next.js and Tailwind CSS, and deployed it on Cloudflare Pages.",
     image: "/projects/unclesams-tech.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "Cloudflare Workers", icon: SiCloudflare, color: "#F38020" },
@@ -164,7 +188,7 @@ export const projects: Project[] = [
       "A web application that helps users calculate Bitcoin values based on the latest market rates. It provides an intuitive interface for tracking and converting Bitcoin amounts.",
     image: "/projects/trackyourbtc.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
     ],
@@ -176,18 +200,17 @@ export const projects: Project[] = [
       "Deployed the app on Vercel for seamless performance and scalability.",
     ],
     category: "client",
-  },  
+  },
   {
     title: "Predict My Fitness",
     description:
       "A fitness tracking and prediction platform offering personalized workout plans.",
     image: "/projects/predictmyfitness.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
       { name: "Gemini AI", icon: SiGooglegemini, color: "#00ADD8" },
-
     ],
     liveUrl: "https://predictmyfitness.com",
     features: [
@@ -205,12 +228,11 @@ export const projects: Project[] = [
       "A vehicle inspection automation platform for streamlined processes.",
     image: "/projects/autoinspector.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
-      {name: "Express", icon: SiExpress, color: "#000000"},
-      {name: "Vercel", icon: SiVercel}
-
+      { name: "Express", icon: SiExpress, color: "#000000" },
+      { name: "Vercel", icon: SiVercel },
     ],
     liveUrl: "https://autoinspector.com.au",
     features: [
@@ -226,10 +248,10 @@ export const projects: Project[] = [
     description: "A documentation platform for algorithms and data structures.",
     image: "/projects/algodocs.png",
     technologies: [
-      { name: "Next.js", icon: SiNextdotjs},
+      { name: "Next.js", icon: SiNextdotjs },
       { name: "MDX", icon: SiMdx, color: "#ffca28" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      {name: "Vercel", icon: SiVercel}
+      { name: "Vercel", icon: SiVercel },
     ],
     liveUrl: "https://algodocs.dev",
     features: [
@@ -239,5 +261,5 @@ export const projects: Project[] = [
       "Documented algorithms with MDX",
     ],
     category: "personal",
-  }
+  },
 ];
