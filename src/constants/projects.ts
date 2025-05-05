@@ -17,10 +17,9 @@ import {
   SiGooglegemini,
   SiVercel,
   SiPython,
+  SiJson,
 } from "react-icons/si";
 import { FaBlogger } from "react-icons/fa";
-import LogoComponent from "./logo";
-
 interface Technology {
   name: string;
   icon: IconType;
@@ -40,6 +39,20 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "V Themes",
+    description:
+      "A professionally crafted color theme based on advanced color theory principles, designed to reduce eye strain and enhance code readability during long coding sessions",
+    image: "/projects/vthemes.png",
+    technologies: [
+      {
+        name: "JSON",
+        icon: SiJson,
+      },
+    ],
+    features: ["Implemented design principle and color theory."],
+    category: "personal",
+  },
+  {
     liveUrl: "https://promcp.vercel.app",
     title: "Pro MCP",
     description:
@@ -51,7 +64,9 @@ export const projects: Project[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
     ],
-    features: [],
+    features: [
+      "Build Custom Backend Service for onboarding every single MCPs.",
+    ],
     category: "personal",
   },
   {
