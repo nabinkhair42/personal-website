@@ -19,6 +19,7 @@ import {
   SiPython,
 } from "react-icons/si";
 import { FaBlogger } from "react-icons/fa";
+import LogoComponent from "./logo";
 
 interface Technology {
   name: string;
@@ -39,8 +40,24 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    liveUrl: "https://promcp.vercel.app",
+    title: "Pro MCP",
+    description:
+      "Discover more than 4k+ protocol-compliant MCP servers to enhance your AI applications with external data and tools.",
+    image: "/projects/pro-mcp.png",
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
+    ],
+    features: [],
+    category: "personal",
+  },
+  {
     title: "Civen AI",
-    description: "Civen AI is a platform that allows you to create AI-powered cover letters that will help you get your dream job",
+    description:
+      "Civen AI is a platform that allows you to create AI-powered cover letters that will help you get your dream job",
     image: "/projects/civen-ai.png",
     technologies: [
       { name: "Next.js", icon: SiNextdotjs },
