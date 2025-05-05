@@ -261,26 +261,26 @@ export const projects: Project[] = [
     ],
     category: "client",
   },
-  {
-    title: "Predict My Fitness",
-    description:
-      "A fitness tracking and prediction platform offering personalized workout plans.",
-    image: "/projects/predictmyfitness.png",
-    technologies: [
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
-      { name: "Gemini AI", icon: SiGooglegemini, color: "#00ADD8" },
-    ],
-    liveUrl: "https://predictmyfitness.com",
-    features: [
-      "Implemented AI-powered analytics for progress tracking",
-      "Developed a system for personalized workout plans",
-      "Built dashboards to visualize user performance metrics",
-      "Integrated responsive UI for a seamless experience",
-    ],
-    category: "client",
-  },
+  // {
+  //   title: "Predict My Fitness",
+  //   description:
+  //     "A fitness tracking and prediction platform offering personalized workout plans.",
+  //   image: "/projects/predictmyfitness.png",
+  //   technologies: [
+  //     { name: "Next.js", icon: SiNextdotjs },
+  //     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+  //     { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
+  //     { name: "Gemini AI", icon: SiGooglegemini, color: "#00ADD8" },
+  //   ],
+  //   liveUrl: "https://predictmyfitness.com",
+  //   features: [
+  //     "Implemented AI-powered analytics for progress tracking",
+  //     "Developed a system for personalized workout plans",
+  //     "Built dashboards to visualize user performance metrics",
+  //     "Integrated responsive UI for a seamless experience",
+  //   ],
+  //   category: "client",
+  // },
 
   {
     title: "Auto Inspector",
