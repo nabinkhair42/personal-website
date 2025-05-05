@@ -18,6 +18,8 @@ import {
   SiVercel,
   SiPython,
   SiJson,
+  SiNodedotjs,
+  SiAwslambda,
 } from "react-icons/si";
 import { FaBlogger } from "react-icons/fa";
 interface Technology {
@@ -39,6 +41,31 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "JuJu",
+    description:
+      "Juju is where creativity comes alive. Share your moments, express yourself, and be part of a vibrant community that celebrates originality. ",
+    image: "/projects/juju.png",
+    technologies: [
+      { name: "Express Js", icon: SiExpress },
+      {
+        name: "Node Js",
+        icon: SiNodedotjs,
+      },
+      { name: "AWS", icon: SiAwslambda },
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "TypeScript", icon: SiTypescript, color: "#007ACC" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    ],
+    features: [
+      "Builded APIs for the mobile App.",
+      "Deployed the entire project using AWS",
+      "Designed entire APP UI and written the web version of app using Next.Js",
+    ],
+    category: "client",
+    liveUrl: "https://jujuconnect.com",
+  },
+  {
     title: "V Themes",
     description:
       "A professionally crafted color theme based on advanced color theory principles, designed to reduce eye strain and enhance code readability during long coding sessions",
@@ -50,6 +77,7 @@ export const projects: Project[] = [
       },
     ],
     features: ["Implemented design principle and color theory."],
+    liveUrl: "https://vthemes.nabinkhair.com.np/",
     category: "personal",
   },
   {
