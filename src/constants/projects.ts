@@ -42,8 +42,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "",
-    description: "",
+    title: "Apex UI",
+    description: "Fully customizable templates to craft modern websites and apps exactly as you envision them.",
     image: "/projects/apex-ui.png",
     technologies: [
       { name: "Next.js", icon: SiNextdotjs },
