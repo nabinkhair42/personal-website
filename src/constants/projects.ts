@@ -22,6 +22,7 @@ import {
   SiAwslambda,
 } from "react-icons/si";
 import { FaBlogger } from "react-icons/fa";
+import { TbBrandFramerMotion } from "react-icons/tb";
 interface Technology {
   name: string;
   icon: IconType;
@@ -40,6 +41,24 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    title: "",
+    description: "",
+    image: "/projects/apex-ui.png",
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs },
+      {name: "React.js", icon:SiReact},
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      {name: "Framer Motion", icon:TbBrandFramerMotion}
+    ],
+    features: [
+
+      "Build multiple web app templates on React and Next.Js",
+      "Designed entire app and build using React and Next.js"
+
+    ],
+    category: "client"
+  },
   {
     title: "JuJu",
     description:
