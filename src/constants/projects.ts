@@ -57,7 +57,8 @@ export const projects: Project[] = [
       "Designed entire app and build using React and Next.js"
 
     ],
-    category: "client"
+    category: "client",
+    liveUrl:"https://apexui.dev/"
   },
   {
     title: "JuJu",
