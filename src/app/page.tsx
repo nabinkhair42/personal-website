@@ -22,60 +22,43 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main content wrapper with enhanced borders */}
-      <div className="relative max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm">
-        {/* Subtle inner geometric pattern */}
-        <div className="absolute inset-0 opacity-[0.01] dark:opacity-[0.015] pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
-          <div className="absolute top-0 right-1/4 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
-          <div className="absolute top-0 left-1/2 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
-        </div>
-
-        {/* Landing sections with enhanced spacing */}
+      {/* Remove the constraining wrapper - let components handle their own containers */}
+      <div className="relative w-full">
+        {/* Landing sections with full-width potential */}
         <div className="relative z-10">
           <Hero />
           
           {/* Section divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div>
+          <div className="relative flex items-center justify-center py-4">
+            <div className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           
           <FeaturedProjects />
           
           {/* Section divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div>
+          <div className="relative flex items-center justify-center py-4">
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           
           <SkillsOverview />
           
           {/* Section divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-10 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div>
+          <div className="relative flex items-center justify-center py-4">
+            <div className="w-10 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           
           <GitGraphUI />
           
           {/* Section divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div>
+          <div className="relative flex items-center justify-center py-4">
+            <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           
           <LatestBlogs />
           
           {/* Section divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-4 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div>
+          <div className="relative flex items-center justify-center py-4">
+            <div className="w-4 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           
           <ContactCTA />
