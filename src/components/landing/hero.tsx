@@ -1,30 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, PenTool, Star } from "lucide-react";
+import { PenTool, Star } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { BsFillFilePdfFill } from "react-icons/bs";
 import { FaArrowRight } from "react-icons/fa";
-import Image from "next/image";
 
 export function Hero() {
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
   
-  const clickToScroll = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: "smooth",
-    });
-  };
+  // const clickToScroll = () => {
+  //   window.scrollTo({
+  //     top: window.innerHeight,
+  //     behavior: "smooth",
+  //   });
+  // };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 100);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
     <section className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
@@ -51,8 +50,8 @@ export function Hero() {
             {/* Status indicator */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 w-fit animate-in fade-in duration-700 delay-200">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
               <span className="text-xs font-mono tracking-wider uppercase text-zinc-700 dark:text-zinc-300">Open to Work & Collaborations</span>
             </div>
@@ -154,7 +153,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator
       <div 
         className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer transition-opacity duration-300 ${scrolled ? 'opacity-0' : 'opacity-100'}`}
         onClick={clickToScroll}
@@ -163,7 +162,7 @@ export function Hero() {
           <span className="text-sm font-mono uppercase tracking-wide">View My Work</span>
           <ChevronDown className="h-5 w-5" />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

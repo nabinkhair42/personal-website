@@ -80,7 +80,7 @@ export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
                 <div className="font-light text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors duration-300">
                   {author.username}
                 </div>
-                <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
+                <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 lowercase tracking-wide">
                   @{author.handle}
                 </div>
               </div>

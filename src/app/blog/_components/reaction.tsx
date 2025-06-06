@@ -274,7 +274,7 @@ export default function ReactionButton({
   };
 
   return (
-    <Card className={cn("w-full max-w-2xl mx-auto border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900", className)}>
+    <Card className={cn("w-full max-w-2xl mx-auto border  border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 rounded-none border-none shadow-none", className)}>
       <div ref={confettiRef} className="absolute inset-0 pointer-events-none" />
       
       <CardHeader className="pb-4 pt-6">

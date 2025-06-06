@@ -33,7 +33,7 @@ export default function Pre({
 
         {/* Copy button */}
         {raw && (
-          <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute top-0 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Copy content={raw} />
           </div>
         )}
@@ -41,7 +41,7 @@ export default function Pre({
         {/* Code content */}
         <div className="relative overflow-auto">
           <pre 
-            className="p-4 text-sm font-mono leading-relaxed text-zinc-800 dark:text-zinc-200 bg-transparent overflow-x-auto"
+            className="p-4 text-sm font-mono leading-relaxed text-zinc-800 dark:text-zinc-200 bg-transparent overflow-x-auto border-none rounded-none"
             {...rest}
           >
             {children}

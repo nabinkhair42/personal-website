@@ -142,9 +142,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                   <ExternalLink className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
                 </Link>
               )}
-              {project.githubUrl && (
+              {project.demoUrl && (
                 <Link
-                  href={project.githubUrl}
+                  href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-300"

@@ -81,7 +81,7 @@ export default async function BlogPage(props: PageProps) {
         <div className="relative z-10 max-w-6xl mx-auto">
           {/* Article Cover Image with enhanced styling */}
           <div className="w-full mb-16 relative animate-in fade-in duration-700 group">
-            <div className="relative overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="relative overflow-hidden rounded-none border border-zinc-200 dark:border-zinc-800 shadow-sm">
               <Image
                 src={frontmatter.cover}
                 alt={frontmatter.title}
