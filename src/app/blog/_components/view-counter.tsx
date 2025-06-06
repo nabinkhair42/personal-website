@@ -43,13 +43,18 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
   }, [slug]);
 
   return (
-    <div className={cn("flex items-center gap-2 text-muted-foreground", className)}>
+    <div className={cn("flex items-center gap-2 text-zinc-600 dark:text-zinc-400 animate-in fade-in duration-500", className)}>
       {loading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <>
+          <Loader2 className="h-4 w-4 animate-spin" />
+          <span className="font-mono text-sm">Loading...</span>
+        </>
       ) : (
         <>
           <Eye className="h-4 w-4" />
-          <span>{metrics.views.toLocaleString()} views</span>
+          <span className="font-mono text-sm">
+            {metrics.views.toLocaleString()} view{metrics.views !== 1 ? 's' : ''}
+          </span>
         </>
       )}
     </div>

@@ -1,80 +1,89 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { skills } from "@/constants/about";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { myTechnologies } from "@/constants/technologies";
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState(skills[0].category);
-
   return (
-    <section className="py-20 border-b border-dashed px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="space-y-12"
-      >
-        <div className="flex items-start justify-center flex-wrap gap-4">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Skills & Technologies</h2>
-            <p className="text-muted-foreground">
-              Technologies I work with on a daily basis
-            </p>
+    <section className="relative px-6 py-20 bg-white dark:bg-zinc-950">
+      {/* Minimal geometric pattern */}
+      <div className="absolute inset-0 opacity-3 dark:opacity-5">
+        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+            <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+              Technical Skills
+            </span>
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
+          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+            Technologies I
+            <br />
+            <span className="font-serif italic">Work With</span>
+          </h2>
         </div>
 
-        <div className="flex flex-wrap gap-4 w-full items-center justify-center">
-          {skills.map((category) => (
-            <div key={category.category}>
-              <Button
-                variant={activeCategory === category.category ? "default" : "outline"}
-                onClick={() => setActiveCategory(category.category)}
-                className={`px-4 py-2 text-sm font-medium transition-all duration-300 ${activeCategory === category.category
-                  ? "bg-foreground text-background shadow-lg"
-                  : "bg-muted hover:bg-muted/80 text-muted-foreground"
-                  }`}
-              >
-                {category.category}
-              </Button></div>
+        {/* Skills Grid */}
+        <div className="space-y-12">
+          {myTechnologies.map((category: typeof myTechnologies[number], categoryIndex:number) => (
+            <div
+              key={category.category}
+              className="animate-in fade-in duration-700 slide-in-from-bottom-4"
+              style={{ animationDelay: `${categoryIndex * 200}ms` }}
+            >
+              {/* Category Header */}
+              <div className="flex items-center gap-4 mb-8">
+                <h3 className="text-xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
+                  {category.category}
+                </h3>
+                <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800"></div>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400 font-mono uppercase tracking-wide">
+                  {category.technologies.length} Skills
+                </span>
+              </div>
+
+              {/* Technologies Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {category.technologies.map((tech: typeof category.technologies[number], techIndex:number) => (
+                  <div
+                    key={tech.name}
+                    className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-500"
+                    style={{ animationDelay: `${(categoryIndex * 200) + (techIndex * 50)}ms` }}
+                  >
+                    {/* Minimal geometric pattern */}
+                    <div className="absolute inset-0 opacity-5 dark:opacity-10">
+                      <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+                      <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+                    </div>
+
+                    <div className="relative p-4 text-center">
+                      {/* Tech Icon */}
+                      <div className="flex items-center justify-center mb-3">
+                        <tech.icon
+                          className="w-8 h-8 group-hover:scale-110 transition-transform duration-300"
+                          style={{ color: tech.color }}
+                        />
+                      </div>
+
+                      {/* Tech Name */}
+                      <h4 className="text-xs text-zinc-700 dark:text-zinc-300 font-light group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors duration-300">
+                        {tech.name}
+                      </h4>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
-
-        <motion.div
-          layout
-          className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-        >
-          {skills
-            .find((cat) => cat.category === activeCategory)
-            ?.skills.map((skill, index) => (
-              <motion.div
-                layout
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="group flex flex-col items-center gap-3"
-              >
-                <div
-                  style={{
-                    '--hover-color': skill.color || '#666'
-                  } as React.CSSProperties}
-                  className="flex h-20 w-20 items-center justify-center rounded-2xl bg-card hover:shadow-lg ring-1 ring-border/50 transition-all duration-300 hover:ring-2 hover:ring-[var(--hover-color)] group-hover:shadow-[var(--hover-color)]/20"
-                >
-                  <skill.icon
-                    style={{ color: skill.color }}
-                    className="h-10 w-10 transition-all duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <span className="text-base font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                  {skill.name}
-                </span>
-              </motion.div>
-            ))}
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };

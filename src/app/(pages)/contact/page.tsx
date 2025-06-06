@@ -7,14 +7,23 @@ export const metadata = contactMetadata;
 
 export default function ContactPage() {
   return (
-    <main className="max-w-5xl flex flex-col justify-center mx-auto border-l border-r border-dashed">
-      <ContactHero />
-      <div className="grid gap-12 md:grid-cols-[1fr,1.5fr] md:gap-8 lg:gap-12">
-        <div className="order-last md:order-first">
-        <ContactInfo />
-        </div>
-        <ContactForm />
+    <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+      <div className="relative">
+        {/* Main Container with Architectural Grid */}
+        <main className="max-w-5xl mx-auto border-l border-r border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+          <ContactHero />
+          <div className="grid gap-0 md:grid-cols-[1fr,1.5fr]">
+            <div className="order-last md:order-first">
+              <ContactInfo />
+            </div>
+            <ContactForm />
+          </div>
+        </main>
+
+        {/* Subtle Side Elements */}
+        <div className="absolute top-0 left-0 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
       </div>
-    </main>
+    </div>
   );
 }

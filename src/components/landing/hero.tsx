@@ -6,9 +6,7 @@ import { ChevronDown, PenTool, Star } from "lucide-react";
 import Link from "next/link";
 import { BsFillFilePdfFill } from "react-icons/bs";
 import { FaArrowRight } from "react-icons/fa";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { AnimatedBackground } from "../ui/animated-background";
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,156 +27,143 @@ export function Hero() {
   }, []);
 
   return (
-    <div className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden">
-      {/* Replace static background with animated background */}
-      <AnimatedBackground />
+    <section className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+      {/* Minimal geometric pattern */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      </div>
 
-      <div className="container relative z-10 px-4 md:px-6">
+      {/* Subtle horizontal lines */}
+      <div className="absolute inset-0 opacity-3 dark:opacity-5">
+        <div className="absolute top-1/4 left-0 w-full h-px bg-current"></div>
+        <div className="absolute bottom-1/4 left-0 w-full h-px bg-current"></div>
+      </div>
+
+      <div className="container relative z-10 px-4 md:px-6 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col gap-8"
-          >
+          <div className="flex flex-col gap-8 animate-in fade-in duration-1000 slide-in-from-bottom-4">
             {/* Status indicator */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/30 dark:to-emerald-900/30 border border-emerald-200 dark:border-emerald-800 w-fit">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 w-fit animate-in fade-in duration-700 delay-200">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-500"></span>
               </span>
-              <span className="text-xs font-medium text-emerald-800 dark:text-emerald-400">Open to Work & Collaborations</span>
+              <span className="text-xs font-mono tracking-wider uppercase text-zinc-700 dark:text-zinc-300">Open to Work & Collaborations</span>
             </div>
             
-            {/* Enhanced developer profile section */}
-            <div className="space-y-3">
-              {/* <div className="flex items-center space-x-2">
-                <span className="px-2.5 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-md">Junior</span>
-                <h2 className="text-lg font-medium text-muted-foreground">Full Stack Developer</h2>
-              </div> */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Nabin Khair
-              </h1>
-              <div className="h-1 w-20 bg-gradient-to-r from-primary to-emerald-500 rounded-full"></div>
+            {/* Main heading */}
+            <div className="space-y-6 animate-in fade-in duration-700 delay-300">
+              <div>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight">
+                  Nabin
+                  <br />
+                  <span className="font-serif italic">Khair</span>
+                </h1>
+                <div className="w-20 h-px bg-zinc-900 dark:bg-zinc-100 mt-6"></div>
+              </div>
             </div>
             
-            {/* Enhanced professional introduction */}
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-            I&apos;m a Full-Stack Developer specializing in scalable web applications with Next.js, TypeScript, and cloud platforms. I blend technical expertise with UX-focused design to build high-performance, impactful solutions.
+            {/* Professional introduction */}
+            <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-xl animate-in fade-in duration-700 delay-400">
+              Full-Stack Developer specializing in scalable web applications with Next.js, TypeScript, and cloud platforms. I blend technical expertise with UX-focused design to build high-performance, impactful solutions.
             </p>
             
-            {/* Experience and specialization with Lucide icons */}
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-2">
-                <div className="bg-primary/10 rounded-full p-1.5">
-                  <PenTool className="h-4 w-4 text-primary" />
+            {/* Experience cards */}
+            <div className="flex flex-col gap-4 animate-in fade-in duration-700 delay-500">
+              <div className="flex items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+                <div className="p-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                  <PenTool className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-sm text-muted-foreground">Experience</span>
-                  <span className="font-medium">2+ years in Web development</span>
+                <div className="flex-1">
+                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">Experience</div>
+                  <div className="font-light text-zinc-900 dark:text-zinc-100">2+ years in Web development</div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2">
-                <div className="bg-primary/10 rounded-full p-1.5">
-                  <Star className="h-4 w-4 text-primary" />
+              <div className="flex items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+                <div className="p-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                  <Star className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-sm text-muted-foreground">Specialization</span>
-                  <span className="font-medium">Modern web architecture & UI/UX</span>
+                <div className="flex-1">
+                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">Specialization</div>
+                  <div className="font-light text-zinc-900 dark:text-zinc-100">Modern web architecture & UI/UX</div>
                 </div>
               </div>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in duration-700 delay-600">
               <Link href="/hire-me">
-                <Button
-                  size="lg"
-                  className="group px-5 py-6 bg-primary hover:bg-primary/90 shadow-md font-medium text-lg w-full sm:w-auto"
-                >
+                <Button className="group px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 font-mono text-sm uppercase tracking-wider transition-all duration-300 w-full sm:w-auto">
                   <span className="flex items-center gap-2">
                     Let&apos;s Collaborate
-                    <FaArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <FaArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
                 </Button>
               </Link>
               <Link href="/nkhair.cv.pdf" target="_blank" download>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="px-5 py-6 border-2 hover:bg-muted/20 shadow-md font-medium text-lg w-full sm:w-auto"
-                >
-                  <BsFillFilePdfFill className="h-5 w-5 mr-2" />
+                <Button variant="outline" className="px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300 w-full sm:w-auto">
+                  <BsFillFilePdfFill className="h-4 w-4 mr-2" />
                   Download Resume
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </div>
           
-          {/* Right Column - Image with redesigned styling */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative hidden lg:flex items-center justify-center"
-          >
+          {/* Right Column - Image */}
+          <div className="relative hidden lg:flex items-center justify-center animate-in fade-in duration-1000 delay-400 slide-in-from-bottom-4">
             <div className="relative">
-              {/* Soft glow behind image instead of a border */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/5 to-emerald-500/5 rounded-full filter blur-xl -z-10"></div>
+              {/* Geometric background elements */}
+              <div className="absolute -inset-8 opacity-20 dark:opacity-30">
+                <div className="absolute top-0 left-0 w-4 h-4 border border-zinc-400 dark:border-zinc-600 rotate-45"></div>
+                <div className="absolute top-0 right-0 w-6 h-6 border border-zinc-400 dark:border-zinc-600"></div>
+                <div className="absolute bottom-0 left-0 w-6 h-6 border border-zinc-400 dark:border-zinc-600"></div>
+                <div className="absolute bottom-0 right-0 w-4 h-4 border border-zinc-400 dark:border-zinc-600 rotate-45"></div>
+              </div>
               
-              {/* Clean image without border */}
-              <div className="relative overflow-hidden rounded-full shadow-xl">
+              {/* Main image */}
+              <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800">
                 <Image
                   src="/nabin.png"
                   alt="Nabin Khair"
                   width={380}
                   height={380}
-                  className="object-cover"
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   priority
                 />
               </div>
               
-              {/* Subtle gradient overlays for depth */}
-              <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-emerald-500/10 filter blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-28 h-28 rounded-full bg-primary/10 filter blur-2xl"></div>
-              
-              {/* Professional badges - repositioned */}
-              <div className="absolute top-5 -left-6 bg-card rounded-full py-1.5 px-3 shadow-lg border border-border flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span className="text-xs font-medium">Frontend Architect</span>
+              {/* Professional badges */}
+              <div className="absolute top-4 -left-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
+                <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
+                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">Frontend</span>
               </div>
               
-              <div className="absolute bottom-5 -right-6 bg-card rounded-full py-1.5 px-3 shadow-lg border border-border flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-medium">Backend Developer</span>
+              <div className="absolute bottom-4 -right-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
+                <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
+                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">Backend</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrolled ? 0 : 1 }}
-        transition={{ duration: 0.3 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+      <div 
+        className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer transition-opacity duration-300 ${scrolled ? 'opacity-0' : 'opacity-100'}`}
         onClick={clickToScroll}
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            repeat: Infinity,
-            duration: 1.5,
-          }}
-          className="flex flex-col items-center gap-2 text-muted-foreground"
-        >
-          <span className="text-sm font-medium">View My Work</span>
+        <div className="flex flex-col items-center gap-2 text-zinc-600 dark:text-zinc-400 animate-bounce">
+          <span className="text-sm font-mono uppercase tracking-wide">View My Work</span>
           <ChevronDown className="h-5 w-5" />
-        </motion.div>
-      </motion.div>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 }

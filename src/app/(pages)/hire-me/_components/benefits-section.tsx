@@ -1,42 +1,73 @@
 "use client";
 
 import { benefits } from "@/constants/hire";
-import { motion } from "framer-motion";
 
 export const BenefitsSection = () => {
   return (
-    <section className="px-4 py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-center text-3xl font-bold">Why Choose Me</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <section className="relative px-6 py-20 bg-zinc-50 dark:bg-zinc-900">
+      {/* Minimal geometric pattern */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+            <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+              Why Choose Me
+            </span>
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+            What You Get
+            <br />
+            <span className="font-serif italic">Working With Me</span>
+          </h2>
+        </div>
+
+        {/* Benefits Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
-              <motion.div
+              <div
                 key={benefit.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-4 rounded-2xl bg-card p-6 shadow-lg ring-1 ring-border/50"
+                className="group relative overflow-hidden bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-700 slide-in-from-bottom-4"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="rounded-xl bg-primary/10 p-3 text-primary">
-                  <Icon className="h-5 w-5" />
+                {/* Minimal geometric pattern */}
+                <div className="absolute inset-0 opacity-5 dark:opacity-10">
+                  <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+                  <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
                 </div>
-                <div>
-                  <h3 className="mb-2 font-semibold">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+
+                <div className="relative p-6">
+                  {/* Icon */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-3 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 group-hover:border-zinc-300 dark:group-hover:border-zinc-600 transition-colors duration-300">
+                      <Icon className="w-5 h-5 text-zinc-700 dark:text-zinc-300" />
+                    </div>
+                    <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700 group-hover:w-10 transition-all duration-300"></div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-lg font-light text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors duration-300">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

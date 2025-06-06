@@ -10,7 +10,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, Info, TrendingUp, Users } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -36,20 +35,6 @@ const EMOJI_LIST = [
 ];
 
 const STORAGE_KEY = 'blog-reactions';
-
-const emojiButtonVariants = {
-  initial: { scale: 0.8, opacity: 0 },
-  animate: { scale: 1, opacity: 1 },
-  exit: { scale: 0.8, opacity: 0 },
-  hover: { scale: 1.1 },
-  tap: { scale: 0.95 }
-};
-
-const countVariants = {
-  initial: { opacity: 0, y: -5 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 5 }
-};
 
 export default function ReactionButton({ 
   slug, 
@@ -277,7 +262,7 @@ export default function ReactionButton({
 
   // Get emoji info by emoji character
   const getEmojiInfo = (emoji: string) => {
-    return EMOJI_LIST.find(item => item.emoji === emoji) || { emoji, label: emoji, color: 'bg-gray-50 dark:bg-gray-900' };
+    return EMOJI_LIST.find(item => item.emoji === emoji) || { emoji, label: emoji, color: 'bg-zinc-50 dark:bg-zinc-900' };
   };
 
   // Keyboard navigation
@@ -289,17 +274,23 @@ export default function ReactionButton({
   };
 
   return (
-    <Card className={cn("w-full max-w-2xl mx-auto !shadow-none !border-none overflow-visible !bg-transparent", className)}>
-      <div ref={confettiRef} className="absolute inset-0 pointer-events-none " />
+    <Card className={cn("w-full max-w-2xl mx-auto border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900", className)}>
+      <div ref={confettiRef} className="absolute inset-0 pointer-events-none" />
       
-      <CardHeader className="pb-2 pt-4 ">
-        <CardTitle className="text-center text-base font-medium">{title}</CardTitle>
-        {description && <CardDescription className="text-center">{description}</CardDescription>}
+      <CardHeader className="pb-4 pt-6">
+        <CardTitle className="text-center text-lg font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
+          {title}
+        </CardTitle>
+        {description && (
+          <CardDescription className="text-center text-zinc-600 dark:text-zinc-400 font-light">
+            {description}
+          </CardDescription>
+        )}
       </CardHeader>
       
-      <CardContent className="pb-4 pt-2">
+      <CardContent className="pb-6">
         {error && (
-          <Alert variant="destructive" className="mb-4">
+          <Alert variant="destructive" className="mb-4 border-red-200 dark:border-red-800">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>{error}</AlertDescription>
           </Alert>
@@ -308,130 +299,94 @@ export default function ReactionButton({
         {loading ? (
           <div className="flex flex-wrap gap-3 justify-center">
             {EMOJI_LIST.map((_, index) => (
-              <Skeleton key={index} className="h-10 w-20 rounded-md" />
+              <Skeleton key={index} className="h-12 w-20 bg-zinc-200 dark:bg-zinc-800" />
             ))}
           </div>
         ) : (
           <TooltipProvider delayDuration={200}>
             <div className="flex flex-wrap gap-3 justify-center">
-              <AnimatePresence>
-                {EMOJI_LIST.map(({ emoji, label, color }) => {
-                  const count = reactions[emoji] || 0;
-                  const isActive = userReaction === emoji;
-                  const isProcessing = activeEmoji === emoji;
-                  const isRecentlyChanged = recentlyChanged === emoji;
-                  
-                  return (
-                    <motion.div
-                      key={emoji}
-                      variants={emojiButtonVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      whileHover="hover"
-                      whileTap="tap"
-                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                      className="relative"
-                    >
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button
-                            variant={isActive ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => handleReaction(emoji)}
-                            onKeyDown={(e) => handleKeyDown(e, emoji)}
-                            disabled={!!activeEmoji}
-                            className={cn(
-                              "min-w-[5rem] h-10 transition-all duration-300 relative overflow-hidden",
-                              isActive && "shadow-md",
-                              isProcessing && "animate-pulse",
-                              isActive && color
-                            )}
-                          >
-                            <span className={cn(
-                              "text-xl mr-2 transition-transform duration-300",
-                              isRecentlyChanged && "animate-bounce"
-                            )}>
-                              {emoji}
-                            </span>
-                            <AnimatePresence mode="wait">
-                              <motion.span
-                                key={`${emoji}-${count}`}
-                                variants={countVariants}
-                                initial="initial"
-                                animate="animate"
-                                exit="exit"
-                                className={cn(
-                                  "text-sm font-medium text-muted-foreground",
-                                  
-                                )}
-                              >
-                                {count > 0 ? count : ''}
-                              </motion.span>
-                            </AnimatePresence>
-                            <span className="sr-only">{label}</span>
-                            
-                            {isActive && (
-                              <motion.div 
-                                className="absolute inset-0 bg-primary/10 rounded-md"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                              />
-                            )}
-                            
-                            {/* Ripple effect on click */}
-                            {isRecentlyChanged && (
-                              <motion.div
-                                className="absolute inset-0 bg-primary/20 rounded-full"
-                                initial={{ scale: 0, opacity: 1 }}
-                                animate={{ scale: 2, opacity: 0 }}
-                                transition={{ duration: 0.5 }}
-                              />
-                            )}
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="font-medium">
-                          {label}
-                        </TooltipContent>
-                      </Tooltip>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
+              {EMOJI_LIST.map(({ emoji, label }) => {
+                const count = reactions[emoji] || 0;
+                const isActive = userReaction === emoji;
+                const isProcessing = activeEmoji === emoji;
+                const isRecentlyChanged = recentlyChanged === emoji;
+                
+                return (
+                  <div
+                    key={emoji}
+                    className={cn(
+                      "animate-in fade-in duration-500 slide-in-from-bottom-2",
+                      isRecentlyChanged && "animate-bounce"
+                    )}
+                  >
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant={isActive ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => handleReaction(emoji)}
+                          onKeyDown={(e) => handleKeyDown(e, emoji)}
+                          disabled={!!activeEmoji}
+                          className={cn(
+                            "min-w-[5rem] h-12 transition-all duration-300 relative overflow-hidden",
+                            "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700",
+                            "hover:border-zinc-300 dark:hover:border-zinc-600",
+                            isActive && "bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 border-zinc-900 dark:border-zinc-100",
+                            isProcessing && "animate-pulse"
+                          )}
+                        >
+                          <span className="text-xl mr-2">
+                            {emoji}
+                          </span>
+                          <span className="text-sm font-mono">
+                            {count > 0 ? count : ''}
+                          </span>
+                          <span className="sr-only">{label}</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="font-mono text-xs uppercase tracking-wide">
+                        {label}
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                );
+              })}
             </div>
           </TooltipProvider>
         )}
       </CardContent>
       
       {showStats && !loading && totalReactions > 0 && (
-        <CardFooter className="pt-0 pb-4 flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-muted-foreground">
+        <CardFooter className="pt-0 pb-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
           <HoverCard>
             <HoverCardTrigger asChild>
-              <div className="flex items-center gap-1 cursor-help">
-                <Users className="h-3.5 w-3.5" />
-                <span>{totalReactions} {totalReactions === 1 ? 'reaction' : 'reactions'}</span>
-                <Info className="h-3 w-3 ml-0.5 text-muted-foreground/70" />
+              <div className="flex items-center gap-2 cursor-help">
+                <Users className="h-4 w-4" />
+                <span className="font-mono">
+                  {totalReactions} {totalReactions === 1 ? 'reaction' : 'reactions'}
+                </span>
+                <Info className="h-3 w-3" />
               </div>
             </HoverCardTrigger>
-            <HoverCardContent className="w-80 p-4">
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold">Reaction Summary</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {EMOJI_LIST.map(({ emoji }) => {
+            <HoverCardContent className="w-80 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+              <div className="space-y-3">
+                <h4 className="text-sm font-light text-zinc-900 dark:text-zinc-100">Reaction Summary</h4>
+                <div className="space-y-2">
+                  {EMOJI_LIST.map(({ emoji, label }) => {
                     const count = reactions[emoji] || 0;
                     if (count === 0) return null;
                     
                     return (
-                      <div key={emoji} className="flex items-center gap-2">
+                      <div key={emoji} className="flex items-center gap-3">
                         <span className="text-base">{emoji}</span>
-                        <div className="w-full bg-muted rounded-full h-2">
+                        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400 min-w-[60px]">{label}</span>
+                        <div className="flex-1 h-2 bg-zinc-200 dark:bg-zinc-800">
                           <div 
-                            className="bg-primary h-2 rounded-full" 
-                            style={{ width: `${Math.max(5, (count / totalReactions) * 100)}%` }} 
+                            className="h-2 bg-zinc-900 dark:bg-zinc-100" 
+                            style={{ width: `${Math.max(10, (count / totalReactions) * 100)}%` }} 
                           />
                         </div>
-                        <span className="text-xs font-medium">{count}</span>
+                        <span className="text-xs font-mono min-w-[20px]">{count}</span>
                       </div>
                     );
                   })}
@@ -441,10 +396,10 @@ export default function ReactionButton({
           </HoverCard>
           
           {topReaction && (
-            <div className="flex items-center gap-1">
-              <TrendingUp className="h-3.5 w-3.5" />
-              <span>Most popular:</span>
-              <Badge variant="outline" className="ml-1 font-normal">
+            <div className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              <span className="font-mono text-xs">Most popular:</span>
+              <Badge variant="outline" className="border-zinc-300 dark:border-zinc-700 font-mono text-xs">
                 <span className="mr-1">{topReaction.emoji}</span>
                 {getEmojiInfo(topReaction.emoji).label}
               </Badge>

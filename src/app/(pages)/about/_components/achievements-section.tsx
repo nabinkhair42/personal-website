@@ -1,81 +1,76 @@
 "use client";
 
-import { achievements } from "@/constants/about";
-import { motion } from "framer-motion";
+import { achievements } from "@/constants/achievements";
 
 export const AchievementsSection = () => {
   return (
-    <section className="py-16 px-4">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="text-center text-3xl font-bold"
-      >
-        Achievements
-      </motion.h2>
+    <section className="relative px-6 py-20 border-t border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+      {/* Minimal geometric pattern */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-20 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      </div>
 
-      <div className="relative mt-16">
-        {/* Timeline line */}
-        <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-primary/50 via-primary/10 to-primary/50 md:left-1/2" />
+      <div className="relative z-10 max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+            <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+              Recognition
+            </span>
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+            Achievements &
+            <br />
+            <span className="font-serif italic">Milestones</span>
+          </h2>
+        </div>
 
-        {/* Achievement Items */}
-        <div className="space-y-16">
-          {achievements.map((achievement, index) => {
-            const Icon = achievement.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative flex flex-col gap-8 md:flex-row ${index % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
-              >
-                {/* Achievement Content */}
-                <div
-                  className={`flex w-full items-center gap-8 md:w-1/2 ${index % 2 === 0 ? "md:justify-start md:mr-8" : "md:justify-end md:ml-8"
-                    }`}
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 z-10 h-4 w-4 rounded-full bg-gradient-to-br from-primary to-primary-foreground shadow-lg md:left-1/2 md:-translate-x-1/2">
-                    <div className="absolute -inset-2 animate-ping rounded-full bg-primary/20" />
+        {/* Achievements Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {achievements.map((achievement, index) => (
+            <div
+              key={index}
+              className="group relative overflow-hidden bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-700 slide-in-from-bottom-4"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              {/* Minimal geometric pattern */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10">
+                <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+                <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+              </div>
+
+              <div className="relative p-6">
+                {/* Achievement Icon */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 group-hover:border-zinc-300 dark:group-hover:border-zinc-600 transition-colors duration-300">
+                    <achievement.icon className="w-6 h-6 text-zinc-700 dark:text-zinc-300" />
                   </div>
-
-                  {/* Content Box */}
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-card to-card/80 p-6  ring-1  ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md"
-                  >
-                    <div className="mb-4 flex items-start gap-4">
-                      <div className="rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-primary/20">
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <h3 className="text-xl font-semibold">
-                        {achievement.title}
-                      </h3>
-                    </div>
-
-                    {/* Description */}
-                    <p className="mt-4 text-muted-foreground">
-                      {achievement.description}
-                    </p>
-
-                    {/* Animated gradient overlay */}
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0"
-                      animate={{
-                        x: ["0%", "200%"],
-                      }}
-
-                    />
-                  </motion.div>
+                  <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700 group-hover:w-12 transition-all duration-300"></div>
                 </div>
-              </motion.div>
-            );
-          })}
+
+                {/* Achievement Content */}
+                <h3 className="text-xl font-light text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors duration-300">
+                  {achievement.title}
+                </h3>
+
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 font-light leading-relaxed mb-4">
+                  {achievement.description}
+                </p>
+
+                {/* Date */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 font-mono uppercase tracking-wide">
+                    {achievement.date}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

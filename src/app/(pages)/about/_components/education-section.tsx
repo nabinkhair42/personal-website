@@ -1,76 +1,75 @@
 "use client";
 
-import { education } from "@/constants/about";
-import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Calendar } from "lucide-react";
+import { education } from "@/constants/education";
 
 export const EducationSection = () => {
   return (
-    <section className="py-16 border-b border-dashed px-4">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="text-center text-3xl font-bold"
-      >
-        Education
-      </motion.h2>
+    <section className="relative px-6 py-20 border-t border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+      {/* Minimal geometric pattern */}
+      <div className="absolute inset-0 opacity-3 dark:opacity-5">
+        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+        <div className="absolute top-0 left-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-40 w-px h-full bg-current"></div>
+        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      </div>
 
-      <div className="relative mt-12">
-        {/* Timeline line */}
-        <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-primary/50 via-primary/10 to-primary/50 md:left-1/2" />
+      <div className="relative z-10 max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+            <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+              Academic Background
+            </span>
+            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+            Education &
+            <br />
+            <span className="font-serif italic">Learning</span>
+          </h2>
+        </div>
 
-        <div className="space-y-12">
+        {/* Education Timeline */}
+        <div className="space-y-8">
           {education.map((edu, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`relative flex flex-col gap-4 md:flex-row ${
-                index % 2 === 0 ? "md:flex-row-reverse" : ""
-              }`}
+              className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-700 slide-in-from-bottom-4"
+              style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div
-                className={`flex w-full items-center gap-4 md:w-1/2 ${
-                  index % 2 === 0 ? "md:justify-start md:mr-8" : "md:justify-end md:ml-8"
-                }`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-0 z-10 h-4 w-4 rounded-full bg-gradient-to-br from-primary to-primary-foreground shadow-lg md:left-1/2 md:-translate-x-1/2">
-                  <div className="absolute -inset-2 animate-ping rounded-full bg-primary/20" />
-                </div>
+              {/* Minimal geometric pattern */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10">
+                <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
+                <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+              </div>
 
-                <div className="w-full rounded-2xl bg-card p-6  ring-1 ring-border/50 transition-all hover:shadow-xl hover:ring-primary/50 md:max-w-md">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <GraduationCap className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-xl font-semibold">{edu.degree}</h3>
+              <div className="relative p-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors duration-300">
+                      {edu.degree}
+                    </h3>
+                    <p className="text-zinc-600 dark:text-zinc-400 font-light mt-1">
+                      {edu.institution}
+                    </p>
                   </div>
-
-                  <div className="mt-4 flex flex-col gap-2 text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4" />
-                      <span>{edu.institution}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      <span>
-                        {edu.duration}
-                        {edu.current && (
-                          <span className="ml-2 inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                            Current
-                          </span>
-                        )}
+                  <div className="text-right">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-mono uppercase tracking-wide">
+                        {edu.period}
                       </span>
                     </div>
                   </div>
                 </div>
+
+                {edu.description && (
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
+                    {edu.description}
+                  </p>
+                )}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

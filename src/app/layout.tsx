@@ -7,6 +7,31 @@ import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { RightClick } from "@/components/ui/ui-extend/RightClick";
 import { navigationMenuItems } from "@/constants/menu-items";
+import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+
+// Primary font for body text
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+// Monospace font for code and accents
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500", "600"],
+});
+
+// Serif font for headings
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nabinkhair.com.np/"),
@@ -93,21 +118,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+      <body 
+        className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <NextTopLoader showSpinner={false} color="green" />
+          <NextTopLoader showSpinner={false} color="#71717a" height={2} />
           <RightClick customMenuItems={navigationMenuItems}>
-            <Navbar />
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </main>
-            <Toaster richColors />
-            <Footer />
+            <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+              <Navbar />
+              <main className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <div className="max-w-7xl mx-auto">
+                  {children}
+                </div>
+              </main>
+              <Footer />
+            </div>
+            <Toaster 
+              richColors 
+              position="bottom-right"
+              toastOptions={{
+                style: {
+                  background: 'hsl(var(--background))',
+                  color: 'hsl(var(--foreground))',
+                  border: '1px solid hsl(var(--border))',
+                },
+              }}
+            />
           </RightClick>
         </ThemeProvider>
       </body>
