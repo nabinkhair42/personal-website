@@ -10,7 +10,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
       <div className="relative">
         {/* Main Container with Architectural Grid */}
-        <main className="max-w-5xl mx-auto border-l border-r border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+        <main className="max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
           <ContactHero />
           <div className="grid gap-0 md:grid-cols-[1fr,1.5fr]">
             <div className="order-last md:order-first">

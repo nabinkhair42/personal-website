@@ -23,7 +23,7 @@ export default function Home() {
       </div>
 
       {/* Main content wrapper with enhanced borders */}
-      <div className="relative max-w-5xl mx-auto border-l border-r border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm">
+      <div className="relative max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm">
         {/* Subtle inner geometric pattern */}
         <div className="absolute inset-0 opacity-[0.01] dark:opacity-[0.015] pointer-events-none">
           <div className="absolute top-0 left-1/4 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>

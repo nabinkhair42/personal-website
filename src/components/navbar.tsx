@@ -24,7 +24,7 @@ export function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 h-16 w-full border-b border-dashed border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 h-16 w-full border-b  border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
       {/* Subtle geometric pattern */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] pointer-events-none">
         <div className="absolute top-0 left-1/4 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>

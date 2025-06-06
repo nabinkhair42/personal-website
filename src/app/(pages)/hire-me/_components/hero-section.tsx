@@ -41,7 +41,7 @@ const HireMeNow = () => {
 
 export const HeroSection = () => {
   return (
-    <section className="relative px-6 py-24 border-b border-dashed border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
+    <section className="relative px-6 py-24 border-b  border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>

@@ -2,7 +2,7 @@ import { Logo } from "./navbar";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+    <footer className="relative border-t  border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]">
         <div className="absolute top-0 left-0 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>

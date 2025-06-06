@@ -4,7 +4,7 @@ import { education } from "@/constants/education";
 
 export const EducationSection = () => {
   return (
-    <section className="relative px-6 py-20 border-t border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+    <section className="relative px-6 py-20 border-t  border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-3 dark:opacity-5">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>

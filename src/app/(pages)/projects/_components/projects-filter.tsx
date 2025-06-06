@@ -19,7 +19,7 @@ export const ProjectsFilter = ({
   onCategoryChange,
 }: ProjectsFilterProps) => {
   return (
-    <section className="relative px-6 py-16 border-b border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+    <section className="relative px-6 py-16 border-b  border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>

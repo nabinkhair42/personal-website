@@ -106,7 +106,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           {project.title} - Project Details
         </DialogTitle>
         <DialogHeader>
-          <div className="relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-dashed border-zinc-200 dark:border-zinc-700">
+          <div className="relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800 border  border-zinc-200 dark:border-zinc-700">
             <Image
               src={project.image}
               alt={project.title}

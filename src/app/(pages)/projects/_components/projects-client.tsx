@@ -17,7 +17,7 @@ export function ProjectsClient() {
   return (
     <div className="relative">
       {/* Main Container with Architectural Grid */}
-      <main className="max-w-5xl mx-auto border-l border-r border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+      <main className="max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
         {/* Hero Section */}
         <ProjectHero />
         
