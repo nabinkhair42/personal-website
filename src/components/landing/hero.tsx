@@ -50,8 +50,8 @@ export function Hero() {
             {/* Status indicator */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 w-fit animate-in fade-in duration-700 delay-200">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 bg-green-500"></span>
               </span>
               <span className="text-xs font-mono tracking-wider uppercase text-zinc-700 dark:text-zinc-300">Open to Work & Collaborations</span>
             </div>

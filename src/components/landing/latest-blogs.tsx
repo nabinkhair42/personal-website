@@ -15,7 +15,7 @@ export default async function LatestBlogs() {
     .slice(0, 3);
 
   return (
-    <section className="relative px-6 py-20 bg-zinc-50 dark:bg-zinc-900">
+    <section className="relative px-6 py-20 bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-3 dark:opacity-5">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>

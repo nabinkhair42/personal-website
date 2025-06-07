@@ -4,7 +4,7 @@ import { FaGithubAlt } from "react-icons/fa";
 
 export function GitGraphUI() {
   return (
-    <section className="relative px-6 py-20 bg-zinc-50 dark:bg-zinc-900">
+    <section className="relative px-6 py-20 bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-3 dark:opacity-5">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -44,7 +44,7 @@ export function GitGraphUI() {
 
         {/* GitHub Graph */}
         <div className="flex justify-center animate-in fade-in duration-700 delay-400">
-          <div className="p-8 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 overflow-auto">
+          <div className="p-8 overflow-auto">
             <GithubGraph blockMargin={2} />
           </div>
         </div>

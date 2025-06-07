@@ -4,6 +4,7 @@ import { GitGraphUI } from "@/components/landing/gitGraph";
 import { Hero } from "@/components/landing/hero";
 import LatestBlogs from "@/components/landing/latest-blogs";
 import { SkillsOverview } from "@/components/landing/skills-overview";
+import BackgroundCollection from "@/components/landing/background-collection";
 
 export default function Home() {
   return (
@@ -29,37 +30,44 @@ export default function Home() {
           <Hero />
           
           {/* Section divider */}
-          <div className="relative flex items-center justify-center py-4">
+          {/* <div className="relative flex items-center justify-center py-4">
             <div className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div>
+          </div> */}
           
           <FeaturedProjects />
           
           {/* Section divider */}
-          <div className="relative flex items-center justify-center py-4">
+          {/* <div className="relative flex items-center justify-center py-4">
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div>
+          </div> */}
           
           <SkillsOverview />
           
           {/* Section divider */}
-          <div className="relative flex items-center justify-center py-4">
+          {/* <div className="relative flex items-center justify-center py-4">
             <div className="w-10 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div>
+          </div> */}
+          
+          <BackgroundCollection />
+          
+          {/* Section divider */}
+          {/* <div className="relative flex items-center justify-center py-4">
+            <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+          </div> */}
           
           <GitGraphUI />
           
           {/* Section divider */}
-          <div className="relative flex items-center justify-center py-4">
+          {/* <div className="relative flex items-center justify-center py-4">
             <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div>
+          </div> */}
           
           <LatestBlogs />
           
           {/* Section divider */}
-          <div className="relative flex items-center justify-center py-4">
+          {/* <div className="relative flex items-center justify-center py-4">
             <div className="w-4 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div>
+          </div> */}
           
           <ContactCTA />
         </div>
