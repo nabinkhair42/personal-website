@@ -53,8 +53,8 @@ export const TestimonialsSection = () => {
 
         {/* Coming Soon Note */}
         <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full">
-            <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-600 rounded-full animate-pulse"></div>
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+            <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-600 animate-pulse"></div>
             <span className="text-sm text-zinc-600 dark:text-zinc-400 font-mono uppercase tracking-wide">
               Real testimonials coming soon
             </span>
