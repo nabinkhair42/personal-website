@@ -9,7 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export function Hero() {
   // const [scrolled, setScrolled] = useState(false);
-  
+
   // const clickToScroll = () => {
   //   window.scrollTo({
   //     top: window.innerHeight,
@@ -53,9 +53,11 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-xs font-mono tracking-wider uppercase text-zinc-700 dark:text-zinc-300">Open to Work & Collaborations</span>
+              <span className="text-xs font-mono tracking-wider uppercase text-zinc-700 dark:text-zinc-300">
+                Open to Work & Collaborations
+              </span>
             </div>
-            
+
             {/* Main heading */}
             <div className="space-y-6 animate-in fade-in duration-700 delay-300">
               <div>
@@ -67,12 +69,14 @@ export function Hero() {
                 <div className="w-20 h-px bg-zinc-900 dark:bg-zinc-100 mt-6"></div>
               </div>
             </div>
-            
+
             {/* Professional introduction */}
             <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-xl animate-in fade-in duration-700 delay-400">
-              Full-Stack Developer specializing in scalable web applications with Next.js, TypeScript, and cloud platforms. I blend technical expertise with UX-focused design to build high-performance, impactful solutions.
+              Web Developer building modern applications with Next.js,
+              TypeScript, and React. Currently learning backend technologies and
+              focusing on creating functional, accessible web experiences.
             </p>
-            
+
             {/* Experience cards */}
             <div className="flex flex-col gap-4 animate-in fade-in duration-700 delay-500">
               <div className="flex items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
@@ -80,18 +84,26 @@ export function Hero() {
                   <PenTool className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
                 </div>
                 <div className="flex-1">
-                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">Experience</div>
-                  <div className="font-light text-zinc-900 dark:text-zinc-100">2+ years in Web development</div>
+                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+                    Focus
+                  </div>
+                  <div className="font-light text-zinc-900 dark:text-zinc-100">
+                    Frontend development & modern web apps
+                  </div>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
                 <div className="p-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                   <Star className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
                 </div>
                 <div className="flex-1">
-                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">Specialization</div>
-                  <div className="font-light text-zinc-900 dark:text-zinc-100">Modern web architecture & UI/UX</div>
+                  <div className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
+                    Learning
+                  </div>
+                  <div className="font-light text-zinc-900 dark:text-zinc-100">
+                    Backend technologies & cloud platforms
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,14 +119,17 @@ export function Hero() {
                 </Button>
               </Link>
               <Link href="/nkhair.cv.pdf" target="_blank" download>
-                <Button variant="outline" className="px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300 w-full sm:w-auto">
+                <Button
+                  variant="outline"
+              className="group px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+                >
                   <BsFillFilePdfFill className="h-4 w-4 mr-2" />
                   Download Resume
                 </Button>
               </Link>
             </div>
           </div>
-          
+
           {/* Right Column - Image */}
           <div className="relative hidden lg:flex items-center justify-center animate-in fade-in duration-1000 delay-400 slide-in-from-bottom-4">
             <div className="relative">
@@ -125,7 +140,7 @@ export function Hero() {
                 <div className="absolute bottom-0 left-0 w-6 h-6 border border-zinc-400 dark:border-zinc-600"></div>
                 <div className="absolute bottom-0 right-0 w-4 h-4 border border-zinc-400 dark:border-zinc-600 rotate-45"></div>
               </div>
-              
+
               {/* Main image */}
               <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800">
                 <Image
@@ -137,16 +152,20 @@ export function Hero() {
                   priority
                 />
               </div>
-              
+
               {/* Professional badges */}
               <div className="absolute top-4 -left-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
                 <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
-                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">Frontend</span>
+                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">
+                  Frontend
+                </span>
               </div>
-              
+
               <div className="absolute bottom-4 -right-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
                 <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
-                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">Backend</span>
+                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">
+                  Backend
+                </span>
               </div>
             </div>
           </div>

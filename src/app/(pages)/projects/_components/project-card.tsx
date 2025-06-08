@@ -6,7 +6,7 @@ import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { IconType } from "react-icons";
-import { SiGithub } from "react-icons/si";
+// import { SiGithub } from "react-icons/si";
 
 interface ProjectCardProps {
   project: Project;
@@ -142,7 +142,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                   <ExternalLink className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
                 </Link>
               )}
-              {project.demoUrl && (
+              {/* {project.demoUrl && (
                 <Link
                   href={project.demoUrl}
                   target="_blank"
@@ -151,7 +151,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                 >
                   <SiGithub className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
 
