@@ -4,25 +4,8 @@ import { BenefitsSection } from "@/app/(pages)/hire-me/_components/benefits-sect
 import { HeroSection } from "@/app/(pages)/hire-me/_components/hero-section";
 import { TestimonialsSection } from "@/app/(pages)/hire-me/_components/testimonials-section";
 import { hireMeMetadata } from "@/config/metadata";
-import { siteConfig } from "@/config/site";
 
-export const metadata = {
-  ...hireMeMetadata,
-  other: {
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Full Stack Development Services",
-      provider: {
-        "@type": "Person",
-        name: siteConfig.name,
-        jobTitle: siteConfig.title
-      },
-      description: "Professional web development services including frontend, backend, and full-stack development",
-      url: `${siteConfig.baseUrl}/hire-me`
-    }
-  }
-};
+export const metadata = hireMeMetadata;
 
 export default function HireMePage() {
   return (

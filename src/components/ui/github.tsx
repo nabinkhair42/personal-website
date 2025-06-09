@@ -80,10 +80,10 @@ export const GithubGraph = ({
           </h3>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-8 mb-6">
+          <div className="flex flex-wrap justify-center w-full gap-8 mb-6">
             <div className="relative text-center">
               {/* Principle 5: Geometric Patterns - Stat dividers */}
-              <div className="absolute top-0 right-0 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
+              <div className="absolute top-0 -right-4 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
               <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
                 {loading ? "---" : totalContributions.toLocaleString()}
               </div>
@@ -93,7 +93,7 @@ export const GithubGraph = ({
             </div>
 
             <div className="relative text-center">
-              <div className="absolute top-0 right-0 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
+              <div className="absolute top-0 -right-4 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
               <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
                 {loading ? "---" : activeDays}
               </div>

@@ -41,9 +41,9 @@ export function ContactCTA() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in fade-in duration-700 delay-300">
+                <div className="flex flex-col sm:flex-row sm:justify-center gap-4 animate-in fade-in duration-700 delay-600">
           <Link href="/hire-me">
-            <Button className="group px-8 py-4 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 font-mono text-sm uppercase tracking-wider transition-all duration-300">
+            <Button className="group px-8 w-full py-4 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 font-mono text-sm uppercase tracking-wider transition-all duration-300">
               <span className="flex items-center gap-3">
                 <Mail className="h-5 w-5" />
                 Get in Touch
@@ -54,8 +54,8 @@ export function ContactCTA() {
           
           <Link href="/projects">
             <Button 
-              variant="outline" 
-              className="px-8 py-4 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+                variant="outline"
+              className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
             >
               View My Work
             </Button>

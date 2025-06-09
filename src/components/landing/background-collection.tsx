@@ -65,7 +65,7 @@ const BackgroundCollection: React.FC = () => {
                 </p>
 
                 {/* Stats section */}
-                <div className="flex items-center gap-8 mb-8">
+                <div className="flex flex-wrap justify-center sm:justify-start items-center gap-8 mb-8">
                   <div className="text-center">
                     <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
                       7

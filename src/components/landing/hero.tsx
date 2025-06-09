@@ -26,7 +26,7 @@ export function Hero() {
   // }, []);
 
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -43,7 +43,7 @@ export function Hero() {
         <div className="absolute bottom-1/4 left-0 w-full h-px bg-current"></div>
       </div>
 
-      <div className="container relative z-10 px-4 md:px-6 max-w-6xl mx-auto">
+      <div className="container relative z-10 px-4 md:px-6 max-w-6xl mx-auto py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
           <div className="flex flex-col gap-8 animate-in fade-in duration-1000 slide-in-from-bottom-4">
@@ -121,7 +121,7 @@ export function Hero() {
               <Link href="/nkhair.cv.pdf" target="_blank" download>
                 <Button
                   variant="outline"
-              className="group px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+              className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
                 >
                   <BsFillFilePdfFill className="h-4 w-4 mr-2" />
                   Download Resume

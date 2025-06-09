@@ -44,7 +44,7 @@ const ProjectHero = () => {
                 </p>
 
                 {/* Stats */}
-                <div className="flex items-center justify-center gap-12 text-center animate-in fade-in duration-700 delay-700">
+                <div className="flex items-center flex-wrap justify-center gap-12 text-center animate-in fade-in duration-700 delay-700">
                     <div className="space-y-1">
                         <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">15+</div>
                         <div className="text-sm tracking-wide uppercase text-zinc-500 dark:text-zinc-400 font-mono">Projects</div>

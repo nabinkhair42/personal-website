@@ -1,6 +1,6 @@
 import { getAllBlogs } from "@/lib/markdown";
 import { stringToDate } from "@/lib/utils";
-import BlogCard from "@/app/blog/_components/BlogCard";
+import BlogCard from "@/app/(pages)/blog/_components/BlogCard";
 import BlogHero from "./_components/hero-section";
 import { blogMetadata } from "@/config/metadata";
 

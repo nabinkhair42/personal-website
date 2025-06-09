@@ -4,33 +4,9 @@ import { AchievementsSection } from "./_components/achievements-section";
 import { EducationSection } from "./_components/education-section";
 import { PlatformsSection } from "./_components/platforms-section";
 import { SkillsSection } from "./_components/skills-section";
-import { siteConfig } from "@/config/site";
 
 // Combine metadata with JSON-LD
-export const metadata = {
-  ...aboutMetadata,
-  other: {
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: siteConfig.name,
-      jobTitle: siteConfig.title,
-      description: "Full Stack Developer specializing in modern web technologies",
-      url: siteConfig.baseUrl,
-      sameAs: [
-        siteConfig.social.github,
-        siteConfig.social.linkedin,
-        siteConfig.social.twitter
-      ],
-      image: `${siteConfig.baseUrl}/og/about.png`,
-      email: `mailto:${siteConfig.social.email}`,
-      alumniOf: {
-        "@type": "EducationalOrganization",
-        name: siteConfig.education.university
-      }
-    }
-  }
-};
+export const metadata = aboutMetadata;
 
 export default function AboutPage() {
   return (
