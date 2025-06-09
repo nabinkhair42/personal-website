@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -41,7 +41,7 @@ const HireMeNow = () => {
 
 export const HeroSection = () => {
   return (
-    <section className="relative px-6 py-24 border-b  border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
+    <section className="relative px-6 py-24 border-b border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -82,37 +82,8 @@ export const HeroSection = () => {
         </p>
 
         {/* CTA Button */}
-        <div className="mb-12 animate-in fade-in duration-700 delay-500">
+        <div className="animate-in fade-in duration-700 delay-500">
           <HireMeNow />
-        </div>
-
-        {/* Availability Info */}
-        <div className="flex flex-wrap items-center justify-center gap-8 text-center animate-in fade-in duration-700 delay-600">
-          <div className="flex items-center gap-3">
-            <Calendar className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
-            <div className="text-left">
-              <div className="text-sm font-mono uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-                Available
-              </div>
-              <div className="text-zinc-700 dark:text-zinc-300 font-light">
-                March 2024
-              </div>
-            </div>
-          </div>
-          
-          <div className="w-px h-8 bg-zinc-300 dark:bg-zinc-700"></div>
-          
-          <div className="flex items-center gap-3">
-            <Clock className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
-            <div className="text-left">
-              <div className="text-sm font-mono uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-                Timezone
-              </div>
-              <div className="text-zinc-700 dark:text-zinc-300 font-light">
-                GMT+5:45 (Nepal)
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
