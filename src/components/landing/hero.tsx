@@ -2,10 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { PenTool, Star } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { BsFillFilePdfFill } from "react-icons/bs";
-import { FaArrowRight } from "react-icons/fa";
+import { FcCollaboration } from "react-icons/fc";
+import { PiReadCvLogoFill } from "react-icons/pi";
 
 export function Hero() {
   // const [scrolled, setScrolled] = useState(false);
@@ -113,8 +112,8 @@ export function Hero() {
               <Link href="/hire-me">
                 <Button className="group px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 font-mono text-sm uppercase tracking-wider transition-all duration-300 w-full sm:w-auto">
                   <span className="flex items-center gap-2">
+                    <FcCollaboration className="h-4 w-4 mr-2 rotate-12" />
                     Let&apos;s Collaborate
-                    <FaArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
                 </Button>
               </Link>
@@ -123,8 +122,8 @@ export function Hero() {
                   variant="outline"
               className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
                 >
-                  <BsFillFilePdfFill className="h-4 w-4 mr-2" />
-                  Download Resume
+                  <PiReadCvLogoFill className="h-4 w-4 mr-2" />
+                  My Resume
                 </Button>
               </Link>
             </div>
@@ -143,13 +142,12 @@ export function Hero() {
 
               {/* Main image */}
               <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                <Image
+                <img 
                   src="/nabin.png"
                   alt="Nabin Khair"
                   width={380}
                   height={380}
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  priority
                 />
               </div>
 
