@@ -117,7 +117,7 @@ export function Hero() {
                   </span>
                 </Button>
               </Link>
-              <Link href="/nkhair.cv.pdf" target="_blank" download>
+              <Link href="/nabin_khair.pdf" target="_blank" download>
                 <Button
                   variant="outline"
               className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
