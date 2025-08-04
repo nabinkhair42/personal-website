@@ -1,9 +1,4 @@
 "use client";
-import { ReactNode, useState, useEffect } from "react";
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Sun, Moon, ExternalLink } from "lucide-react";
-import { defaultMenuItems, type MenuItem } from "@/constants/menu-items";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -11,6 +6,10 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { defaultMenuItems, type MenuItem } from "@/constants/menu-items";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ReactNode, useEffect, useState } from "react";
 
 interface RightClickProps {
   children: ReactNode;
@@ -19,7 +18,7 @@ interface RightClickProps {
 }
 
 export function RightClick({ children, customMenuItems, className = "" }: RightClickProps) {
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const [hasSelection, setHasSelection] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [clickedLink, setClickedLink] = useState<string | null>(null);
@@ -70,11 +69,11 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  const themeMenuItem: MenuItem = {
-    label: theme === 'dark' ? 'Light Mode' : 'Dark Mode',
-    icon: theme === 'dark' ? Sun : Moon,
-    onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
-  };
+  // const themeMenuItem: MenuItem = {
+  //   label: theme === 'dark' ? 'Light Mode' : 'Dark Mode',
+  //   icon: theme === 'dark' ? Sun : Moon,
+  //   onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+  // };
 
   const menuItems = [
     ...(clickedLink ? [
@@ -86,7 +85,7 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
       { type: 'divider' as const }
     ] : []),
     ...defaultMenuItems,
-    themeMenuItem,
+    // themeMenuItem,
     ...(customMenuItems || []),
   ];
 
