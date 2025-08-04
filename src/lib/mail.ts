@@ -46,11 +46,6 @@ export async function sendAdminNotification(data: FormData) {
       `,
     };
 
-    console.log('Sending admin notification with options:', {
-      ...mailOptions,
-      html: '...[HTML Content]...',
-    });
-
     return await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error('Admin notification error:', error);

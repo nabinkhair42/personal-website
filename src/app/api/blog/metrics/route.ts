@@ -39,7 +39,6 @@ export async function POST(request: Request) {
   try {
     await ensureDbConnection();
     const { slug } = await request.json();
-    console.log('Data in POST request:', { slug });
 
     if (!slug) {
       return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
@@ -114,7 +113,6 @@ export async function GET(request: Request) {
     const cachedData = metricsCache.get(cacheKey);
 
     if (cachedData && now - cachedData.timestamp < CACHE_TTL) {
-      console.log('Serving metrics from cache for:', slug);
       return NextResponse.json(cachedData.data);
     }
 

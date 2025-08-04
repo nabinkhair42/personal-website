@@ -35,7 +35,7 @@ export const EducationSection = () => {
           {education.map((edu, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-700 slide-in-from-bottom-4"
+              className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in slide-in-from-bottom-4"
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* Minimal geometric pattern */}
