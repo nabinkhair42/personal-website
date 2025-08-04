@@ -1,15 +1,15 @@
-"use client";
+'use client';
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import { defaultMenuItems, type MenuItem } from "@/constants/menu-items";
-import { ExternalLink } from "lucide-react";
-import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+} from '@/components/ui/context-menu';
+import { defaultMenuItems, type MenuItem } from '@/constants/menu-items';
+import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface RightClickProps {
   children: ReactNode;
@@ -17,7 +17,11 @@ interface RightClickProps {
   className?: string;
 }
 
-export function RightClick({ children, customMenuItems, className = "" }: RightClickProps) {
+export function RightClick({
+  children,
+  customMenuItems,
+  className = '',
+}: RightClickProps) {
   // const { theme, setTheme } = useTheme();
   const [hasSelection, setHasSelection] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -31,13 +35,15 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     };
 
     document.addEventListener('selectionchange', checkSelection);
-    return () => document.removeEventListener('selectionchange', checkSelection);
+    return () =>
+      document.removeEventListener('selectionchange', checkSelection);
   }, []);
 
   // Check scroll position
   useEffect(() => {
     const checkScrollPosition = () => {
-      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      const scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
       setShowScrollTop(scrollPosition > 100);
     };
 
@@ -48,7 +54,7 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
 
   const handleContextMenu = (e: React.MouseEvent) => {
     setClickedLink(null);
-    
+
     let element = e.target as HTMLElement;
     while (element) {
       if (element.tagName === 'A') {
@@ -76,14 +82,16 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
   // };
 
   const menuItems = [
-    ...(clickedLink ? [
-      {
-        label: "Open in New Tab",
-        icon: ExternalLink,
-        onClick: () => window.open(clickedLink, '_blank'),
-      },
-      { type: 'divider' as const }
-    ] : []),
+    ...(clickedLink
+      ? [
+          {
+            label: 'Open in New Tab',
+            icon: ExternalLink,
+            onClick: () => window.open(clickedLink, '_blank'),
+          },
+          { type: 'divider' as const },
+        ]
+      : []),
     ...defaultMenuItems,
     // themeMenuItem,
     ...(customMenuItems || []),
@@ -99,10 +107,10 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     if (!('label' in item)) return null;
 
     // Special handling for Copy Selection menu item
-    if (item.label === "Copy Selection" && !hasSelection) {
+    if (item.label === 'Copy Selection' && !hasSelection) {
       return (
-        <ContextMenuItem 
-          disabled 
+        <ContextMenuItem
+          disabled
           className="text-zinc-400 dark:text-zinc-600 cursor-not-allowed font-mono text-xs uppercase tracking-wide opacity-50"
         >
           <div className="flex items-center gap-3">
@@ -114,10 +122,10 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     }
 
     // Special handling for Scroll to Top menu item
-    if (item.label === "Scroll to Top" && !showScrollTop) {
+    if (item.label === 'Scroll to Top' && !showScrollTop) {
       return (
-        <ContextMenuItem 
-          disabled 
+        <ContextMenuItem
+          disabled
           className="text-zinc-400 dark:text-zinc-600 cursor-not-allowed font-mono text-xs uppercase tracking-wide opacity-50"
         >
           <div className="flex items-center gap-3">
@@ -143,8 +151,8 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
 
     if (item.href) {
       return (
-        <ContextMenuItem 
-          asChild 
+        <ContextMenuItem
+          asChild
           className="focus:bg-zinc-100 dark:focus:bg-zinc-800 focus:text-zinc-900 dark:focus:text-zinc-100 transition-colors duration-200 py-2.5 px-3"
         >
           <Link href={item.href} className="w-full cursor-pointer flex">
@@ -155,7 +163,7 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
     }
 
     return (
-      <ContextMenuItem 
+      <ContextMenuItem
         onClick={item.onClick}
         className="focus:bg-zinc-100 dark:focus:bg-zinc-800 focus:text-zinc-900 dark:focus:text-zinc-100 transition-colors duration-200 py-2.5 px-3 cursor-pointer"
       >
@@ -166,7 +174,10 @@ export function RightClick({ children, customMenuItems, className = "" }: RightC
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger className={className} onContextMenu={handleContextMenu}>
+      <ContextMenuTrigger
+        className={className}
+        onContextMenu={handleContextMenu}
+      >
         {children}
       </ContextMenuTrigger>
       <ContextMenuContent className="w-56 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-lg backdrop-blur-sm">

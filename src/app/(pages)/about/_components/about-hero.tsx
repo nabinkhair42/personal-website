@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { aboutMe } from "@/constants/about";
+import { aboutMe } from '@/constants/about';
 
 export const AboutHero = () => {
   return (
@@ -20,7 +20,7 @@ export const AboutHero = () => {
         <div className="absolute top-16 left-0 w-full h-px bg-current"></div>
         <div className="absolute bottom-16 left-0 w-full h-px bg-current"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-4xl mx-auto text-center animate-in fade-in duration-1000 slide-in-from-bottom-4">
         {/* Section Label */}
         <div className="flex items-center justify-center gap-4 mb-8 animate-in fade-in duration-700 delay-200">

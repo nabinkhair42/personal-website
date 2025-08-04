@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { education } from "@/constants/education";
+import { education } from '@/constants/education';
 
 export const EducationSection = () => {
   return (

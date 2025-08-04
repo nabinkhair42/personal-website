@@ -1,5 +1,5 @@
-import { projectsMetadata } from "@/config/metadata";
-import { ProjectsClient } from "./_components/projects-client";
+import { projectsMetadata } from '@/config/metadata';
+import { ProjectsClient } from './_components/projects-client';
 
 export const metadata = projectsMetadata;
 

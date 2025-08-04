@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { PenTool, Star } from "lucide-react";
-import Link from "next/link";
-import { FcCollaboration } from "react-icons/fc";
-import { PiReadCvLogoFill } from "react-icons/pi";
+import { Button } from '@/components/ui/button';
+import { PenTool, Star } from 'lucide-react';
+import Link from 'next/link';
+import { FcCollaboration } from 'react-icons/fc';
+import { PiReadCvLogoFill } from 'react-icons/pi';
 
 export function Hero() {
   // const [scrolled, setScrolled] = useState(false);
@@ -120,7 +120,7 @@ export function Hero() {
               <Link href="/nabin_khair.pdf" target="_blank" download>
                 <Button
                   variant="outline"
-              className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+                  className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
                 >
                   <PiReadCvLogoFill className="h-4 w-4 mr-2" />
                   My Resume
@@ -142,7 +142,7 @@ export function Hero() {
 
               {/* Main image */}
               <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                <img 
+                <img
                   src="/nabin.png"
                   alt="Nabin Khair"
                   width={380}

@@ -1,8 +1,8 @@
-import { BenefitsSection } from "@/app/(pages)/hire-me/_components/benefits-section";
-import { HeroSection } from "@/app/(pages)/hire-me/_components/hero-section";
-import { ProcessSection } from "@/app/(pages)/hire-me/_components/process-section";
-import { ServicesSection } from "@/app/(pages)/hire-me/_components/services-section";
-import { hireMeMetadata } from "@/config/metadata";
+import { BenefitsSection } from '@/app/(pages)/hire-me/_components/benefits-section';
+import { HeroSection } from '@/app/(pages)/hire-me/_components/hero-section';
+import { ProcessSection } from '@/app/(pages)/hire-me/_components/process-section';
+import { ServicesSection } from '@/app/(pages)/hire-me/_components/services-section';
+import { hireMeMetadata } from '@/config/metadata';
 
 export const metadata = hireMeMetadata;
 

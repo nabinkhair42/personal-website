@@ -1,10 +1,10 @@
-import { getAllBlogStaticPaths, getBlogForSlug } from "@/lib/markdown";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import { Title } from "../_components/title";
-import { Typography } from "@/components/typography";
-import { calculateReadingTime } from "@/lib/utils";
-import { Clock } from "lucide-react";
+import { getAllBlogStaticPaths, getBlogForSlug } from '@/lib/markdown';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { Title } from '../_components/title';
+import { Typography } from '@/components/typography';
+import { calculateReadingTime } from '@/lib/utils';
+import { Clock } from 'lucide-react';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -56,18 +56,14 @@ export default async function BlogPage(props: PageProps) {
 
   const { frontmatter, content } = res;
   const currentURL = process.env.PORTFOLIO_URL + `/blog/` + slug;
-  
+
   // Calculate reading time
   const readingTimeMinutes = calculateReadingTime(content.toString());
 
   return (
     <>
-      <Title
-        formatter={frontmatter}
-        slug={slug}
-        currentURL={currentURL}
-      />
-      
+      <Title formatter={frontmatter} slug={slug} currentURL={currentURL} />
+
       {/* Article Content Section */}
       <section className="relative px-6 py-12 bg-white dark:bg-zinc-950">
         {/* Enhanced geometric pattern */}
@@ -92,7 +88,7 @@ export default async function BlogPage(props: PageProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            
+
             {/* Enhanced reading time badge */}
             <div className="absolute -bottom-4 right-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 shadow-lg backdrop-blur-sm flex items-center gap-2 text-sm">
               <Clock className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
@@ -101,13 +97,13 @@ export default async function BlogPage(props: PageProps) {
               </span>
             </div>
           </div>
-          
+
           {/* Enhanced Content Grid */}
-            {/* Main Article Content */}
-            <div className="xl:col-span-8 animate-in fade-in duration-700 delay-200">
-              <div className="prose prose-zinc dark:prose-invert max-w-none prose-lg">
-                <Typography>{content}</Typography>
-              </div>
+          {/* Main Article Content */}
+          <div className="xl:col-span-8 animate-in fade-in duration-700 delay-200">
+            <div className="prose prose-zinc dark:prose-invert max-w-none prose-lg">
+              <Typography>{content}</Typography>
+            </div>
           </div>
         </div>
       </section>

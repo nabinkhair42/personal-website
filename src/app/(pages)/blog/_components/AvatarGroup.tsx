@@ -1,13 +1,19 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Author } from "@/lib/markdown";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Author } from '@/lib/markdown';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip';
 
-export default function AvatarGroup({ users, max = 3 }: { users: Author[]; max?: number }) {
+export default function AvatarGroup({
+  users,
+  max = 3,
+}: {
+  users: Author[];
+  max?: number;
+}) {
   const displayUsers = users.slice(0, max);
   const remainingUsers = Math.max(users.length - max, 0);
 
@@ -17,9 +23,7 @@ export default function AvatarGroup({ users, max = 3 }: { users: Author[]; max?:
         {displayUsers.map((user, index) => (
           <Tooltip key={index}>
             <TooltipTrigger asChild>
-              <Avatar
-                className="inline-block border-2 w-8 h-8 border-background"
-              >
+              <Avatar className="inline-block border-2 w-8 h-8 border-background">
                 <AvatarImage src={user.avatar} alt={user.username} />
                 <AvatarFallback>
                   {user.username.slice(0, 2).toUpperCase()}
@@ -39,7 +43,10 @@ export default function AvatarGroup({ users, max = 3 }: { users: Author[]; max?:
               </Avatar>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{remainingUsers} more {remainingUsers === 1 ? 'author' : 'authors'}</p>
+              <p>
+                {remainingUsers} more{' '}
+                {remainingUsers === 1 ? 'author' : 'authors'}
+              </p>
             </TooltipContent>
           </Tooltip>
         )}
@@ -47,4 +54,3 @@ export default function AvatarGroup({ users, max = 3 }: { users: Author[]; max?:
     </div>
   );
 }
-

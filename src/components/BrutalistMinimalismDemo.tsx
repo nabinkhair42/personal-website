@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Grid3X3, Palette } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Code, Grid3X3, Palette } from 'lucide-react';
 
 export function BrutalistMinimalismDemo() {
   return (
@@ -10,8 +10,8 @@ export function BrutalistMinimalismDemo() {
       <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.02] pointer-events-none">
         <div className="grid grid-cols-12 h-full">
           {Array.from({ length: 12 }).map((_, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="border-r border-zinc-300 dark:border-zinc-700 last:border-r-0"
             />
           ))}
@@ -36,17 +36,17 @@ export function BrutalistMinimalismDemo() {
             </span>
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
             Brutalist
             <br />
             <span className="font-serif italic">Minimalism</span>
           </h1>
-          
+
           <div className="w-20 h-px bg-zinc-900 dark:bg-zinc-100"></div>
-          
+
           <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-2xl">
-            A sophisticated fusion of structural honesty and refined simplicity, 
+            A sophisticated fusion of structural honesty and refined simplicity,
             creating digital experiences through architectural principles.
           </p>
         </div>
@@ -56,21 +56,22 @@ export function BrutalistMinimalismDemo() {
           {[
             {
               icon: Grid3X3,
-              title: "Visible Grids",
-              description: "Structural elements become part of the aesthetic experience"
+              title: 'Visible Grids',
+              description:
+                'Structural elements become part of the aesthetic experience',
             },
             {
               icon: Palette,
-              title: "Zinc Palette",
-              description: "Monochromatic color system for visual harmony"
+              title: 'Zinc Palette',
+              description: 'Monochromatic color system for visual harmony',
             },
             {
               icon: Code,
-              title: "Geometric Forms",
-              description: "Mathematical precision in layout and spacing"
-            }
+              title: 'Geometric Forms',
+              description: 'Mathematical precision in layout and spacing',
+            },
           ].map((feature, index) => (
-            <div 
+            <div
               key={feature.title}
               className="relative group p-6 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300"
             >
@@ -89,7 +90,7 @@ export function BrutalistMinimalismDemo() {
                     0{index + 1}
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="font-medium text-zinc-900 dark:text-zinc-100 font-mono uppercase tracking-wide text-sm mb-2">
                     {feature.title}
@@ -111,7 +112,7 @@ export function BrutalistMinimalismDemo() {
               Implementation
             </span>
           </div>
-          
+
           <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4">
             <div className="flex items-center justify-between mb-3 pb-2 border-b border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-2">
@@ -124,7 +125,7 @@ export function BrutalistMinimalismDemo() {
               </span>
             </div>
             <pre className="text-xs font-mono text-zinc-700 dark:text-zinc-300 overflow-x-auto">
-{`<div className="grid grid-cols-12 h-full">
+              {`<div className="grid grid-cols-12 h-full">
   {Array.from({ length: 12 }).map((_, i) => (
     <div 
       key={i} 
@@ -147,11 +148,16 @@ export function BrutalistMinimalismDemo() {
               Structural beauty in digital interfaces
             </div>
           </div>
-          
-          <Button 
+
+          <Button
             variant="outline"
             className="group px-4 py-2 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-xs uppercase tracking-wider transition-all duration-300"
-            onClick={() => window.open("/blog/brutalist-minimalism-architectural-web-design", "_blank")}
+            onClick={() =>
+              window.open(
+                '/blog/brutalist-minimalism-architectural-web-design',
+                '_blank'
+              )
+            }
           >
             <span className="flex items-center gap-2">
               Read Article

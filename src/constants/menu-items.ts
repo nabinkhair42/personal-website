@@ -1,5 +1,5 @@
-"use client";
-import { LucideIcon } from "lucide-react";
+'use client';
+import { LucideIcon } from 'lucide-react';
 import {
   ArrowLeft,
   RotateCcw,
@@ -9,66 +9,68 @@ import {
   Rocket,
   FileText,
   Mail,
-} from "lucide-react";
-import { toast } from "sonner";
+} from 'lucide-react';
+import { toast } from 'sonner';
 
-export type MenuItem = {
-  label: string;
-  icon?: LucideIcon;
-  onClick?: () => void;
-  href?: string;
-} | {
-  type: 'divider';
-};
+export type MenuItem =
+  | {
+      label: string;
+      icon?: LucideIcon;
+      onClick?: () => void;
+      href?: string;
+    }
+  | {
+      type: 'divider';
+    };
 
 export const navigationMenuItems: MenuItem[] = [
   { type: 'divider' },
   {
-    label: "About Me",
+    label: 'About Me',
     icon: User,
-    href: "/about",
+    href: '/about',
   },
   {
-    label: "My Projects",
+    label: 'My Projects',
     icon: Rocket,
-    href: "/projects",
+    href: '/projects',
   },
   {
-    label: "Blog",
+    label: 'Blog',
     icon: FileText,
-    href: "/blog",
+    href: '/blog',
   },
   {
-    label: "Contact",
+    label: 'Contact',
     icon: Mail,
-    href: "/contact",
+    href: '/contact',
   },
 ];
 
 export const defaultMenuItems: MenuItem[] = [
   {
-    label: "Go Back",
+    label: 'Go Back',
     icon: ArrowLeft,
     onClick: () => window.history.back(),
   },
   {
-    label: "Refresh Page",
+    label: 'Refresh Page',
     icon: RotateCcw,
     onClick: () => window.location.reload(),
   },
   {
-    label: "Scroll to Top",
+    label: 'Scroll to Top',
     icon: ArrowUp,
-    onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
   },
   {
-    label: "Copy Selection",
+    label: 'Copy Selection',
     icon: Copy,
     onClick: () => {
       const selection = window.getSelection()?.toString();
       if (selection) {
         navigator.clipboard.writeText(selection);
-        toast.success("Copied to clipboard");
+        toast.success('Copied to clipboard');
       }
     },
   },

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { projects } from "@/constants/projects";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { projects } from '@/constants/projects';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowRight, ExternalLink, Github } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function FeaturedProjects() {
   const featuredProjects = projects.slice(0, 3);
@@ -135,8 +135,8 @@ export function FeaturedProjects() {
         {/* View All Projects CTA */}
         <div className="text-center animate-in fade-in duration-700 delay-600">
           <Link href="/projects">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="group px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
             >
               <span className="flex items-center gap-2">

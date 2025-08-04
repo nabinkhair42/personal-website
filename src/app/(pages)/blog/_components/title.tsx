@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { BlogMdxFrontmatter } from "@/lib/markdown";
-import { Calendar } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
-import ViewCounter from "./view-counter";
-import { formatDate } from "@/lib/utils";
-import { ShareButton } from "./share";
-import ReactionButton from "./reaction";
+import { BlogMdxFrontmatter } from '@/lib/markdown';
+import { Calendar } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
+import ViewCounter from './view-counter';
+import { formatDate } from '@/lib/utils';
+import { ShareButton } from './share';
+import ReactionButton from './reaction';
 
 interface TitleProps {
   formatter: BlogMdxFrontmatter;
@@ -33,7 +33,7 @@ export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
         <div className="absolute top-16 left-0 w-full h-px bg-current"></div>
         <div className="absolute bottom-16 left-0 w-full h-px bg-current"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-4xl mx-auto text-center animate-in fade-in duration-1000 slide-in-from-bottom-4">
         {/* Section Label */}
         <div className="flex items-center justify-center gap-4 mb-8 animate-in fade-in duration-700 delay-200">
@@ -51,7 +51,7 @@ export const Title = ({ formatter, slug, currentURL }: TitleProps) => {
 
         {/* Accent Line */}
         <div className="w-20 h-1 bg-zinc-900 dark:bg-zinc-100 mx-auto mb-8 animate-in fade-in duration-700 delay-400"></div>
-        
+
         {/* Meta Information */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm text-zinc-600 dark:text-zinc-400 animate-in fade-in duration-700 delay-500">
           <div className="flex items-center gap-2">

@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
+import { cn } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 
 export function VisuallyHidden({
   className,
@@ -8,7 +8,7 @@ export function VisuallyHidden({
   return (
     <span
       className={cn(
-        "absolute h-px w-px p-0 -m-px overflow-hidden whitespace-nowrap border-0",
+        'absolute h-px w-px p-0 -m-px overflow-hidden whitespace-nowrap border-0',
         className
       )}
       {...props}

@@ -1,18 +1,19 @@
 ---
-title: "Web Storage Objects: A Powerful Tool for Storing Data on the Web"
-description: "Web Storage Objects: A Powerful Tool for Storing Data on the Web"
+title: 'Web Storage Objects: A Powerful Tool for Storing Data on the Web'
+description: 'Web Storage Objects: A Powerful Tool for Storing Data on the Web'
 date: 04-08-2023
 authors:
-  - avatar: "/nabin.png"
+  - avatar: '/nabin.png'
     handle: nabinkhair42
     username: Nabin Khair
-    handleUrl: "https://github.com/nabinkhair42"
-cover: "/blogs/Web-Object.webp"
+    handleUrl: 'https://github.com/nabinkhair42'
+cover: '/blogs/Web-Object.webp'
 ---
 
 Web storage objects are a type of client-side storage that allow web developers to store data in a web browser. They provide an easy and efficient way to store data that can be accessed later, even after the browser is closed. This article will discuss the two types of web storage objects, **Local Storage** and **Session Storage**, and how they are used in web development.
 
 ### Local Storage
+
 Local Storage is a client-side storage object that persists even after the browser is closed. Key features include:
 
 - **Persistence**: Data stored in Local Storage has no expiration date and remains available even after the browser is closed and reopened.
@@ -22,6 +23,7 @@ Local Storage is a client-side storage object that persists even after the brows
   - Caching data to reduce server requests for frequently accessed information.
 
 ### Session Storage
+
 Session Storage is another client-side storage object with different characteristics compared to Local Storage. Key features include:
 
 - **Session-specific Storage**: Data stored in Session Storage is cleared when the browser tab is closed.
@@ -31,16 +33,18 @@ Session Storage is another client-side storage object with different characteris
   - Managing session-specific preferences, such as UI settings for the current tab.
 
 ### Key Characteristics of Web Storage Objects
+
 1. **JavaScript-based Manipulation**:  
-   Both Local Storage and Session Storage are accessed and manipulated using JavaScript.  
-2. **String-based Storage**:  
+   Both Local Storage and Session Storage are accessed and manipulated using JavaScript.
+2. **String-based Storage**:
    - Data must be stored as strings. Complex data structures (e.g., arrays or objects) need to be converted to strings (e.g., using `JSON.stringify`) before storage.
-   - Similarly, retrieved data must be parsed back to the original structure (e.g., using `JSON.parse`).  
-3. **No Automatic Server Transmission**:  
+   - Similarly, retrieved data must be parsed back to the original structure (e.g., using `JSON.parse`).
+3. **No Automatic Server Transmission**:
    - Data stored in web storage objects is not sent to the server with every HTTP request.
-   - This reduces network overhead and improves the performance and responsiveness of web applications.  
+   - This reduces network overhead and improves the performance and responsiveness of web applications.
 
 ### Browser Support
+
 Web storage objects are widely supported by modern web browsers, including:
 
 - **Google Chrome**
@@ -51,9 +55,11 @@ Web storage objects are widely supported by modern web browsers, including:
 This makes them a reliable and efficient choice for client-side data storage in web applications.
 
 ### Benefits of Web Storage Objects
+
 - Improved performance by reducing server requests.
 - Enhanced user experience through persistent or session-specific data storage.
 - Simplified data handling for modern, dynamic web applications.
 
 ### Conclusion
-Web storage objects are a powerful tool for web developers, offering an easy and efficient way to store data in a web browser. Whether you're building a simple website or a complex web application, **Local Storage** and **Session Storage** provide essential functionality to enhance user experience and improve application performance.  
+
+Web storage objects are a powerful tool for web developers, offering an easy and efficient way to store data in a web browser. Whether you're building a simple website or a complex web application, **Local Storage** and **Session Storage** provide essential functionality to enhance user experience and improve application performance.

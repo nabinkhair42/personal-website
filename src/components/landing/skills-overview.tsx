@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 import {
   SiNextdotjs,
   SiReact,
@@ -8,40 +8,40 @@ import {
   SiMongodb,
   SiExpress,
   SiNodedotjs,
-} from "react-icons/si";
-import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
+} from 'react-icons/si';
+import { Button } from '../ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const skills = [
   {
-    name: "React",
+    name: 'React',
     icon: SiReact,
-    color: "#61DAFB",
+    color: '#61DAFB',
   },
   {
-    name: "Next.js",
+    name: 'Next.js',
     icon: SiNextdotjs,
-    color: "#000000",
+    color: '#000000',
   },
   {
-    name: "TypeScript",
+    name: 'TypeScript',
     icon: SiTypescript,
-    color: "#3178C6",
+    color: '#3178C6',
   },
   {
-    name: "MongoDB",
+    name: 'MongoDB',
     icon: SiMongodb,
-    color: "#47A248",
+    color: '#47A248',
   },
   {
-    name: "Express",
+    name: 'Express',
     icon: SiExpress,
-    color: "#000000",
+    color: '#000000',
   },
   {
-    name: "Node.js",
+    name: 'Node.js',
     icon: SiNodedotjs,
-    color: "#3C873A",
+    color: '#3C873A',
   },
 ];
 
@@ -72,14 +72,15 @@ export function SkillsOverview() {
               <span className="font-serif italic">Technologies</span>
             </h2>
             <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-              Technologies I work with daily to build scalable and efficient web applications.
+              Technologies I work with daily to build scalable and efficient web
+              applications.
             </p>
           </div>
-          
+
           <div className="animate-in fade-in duration-700 delay-300">
             <Link href="/about">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="group px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
               >
                 <span className="flex items-center gap-2">
@@ -106,12 +107,12 @@ export function SkillsOverview() {
               </div>
 
               <div className="relative flex h-16 w-16 items-center justify-center bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 group-hover:border-zinc-300 dark:group-hover:border-zinc-600 transition-all duration-300">
-                <skill.icon 
+                <skill.icon
                   className="h-8 w-8 transition-all duration-300 group-hover:scale-110"
                   style={{ color: skill.color }}
                 />
               </div>
-              
+
               <div className="relative text-center">
                 <span className="text-sm font-mono text-zinc-700 dark:text-zinc-300 uppercase tracking-wide">
                   {skill.name}

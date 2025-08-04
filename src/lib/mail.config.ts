@@ -6,18 +6,17 @@ const emailConfig = {
   secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL_SERVER_USER,
-    pass: process.env.EMAIL_SERVER_PASSWORD
+    pass: process.env.EMAIL_SERVER_PASSWORD,
   },
   debug: true, // Enable debugging
-  logger: true // Log to console
+  logger: true, // Log to console
 };
 
 console.log('Email Config (sanitized):', {
   ...emailConfig,
-  auth: { user: emailConfig.auth.user, pass: '****' }
+  auth: { user: emailConfig.auth.user, pass: '****' },
 });
 
 export const transporter = nodemailer.createTransport(emailConfig);
-
 
 export const adminEmail = process.env.EMAIL_SERVER_USER;

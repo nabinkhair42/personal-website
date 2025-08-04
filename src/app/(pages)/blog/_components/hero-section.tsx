@@ -1,5 +1,5 @@
-"use client"
-import React from 'react'
+'use client';
+import React from 'react';
 
 const BlogHero = () => {
   return (
@@ -19,7 +19,7 @@ const BlogHero = () => {
         <div className="absolute top-16 left-0 w-full h-px bg-current"></div>
         <div className="absolute bottom-16 left-0 w-full h-px bg-current"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-4xl mx-auto text-center animate-in fade-in duration-1000 slide-in-from-bottom-4">
         {/* Section Label */}
         <div className="flex items-center justify-center gap-4 mb-8 animate-in fade-in duration-700 delay-200">
@@ -39,7 +39,7 @@ const BlogHero = () => {
 
         {/* Description */}
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-3xl mx-auto animate-in fade-in duration-700 delay-400">
-          Discover insights, tutorials, and stories about web development, 
+          Discover insights, tutorials, and stories about web development,
           design, and the ever-evolving world of technology.
         </p>
       </div>
@@ -52,7 +52,7 @@ const BlogHero = () => {
         <div className="w-6 h-6 border border-zinc-400 dark:border-zinc-600"></div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BlogHero
+export default BlogHero;

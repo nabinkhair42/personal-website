@@ -1,4 +1,4 @@
-@import url("./syntax.css");
+@import url('./syntax.css');
 
 :root {
   font-variant-ligatures: none;
@@ -64,7 +64,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {
@@ -161,8 +160,8 @@ pre > code {
   ); /* Subtle dark gray for light mode thumb */
 }
 
-[data-theme="dark"],
-[class*="dark"] {
+[data-theme='dark'],
+[class*='dark'] {
   --scrollbar-thumb: rgba(
     160,
     160,
@@ -193,7 +192,6 @@ pre > code {
   background-color: transparent; /* Transparent track */
 }
 
-
 .text-gradient {
   background-clip: text;
   -webkit-background-clip: text;
@@ -201,8 +199,13 @@ pre > code {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
@@ -211,4 +214,4 @@ pre > code {
 
 .perspective-1000 {
   perspective: 1000px;
-} 
+}

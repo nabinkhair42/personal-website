@@ -1,8 +1,8 @@
-import { ArrowRight } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import BlogCard from "@/app/(pages)/blog/_components/BlogCard";
-import { getAllBlogs } from "@/lib/markdown";
+import { ArrowRight } from 'lucide-react';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import BlogCard from '@/app/(pages)/blog/_components/BlogCard';
+import { getAllBlogs } from '@/lib/markdown';
 
 export default async function LatestBlogs() {
   const allBlogs = await getAllBlogs();
@@ -40,14 +40,15 @@ export default async function LatestBlogs() {
               <span className="font-serif italic">Blog Posts</span>
             </h2>
             <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-              Insights, tutorials, and thoughts on web development, design, and technology trends.
+              Insights, tutorials, and thoughts on web development, design, and
+              technology trends.
             </p>
           </div>
-          
+
           <div className="animate-in fade-in duration-700 delay-300">
             <Link href="/blog">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="group px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
               >
                 <span className="flex items-center gap-2">

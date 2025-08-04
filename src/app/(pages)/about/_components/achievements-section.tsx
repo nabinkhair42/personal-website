@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { achievements } from "@/constants/achievements";
+import { achievements } from '@/constants/achievements';
 
 export const AchievementsSection = () => {
   return (

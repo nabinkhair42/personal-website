@@ -1,4 +1,4 @@
-import { Quote } from "lucide-react";
+import { Quote } from 'lucide-react';
 
 export function TestimonialSkeleton() {
   return (
@@ -33,7 +33,7 @@ export function TestimonialSkeleton() {
         <div className="flex items-center gap-4">
           {/* Avatar */}
           <div className="w-12 h-12 bg-zinc-200 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 animate-pulse"></div>
-          
+
           {/* Author Details */}
           <div className="flex-1 space-y-2">
             <div className="h-3 bg-zinc-200 dark:bg-zinc-800 w-24 animate-pulse"></div>

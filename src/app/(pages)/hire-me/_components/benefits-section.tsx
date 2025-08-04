@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { benefits } from "@/constants/hire";
+import { benefits } from '@/constants/hire';
 
 export const BenefitsSection = () => {
   return (

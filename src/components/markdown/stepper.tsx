@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import clsx from "clsx";
-import { Children, PropsWithChildren } from "react";
+import { cn } from '@/lib/utils';
+import clsx from 'clsx';
+import { Children, PropsWithChildren } from 'react';
 
 export function Stepper({ children }: PropsWithChildren) {
   const length = Children.count(children);
@@ -18,9 +18,9 @@ export function Stepper({ children }: PropsWithChildren) {
           return (
             <div
               className={cn(
-                "border-l-2 border-zinc-200 dark:border-zinc-800 pl-8 ml-6 relative",
+                'border-l-2 border-zinc-200 dark:border-zinc-800 pl-8 ml-6 relative',
                 clsx({
-                  "pb-8": index < length - 1,
+                  'pb-8': index < length - 1,
                 })
               )}
             >
@@ -35,10 +35,8 @@ export function Stepper({ children }: PropsWithChildren) {
               {index < length - 1 && (
                 <div className="absolute -left-5 top-8 w-2 h-8 border-l-2 border-zinc-200 dark:border-zinc-800"></div>
               )}
-              
-              <div className="pt-1">
-                {child}
-              </div>
+
+              <div className="pt-1">{child}</div>
             </div>
           );
         })}

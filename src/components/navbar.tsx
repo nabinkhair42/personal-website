@@ -1,23 +1,23 @@
 // filepath: src/components/navbar.tsx
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Button, buttonVariants } from "./ui/button";
-import Anchor from "./anchor";
-import MyProfileImage from "@/app/icon.png";
-import Image from "next/image";
-import { Menu, Mail } from "lucide-react";
+import Link from 'next/link';
+import { Button, buttonVariants } from './ui/button';
+import Anchor from './anchor';
+import MyProfileImage from '@/app/icon.png';
+import Image from 'next/image';
+import { Menu, Mail } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { usePathname } from "next/navigation";
-import { NAVLINKS } from "@/constants/navigation";
-import { cn } from "@/lib/utils";
-import React from "react";
+} from '@/components/ui/sheet';
+import { usePathname } from 'next/navigation';
+import { NAVLINKS } from '@/constants/navigation';
+import { cn } from '@/lib/utils';
+import React from 'react';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -40,8 +40,9 @@ export function Navbar() {
                 key={navlink.title}
                 href={navlink.href}
                 className={cn(
-                  "relative text-sm font-light text-zinc-600 dark:text-zinc-400 transition-all duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 font-mono uppercase tracking-wide",
-                  pathname === navlink.href && "text-zinc-900 dark:text-zinc-100"
+                  'relative text-sm font-light text-zinc-600 dark:text-zinc-400 transition-all duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 font-mono uppercase tracking-wide',
+                  pathname === navlink.href &&
+                    'text-zinc-900 dark:text-zinc-100'
                 )}
                 activeClassName="after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-zinc-900 dark:after:bg-zinc-100"
               >
@@ -56,9 +57,9 @@ export function Navbar() {
           <Link
             href="/hire-me"
             className={cn(
-              buttonVariants({ size: "sm" }),
-              "font-mono text-xs uppercase tracking-wider gap-2 transition-all duration-300",
-              pathname === "/hire-me" && "bg-zinc-800 dark:bg-zinc-200"
+              buttonVariants({ size: 'sm' }),
+              'font-mono text-xs uppercase tracking-wider gap-2 transition-all duration-300',
+              pathname === '/hire-me' && 'bg-zinc-800 dark:bg-zinc-200'
             )}
           >
             <Mail className="h-3 w-3" />
@@ -69,7 +70,11 @@ export function Navbar() {
           <div className="md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden h-9 w-9">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden h-9 w-9"
+                >
                   <Menu className="h-4 w-4" />
                 </Button>
               </SheetTrigger>
@@ -86,8 +91,9 @@ export function Navbar() {
                       href={navlink.href}
                       onClick={() => setOpen(false)}
                       className={cn(
-                        "flex items-center gap-3 text-sm font-light font-mono uppercase tracking-wide text-zinc-600 dark:text-zinc-400 transition-all duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 py-2 border-b border-zinc-100 dark:border-zinc-800",
-                        pathname === navlink.href && "text-zinc-900 dark:text-zinc-100"
+                        'flex items-center gap-3 text-sm font-light font-mono uppercase tracking-wide text-zinc-600 dark:text-zinc-400 transition-all duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 py-2 border-b border-zinc-100 dark:border-zinc-800',
+                        pathname === navlink.href &&
+                          'text-zinc-900 dark:text-zinc-100'
                       )}
                     >
                       <div className="w-2 h-2 bg-zinc-300 dark:bg-zinc-700"></div>
@@ -116,12 +122,15 @@ export function Navbar() {
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-3 group transition-all duration-300">
+    <Link
+      href="/"
+      className="flex items-center gap-3 group transition-all duration-300"
+    >
       <div className="relative p-1 border border-zinc-200 dark:border-zinc-800 group-hover:border-zinc-300 dark:group-hover:border-zinc-700 transition-colors duration-300">
-        <Image 
-          src={MyProfileImage} 
-          height={24} 
-          width={24} 
+        <Image
+          src={MyProfileImage}
+          height={24}
+          width={24}
           alt="Nabin Khair"
           className="grayscale group-hover:grayscale-0 transition-all duration-300"
         />

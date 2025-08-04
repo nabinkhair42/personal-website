@@ -36,7 +36,9 @@ export const trackBlogView = async (blogId: string, slug: string) => {
 // Function to get blog metrics
 export const getBlogMetrics = async (slug: string) => {
   try {
-    const response = await fetch(`/api/blog/metrics?slug=${encodeURIComponent(slug)}`);
+    const response = await fetch(
+      `/api/blog/metrics?slug=${encodeURIComponent(slug)}`
+    );
     const data = await response.json();
     return data.metrics;
   } catch (error) {
@@ -46,7 +48,11 @@ export const getBlogMetrics = async (slug: string) => {
 };
 
 // Function to update blog reaction
-export const updateBlogReaction = async (slug: string, emoji: string, action: 'add' | 'remove') => {
+export const updateBlogReaction = async (
+  slug: string,
+  emoji: string,
+  action: 'add' | 'remove'
+) => {
   try {
     const response = await fetch('/api/blog/metrics', {
       method: 'PATCH',

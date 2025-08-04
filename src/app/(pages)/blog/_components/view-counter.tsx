@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Eye, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { Eye, Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ViewCounterProps {
   slug: string;
@@ -43,7 +43,12 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
   }, [slug]);
 
   return (
-    <div className={cn("flex items-center gap-2 text-zinc-600 dark:text-zinc-400 animate-in fade-in duration-500", className)}>
+    <div
+      className={cn(
+        'flex items-center gap-2 text-zinc-600 dark:text-zinc-400 animate-in fade-in duration-500',
+        className
+      )}
+    >
       {loading ? (
         <>
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -53,7 +58,8 @@ export default function ViewCounter({ slug, className }: ViewCounterProps) {
         <>
           <Eye className="h-4 w-4" />
           <span className="font-mono text-sm">
-            {metrics.views.toLocaleString()} view{metrics.views !== 1 ? 's' : ''}
+            {metrics.views.toLocaleString()} view
+            {metrics.views !== 1 ? 's' : ''}
           </span>
         </>
       )}

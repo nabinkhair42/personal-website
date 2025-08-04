@@ -1,9 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
-import { BlogMdxFrontmatter } from "@/lib/markdown";
-import { formatDate2 } from "@/lib/utils";
-import AvatarGroup from "./AvatarGroup";
-import { Calendar, ArrowRight } from "lucide-react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { BlogMdxFrontmatter } from '@/lib/markdown';
+import { formatDate2 } from '@/lib/utils';
+import AvatarGroup from './AvatarGroup';
+import { Calendar, ArrowRight } from 'lucide-react';
 
 export default function BlogCard({
   date,

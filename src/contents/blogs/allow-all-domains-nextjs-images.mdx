@@ -1,23 +1,24 @@
 ---
-title: "How to Allow All Domains for Image Configuration in Next.js?"
-description: "Learn how to configure Next.js to allow specific or all domains for external images using the Image component."
+title: 'How to Allow All Domains for Image Configuration in Next.js?'
+description: 'Learn how to configure Next.js to allow specific or all domains for external images using the Image component.'
 date: 08-01-2025
 authors:
-  - avatar: "/nabin.png"
+  - avatar: '/nabin.png'
     handle: nabinkhair42
     username: Nabin Khair
-    handleUrl: "https://github.com/nabinkhair42"
-cover: "/blogs/Next.Js-Image-Config.webp"
+    handleUrl: 'https://github.com/nabinkhair42'
+cover: '/blogs/Next.Js-Image-Config.webp'
 ---
 
-## Introduction  
+## Introduction
+
 When using the `Image` component in Next.js to load images from external URLs, you must configure your project to allow these domains. This step ensures secure handling of remote images while optimizing performance. In this guide, we’ll explore how to allow custom domains and all domains for external images in Next.js.
 
 ---
 
-## Allowing a Custom Domain  
+## Allowing a Custom Domain
 
-To allow images from a specific domain (e.g., `images.unsplash.com`), follow these steps:  
+To allow images from a specific domain (e.g., `images.unsplash.com`), follow these steps:
 
 <Stepper>
   <StepperItem title="Step 1: Update next.config.js">
@@ -36,12 +37,9 @@ To allow images from a specific domain (e.g., `images.unsplash.com`), follow the
     ```
   </StepperItem>
 
-  <StepperItem title="Step 2: Restart the Development Server">
-    After saving your changes, restart the server:
-    ```bash
-    npm run dev
-    ```
-  </StepperItem>
+<StepperItem title="Step 2: Restart the Development Server">
+  After saving your changes, restart the server: ```bash npm run dev ```
+</StepperItem>
 
   <StepperItem title="Step 3: Verify the Configuration">
     Load your application and check that external images from the configured domain are displaying correctly.
@@ -49,14 +47,16 @@ To allow images from a specific domain (e.g., `images.unsplash.com`), follow the
 </Stepper>
 
 <Note type="danger" title="Common Error">
-  If you encounter an error, ensure that you’ve used `hostname` instead of `host`. This is a common mistake that can prevent the configuration from working.
+  If you encounter an error, ensure that you’ve used `hostname` instead of
+  `host`. This is a common mistake that can prevent the configuration from
+  working.
 </Note>
 
 ---
 
-## Allowing All Domains  
+## Allowing All Domains
 
-If your application needs to support images from any domain, you can use a wildcard configuration. This approach is less secure but useful for testing or handling dynamic domains.  
+If your application needs to support images from any domain, you can use a wildcard configuration. This approach is less secure but useful for testing or handling dynamic domains.
 
 <Stepper>
   <StepperItem title="Step 1: Modify next.config.js">
@@ -75,12 +75,10 @@ If your application needs to support images from any domain, you can use a wildc
     ```
   </StepperItem>
 
-  <StepperItem title="Step 2: Restart the Development Server">
-    Save the file and restart the server to apply the changes:
-    ```bash
-    npm run dev
-    ```
-  </StepperItem>
+<StepperItem title="Step 2: Restart the Development Server">
+  Save the file and restart the server to apply the changes: ```bash npm run dev
+  ```
+</StepperItem>
 
   <StepperItem title="Step 3: Test the Setup">
     Load your application and verify that images from any secure domain are displaying correctly.
@@ -88,17 +86,21 @@ If your application needs to support images from any domain, you can use a wildc
 </Stepper>
 
 <Note type="warning" title="Pro Tip">
-  Use this configuration only when absolutely necessary, as it is less secure than specifying individual domains. Always restart the development server after changing `next.config.js` to ensure the updates take effect.
+  Use this configuration only when absolutely necessary, as it is less secure
+  than specifying individual domains. Always restart the development server
+  after changing `next.config.js` to ensure the updates take effect.
 </Note>
 
 ---
 
-## Conclusion  
+## Conclusion
 
-Configuring image domains in Next.js is essential for secure and efficient handling of external images. By specifying trusted domains or using a wildcard for all domains, you can customize your application’s image-handling capabilities.  
+Configuring image domains in Next.js is essential for secure and efficient handling of external images. By specifying trusted domains or using a wildcard for all domains, you can customize your application’s image-handling capabilities.
 
 <Note type="success" title="Key Takeaway">
-  While allowing specific domains is recommended for most scenarios, enabling all domains can be useful during development or for specific use cases. Tailor your configuration to your project’s needs for optimal results.
+  While allowing specific domains is recommended for most scenarios, enabling
+  all domains can be useful during development or for specific use cases. Tailor
+  your configuration to your project’s needs for optimal results.
 </Note>
 
 By following this guide, you can ensure seamless integration of external images in your Next.js applications.

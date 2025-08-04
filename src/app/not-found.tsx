@@ -1,7 +1,7 @@
-"use client";
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import { Search, Home, ArrowLeft } from "lucide-react";
+'use client';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
+import { Search, Home, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -11,8 +11,8 @@ export default function NotFound() {
         <div className="max-w-7xl mx-auto h-full">
           <div className="grid grid-cols-12 h-full">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="border-r border-zinc-300 dark:border-zinc-700 last:border-r-0"
               />
             ))}
@@ -51,16 +51,16 @@ export default function NotFound() {
             <h1 className="text-8xl md:text-9xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
               404
             </h1>
-            
+
             <div className="w-16 h-px bg-zinc-900 dark:bg-zinc-100 mx-auto"></div>
-            
+
             <p className="text-xl font-light text-zinc-600 dark:text-zinc-400 mb-4">
               Page not found
             </p>
-            
+
             <p className="text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-md mx-auto">
-              Oops! The page you&apos;re looking for doesn&apos;t exist. 
-              It might have been moved, deleted, or you entered the wrong URL.
+              Oops! The page you&apos;re looking for doesn&apos;t exist. It
+              might have been moved, deleted, or you entered the wrong URL.
             </p>
           </div>
 
@@ -68,19 +68,21 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
             <Link
               href="/"
-              className={buttonVariants({ 
-                className: "group px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+              className={buttonVariants({
+                className:
+                  'group px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 font-mono text-sm uppercase tracking-wider transition-all duration-300',
               })}
             >
               <Home className="h-4 w-4 mr-2" />
               Back to Homepage
             </Link>
-            
+
             <button
               onClick={() => window.history.back()}
-              className={buttonVariants({ 
-                variant: "outline",
-                className: "px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+              className={buttonVariants({
+                variant: 'outline',
+                className:
+                  'px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300',
               })}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -94,26 +96,26 @@ export default function NotFound() {
               Popular Pages
             </div>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <Link 
-                href="/projects" 
+              <Link
+                href="/projects"
                 className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 underline underline-offset-4"
               >
                 Projects
               </Link>
-              <Link 
-                href="/blog" 
+              <Link
+                href="/blog"
                 className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 underline underline-offset-4"
               >
                 Blog
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 underline underline-offset-4"
               >
                 About
               </Link>
-              <Link 
-                href="/hire-me" 
+              <Link
+                href="/hire-me"
                 className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 underline underline-offset-4"
               >
                 Hire Me

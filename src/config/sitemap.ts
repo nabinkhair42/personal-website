@@ -1,5 +1,5 @@
-import { getAllBlogs } from "@/lib/markdown";
-import { siteConfig } from "@/config/site";
+import { getAllBlogs } from '@/lib/markdown';
+import { siteConfig } from '@/config/site';
 
 export default async function sitemap() {
   const blogs = await getAllBlogs();
@@ -7,17 +7,17 @@ export default async function sitemap() {
 
   // Base routes
   const routes = [
-    "",
-    "/about",
-    "/projects",
-    "/hire-me",
-    "/contact",
-    "/blog"
+    '',
+    '/about',
+    '/projects',
+    '/hire-me',
+    '/contact',
+    '/blog',
   ].map((route) => ({
     url: `${siteConfig.baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: 'monthly',
-    priority: route === "" ? 1 : 0.8,
+    priority: route === '' ? 1 : 0.8,
   }));
 
   // Blog routes - with safe date handling
@@ -40,4 +40,4 @@ export default async function sitemap() {
   });
 
   return [...routes, ...blogRoutes];
-} 
+}

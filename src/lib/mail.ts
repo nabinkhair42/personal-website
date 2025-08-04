@@ -1,4 +1,4 @@
-import { transporter } from "./mail.config";
+import { transporter } from './mail.config';
 
 interface FormData {
   name: string;
@@ -48,7 +48,7 @@ export async function sendAdminNotification(data: FormData) {
 
     console.log('Sending admin notification with options:', {
       ...mailOptions,
-      html: '...[HTML Content]...'
+      html: '...[HTML Content]...',
     });
 
     return await transporter.sendMail(mailOptions);
@@ -62,7 +62,7 @@ export async function sendUserConfirmation(data: FormData) {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: data.email,
-    subject: "Thank you for your message!",
+    subject: 'Thank you for your message!',
     html: `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #444; line-height: 1.8;">
         <table style="width: 100%; max-width: 600px; margin: 20px auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">

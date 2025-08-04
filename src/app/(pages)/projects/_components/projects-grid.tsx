@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Project } from "@/constants/projects";
-import { ProjectCard } from "./project-card";
+import { Project } from '@/constants/projects';
+import { ProjectCard } from './project-card';
 
 interface ProjectsGridProps {
   projects: Project[];

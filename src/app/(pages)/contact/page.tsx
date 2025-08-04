@@ -1,7 +1,7 @@
-import { contactMetadata } from "@/config/metadata";
-import { ContactForm } from "./_components/contact-form";
-import { ContactInfo } from "./_components/contact-info";
-import ContactHero from "./_components/hero-section";
+import { contactMetadata } from '@/config/metadata';
+import { ContactForm } from './_components/contact-form';
+import { ContactInfo } from './_components/contact-info';
+import ContactHero from './_components/hero-section';
 
 export const metadata = contactMetadata;
 

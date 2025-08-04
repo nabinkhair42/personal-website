@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { platforms } from "@/constants/platforms";
+import { platforms } from '@/constants/platforms';
 
 export const PlatformsSection = () => {
   return (
@@ -75,13 +75,18 @@ export const PlatformsSection = () => {
                       Visit Profile
                     </span>
                     <div className="w-4 h-px bg-zinc-700 dark:bg-zinc-300 group-hover:w-6 transition-all duration-300"></div>
-                    <svg 
-                      className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
                     </svg>
                   </div>
                 </div>

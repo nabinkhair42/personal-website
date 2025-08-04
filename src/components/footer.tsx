@@ -1,4 +1,4 @@
-import { Logo } from "./navbar";
+import { Logo } from './navbar';
 
 export function Footer() {
   return (

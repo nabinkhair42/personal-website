@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Download,
   ExternalLink,
@@ -9,13 +9,17 @@ import {
   Grid3X3,
   Info,
   Palette,
-  X
-} from "lucide-react";
-import { useState } from "react";
+  X,
+} from 'lucide-react';
+import { useState } from 'react';
 
 // Quality Notice Modal Component
-const QualityNotice = ({ isVisible, onClose, onContinue }: { 
-  isVisible: boolean; 
+const QualityNotice = ({
+  isVisible,
+  onClose,
+  onContinue,
+}: {
+  isVisible: boolean;
   onClose: () => void;
   onContinue: () => void;
 }) => {
@@ -47,17 +51,17 @@ const QualityNotice = ({ isVisible, onClose, onContinue }: {
           <h3 className="text-base sm:text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-3 font-mono uppercase tracking-wide">
             Compressed Version
           </h3>
-          
+
           <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-light leading-relaxed mb-4">
-            These downloads are web-optimized versions. For full-resolution, 
+            These downloads are web-optimized versions. For full-resolution,
             uncompressed originals, visit my Figma profile.
           </p>
 
           {/* Actions */}
           <div className="flex flex-col gap-2">
-            <a 
-              href="https://figma.com/@nabinkhair" 
-              target="_blank" 
+            <a
+              href="https://figma.com/@nabinkhair"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 p-2 sm:p-3 border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200 text-center"
             >
@@ -66,8 +70,8 @@ const QualityNotice = ({ isVisible, onClose, onContinue }: {
                 High Quality on Figma
               </span>
             </a>
-            
-            <button 
+
+            <button
               onClick={onContinue}
               className="p-2 sm:p-3 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-200"
             >
@@ -76,7 +80,7 @@ const QualityNotice = ({ isVisible, onClose, onContinue }: {
               </span>
             </button>
 
-            <button 
+            <button
               onClick={onClose}
               className="p-2 sm:p-3 border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-200"
             >
@@ -95,80 +99,80 @@ const QualityNotice = ({ isVisible, onClose, onContinue }: {
 const backgroundCollection = [
   {
     id: 1,
-    name: "Mint Eclipse",
-    filename: "Mint Eclipse.webp",
-    description: "Cool greens and cyans fading into black",
-    category: "Cool",
-    resolution: "2560×1440",
-    size: "847 KB",
+    name: 'Mint Eclipse',
+    filename: 'Mint Eclipse.webp',
+    description: 'Cool greens and cyans fading into black',
+    category: 'Cool',
+    resolution: '2560×1440',
+    size: '847 KB',
   },
   {
     id: 2,
-    name: "Sunset Cream",
-    filename: "Sunset Cream.webp",
-    description: "Warm oranges and soft beige tones",
-    category: "Warm",
-    resolution: "2560×1440",
-    size: "923 KB",
+    name: 'Sunset Cream',
+    filename: 'Sunset Cream.webp',
+    description: 'Warm oranges and soft beige tones',
+    category: 'Warm',
+    resolution: '2560×1440',
+    size: '923 KB',
   },
   {
     id: 3,
-    name: "Aurora Chill",
-    filename: "Aurora Chill.webp",
-    description: "Arctic blues and greens glowing like a polar sky",
-    category: "Cool",
-    resolution: "2560×1440",
-    size: "756 KB",
+    name: 'Aurora Chill',
+    filename: 'Aurora Chill.webp',
+    description: 'Arctic blues and greens glowing like a polar sky',
+    category: 'Cool',
+    resolution: '2560×1440',
+    size: '756 KB',
   },
   {
     id: 4,
-    name: "Neon Sorbet",
-    filename: "Neon Sorbet.webp",
+    name: 'Neon Sorbet',
+    filename: 'Neon Sorbet.webp',
     description:
-      "Vibrant mix of purples, pinks, and orange with soft white glow",
-    category: "Vibrant",
-    resolution: "2560×1440",
-    size: "892 KB",
+      'Vibrant mix of purples, pinks, and orange with soft white glow',
+    category: 'Vibrant',
+    resolution: '2560×1440',
+    size: '892 KB',
   },
   {
     id: 5,
-    name: "Electric Twilight",
-    filename: "Electric Twilight.webp",
-    description: "Deep blues fading into frosty lavender",
-    category: "Cool",
-    resolution: "2560×1440",
-    size: "689 KB",
+    name: 'Electric Twilight',
+    filename: 'Electric Twilight.webp',
+    description: 'Deep blues fading into frosty lavender',
+    category: 'Cool',
+    resolution: '2560×1440',
+    size: '689 KB',
   },
   {
     id: 6,
-    name: "Midnight Lagoon",
-    filename: "Midnight Lagoon.webp",
-    description: "Dark blues with hints of cyan and violet",
-    category: "Dark",
-    resolution: "2560×1440",
-    size: "634 KB",
+    name: 'Midnight Lagoon',
+    filename: 'Midnight Lagoon.webp',
+    description: 'Dark blues with hints of cyan and violet',
+    category: 'Dark',
+    resolution: '2560×1440',
+    size: '634 KB',
   },
   {
     id: 7,
-    name: "Velvet Ember",
-    filename: "Velvet Ember.webp",
-    description: "Warm golds blending into deep pinks and purples",
-    category: "Warm",
-    resolution: "2560×1440",
-    size: "798 KB",
+    name: 'Velvet Ember',
+    filename: 'Velvet Ember.webp',
+    description: 'Warm golds blending into deep pinks and purples',
+    category: 'Warm',
+    resolution: '2560×1440',
+    size: '798 KB',
   },
 ];
 
-const categories = ["All", "Cool", "Warm", "Vibrant", "Dark"];
+const categories = ['All', 'Cool', 'Warm', 'Vibrant', 'Dark'];
 
 const BackgroundCollection = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showQualityNotice, setShowQualityNotice] = useState(false);
   const [pendingDownload, setPendingDownload] = useState<string | null>(null);
 
   const filteredBackgrounds =
-    selectedCategory === "All"
+    selectedCategory === 'All'
       ? backgroundCollection
       : backgroundCollection.filter((bg) => bg.category === selectedCategory);
 
@@ -179,7 +183,7 @@ const BackgroundCollection = () => {
 
   const handleContinueDownload = () => {
     if (pendingDownload) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = `/background-images/${pendingDownload}`;
       link.download = pendingDownload;
       link.click();
@@ -251,7 +255,7 @@ const BackgroundCollection = () => {
               <div className="absolute top-0 left-4 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
               <div className="absolute top-1/2 left-0 w-full h-px bg-zinc-400 dark:bg-zinc-600"></div>
             </div>
-            
+
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
               <div className="flex items-center gap-2">
                 <Info className="h-3 w-3 text-zinc-600 dark:text-zinc-400" />
@@ -259,12 +263,14 @@ const BackgroundCollection = () => {
                   Web-optimized versions
                 </span>
               </div>
-              <span className="hidden sm:inline text-zinc-600 dark:text-zinc-400">•</span>
+              <span className="hidden sm:inline text-zinc-600 dark:text-zinc-400">
+                •
+              </span>
               <span className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">
-                Full quality on 
-                <a 
-                  href="https://figma.com/@nabinkhair" 
-                  target="_blank" 
+                Full quality on
+                <a
+                  href="https://figma.com/@nabinkhair"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="underline hover:text-zinc-900 dark:hover:text-zinc-100 mx-1"
                 >
@@ -284,9 +290,9 @@ const BackgroundCollection = () => {
                 Wallpapers
               </div>
             </div>
-            
+
             <div className="w-px h-6 sm:h-8 bg-zinc-300 dark:bg-zinc-700"></div>
-            
+
             <div className="space-y-1">
               <div className="text-xl sm:text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
                 2K
@@ -295,9 +301,9 @@ const BackgroundCollection = () => {
                 Resolution
               </div>
             </div>
-            
+
             <div className="w-px h-6 sm:h-8 bg-zinc-300 dark:bg-zinc-700"></div>
-            
+
             <div className="space-y-1">
               <div className="text-xl sm:text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
                 Free
@@ -350,7 +356,7 @@ const BackgroundCollection = () => {
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
+                variant={selectedCategory === category ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
                 className="text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
@@ -411,7 +417,9 @@ const BackgroundCollection = () => {
                           className="h-8 w-8 sm:h-auto sm:w-auto sm:px-3"
                         >
                           <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-                          <span className="hidden sm:inline ml-2">Download</span>
+                          <span className="hidden sm:inline ml-2">
+                            Download
+                          </span>
                         </Button>
                       </div>
                     </div>
@@ -454,7 +462,9 @@ const BackgroundCollection = () => {
 
                       <div className="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-900">
                         <div className="text-xs text-zinc-500 dark:text-zinc-400 font-mono truncate">
-                          <span className="hidden sm:inline">{background.resolution} • </span>
+                          <span className="hidden sm:inline">
+                            {background.resolution} •{' '}
+                          </span>
                           {background.size}
                         </div>
                         <Button
@@ -476,8 +486,8 @@ const BackgroundCollection = () => {
       </section>
 
       {/* Quality Notice Modal */}
-      <QualityNotice 
-        isVisible={showQualityNotice} 
+      <QualityNotice
+        isVisible={showQualityNotice}
         onClose={handleCancelDownload}
         onContinue={handleContinueDownload}
       />
@@ -501,15 +511,15 @@ const BackgroundCollection = () => {
             >
               <X className="h-4 w-4" />
             </Button>
-            
+
             <img
               src={previewImage}
               alt="Preview"
               className="w-full h-full object-contain"
               onError={(e) => {
-                console.error("Image failed to load:", previewImage);
+                console.error('Image failed to load:', previewImage);
                 e.currentTarget.src = `/assets/background-images/${previewImage
-                  .split("/")
+                  .split('/')
                   .pop()}`;
               }}
             />

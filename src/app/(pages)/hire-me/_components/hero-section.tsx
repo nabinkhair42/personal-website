@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { Mail } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -9,15 +9,15 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { ContactForm } from "../../contact/_components/contact-form";
+} from '@/components/ui/dialog';
+import { ContactForm } from '../../contact/_components/contact-form';
 
 const HireMeNow = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button 
-          size="lg" 
+        <Button
+          size="lg"
           className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 px-8 py-3 font-mono text-sm uppercase tracking-wider transition-all duration-300"
         >
           <Mail className="mr-2 h-4 w-4" />
@@ -77,8 +77,8 @@ export const HeroSection = () => {
 
         {/* Description */}
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-3xl mx-auto mb-12 animate-in fade-in duration-700 delay-400">
-          Currently available for freelance projects and collaborations. 
-          Ready to transform your ideas into exceptional digital experiences.
+          Currently available for freelance projects and collaborations. Ready
+          to transform your ideas into exceptional digital experiences.
         </p>
 
         {/* CTA Button */}

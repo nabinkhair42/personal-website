@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Calendar, Palette } from "lucide-react";
+import { Calendar, Palette } from 'lucide-react';
 import {
   SiAmazon,
   SiCloudflare,
@@ -15,73 +15,73 @@ import {
   SiVercel,
   SiZod,
   SiClerk,
-} from "react-icons/si";
-import FinFoxLogo from "./FinfoxLogo";
-import { FaBuildingUser } from "react-icons/fa6";
-import { TrulyCareLogo } from "./TrulyCare";
+} from 'react-icons/si';
+import FinFoxLogo from './FinfoxLogo';
+import { FaBuildingUser } from 'react-icons/fa6';
+import { TrulyCareLogo } from './TrulyCare';
 
 // Technology icons mapping
 const technologyIcons: Record<
   string,
   { icon: React.ElementType; color?: string }
 > = {
-  "React.js": { icon: SiReact, color: "#61DAFB" },
-  "Next.js": { icon: SiNextdotjs },
-  TypeScript: { icon: SiTypescript, color: "#3178C6" },
-  Figma: { icon: SiFigma, color: "#F24E1E" },
-  "UI/UX Design": { icon: Palette, color: "#0284C7" },
-  "Node.js": { icon: SiNodedotjs, color: "#339933" },
-  "Express.js": { icon: SiExpress },
-  MongoDB: { icon: SiMongodb, color: "#47A248" },
-  AWS: { icon: SiAmazon, color: "#FF9900" },
+  'React.js': { icon: SiReact, color: '#61DAFB' },
+  'Next.js': { icon: SiNextdotjs },
+  TypeScript: { icon: SiTypescript, color: '#3178C6' },
+  Figma: { icon: SiFigma, color: '#F24E1E' },
+  'UI/UX Design': { icon: Palette, color: '#0284C7' },
+  'Node.js': { icon: SiNodedotjs, color: '#339933' },
+  'Express.js': { icon: SiExpress },
+  MongoDB: { icon: SiMongodb, color: '#47A248' },
+  AWS: { icon: SiAmazon, color: '#FF9900' },
   Vercel: { icon: SiVercel },
-  Cloudflare: { icon: SiCloudflare, color: "#F38020" },
-  "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
-  Zustand: { icon: SiZod, color: "#050769" },
-  Clerk: { icon: SiClerk, color: "#d6d6d6" },
+  Cloudflare: { icon: SiCloudflare, color: '#F38020' },
+  'Tailwind CSS': { icon: SiTailwindcss, color: '#06B6D4' },
+  Zustand: { icon: SiZod, color: '#050769' },
+  Clerk: { icon: SiClerk, color: '#d6d6d6' },
 };
 
 const experiences = [
   {
-    title: "Frontend Engineer",
-    company: "Truly Care",
-    period: "Jun 2025 - Present",
+    title: 'Frontend Engineer',
+    company: 'Truly Care',
+    period: 'Jun 2025 - Present',
     description:
-      "Developing responsive web applications using React.js and Next.js, implementing modern UI components and ensuring optimal performance across different devices and browsers. Creating user-centered design solutions, wireframes, and prototypes using Figma while building reusable React components with TypeScript.",
-    technologies: ["React.js", "Next.js", "TypeScript", "Zustand", "Clerk"],
+      'Developing responsive web applications using React.js and Next.js, implementing modern UI components and ensuring optimal performance across different devices and browsers. Creating user-centered design solutions, wireframes, and prototypes using Figma while building reusable React components with TypeScript.',
+    technologies: ['React.js', 'Next.js', 'TypeScript', 'Zustand', 'Clerk'],
     icon: TrulyCareLogo,
   },
   {
-    title: "Frontend Developer & UI/UX Designer",
-    company: "FinFox App, Inc.",
-    period: "May 2025 - Present",
+    title: 'Frontend Developer & UI/UX Designer',
+    company: 'FinFox App, Inc.',
+    period: 'May 2025 - Present',
     description:
-      "Developing responsive web applications using React.js and Next.js, implementing modern UI components and ensuring optimal performance across different devices and browsers. Creating user-centered design solutions, wireframes, and prototypes using Figma while building reusable React components with TypeScript.",
+      'Developing responsive web applications using React.js and Next.js, implementing modern UI components and ensuring optimal performance across different devices and browsers. Creating user-centered design solutions, wireframes, and prototypes using Figma while building reusable React components with TypeScript.',
     technologies: [
-      "React.js",
-      "Next.js",
-      "TypeScript",
-      "Figma",
-      "UI/UX Design",
+      'React.js',
+      'Next.js',
+      'TypeScript',
+      'Figma',
+      'UI/UX Design',
     ],
     icon: FinFoxLogo,
   },
   {
-    title: "Frontend & Backend Developer",
-    company: "Freelance MERN & Next.js Developer",
-    period: "2022 - May 2025",
+    title: 'Frontend & Backend Developer',
+    company: 'Freelance MERN & Next.js Developer',
+    period: '2022 - May 2025',
     description:
-      "Developed multiple full-stack applications using React.js, Next.js, Node.js, Express.js, and MongoDB with deployment on AWS, Vercel, and Cloudflare platforms. Successfully delivered projects including Express News platform, UncleSams Tech website, Receipt Vault application, and various other client solutions with modern UI/UX design.",
+      'Developed multiple full-stack applications using React.js, Next.js, Node.js, Express.js, and MongoDB with deployment on AWS, Vercel, and Cloudflare platforms. Successfully delivered projects including Express News platform, UncleSams Tech website, Receipt Vault application, and various other client solutions with modern UI/UX design.',
     technologies: [
-      "React.js",
-      "Next.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "AWS",
-      "Vercel",
-      "Cloudflare",
-      "Tailwind CSS",
+      'React.js',
+      'Next.js',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'AWS',
+      'Vercel',
+      'Cloudflare',
+      'Tailwind CSS',
     ],
     icon: FaBuildingUser,
   },

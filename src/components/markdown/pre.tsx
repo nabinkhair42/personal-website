@@ -1,11 +1,11 @@
-import { ComponentProps } from "react";
-import Copy from "./copy";
+import { ComponentProps } from 'react';
+import Copy from './copy';
 
 export default function Pre({
   children,
   raw,
   ...rest
-}: ComponentProps<"pre"> & { raw?: string }) {
+}: ComponentProps<'pre'> & { raw?: string }) {
   return (
     <div className="relative my-6 group">
       {/* Enhanced container */}
@@ -40,7 +40,7 @@ export default function Pre({
 
         {/* Code content */}
         <div className="relative overflow-auto">
-          <pre 
+          <pre
             className="p-4 text-sm font-mono leading-relaxed text-zinc-800 dark:text-zinc-200 bg-transparent overflow-x-auto border-none rounded-none"
             {...rest}
           >

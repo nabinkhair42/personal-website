@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import connectDatabase from "@/lib/dbConnect";
-import { BlogMetrics } from "@/lib/blog.model";
+import { NextResponse } from 'next/server';
+import connectDatabase from '@/lib/dbConnect';
+import { BlogMetrics } from '@/lib/blog.model';
 
 interface MongoDBError {
   code?: number;
@@ -19,7 +19,10 @@ interface MetricsResponse {
 }
 
 // Add a simple in-memory cache with TTL
-const metricsCache = new Map<string, { data: MetricsResponse, timestamp: number }>();
+const metricsCache = new Map<
+  string,
+  { data: MetricsResponse; timestamp: number }
+>();
 const CACHE_TTL = 60 * 1000; // 60 seconds cache
 
 // Reuse database connection
@@ -27,7 +30,7 @@ let isConnected = false;
 
 async function ensureDbConnection() {
   if (!isConnected) {
-    await connectDatabase("portfolio", process.env.MONGODB_URI);
+    await connectDatabase('portfolio', process.env.MONGODB_URI);
     isConnected = true;
   }
 }
@@ -36,13 +39,10 @@ export async function POST(request: Request) {
   try {
     await ensureDbConnection();
     const { slug } = await request.json();
-    console.log("Data in POST request:", { slug });
+    console.log('Data in POST request:', { slug });
 
     if (!slug) {
-      return NextResponse.json(
-        { error: 'Slug is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
     }
 
     // Find or create metrics for this blog
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
           slug,
           views: 1,
           lastViewed: now,
-          reactions: new Map()
+          reactions: new Map(),
         });
       } catch (error) {
         // Check if it's a MongoDB duplicate key error
@@ -87,10 +87,9 @@ export async function POST(request: Request) {
       success: true,
       metrics: {
         views: metrics.views,
-        reactions: Object.fromEntries(metrics.reactions || new Map())
-      }
+        reactions: Object.fromEntries(metrics.reactions || new Map()),
+      },
     });
-
   } catch (error) {
     console.error('Error updating blog metrics:', error);
     return NextResponse.json(
@@ -106,43 +105,42 @@ export async function GET(request: Request) {
     const slug = url.searchParams.get('slug');
 
     if (!slug) {
-      return NextResponse.json(
-        { error: 'Slug is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
     }
 
     // Check cache first
     const cacheKey = `metrics-${slug}`;
     const now = Date.now();
     const cachedData = metricsCache.get(cacheKey);
-    
-    if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
-      console.log("Serving metrics from cache for:", slug);
+
+    if (cachedData && now - cachedData.timestamp < CACHE_TTL) {
+      console.log('Serving metrics from cache for:', slug);
       return NextResponse.json(cachedData.data);
     }
-    
+
     // If not in cache, get from database
     await ensureDbConnection();
-    
+
     const metrics = await BlogMetrics.findOne({ slug });
-    
+
     const response = {
       success: true,
-      metrics: metrics ? {
-        views: metrics.views,
-        lastViewed: metrics.lastViewed,
-        reactions: Object.fromEntries(metrics.reactions || new Map())
-      } : {
-        views: 0,
-        lastViewed: null,
-        reactions: {}
-      }
+      metrics: metrics
+        ? {
+            views: metrics.views,
+            lastViewed: metrics.lastViewed,
+            reactions: Object.fromEntries(metrics.reactions || new Map()),
+          }
+        : {
+            views: 0,
+            lastViewed: null,
+            reactions: {},
+          },
     };
-    
+
     // Update cache
     metricsCache.set(cacheKey, { data: response, timestamp: now });
-    
+
     return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching blog metrics:', error);
@@ -179,28 +177,31 @@ export async function PATCH(request: Request) {
         slug,
         views: 0,
         lastViewed: new Date(),
-        reactions: new Map([[emoji, 1]])
+        reactions: new Map([[emoji, 1]]),
       });
     } else {
       const currentCount = metrics.reactions?.get(emoji) || 0;
       if (!metrics.reactions) {
         metrics.reactions = new Map();
       }
-      metrics.reactions.set(emoji, action === 'add' ? currentCount + 1 : Math.max(0, currentCount - 1));
+      metrics.reactions.set(
+        emoji,
+        action === 'add' ? currentCount + 1 : Math.max(0, currentCount - 1)
+      );
       await metrics.save();
     }
 
     // Invalidate cache after updating reactions
     const cacheKey = `metrics-${slug}`;
     metricsCache.delete(cacheKey);
-    
+
     return NextResponse.json({
       success: true,
       metrics: {
         views: metrics.views,
         lastViewed: metrics.lastViewed,
-        reactions: Object.fromEntries(metrics.reactions || new Map())
-      }
+        reactions: Object.fromEntries(metrics.reactions || new Map()),
+      },
     });
   } catch (error) {
     console.error('Error updating reaction:', error);

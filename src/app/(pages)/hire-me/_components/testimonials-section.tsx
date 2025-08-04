@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { testimonials } from "@/constants/testimonials";
-import { TestimonialSkeleton } from "@/components/ui/ui-extend/testimonial-skeleton";
-import { Quote } from "lucide-react";
+import { testimonials } from '@/constants/testimonials';
+import { TestimonialSkeleton } from '@/components/ui/ui-extend/testimonial-skeleton';
+import { Quote } from 'lucide-react';
 
 export const TestimonialsSection = () => {
   return (
@@ -33,8 +33,8 @@ export const TestimonialsSection = () => {
             <span className="font-serif italic">Say About Me</span>
           </h2>
           <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-2xl mx-auto">
-            Currently collecting testimonials from the clients I have worked with,
-            so please hold on for their valuable feedback.
+            Currently collecting testimonials from the clients I have worked
+            with, so please hold on for their valuable feedback.
           </p>
         </div>
 

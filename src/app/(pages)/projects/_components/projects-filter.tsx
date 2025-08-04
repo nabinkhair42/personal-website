@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 interface ProjectsFilterProps {
   activeCategory: string;
@@ -9,10 +9,10 @@ interface ProjectsFilterProps {
 
 // Simplified categories based on project types
 const categories = [
-  { value: "all", label: "All" },
-  { value: "webapp", label: "Web App" },
-  { value: "mobileapp", label: "Mobile App" },
-  { value: "others", label: "Others" },
+  { value: 'all', label: 'All' },
+  { value: 'webapp', label: 'Web App' },
+  { value: 'mobileapp', label: 'Mobile App' },
+  { value: 'others', label: 'Others' },
 ];
 
 export const ProjectsFilter = ({
@@ -29,7 +29,7 @@ export const ProjectsFilter = ({
         <div className="absolute top-0 right-40 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
         <div className="absolute top-0 right-20 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
         <div className="absolute top-0 right-0 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
-        
+
         {/* Horizontal structural lines */}
         <div className="absolute top-1/4 left-0 w-full h-px bg-zinc-400 dark:bg-zinc-600 opacity-50"></div>
         <div className="absolute bottom-1/4 left-0 w-full h-px bg-zinc-400 dark:bg-zinc-600 opacity-50"></div>
@@ -56,13 +56,16 @@ export const ProjectsFilter = ({
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <Button
-                variant={activeCategory === category.value ? "default" : "outline"}
+                variant={
+                  activeCategory === category.value ? 'default' : 'outline'
+                }
                 onClick={() => onCategoryChange(category.value)}
                 className={`
                   relative overflow-hidden transition-all duration-300 
-                  ${activeCategory === category.value 
-                    ? 'bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 border-zinc-900 dark:border-zinc-100' 
-                    : 'bg-transparent border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600'
+                  ${
+                    activeCategory === category.value
+                      ? 'bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 border-zinc-900 dark:border-zinc-100'
+                      : 'bg-transparent border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600'
                   }
                   font-mono text-sm tracking-wide uppercase px-6 py-2
                 `}

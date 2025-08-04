@@ -1,18 +1,18 @@
-import { ComponentProps } from "react";
-import NextImage from "next/image";
+import { ComponentProps } from 'react';
+import NextImage from 'next/image';
 
-type Height = ComponentProps<typeof NextImage>["height"];
-type Width = ComponentProps<typeof NextImage>["width"];
+type Height = ComponentProps<typeof NextImage>['height'];
+type Width = ComponentProps<typeof NextImage>['width'];
 
 export default function Image({
   src,
-  alt = "Image",
+  alt = 'Image',
   width = 800,
   height = 350,
   ...props
-}: ComponentProps<"img">) {
+}: ComponentProps<'img'>) {
   if (!src) return null;
-  
+
   return (
     <div className="relative my-8 group">
       {/* Enhanced image container */}
@@ -28,9 +28,9 @@ export default function Image({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      
+
       {/* Image caption if alt text is provided */}
-      {alt !== "Image" && (
+      {alt !== 'Image' && (
         <div className="mt-3 text-center">
           <p className="text-xs font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
             {alt}

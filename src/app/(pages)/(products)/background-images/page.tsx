@@ -1,11 +1,12 @@
-import React from 'react'
-import type { Metadata } from 'next'
-import BackgroundCollection from './collection'
+import React from 'react';
+import type { Metadata } from 'next';
+import BackgroundCollection from './collection';
 
 // Metadata for SEO and social sharing
 export const metadata: Metadata = {
   title: 'Background Gradients Collection | Brutalist Minimalism',
-  description: 'A curated collection of minimal gradient backgrounds crafted with architectural precision. Free 2K wallpapers following brutalist-minimalism design principles.',
+  description:
+    'A curated collection of minimal gradient backgrounds crafted with architectural precision. Free 2K wallpapers following brutalist-minimalism design principles.',
   keywords: [
     'background gradients',
     'minimal wallpapers',
@@ -14,16 +15,17 @@ export const metadata: Metadata = {
     '2K wallpapers',
     'architectural design',
     'gradient collection',
-    'minimalist backgrounds'
+    'minimalist backgrounds',
   ],
   authors: [{ name: 'Nabin Khair' }],
   creator: 'Nabin Khair',
   category: 'Design Resources',
-  
+
   // Open Graph metadata for social sharing
   openGraph: {
     title: 'Background Gradients Collection | Brutalist Minimalism',
-    description: 'Free minimal gradient backgrounds designed with architectural precision. 7 unique 2K wallpapers following brutalist design principles.',
+    description:
+      'Free minimal gradient backgrounds designed with architectural precision. 7 unique 2K wallpapers following brutalist design principles.',
     url: '/products/background-collection',
     siteName: 'Nabin Khair',
     type: 'website',
@@ -38,16 +40,17 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter Card metadata
   twitter: {
     card: 'summary_large_image',
     title: 'Background Gradients Collection | Brutalist Minimalism',
-    description: 'Free minimal gradient backgrounds designed with architectural precision. 7 unique 2K wallpapers.',
+    description:
+      'Free minimal gradient backgrounds designed with architectural precision. 7 unique 2K wallpapers.',
     creator: '@nabinkhair', // Replace with your actual Twitter handle
     images: ['/background-images/Mint Eclipse.webp'],
   },
-  
+
   // Additional metadata
   robots: {
     index: true,
@@ -60,13 +63,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
-}
+};
 
 const page = () => {
-  return (
-    <BackgroundCollection />
-  )
-}
+  return <BackgroundCollection />;
+};
 
-export default page
+export default page;

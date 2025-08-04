@@ -1,10 +1,10 @@
-import { aboutMetadata } from "@/config/metadata";
-import { AboutHero } from "./_components/about-hero";
-import { AchievementsSection } from "./_components/achievements-section";
-import { EducationSection } from "./_components/education-section";
-import { PlatformsSection } from "./_components/platforms-section";
-import { SkillsSection } from "./_components/skills-section";
-import { WorkTimeline } from "./_components/work-timeline";
+import { aboutMetadata } from '@/config/metadata';
+import { AboutHero } from './_components/about-hero';
+import { AchievementsSection } from './_components/achievements-section';
+import { EducationSection } from './_components/education-section';
+import { PlatformsSection } from './_components/platforms-section';
+import { SkillsSection } from './_components/skills-section';
+import { WorkTimeline } from './_components/work-timeline';
 // Combine metadata with JSON-LD
 export const metadata = aboutMetadata;
 
@@ -15,7 +15,7 @@ export default function AboutPage() {
         {/* Main Container with Architectural Grid */}
         <main className="max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
           <AboutHero />
-          <WorkTimeline />  
+          <WorkTimeline />
           <EducationSection />
           <SkillsSection />
           <PlatformsSection />

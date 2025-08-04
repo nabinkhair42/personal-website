@@ -1,5 +1,4 @@
-import React from "react";
-
+import React from 'react';
 
 interface LogoProps {
   className?: string;
@@ -7,8 +6,12 @@ interface LogoProps {
   onClick?: () => void;
 }
 
-const FinFoxLogo: React.FC<LogoProps> = ({ className = "", color="#2062AF", onClick }) => {
-  const defaultClassName = onClick ? "cursor-pointer" : "";
+const FinFoxLogo: React.FC<LogoProps> = ({
+  className = '',
+  color = '#2062AF',
+  onClick,
+}) => {
+  const defaultClassName = onClick ? 'cursor-pointer' : '';
   return (
     <svg
       width="287"

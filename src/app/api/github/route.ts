@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 import {
   Activity,
   GitHubContributionWeek,
   GitHubContributionDay,
-} from "@/types/github";
+} from '@/types/github';
 
 // GitHub GraphQL API endpoint
-const GITHUB_API = "https://api.github.com/graphql";
+const GITHUB_API = 'https://api.github.com/graphql';
 
 export async function GET() {
   try {
@@ -14,9 +14,9 @@ export async function GET() {
     const username = process.env.GITHUB_USERNAME;
 
     if (!username) {
-      console.error("GITHUB_USERNAME environment variable is not set");
+      console.error('GITHUB_USERNAME environment variable is not set');
       return NextResponse.json(
-        { error: "Server configuration error" },
+        { error: 'Server configuration error' },
         { status: 500 }
       );
     }
@@ -25,9 +25,9 @@ export async function GET() {
     const token = process.env.GITHUB_TOKEN;
 
     if (!token) {
-      console.error("GITHUB_TOKEN environment variable is not set");
+      console.error('GITHUB_TOKEN environment variable is not set');
       return NextResponse.json(
-        { error: "Server configuration error" },
+        { error: 'Server configuration error' },
         { status: 500 }
       );
     }
@@ -52,25 +52,25 @@ export async function GET() {
     `;
 
     const response = await fetch(GITHUB_API, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         query,
         variables: { username },
       }),
-      cache: "no-store",
+      cache: 'no-store',
     });
 
     const responseData = await response.json();
 
     // Check for GraphQL errors
     if (responseData.errors) {
-      console.error("GraphQL errors:", responseData.errors);
+      console.error('GraphQL errors:', responseData.errors);
       return NextResponse.json(
-        { error: responseData.errors[0]?.message || "GitHub API error" },
+        { error: responseData.errors[0]?.message || 'GitHub API error' },
         { status: 422 }
       );
     }
@@ -78,14 +78,14 @@ export async function GET() {
     // Check for HTTP errors
     if (!response.ok) {
       throw new Error(
-        "GitHub API request failed with status: " + response.status
+        'GitHub API request failed with status: ' + response.status
       );
     }
 
     // Handle case where user data might not be found
     if (!responseData.data || !responseData.data.user) {
       return NextResponse.json(
-        { error: "GitHub user not found" },
+        { error: 'GitHub user not found' },
         { status: 404 }
       );
     }
@@ -107,9 +107,9 @@ export async function GET() {
 
     return NextResponse.json({ data: contributions });
   } catch (error) {
-    console.error("Error fetching GitHub data:", error);
+    console.error('Error fetching GitHub data:', error);
     return NextResponse.json(
-      { error: "Failed to fetch contribution data" },
+      { error: 'Failed to fetch contribution data' },
       { status: 500 }
     );
   }

@@ -1,8 +1,8 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
-import { Activity, ActivityCalendar } from "react-activity-calendar";
-import {  Calendar, TrendingUp } from "lucide-react";
-import { SiGithub } from "react-icons/si";
+'use client';
+import { useCallback, useEffect, useState } from 'react';
+import { Activity, ActivityCalendar } from 'react-activity-calendar';
+import { Calendar, TrendingUp } from 'lucide-react';
+import { SiGithub } from 'react-icons/si';
 
 // Define a custom error interface for API responses
 interface ApiError {
@@ -29,7 +29,7 @@ export const GithubGraph = ({
       setError(null);
     } catch (error) {
       console.error(error);
-      setError("Failed to load GitHub contributions");
+      setError('Failed to load GitHub contributions');
       setContribution([]);
     } finally {
       setIsLoading(false);
@@ -41,9 +41,15 @@ export const GithubGraph = ({
   }, [fetchData]);
 
   // Calculate stats from contribution data
-  const totalContributions = contribution.reduce((sum, day) => sum + day.count, 0);
-  const maxContributionsDay = contribution.reduce((max, day) => Math.max(max, day.count), 0);
-  const activeDays = contribution.filter(day => day.count > 0).length;
+  const totalContributions = contribution.reduce(
+    (sum, day) => sum + day.count,
+    0
+  );
+  const maxContributionsDay = contribution.reduce(
+    (max, day) => Math.max(max, day.count),
+    0
+  );
+  const activeDays = contribution.filter((day) => day.count > 0).length;
 
   const label = {
     totalCount: `{{count}} contributions in the last year`,
@@ -85,7 +91,7 @@ export const GithubGraph = ({
               {/* Principle 5: Geometric Patterns - Stat dividers */}
               <div className="absolute top-0 -right-4 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
               <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
-                {loading ? "---" : totalContributions.toLocaleString()}
+                {loading ? '---' : totalContributions.toLocaleString()}
               </div>
               <div className="text-xs tracking-wide uppercase text-zinc-500 dark:text-zinc-400 font-mono">
                 Total Commits
@@ -95,7 +101,7 @@ export const GithubGraph = ({
             <div className="relative text-center">
               <div className="absolute top-0 -right-4 w-px h-full bg-zinc-200 dark:bg-zinc-800 opacity-50"></div>
               <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
-                {loading ? "---" : activeDays}
+                {loading ? '---' : activeDays}
               </div>
               <div className="text-xs tracking-wide uppercase text-zinc-500 dark:text-zinc-400 font-mono">
                 Active Days
@@ -104,7 +110,7 @@ export const GithubGraph = ({
 
             <div className="text-center">
               <div className="text-2xl font-light text-zinc-900 dark:text-zinc-100 font-mono">
-                {loading ? "---" : maxContributionsDay}
+                {loading ? '---' : maxContributionsDay}
               </div>
               <div className="text-xs tracking-wide uppercase text-zinc-500 dark:text-zinc-400 font-mono">
                 Best Day
@@ -121,13 +127,13 @@ export const GithubGraph = ({
           {/* Grid pattern for calendar area */}
           <div className="grid grid-cols-12 h-full">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="border-r border-zinc-300 dark:border-zinc-700 last:border-r-0 opacity-30"
               />
             ))}
           </div>
-          
+
           {/* Horizontal divisions */}
           <div className="absolute inset-0">
             <div className="absolute top-1/4 left-0 w-full h-px bg-zinc-300 dark:bg-zinc-700 opacity-30"></div>
@@ -145,7 +151,7 @@ export const GithubGraph = ({
                 <div className="absolute top-0 left-4 w-px h-full bg-red-400"></div>
                 <div className="absolute top-1/2 left-0 w-full h-px bg-red-400"></div>
               </div>
-              
+
               <div className="relative z-10 flex items-center gap-3">
                 <div className="p-1 border border-red-400 bg-red-100 dark:bg-red-900">
                   <TrendingUp className="h-3 w-3 text-red-600 dark:text-red-400" />
@@ -165,7 +171,7 @@ export const GithubGraph = ({
                 <div className="absolute top-0 left-4 w-px h-full bg-zinc-400"></div>
                 <div className="absolute top-1/2 left-0 w-full h-px bg-zinc-400"></div>
               </div>
-              
+
               <div className="relative z-10 flex items-center gap-3">
                 <div className="p-1 border border-zinc-400 bg-zinc-100 dark:bg-zinc-800">
                   <Calendar className="h-3 w-3 text-zinc-600 dark:text-zinc-400 animate-pulse" />
@@ -182,34 +188,35 @@ export const GithubGraph = ({
             {/* Calendar wrapper with geometric overlay */}
             <div className="relative overflow-hidden">
               <ActivityCalendar
-              data={contribution}
-              maxLevel={4}
-              blockMargin={blockMargin ?? 2}
-              loading={loading}
-              labels={label}
-              theme={{
-                light: colorPalette ?? [
-                "#ebedf0",  // empty cells
-                "#9be9a8",  // level 1
-                "#40c463",  // level 2
-                "#30a14e",  // level 3
-                "#216e39",  // level 4
-                ],
-                dark: colorPalette ?? [
-                "#161b22",  // dark mode empty cells
-                "#0e4429",  // level 1
-                "#006d32",  // level 2
-                "#26a641",  // level 3
-                "#39d353",  // level 4
-                ],
-              }}
-              style={{
-                color: 'rgb(113 113 122)', // zinc-500
-                fontSize: '12px',
-                fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-              }}
-              blockSize={12}
-              blockRadius={0} // Principle 1: Structural Honesty - no rounded corners
+                data={contribution}
+                maxLevel={4}
+                blockMargin={blockMargin ?? 2}
+                loading={loading}
+                labels={label}
+                theme={{
+                  light: colorPalette ?? [
+                    '#ebedf0', // empty cells
+                    '#9be9a8', // level 1
+                    '#40c463', // level 2
+                    '#30a14e', // level 3
+                    '#216e39', // level 4
+                  ],
+                  dark: colorPalette ?? [
+                    '#161b22', // dark mode empty cells
+                    '#0e4429', // level 1
+                    '#006d32', // level 2
+                    '#26a641', // level 3
+                    '#39d353', // level 4
+                  ],
+                }}
+                style={{
+                  color: 'rgb(113 113 122)', // zinc-500
+                  fontSize: '12px',
+                  fontFamily:
+                    'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                }}
+                blockSize={12}
+                blockRadius={0} // Principle 1: Structural Honesty - no rounded corners
               />
             </div>
 
@@ -238,9 +245,10 @@ async function fetchContributionData(): Promise<Activity[]> {
   const responseBody = await response.json();
 
   if (!response.ok) {
-    const errorMessage = (responseBody as ApiError).error || "Error fetching contribution data";
+    const errorMessage =
+      (responseBody as ApiError).error || 'Error fetching contribution data';
     throw new Error(errorMessage);
   }
-  
+
   return responseBody.data as Activity[];
 }

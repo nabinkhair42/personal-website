@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { CheckIcon, CopyIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { useState } from "react";
-import { toast } from "sonner";
+import { CheckIcon, CopyIcon } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Copy({ content }: { content: string }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -11,11 +11,11 @@ export default function Copy({ content }: { content: string }) {
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(content);
-      toast.success("Copied to clipboard", {
+      toast.success('Copied to clipboard', {
         style: {
-          background: "rgb(244 244 245)",
-          border: "1px solid rgb(212 212 216)",
-          color: "rgb(39 39 42)",
+          background: 'rgb(244 244 245)',
+          border: '1px solid rgb(212 212 216)',
+          color: 'rgb(39 39 42)',
         },
       });
       setIsCopied(true);
@@ -24,8 +24,8 @@ export default function Copy({ content }: { content: string }) {
         setIsCopied(false);
       }, 2000);
     } catch (error) {
-      console.error("Failed to copy:", error);
-      toast.error("Failed to copy to clipboard");
+      console.error('Failed to copy:', error);
+      toast.error('Failed to copy to clipboard');
     }
   }
 
@@ -41,7 +41,7 @@ export default function Copy({ content }: { content: string }) {
       ) : (
         <CopyIcon className="w-3 h-3 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors duration-300" />
       )}
-      <span className="sr-only">{isCopied ? "Copied!" : "Copy code"}</span>
+      <span className="sr-only">{isCopied ? 'Copied!' : 'Copy code'}</span>
     </Button>
   );
 }

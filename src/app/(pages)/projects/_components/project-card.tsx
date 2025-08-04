@@ -1,11 +1,17 @@
-"use client";
+'use client';
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Project } from "@/constants/projects";
-import { ExternalLink } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { IconType } from "react-icons";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Project } from '@/constants/projects';
+import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { IconType } from 'react-icons';
 // import { SiGithub } from "react-icons/si";
 
 interface ProjectCardProps {
@@ -65,10 +71,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                     className="flex items-center justify-center w-8 h-8 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 group-hover:border-zinc-300 dark:group-hover:border-zinc-600 transition-colors duration-300"
                     title={tech.name}
                   >
-                    <Icon
-                      className="w-4 h-4"
-                      style={{ color: tech.color }}
-                    />
+                    <Icon className="w-4 h-4" style={{ color: tech.color }} />
                   </div>
                 );
               })}
@@ -87,13 +90,18 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                 View Details
               </span>
               <div className="w-4 h-px bg-zinc-700 dark:bg-zinc-300 group-hover:w-6 transition-all duration-300"></div>
-              <svg 
-                className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </div>
           </div>
@@ -130,7 +138,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                 {project.title}
               </h2>
             </div>
-            
+
             <div className="flex gap-2">
               {project.demoUrl && (
                 <Link

@@ -1,9 +1,9 @@
-"use client"; // Error components must be Client Components
+'use client'; // Error components must be Client Components
 
-import Link from "next/link";
-import { useEffect } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { AlertTriangle, RotateCcw, Home } from "lucide-react";
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { AlertTriangle, RotateCcw, Home } from 'lucide-react';
 
 export default function Error({
   error,
@@ -23,8 +23,8 @@ export default function Error({
         <div className="max-w-7xl mx-auto h-full">
           <div className="grid grid-cols-12 h-full">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="border-r border-zinc-300 dark:border-zinc-700 last:border-r-0"
               />
             ))}
@@ -63,16 +63,16 @@ export default function Error({
             <h1 className="text-6xl md:text-7xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
               Oops!
             </h1>
-            
+
             <div className="w-16 h-px bg-red-500 dark:bg-red-400 mx-auto"></div>
-            
+
             <p className="text-xl font-light text-zinc-600 dark:text-zinc-400 mb-4">
               Something went wrong
             </p>
-            
+
             <p className="text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-md mx-auto">
-              We&apos;re sorry, but an error occurred while processing your request. 
-              Please try again or return to the homepage.
+              We&apos;re sorry, but an error occurred while processing your
+              request. Please try again or return to the homepage.
             </p>
           </div>
 
@@ -85,12 +85,13 @@ export default function Error({
               <RotateCcw className="h-4 w-4 mr-2 group-hover:rotate-180 transition-transform duration-300" />
               Reload Page
             </Button>
-            
+
             <Link
               href="/"
-              className={buttonVariants({ 
-                variant: "outline",
-                className: "px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+              className={buttonVariants({
+                variant: 'outline',
+                className:
+                  'px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300',
               })}
             >
               <Home className="h-4 w-4 mr-2" />

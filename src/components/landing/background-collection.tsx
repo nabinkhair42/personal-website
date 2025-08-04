@@ -1,5 +1,5 @@
-import React from "react";
-import { Palette, Download } from "lucide-react";
+import React from 'react';
+import { Palette, Download } from 'lucide-react';
 
 const BackgroundPreview = () => (
   <div className="relative w-32 h-32 overflow-hidden">

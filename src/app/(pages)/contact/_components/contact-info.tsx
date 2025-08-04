@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { contactInfo, socialLinks } from "@/constants/contact";
+import { contactInfo, socialLinks } from '@/constants/contact';
 
 export const ContactInfo = () => {
   return (
@@ -65,7 +65,9 @@ export const ContactInfo = () => {
               <div
                 key={index}
                 className="animate-in fade-in duration-700 slide-in-from-bottom-4"
-                style={{ animationDelay: `${(index + contactInfo.length) * 150}ms` }}
+                style={{
+                  animationDelay: `${(index + contactInfo.length) * 150}ms`,
+                }}
               >
                 <a
                   href={social.url}
@@ -84,7 +86,8 @@ export const ContactInfo = () => {
         {/* Additional Note */}
         <div className="text-center pt-8 border-t border-zinc-200 dark:border-zinc-800">
           <p className="text-sm text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-            I typically respond within 24 hours. Looking forward to hearing from you!
+            I typically respond within 24 hours. Looking forward to hearing from
+            you!
           </p>
         </div>
       </div>

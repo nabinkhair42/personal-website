@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { Send } from "lucide-react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { Send } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   });
 
   const handleInputChange = (
@@ -28,10 +28,10 @@ export const ContactForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/form", {
-        method: "POST",
+      const response = await fetch('/api/form', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -39,13 +39,15 @@ export const ContactForm = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Something went wrong");
+        throw new Error(data.message || 'Something went wrong');
       }
 
-      toast.success("Message sent successfully!");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      toast.success('Message sent successfully!');
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to send message");
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to send message'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -76,11 +78,11 @@ export const ContactForm = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { id: "name", placeholder: "Your Name", type: "text" },
-              { id: "email", placeholder: "Your Email", type: "email" },
+              { id: 'name', placeholder: 'Your Name', type: 'text' },
+              { id: 'email', placeholder: 'Your Email', type: 'email' },
             ].map((field, index) => (
-              <div 
-                key={field.id} 
+              <div
+                key={field.id}
                 className="animate-in fade-in duration-700 slide-in-from-bottom-4"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -122,8 +124,8 @@ export const ContactForm = () => {
           </div>
 
           <div className="animate-in fade-in duration-700 slide-in-from-bottom-4 delay-400">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isLoading}
               className="w-full bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 py-3 font-mono text-sm uppercase tracking-wider transition-all duration-300 group"
             >

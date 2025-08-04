@@ -1,44 +1,75 @@
-"use client";
+'use client';
 
-import { Code, Database, Globe, Smartphone, Zap, Shield } from "lucide-react";
+import { Code, Database, Globe, Smartphone, Zap, Shield } from 'lucide-react';
 
 const services = [
   {
     icon: Globe,
-    title: "Frontend Development",
-    description: "Modern, responsive web applications using React, Next.js, and TypeScript with pixel-perfect design implementation.",
-    features: ["React & Next.js", "TypeScript", "Tailwind CSS", "Responsive Design"]
+    title: 'Frontend Development',
+    description:
+      'Modern, responsive web applications using React, Next.js, and TypeScript with pixel-perfect design implementation.',
+    features: [
+      'React & Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Responsive Design',
+    ],
   },
   {
     icon: Database,
-    title: "Backend Development",
-    description: "Scalable server-side solutions with Node.js, databases, and API development for robust applications.",
-    features: ["Node.js & Express", "Database Design", "REST APIs", "Authentication"]
+    title: 'Backend Development',
+    description:
+      'Scalable server-side solutions with Node.js, databases, and API development for robust applications.',
+    features: [
+      'Node.js & Express',
+      'Database Design',
+      'REST APIs',
+      'Authentication',
+    ],
   },
   {
     icon: Code,
-    title: "Full Stack Solutions",
-    description: "End-to-end development combining frontend and backend expertise for complete web applications.",
-    features: ["Complete Solutions", "Database Integration", "Deployment", "Maintenance"]
+    title: 'Full Stack Solutions',
+    description:
+      'End-to-end development combining frontend and backend expertise for complete web applications.',
+    features: [
+      'Complete Solutions',
+      'Database Integration',
+      'Deployment',
+      'Maintenance',
+    ],
   },
   {
     icon: Smartphone,
-    title: "Mobile-First Design",
-    description: "Responsive applications that work flawlessly across all devices and screen sizes.",
-    features: ["Mobile Optimization", "Cross-browser", "Performance", "Accessibility"]
+    title: 'Mobile-First Design',
+    description:
+      'Responsive applications that work flawlessly across all devices and screen sizes.',
+    features: [
+      'Mobile Optimization',
+      'Cross-browser',
+      'Performance',
+      'Accessibility',
+    ],
   },
   {
     icon: Zap,
-    title: "Performance Optimization",
-    description: "Speed optimization, SEO improvements, and best practices for exceptional user experiences.",
-    features: ["Speed Optimization", "SEO Ready", "Core Web Vitals", "Lighthouse Scores"]
+    title: 'Performance Optimization',
+    description:
+      'Speed optimization, SEO improvements, and best practices for exceptional user experiences.',
+    features: [
+      'Speed Optimization',
+      'SEO Ready',
+      'Core Web Vitals',
+      'Lighthouse Scores',
+    ],
   },
   {
     icon: Shield,
-    title: "Security & Best Practices",
-    description: "Secure coding practices, data protection, and industry-standard security implementations.",
-    features: ["Secure Code", "Data Protection", "HTTPS", "Best Practices"]
-  }
+    title: 'Security & Best Practices',
+    description:
+      'Secure coding practices, data protection, and industry-standard security implementations.',
+    features: ['Secure Code', 'Data Protection', 'HTTPS', 'Best Practices'],
+  },
 ];
 
 export const ServicesSection = () => {
@@ -68,8 +99,8 @@ export const ServicesSection = () => {
             <span className="font-serif italic">For You</span>
           </h2>
           <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-2xl mx-auto">
-            Comprehensive development services tailored to bring your vision to life 
-            with modern technologies and best practices.
+            Comprehensive development services tailored to bring your vision to
+            life with modern technologies and best practices.
           </p>
         </div>
 

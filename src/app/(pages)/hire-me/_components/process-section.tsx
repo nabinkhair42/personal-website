@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { process } from "@/constants/hire";
-import { Search, Lightbulb, Code2, Rocket } from "lucide-react";
+import { process } from '@/constants/hire';
+import { Search, Lightbulb, Code2, Rocket } from 'lucide-react';
 
 const processIcons = [Search, Lightbulb, Code2, Rocket];
 
@@ -43,7 +43,7 @@ export const ProcessSection = () => {
               <div
                 key={step.title}
                 className={`group flex items-center gap-8 animate-in fade-in duration-700 slide-in-from-bottom-4 ${
-                  isEven ? "flex-row" : "flex-row-reverse"
+                  isEven ? 'flex-row' : 'flex-row-reverse'
                 }`}
                 style={{ animationDelay: `${index * 200}ms` }}
               >
@@ -58,13 +58,19 @@ export const ProcessSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`flex-1 ${isEven ? "text-left" : "text-right"}`}>
+                <div
+                  className={`flex-1 ${isEven ? 'text-left' : 'text-right'}`}
+                >
                   <div className="flex items-center gap-4 mb-4">
-                    {!isEven && <div className="flex-1 h-px bg-zinc-300 dark:bg-zinc-700"></div>}
+                    {!isEven && (
+                      <div className="flex-1 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+                    )}
                     <span className="text-xs tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
                       Step {index + 1}
                     </span>
-                    {isEven && <div className="flex-1 h-px bg-zinc-300 dark:bg-zinc-700"></div>}
+                    {isEven && (
+                      <div className="flex-1 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+                    )}
                   </div>
                   <h3 className="text-2xl font-light text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors duration-300">
                     {step.title}
