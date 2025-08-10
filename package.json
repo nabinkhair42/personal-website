@@ -26,7 +26,7 @@
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.435.0",
-    "mongoose": "^8.17.0",
+    "mongoose": "^8.17.1",
     "next": "15.3.5",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.3.0",
@@ -47,9 +47,10 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
     "@types/canvas-confetti": "^1.9.0",
-    "@types/node": "^20.19.9",
+    "@types/node": "^20.19.10",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^19.1.7",
@@ -57,17 +58,17 @@
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.4",
+    "lint-staged": "^16.1.5",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.11",
     "typescript": "5.8.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix --max-warnings 10",
-      "tsc --noEmit"
+      "bash -lc 'pnpm exec tsc -p tsconfig.json --noEmit'"
     ],
     "*.{json,css,scss,md,mdx}": [
       "prettier --write"

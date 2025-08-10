@@ -16,9 +16,7 @@ import {
   SiZod,
   SiClerk,
 } from 'react-icons/si';
-import FinFoxLogo from './FinfoxLogo';
-import { FaBuildingUser } from 'react-icons/fa6';
-import { TrulyCareLogo } from './TrulyCare';
+import { FinfoxLogo, UncleSamsTechLogo, TrulyCareLogo } from './TrulyCare';
 
 // Technology icons mapping
 const technologyIcons: Record<
@@ -64,11 +62,11 @@ const experiences = [
       'Figma',
       'UI/UX Design',
     ],
-    icon: FinFoxLogo,
+    icon: FinfoxLogo,
   },
   {
     title: 'Frontend & Backend Developer',
-    company: 'Freelance MERN & Next.js Developer',
+    company: 'Uncle Sams Tech',
     period: '2022 - May 2025',
     description:
       'Developed multiple full-stack applications using React.js, Next.js, Node.js, Express.js, and MongoDB with deployment on AWS, Vercel, and Cloudflare platforms. Successfully delivered projects including Express News platform, UncleSams Tech website, Receipt Vault application, and various other client solutions with modern UI/UX design.',
@@ -82,8 +80,9 @@ const experiences = [
       'Vercel',
       'Cloudflare',
       'Tailwind CSS',
+      'Figma',
     ],
-    icon: FaBuildingUser,
+    icon: UncleSamsTechLogo,
   },
 ];
 
@@ -133,7 +132,7 @@ export const WorkTimeline = () => {
                 {/* Company Icon */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 group-hover:border-zinc-300 dark:group-hover:border-zinc-600 transition-colors duration-300">
-                    <experience.icon className="w-6 h-6 text-zinc-700 dark:text-zinc-300" />
+                    <experience.icon />
                   </div>
                   <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700 group-hover:w-12 transition-all duration-300"></div>
                 </div>

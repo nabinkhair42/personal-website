@@ -63,13 +63,13 @@ export function SkillsOverview() {
             <div className="flex items-center gap-4 mb-6">
               <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
               <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
-                Core Technologies
+                Skills & Technologies
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
-              Skills &
+              My
               <br />
-              <span className="font-serif italic">Technologies</span>
+              <span className="font-serif italic">Expertise</span>
             </h2>
             <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
               Technologies I work with daily to build scalable and efficient web

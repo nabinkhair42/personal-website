@@ -30,7 +30,7 @@ export function FeaturedProjects() {
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
-            Selected
+            My
             <br />
             <span className="font-serif italic">Projects</span>
           </h2>

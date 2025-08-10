@@ -23,6 +23,7 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiVercel,
+  SiAuth0,
 } from 'react-icons/si';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiGeminiFill } from 'react-icons/ri';
@@ -52,21 +53,25 @@ export const projects: Project[] = [
     id: 'env-store',
     title: 'Env Store',
     description:
-      'ENV Store is a secure, cloud-based environment variable manager that eliminates configuration headaches and keeps your development workflow smooth across all your devices and projects.',
+      'Env Store lets you securely save and manage environment variables for all your projects—so you never lose your .env files again. Perfect for when you revisit old projects and need your envs back, or want to keep separate configs for dev and prod. Built with Next.js, Auth.js, and MongoDB.',
     demoUrl: 'https://envstore.nabinkhair.com.np',
     image: '/projects/env-store.png',
     technologies: [
       { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'Auth.js', icon: SiAuth0 },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
       { name: 'Vercel', icon: SiVercel },
       { name: 'Shadcn', icon: SiShadcnui },
-      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
     ],
     features: [
-      'Built a secure, cloud-based environment variable manager using Next.js, Tailwind CSS, and TypeScript.',
-      'Integrated Vercel for seamless deployment and scalability.',
-      'Deployed the app on Vercel for seamless performance and scalability.',
+      'Securely store and organize environment variables for all your projects.',
+      'Retrieve .env files anytime, even after deleting local project folders.',
+      'Support for multiple environments (dev, prod, etc.) per project.',
+      'Authentication and user management with Auth.js.',
+      'Built with Next.js, MongoDB, and Tailwind CSS.',
+      'Deployed on Vercel for fast, reliable access anywhere.',
     ],
     category: 'webapp',
     year: '2025',
@@ -82,7 +87,6 @@ export const projects: Project[] = [
       { name: 'Next.js', icon: SiNextdotjs },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-      { name: 'Framer Motion', icon: TbBrandFramerMotion },
       { name: 'Vercel', icon: SiVercel },
       { name: 'Shadcn', icon: SiShadcnui },
       { name: 'Mermaid', icon: SiMermaid },
@@ -108,6 +112,7 @@ export const projects: Project[] = [
       { name: 'React.js', icon: SiReact },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'Framer Motion', icon: TbBrandFramerMotion },
+      { name: 'Shadcn', icon: SiShadcnui },
     ],
     features: [
       'Build multiple web app templates on React and Next.Js',
@@ -132,6 +137,7 @@ export const projects: Project[] = [
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
       { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+      { name: 'Shadcn', icon: SiShadcnui },
     ],
     features: [
       'Builded APIs for the mobile App.',
