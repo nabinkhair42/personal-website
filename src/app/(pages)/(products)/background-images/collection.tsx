@@ -11,6 +11,7 @@ import {
   Palette,
   X,
 } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 
 // Quality Notice Modal Component
@@ -392,9 +393,10 @@ const BackgroundCollection = () => {
                 <CardContent className="p-0">
                   {/* Image Container */}
                   <div className="relative aspect-video bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-                    <img
+                    <Image
                       src={`/background-images/${background.filename}`}
                       alt={background.name}
+                      quality={100}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                     />
@@ -512,9 +514,10 @@ const BackgroundCollection = () => {
               <X className="h-4 w-4" />
             </Button>
 
-            <img
+            <Image
               src={previewImage}
               alt="Preview"
+              quality={100}
               className="w-full h-full object-contain"
               onError={(e) => {
                 console.error('Image failed to load:', previewImage);

@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import url('./syntax.css');
 
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
+
 @theme {
   /* Theme tokens migrated from previous config */
   --container-2xl: 1300px;
@@ -37,62 +40,6 @@
 }
 
 @layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
   * {
     border-color: hsl(var(--border));
   }
@@ -110,12 +57,14 @@
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
+
   @media (min-width: 768px) {
     .section-padding {
       padding-top: 4rem;
       padding-bottom: 4rem;
     }
   }
+
   @media (min-width: 1024px) {
     .section-padding {
       padding-top: 5rem;
@@ -138,6 +87,7 @@
     font-weight: 700;
     letter-spacing: -0.01em;
   }
+
   @media (min-width: 1024px) {
     h1 {
       font-size: 3rem;
@@ -172,6 +122,7 @@
   p {
     line-height: 1.75rem;
   }
+
   p:not(:first-child) {
     margin-top: 1.5rem;
   }
@@ -223,44 +174,45 @@ pre > code {
 
 /* Global Custom Scrollbar */
 :root {
-  --scrollbar-thumb: rgba(
-    113,
-    113,
-    122,
-    0.6
-  ); /* Subtle dark gray for light mode thumb */
+  --scrollbar-thumb: rgba(113, 113, 122, 0.6);
+  /* Subtle dark gray for light mode thumb */
 }
 
 [data-theme='dark'],
 [class*='dark'] {
-  --scrollbar-thumb: rgba(
-    160,
-    160,
-    160,
-    0.4
-  ); /* Softer gray for dark mode thumb */
+  --scrollbar-thumb: rgba(160, 160, 160, 0.4);
+  /* Softer gray for dark mode thumb */
 }
 
 /* Apply globally */
 * {
-  scrollbar-width: thin; /* Firefox thin scrollbar */
-  scrollbar-color: var(--scrollbar-thumb) transparent; /* Thumb color with transparent track */
+  scrollbar-width: thin;
+  /* Firefox thin scrollbar */
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+  /* Thumb color with transparent track */
 }
 
 *::-webkit-scrollbar {
-  width: 8px; /* Vertical scrollbar width */
-  height: 8px; /* Horizontal scrollbar height */
+  width: 8px;
+  /* Vertical scrollbar width */
+  height: 8px;
+  /* Horizontal scrollbar height */
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb); /* Thumb color */
-  border-radius: 9999px; /* Fully rounded thumb */
-  border: 2px solid transparent; /* Thin padding effect */
-  background-clip: content-box; /* Smooth thumb edges */
+  background-color: var(--scrollbar-thumb);
+  /* Thumb color */
+  border-radius: 9999px;
+  /* Fully rounded thumb */
+  border: 2px solid transparent;
+  /* Thin padding effect */
+  background-clip: content-box;
+  /* Smooth thumb edges */
 }
 
 *::-webkit-scrollbar-track {
-  background-color: transparent; /* Transparent track */
+  background-color: transparent;
+  /* Transparent track */
 }
 
 .text-gradient {
@@ -274,6 +226,7 @@ pre > code {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }

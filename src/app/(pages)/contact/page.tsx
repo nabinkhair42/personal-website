@@ -12,12 +12,8 @@ export default function ContactPage() {
         {/* Main Container with Architectural Grid */}
         <main className="max-w-5xl mx-auto border-l border-r  border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
           <ContactHero />
-          <div className="grid gap-0 md:grid-cols-[1fr,1.5fr]">
-            <div className="order-last md:order-first">
-              <ContactInfo />
-            </div>
-            <ContactForm />
-          </div>
+          <ContactForm />
+          <ContactInfo />
         </main>
 
         {/* Subtle Side Elements */}

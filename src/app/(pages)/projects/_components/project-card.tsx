@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Project } from '@/constants/projects';
+import { BG } from '@/constants/ui';
 import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,7 +24,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group relative cursor-pointer overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl">
+        <div
+          className={`group relative cursor-pointer overflow-hidden ${BG.card} ${BG.border} transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl`}
+        >
           {/* Minimal geometric pattern */}
           <div className="absolute inset-0 opacity-5 dark:opacity-10">
             <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -109,7 +112,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       </DialogTrigger>
 
       {/* Enhanced Dialog */}
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 md:max-w-4xl">
         <DialogTitle className="sr-only">
           {project.title} - Project Details
         </DialogTitle>

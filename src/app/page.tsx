@@ -4,6 +4,7 @@ import { GitGraphUI } from '@/components/landing/gitGraph';
 import { Hero } from '@/components/landing/hero';
 import LatestBlogs from '@/components/landing/latest-blogs';
 import { SkillsOverview } from '@/components/landing/skills-overview';
+import { HireMeNowSection } from '@/components/landing/hire-me-now';
 
 export default function Home() {
   return (
@@ -28,16 +29,7 @@ export default function Home() {
         <div className="relative z-10">
           <Hero />
 
-          {/* Section divider */}
-          {/* <div className="relative flex items-center justify-center py-4">
-            <div className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div> */}
-
-          {/* Section divider */}
-          {/* <div className="relative flex items-center justify-center py-4">
-            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div> */}
-
+          <HireMeNowSection />
           <SkillsOverview />
 
           {/* Section divider */}

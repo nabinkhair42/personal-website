@@ -1,31 +1,17 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { ANIM, BG } from '@/constants/ui';
 import { PenTool, Star } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { FcCollaboration } from 'react-icons/fc';
 import { PiReadCvLogoFill } from 'react-icons/pi';
 
 export function Hero() {
-  // const [scrolled, setScrolled] = useState(false);
-
-  // const clickToScroll = () => {
-  //   window.scrollTo({
-  //     top: window.innerHeight,
-  //     behavior: "smooth",
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrolled(window.scrollY > 100);
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+    <section
+      className={`relative min-h-[100vh] flex items-center overflow-hidden ${BG.gradient}`}
+    >
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -45,7 +31,9 @@ export function Hero() {
       <div className="container relative z-10 px-4 md:px-6 max-w-6xl mx-auto py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
-          <div className="flex flex-col gap-8 animate-in fade-in duration-1000 slide-in-from-bottom-4">
+          <div
+            className={`flex flex-col gap-8 ${ANIM.inSlow} slide-in-from-bottom-4`}
+          >
             {/* Status indicator */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 w-fit animate-in fade-in duration-700 delay-200">
               <span className="relative flex h-2 w-2">
@@ -58,7 +46,7 @@ export function Hero() {
             </div>
 
             {/* Main heading */}
-            <div className="space-y-6 animate-in fade-in duration-700 delay-300">
+            <div className={`space-y-6 ${ANIM.in} delay-300`}>
               <div>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight">
                   Nabin
@@ -70,14 +58,16 @@ export function Hero() {
             </div>
 
             {/* Professional introduction */}
-            <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-xl animate-in fade-in duration-700 delay-400">
+            <p
+              className={`text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-xl ${ANIM.in} delay-400`}
+            >
               Web Developer building modern applications with Next.js,
               TypeScript, and React. Currently learning backend technologies and
               focusing on creating functional, accessible web experiences.
             </p>
 
             {/* Experience cards */}
-            <div className="flex flex-col gap-4 animate-in fade-in duration-700 delay-500">
+            <div className={`flex flex-col gap-4 ${ANIM.in} delay-500`}>
               <div className="flex items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
                 <div className="p-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                   <PenTool className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
@@ -108,19 +98,18 @@ export function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in duration-700 delay-600">
-              <Link href="/hire-me">
-                <Button className="group px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 font-mono text-sm uppercase tracking-wider transition-all duration-300 w-full sm:w-auto">
-                  <span className="flex items-center gap-2">
-                    <FcCollaboration className="h-4 w-4 mr-2 rotate-12" />
-                    Let&apos;s Collaborate
-                  </span>
-                </Button>
-              </Link>
-              <Link href="/nabin_khair.pdf" target="_blank" download>
+            <div
+              className={`flex flex-col sm:flex-row gap-4 ${ANIM.in} delay-600`}
+            >
+              <Link
+                href="/nabin_khair.pdf"
+                target="_blank"
+                download
+                className="cursor-pointer"
+              >
                 <Button
                   variant="outline"
-                  className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+                  className="group px-6 w-full py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-mono text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer"
                 >
                   <PiReadCvLogoFill className="h-4 w-4 mr-2" />
                   My Resume
@@ -130,7 +119,9 @@ export function Hero() {
           </div>
 
           {/* Right Column - Image */}
-          <div className="relative hidden lg:flex items-center justify-center animate-in fade-in duration-1000 delay-400 slide-in-from-bottom-4">
+          <div
+            className={`relative hidden lg:flex items-center justify-center ${ANIM.inSlow} delay-400 slide-in-from-bottom-4`}
+          >
             <div className="relative">
               {/* Geometric background elements */}
               <div className="absolute -inset-8 opacity-20 dark:opacity-30">
@@ -142,28 +133,14 @@ export function Hero() {
 
               {/* Main image */}
               <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                <img
+                <Image
                   src="/nabin.png"
                   alt="Nabin Khair"
                   width={380}
                   height={380}
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  quality={100}
+                  className="object-cover transition-all duration-700"
                 />
-              </div>
-
-              {/* Professional badges */}
-              <div className="absolute top-4 -left-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
-                <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
-                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">
-                  Frontend
-                </span>
-              </div>
-
-              <div className="absolute bottom-4 -right-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-2 flex items-center gap-2">
-                <div className="w-2 h-2 bg-zinc-900 dark:bg-zinc-100"></div>
-                <span className="text-xs font-mono uppercase tracking-wide text-zinc-700 dark:text-zinc-300">
-                  Backend
-                </span>
               </div>
             </div>
           </div>

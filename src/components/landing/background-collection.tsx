@@ -1,5 +1,6 @@
 import React from 'react';
 import { Palette, Download } from 'lucide-react';
+import { BG, TYPO } from '@/constants/ui';
 
 const BackgroundPreview = () => (
   <div className="relative w-32 h-32 overflow-hidden">
@@ -22,7 +23,9 @@ const BackgroundCollection: React.FC = () => {
   return (
     <div className="w-full">
       <a href="/background-images" className="group block">
-        <div className="relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700">
+        <div
+          className={`relative overflow-hidden ${BG.card} ${BG.border} transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700`}
+        >
           {/* Architectural geometric pattern - matching figma-work */}
           <div className="absolute inset-0 opacity-[0.008] dark:opacity-[0.012] pointer-events-none">
             <div className="absolute top-0 left-0 w-px h-full bg-zinc-400 dark:bg-zinc-600"></div>
@@ -46,9 +49,7 @@ const BackgroundCollection: React.FC = () => {
                     <Palette className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
                   </div>
                   <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-                  <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
-                    Digital Collection
-                  </span>
+                  <span className={TYPO.sectionKicker}>Digital Collection</span>
                 </div>
 
                 {/* Main content */}

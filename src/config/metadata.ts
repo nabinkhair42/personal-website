@@ -92,33 +92,6 @@ export const projectsMetadata: Metadata = {
   },
 };
 
-// Hire Me page metadata
-export const hireMeMetadata: Metadata = {
-  ...sharedMetadata,
-  title: 'Hire Me | Nabin Khair - Full Stack Development Services',
-  description:
-    'Looking for a skilled Full Stack Developer? Learn about my services, development process, and how I can help bring your project to life.',
-  keywords: [
-    'hire developer',
-    'full stack development',
-    'freelance',
-    'web development services',
-  ],
-  openGraph: {
-    type: 'website',
-    title: 'Hire Me | Nabin Khair - Full Stack Development Services',
-    description: 'Professional web development services by Nabin Khair',
-    images: [
-      {
-        url: '/og/hire.png',
-        width: 1200,
-        height: 630,
-        alt: 'Hire Nabin Khair',
-      },
-    ],
-  },
-};
-
 // Blog page metadata
 export const blogMetadata: Metadata = {
   ...sharedMetadata,

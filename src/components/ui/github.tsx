@@ -1,8 +1,8 @@
 'use client';
+import { Calendar, TrendingUp } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Activity, ActivityCalendar } from 'react-activity-calendar';
-import { Calendar, TrendingUp } from 'lucide-react';
-import { SiGithub } from 'react-icons/si';
+import { FaGithubAlt } from 'react-icons/fa';
 
 // Define a custom error interface for API responses
 interface ApiError {
@@ -69,9 +69,9 @@ export const GithubGraph = ({
 
         <div className="relative z-10 p-6">
           {/* Header with icon */}
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-2 mb-6">
             <div className="p-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950">
-              <SiGithub className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
+              <FaGithubAlt className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
             </div>
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
             <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">

@@ -1,10 +1,13 @@
 'use client';
 
 import { education } from '@/constants/education';
+import { BG, SECTION, TYPO, ANIM } from '@/constants/ui';
 
 export const EducationSection = () => {
   return (
-    <section className="relative px-6 py-20 border-t  border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+    <section
+      className={`${SECTION.base} border-t border-zinc-200 dark:border-zinc-800 ${BG.gradient}`}
+    >
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-3 dark:opacity-5">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -18,12 +21,10 @@ export const EducationSection = () => {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
-              Academic Background
-            </span>
+            <span className={TYPO.sectionKicker}>Academic Background</span>
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+          <h2 className={TYPO.sectionTitle}>
             Education &
             <br />
             <span className="font-serif italic">Learning</span>
@@ -35,7 +36,7 @@ export const EducationSection = () => {
           {education.map((edu, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in slide-in-from-bottom-4"
+              className={`group relative overflow-hidden ${BG.card} ${BG.border} transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700 ${ANIM.in} ${ANIM.slideUp}`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* Minimal geometric pattern */}

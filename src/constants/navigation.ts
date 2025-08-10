@@ -9,10 +9,6 @@ export const NAVLINKS: NavLink[] = [
     href: '/about',
   },
   {
-    title: 'Hire Me',
-    href: '/hire-me',
-  },
-  {
     title: 'Projects',
     href: '/projects',
   },

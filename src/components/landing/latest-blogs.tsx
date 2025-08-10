@@ -3,49 +3,46 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import BlogCard from '@/app/(pages)/blog/_components/BlogCard';
 import { getAllBlogs } from '@/lib/markdown';
+import { BG, SECTION, TYPO, ANIM, GEOMETRY } from '@/constants/ui';
 
 export default async function LatestBlogs() {
-  const allBlogs = await getAllBlogs();
-  const latestBlogs = allBlogs
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime();
-    })
-    .slice(0, 3);
+  const blogs = await getAllBlogs();
+  // short being based on data and date is in MMDDYYYY
+  const allBlogs = blogs.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
 
   return (
-    <section className="relative px-6 py-20 bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+    <section className={`${SECTION.base} ${BG.gradient}`}>
       {/* Minimal geometric pattern */}
-      <div className="absolute inset-0 opacity-3 dark:opacity-5">
-        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
-        <div className="absolute top-0 left-40 w-px h-full bg-current"></div>
-        <div className="absolute top-0 right-40 w-px h-full bg-current"></div>
-        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      <div className={GEOMETRY.verticalLines}>
+        {GEOMETRY.positions.map((pos) => (
+          <div key={pos} className={`${GEOMETRY.vertLine} ${pos}`} />
+        ))}
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className={SECTION.container}>
         {/* Section Header */}
         <div className="flex items-start justify-between mb-16 flex-wrap gap-8">
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="text-sm tracking-wider uppercase text-zinc-500 dark:text-zinc-400 font-mono">
-                Latest Articles
-              </span>
+              <span className={TYPO.sectionKicker}>Latest Articles</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+            <h2 className={TYPO.sectionTitle}>
               Recent
               <br />
               <span className="font-serif italic">Blog Posts</span>
             </h2>
-            <p className="text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
+            <p className={TYPO.paragraph}>
               Insights, tutorials, and thoughts on web development, design, and
               technology trends.
             </p>
           </div>
 
-          <div className="animate-in fade-in duration-700 delay-300">
+          <div className={`${ANIM.in} ${ANIM.delay(300)}`}>
             <Link href="/blog">
               <Button
                 variant="outline"
@@ -62,10 +59,10 @@ export default async function LatestBlogs() {
 
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {latestBlogs.map((blog, index) => (
+          {allBlogs.slice(0, 3).map((blog, index) => (
             <div
               key={blog.slug}
-              className="animate-in fade-in duration-700 slide-in-from-bottom-4"
+              className={`${ANIM.in} ${ANIM.slideUp}`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <BlogCard {...blog} slug={blog.slug} />
@@ -74,7 +71,7 @@ export default async function LatestBlogs() {
         </div>
 
         {/* Empty State */}
-        {latestBlogs.length === 0 && (
+        {allBlogs.length === 0 && (
           <div className="text-center py-20">
             <div className="w-16 h-16 mx-auto mb-6 border border-zinc-300 dark:border-zinc-700 rotate-45 opacity-30"></div>
             <h3 className="text-2xl font-light text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">

@@ -5,21 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BG, SECTION, TYPO, ANIM, GEOMETRY } from '@/constants/ui';
 
 export function FeaturedProjects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <section className="relative px-6 py-20 bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
+    <section className={`${SECTION.base} ${BG.gradient}`}>
       {/* Minimal geometric pattern */}
-      <div className="absolute inset-0 opacity-3 dark:opacity-5">
-        <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
-        <div className="absolute top-0 left-40 w-px h-full bg-current"></div>
-        <div className="absolute top-0 right-40 w-px h-full bg-current"></div>
-        <div className="absolute top-0 right-0 w-px h-full bg-current"></div>
+      <div className={GEOMETRY.verticalLines}>
+        {GEOMETRY.positions.map((pos) => (
+          <div key={pos} className={`${GEOMETRY.vertLine} ${pos}`} />
+        ))}
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className={SECTION.container}>
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
@@ -29,7 +29,7 @@ export function FeaturedProjects() {
             </span>
             <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-light text-zinc-900 dark:text-zinc-100 mb-6 tracking-tight">
+          <h2 className={TYPO.sectionTitle}>
             My
             <br />
             <span className="font-serif italic">Projects</span>
@@ -41,7 +41,7 @@ export function FeaturedProjects() {
           {featuredProjects.map((project, index) => (
             <div
               key={project.id}
-              className="group relative overflow-hidden bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 animate-in fade-in duration-700 slide-in-from-bottom-4"
+              className={`group relative overflow-hidden ${BG.card} ${BG.border} transition-all hover:border-zinc-300 dark:hover:border-zinc-700 ${ANIM.in} ${ANIM.slideUp}`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
               {/* Minimal geometric pattern */}

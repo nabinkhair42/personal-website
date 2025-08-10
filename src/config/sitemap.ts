@@ -6,19 +6,14 @@ export default async function sitemap() {
   const currentDate = new Date().toISOString();
 
   // Base routes
-  const routes = [
-    '',
-    '/about',
-    '/projects',
-    '/hire-me',
-    '/contact',
-    '/blog',
-  ].map((route) => ({
-    url: `${siteConfig.baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly',
-    priority: route === '' ? 1 : 0.8,
-  }));
+  const routes = ['', '/about', '/projects', '/contact', '/blog'].map(
+    (route) => ({
+      url: `${siteConfig.baseUrl}${route}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: route === '' ? 1 : 0.8,
+    })
+  );
 
   // Blog routes - with safe date handling
   const blogRoutes = blogs.map((post) => {

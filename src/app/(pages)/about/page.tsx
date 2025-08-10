@@ -1,8 +1,6 @@
 import { aboutMetadata } from '@/config/metadata';
 import { AboutHero } from './_components/about-hero';
-import { AchievementsSection } from './_components/achievements-section';
 import { EducationSection } from './_components/education-section';
-import { PlatformsSection } from './_components/platforms-section';
 import { SkillsSection } from './_components/skills-section';
 import { WorkTimeline } from './_components/work-timeline';
 // Combine metadata with JSON-LD
@@ -18,8 +16,6 @@ export default function AboutPage() {
           <WorkTimeline />
           <EducationSection />
           <SkillsSection />
-          <PlatformsSection />
-          <AchievementsSection />
         </main>
 
         {/* Subtle Side Elements */}

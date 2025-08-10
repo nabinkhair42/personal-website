@@ -10,7 +10,7 @@ import {
   DialogTrigger,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { ContactForm } from '../../contact/_components/contact-form';
+import { ContactForm } from '../../app/(pages)/contact/_components/contact-form';
 
 const HireMeNow = () => {
   return (
@@ -39,7 +39,7 @@ const HireMeNow = () => {
   );
 };
 
-export const HeroSection = () => {
+export const HireMeNowSection = () => {
   return (
     <section className="relative px-6 py-24 border-b border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}

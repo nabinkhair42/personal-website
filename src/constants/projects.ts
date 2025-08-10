@@ -1,9 +1,10 @@
 import { IconType } from 'react-icons';
 import { FaBlogger } from 'react-icons/fa';
+import { RiGeminiFill } from 'react-icons/ri';
 import {
+  SiAuth0,
   SiAwslambda,
   SiChromewebstore,
-  SiCloudflare,
   SiCss3,
   SiExpress,
   SiGooglegemini,
@@ -23,10 +24,7 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiVercel,
-  SiAuth0,
 } from 'react-icons/si';
-import { TbBrandFramerMotion } from 'react-icons/tb';
-import { RiGeminiFill } from 'react-icons/ri';
 
 interface Technology {
   name: string;
@@ -100,28 +98,6 @@ export const projects: Project[] = [
     ],
     category: 'webapp',
     year: '2025',
-  },
-  {
-    id: 'apex-ui',
-    title: 'Apex UI',
-    description:
-      'Fully customizable templates to craft modern websites and apps exactly as you envision them.',
-    image: '/projects/apex-ui.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'React.js', icon: SiReact },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'Framer Motion', icon: TbBrandFramerMotion },
-      { name: 'Shadcn', icon: SiShadcnui },
-    ],
-    features: [
-      'Build multiple web app templates on React and Next.Js',
-      'Designed entire app and build using React and Next.js',
-    ],
-    category: 'webapp',
-    year: '2024',
-    status: 'Live',
-    demoUrl: 'https://apexui.dev/',
   },
   {
     id: 'juju',
@@ -276,32 +252,10 @@ export const projects: Project[] = [
     year: '2024',
     status: 'Live',
   },
-  {
-    id: 'birat-express',
-    title: 'Birat Express',
-    description:
-      'A regional news platform for Koshi Province, offering real-time news updates and a user-friendly interface.',
-    image: '/projects/birat-express.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-    ],
-    demoUrl: 'https://biratexpress.com',
-    features: [
-      'Developed a content delivery system with Next.js and Tailwind CSS',
-      'Built a user-friendly admin dashboard',
-      'Implemented dynamic data fetching with MongoDB',
-      'Deployed the entire application on Vercel',
-    ],
-    category: 'webapp',
-    year: '2024',
-    status: 'Live',
-  },
+
   {
     id: 'google-bulk-photos-deleter',
-    title: 'Google Bulk Photos Deleter',
+    title: 'Bulk Photos Deleter',
     description:
       'A Chrome extension to efficiently bulk delete photos from Google Photos, optimized for user-friendly performance.',
     image: '/projects/chrome-extension.png',
@@ -344,73 +298,6 @@ export const projects: Project[] = [
     ],
     category: 'webapp',
     year: '2022',
-    status: 'Live',
-  },
-  {
-    id: 'unclesams-tech',
-    title: 'UncleSams Tech',
-    description:
-      'A US based tech startup, developed the website using Next.js and Tailwind CSS, and deployed it on Cloudflare Pages.',
-    image: '/projects/unclesams-tech.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-      { name: 'Cloudflare Workers', icon: SiCloudflare, color: '#F38020' },
-    ],
-    demoUrl: 'https://unclesamstech.com',
-    features: [
-      'Build entire website using Next.js and Tailwind CSS',
-      'Developed the AI Chatbot using Cloudflare Workers',
-      'Deployed the website on Cloudflare Pages',
-    ],
-    category: 'webapp',
-    year: '2024',
-    status: 'Live',
-  },
-  {
-    id: 'bitcoin-calculator',
-    title: 'Bitcoin Calculator',
-    description:
-      'A web application that helps users calculate Bitcoin values based on the latest market rates. It provides an intuitive interface for tracking and converting Bitcoin amounts.',
-    image: '/projects/trackyourbtc.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-    ],
-    demoUrl: 'https://trackyourbtc.com',
-    features: [
-      'Developed the frontend using Next.js and Tailwind CSS for a clean, responsive design.',
-      'Implemented logic for real-time Bitcoin value calculation with TypeScript.',
-      'Integrated APIs to fetch and display live Bitcoin rates.',
-      'Deployed the app on Vercel for seamless performance and scalability.',
-    ],
-    category: 'webapp',
-    year: '2024',
-    status: 'Live',
-  },
-  {
-    id: 'auto-inspector',
-    title: 'Auto Inspector',
-    description:
-      'A vehicle inspection automation platform for streamlined processes.',
-    image: '/projects/autoinspector.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-      { name: 'Express', icon: SiExpress, color: '#000000' },
-      { name: 'Vercel', icon: SiVercel },
-    ],
-    demoUrl: 'https://autoinspector.com.au',
-    features: [
-      'Developed the frontend using Next.js and Tailwind CSS for a clean, responsive design.',
-      'Integrated APIs for vehicle data and inspection reports.',
-      'Deployed the app on Vercel for Client part and Render for Server part.',
-    ],
-    category: 'webapp',
-    year: '2024',
     status: 'Live',
   },
 ];

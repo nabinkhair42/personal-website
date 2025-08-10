@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import NextTopLoader from 'nextjs-toploader';
-import { ThemeProvider } from '@/components/theme-provider';
+
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import '@/styles/globals.css';
@@ -122,31 +122,24 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextTopLoader showSpinner={false} color="#71717a" height={2} />
-          <RightClick customMenuItems={navigationMenuItems}>
-            <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-              <Navbar />
-              <main className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-                <div className="max-w-7xl mx-auto">{children}</div>
-              </main>
-              <Footer />
-            </div>
-            <Toaster
-              position="bottom-right"
-              toastOptions={{
-                style: {
-                  borderRadius: '0rem',
-                },
-              }}
-            />
-          </RightClick>
-        </ThemeProvider>
+        <NextTopLoader showSpinner={false} color="#71717a" height={2} />
+        <RightClick customMenuItems={navigationMenuItems}>
+          <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+            <Navbar />
+            <main className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+              <div className="max-w-7xl mx-auto">{children}</div>
+            </main>
+            <Footer />
+          </div>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                borderRadius: '0rem',
+              },
+            }}
+          />
+        </RightClick>
       </body>
     </html>
   );
