@@ -1,30 +1,36 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Mail } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTrigger,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { ContactForm } from '../../app/(pages)/contact/_components/contact-form';
+import { Button } from '../ui/button';
+import { Mail } from 'lucide-react';
 
-const HireMeNow = () => {
+interface HireMeNowProps {
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+const HireMeNow = ({ isOpen, onOpenChange }: HireMeNowProps) => {
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button
-          size="lg"
-          className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 px-8 py-3 font-mono text-sm uppercase tracking-wider transition-all duration-300"
+          className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 
+          dark:hover:bg-zinc-200 border-0 px-8 py-3 font-mono text-sm uppercase tracking-wider 
+          transition-all duration-300"
         >
           <Mail className="mr-2 h-4 w-4" />
           Hire Me Now
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+      <DialogContent className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
         <DialogHeader>
           <DialogTitle className="text-xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
             Let&apos;s Work Together
@@ -39,7 +45,15 @@ const HireMeNow = () => {
   );
 };
 
-export const HireMeNowSection = () => {
+interface HireMeNowSectionProps {
+  isHireMeOpen?: boolean;
+  onHireMeOpenChange?: (open: boolean) => void;
+}
+
+export const HireMeNowSection = ({
+  isHireMeOpen,
+  onHireMeOpenChange,
+}: HireMeNowSectionProps) => {
   return (
     <section className="relative px-6 py-24 border-b border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
       {/* Minimal geometric pattern */}
@@ -83,7 +97,7 @@ export const HireMeNowSection = () => {
 
         {/* CTA Button */}
         <div className="animate-in fade-in duration-700 delay-500">
-          <HireMeNow />
+          <HireMeNow isOpen={isHireMeOpen} onOpenChange={onHireMeOpenChange} />
         </div>
       </div>
 

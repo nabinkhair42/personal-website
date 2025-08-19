@@ -29,31 +29,13 @@ export default function Home() {
         <div className="relative z-10">
           <Hero />
 
-          <HireMeNowSection />
-          <SkillsOverview />
-
-          {/* Section divider */}
-          {/* <div className="relative flex items-center justify-center py-4">
-            <div className="w-10 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div> */}
-
-          <GitGraphUI />
-
-          {/* Section divider */}
-          {/* <div className="relative flex items-center justify-center py-4">
-            <div className="w-6 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-            </div> */}
-
           <FeaturedProjects />
-
+          <SkillsOverview />
+          <HireMeNowSection />
           <BackgroundCollection />
 
           <LatestBlogs />
-
-          {/* Section divider */}
-          {/* <div className="relative flex items-center justify-center py-4">
-            <div className="w-4 h-px bg-zinc-300 dark:bg-zinc-700"></div>
-          </div> */}
+          <GitGraphUI />
         </div>
       </div>
 

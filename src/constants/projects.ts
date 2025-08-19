@@ -100,30 +100,24 @@ export const projects: Project[] = [
     year: '2025',
   },
   {
-    id: 'juju',
-    title: 'JuJu',
+    id: 'pro-mcp',
+    title: 'Pro MCP',
     description:
-      'Juju is where creativity comes alive. Share your moments, express yourself, and be part of a vibrant community that celebrates originality.',
-    image: '/projects/juju.png',
+      'Discover more than 4k+ protocol-compliant MCP servers to enhance your AI applications with external data and tools.',
+    image: '/projects/pro-mcp.png',
     technologies: [
-      { name: 'Express Js', icon: SiExpress },
-      { name: 'Node Js', icon: SiNodedotjs },
-      { name: 'AWS', icon: SiAwslambda },
       { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'Python', icon: SiPython, color: '#3776AB' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-      { name: 'Shadcn', icon: SiShadcnui },
     ],
     features: [
-      'Builded APIs for the mobile App.',
-      'Deployed the entire project using AWS',
-      'Designed entire APP UI and written the web version of app using Next.Js',
+      'Build Custom Backend Service for onboarding every single MCPs.',
     ],
-    category: 'mobileapp',
+    category: 'webapp',
     year: '2024',
     status: 'Live',
-    demoUrl: 'https://jujuconnect.com',
+    demoUrl: 'https://promcp.vercel.app',
   },
   {
     id: 'vthemes',
@@ -160,26 +154,7 @@ export const projects: Project[] = [
     year: '2024',
     status: 'Live',
   },
-  {
-    id: 'pro-mcp',
-    title: 'Pro MCP',
-    description:
-      'Discover more than 4k+ protocol-compliant MCP servers to enhance your AI applications with external data and tools.',
-    image: '/projects/pro-mcp.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Python', icon: SiPython, color: '#3776AB' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-    ],
-    features: [
-      'Build Custom Backend Service for onboarding every single MCPs.',
-    ],
-    category: 'webapp',
-    year: '2024',
-    status: 'Live',
-    demoUrl: 'https://promcp.vercel.app',
-  },
+
   {
     id: 'civen-ai',
     title: 'Civen AI',
@@ -299,5 +274,31 @@ export const projects: Project[] = [
     category: 'webapp',
     year: '2022',
     status: 'Live',
+  },
+  {
+    id: 'juju',
+    title: 'JuJu',
+    description:
+      'Juju is where creativity comes alive. Share your moments, express yourself, and be part of a vibrant community that celebrates originality.',
+    image: '/projects/juju.png',
+    technologies: [
+      { name: 'Express Js', icon: SiExpress },
+      { name: 'Node Js', icon: SiNodedotjs },
+      { name: 'AWS', icon: SiAwslambda },
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+      { name: 'Shadcn', icon: SiShadcnui },
+    ],
+    features: [
+      'Builded APIs for the mobile App.',
+      'Deployed the entire project using AWS',
+      'Designed entire APP UI and written the web version of app using Next.Js',
+    ],
+    category: 'mobileapp',
+    year: '2024',
+    status: 'Live',
+    demoUrl: 'https://jujuconnect.com',
   },
 ];

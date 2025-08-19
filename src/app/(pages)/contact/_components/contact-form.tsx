@@ -93,7 +93,7 @@ export const ContactForm = () => {
                   onChange={handleInputChange}
                   placeholder={field.placeholder}
                   required
-                  className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300"
+                  className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100"
                 />
               </div>
             ))}
@@ -107,7 +107,7 @@ export const ContactForm = () => {
               onChange={handleInputChange}
               placeholder="Subject"
               required
-              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300"
+              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100"
             />
           </div>
 
@@ -119,7 +119,7 @@ export const ContactForm = () => {
               placeholder="Your message..."
               rows={6}
               required
-              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 resize-none"
+              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 resize-none text-zinc-900 dark:text-zinc-100"
             />
           </div>
 

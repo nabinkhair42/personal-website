@@ -24,7 +24,7 @@ const BackgroundCollection: React.FC = () => {
     <div className="w-full">
       <a href="/background-images" className="group block">
         <div
-          className={`relative overflow-hidden ${BG.card} ${BG.border} transition-all duration-700 hover:border-zinc-300 dark:hover:border-zinc-700`}
+          className={`relative overflow-hidden ${BG.gradient} transition-all duration-700`}
         >
           {/* Architectural geometric pattern - matching figma-work */}
           <div className="absolute inset-0 opacity-[0.008] dark:opacity-[0.012] pointer-events-none">
