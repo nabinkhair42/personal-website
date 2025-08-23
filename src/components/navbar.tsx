@@ -1,12 +1,7 @@
 // filepath: src/components/navbar.tsx
 'use client';
 
-import Link from 'next/link';
-import { Button } from './ui/button';
-import Anchor from './anchor';
 import MyProfileImage from '@/app/icon.png';
-import Image from 'next/image';
-import { Menu, Mail } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -14,28 +9,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { usePathname } from 'next/navigation';
 import { NAVLINKS } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
+import { Menu } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { ContactForm } from '@/app/(pages)/contact/_components/contact-form';
+import Anchor from './anchor';
+import { HireMeNow } from './landing/hire-me-now';
+import { Button } from './ui/button';
 
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isHireMeOpen, setIsHireMeOpen] = React.useState(false);
-
-  const handleHireMeClick = () => {
-    setIsHireMeOpen(true);
-    setIsMobileMenuOpen(false);
-  };
 
   const handleMobileMenuClose = () => {
     setIsMobileMenuOpen(false);
@@ -73,13 +60,9 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className="flex items-center gap-4">
-            <Button
-              onClick={handleHireMeClick}
-              className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 border-0 px-6 py-2 font-mono text-sm uppercase tracking-wider transition-all duration-300"
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              Hire Me
-            </Button>
+            <div className="hidden md:block">
+              <HireMeNow size="default" />
+            </div>
 
             {/* Mobile Menu */}
             <div className="md:hidden">
@@ -116,13 +99,7 @@ export function Navbar() {
                       </Link>
                     ))}
 
-                    <Button
-                      className="w-full font-mono text-xs uppercase tracking-wider bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200"
-                      onClick={handleHireMeClick}
-                    >
-                      <Mail className="h-3 w-3 mr-2" />
-                      Hire Me
-                    </Button>
+                    <HireMeNow size="default" />
                   </div>
                 </SheetContent>
               </Sheet>
@@ -130,21 +107,6 @@ export function Navbar() {
           </div>
         </div>
       </nav>
-
-      {/* Hire Me Dialog */}
-      <Dialog open={isHireMeOpen} onOpenChange={setIsHireMeOpen}>
-        <DialogContent className="w-full max-w-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-light text-zinc-900 dark:text-zinc-100 tracking-tight">
-              Let&apos;s Work Together
-            </DialogTitle>
-            <DialogDescription className="text-zinc-600 dark:text-zinc-400 font-light">
-              Send me a message and I&apos;ll get back to you within 24 hours.
-            </DialogDescription>
-          </DialogHeader>
-          <ContactForm />
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

@@ -28,7 +28,7 @@ export function Hero() {
         <div className="absolute bottom-1/4 left-0 w-full h-px bg-current"></div>
       </div>
 
-      <div className="container relative z-10 px-4 md:px-6 max-w-6xl mx-auto py-20">
+      <div className="container relative z-10 px-4 md:px-6 max-w-5xl mx-auto py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
           <div
@@ -61,9 +61,9 @@ export function Hero() {
             <p
               className={`text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-xl ${ANIM.in} delay-400`}
             >
-              Web Developer building modern applications with Next.js,
-              TypeScript, and React. Currently learning backend technologies and
-              focusing on creating functional, accessible web experiences.
+              I build fast, accessible web apps with Next.js and TypeScript and
+              I&apos;m growing my backend skills to ship features from UI to
+              API.
             </p>
 
             {/* Experience cards */}
