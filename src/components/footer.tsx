@@ -1,3 +1,5 @@
+'use client';
+import Link from 'next/link';
 import { Logo } from './navbar';
 
 export function Footer() {
@@ -14,13 +16,19 @@ export function Footer() {
       <div className="relative flex h-20 items-center justify-center px-6">
         <div className="flex items-center justify-center gap-4 text-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
             <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               Built with ❤️ by
             </span>
-            <div className="w-8 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+            <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700"></div>
           </div>
           <Logo />
+          <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700"></div>
+          <Link
+            href="/llms.txt"
+            className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+          >
+            llms.txt
+          </Link>
         </div>
       </div>
 

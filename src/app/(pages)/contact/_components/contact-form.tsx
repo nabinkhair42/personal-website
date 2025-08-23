@@ -54,7 +54,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <section className="relative px-6 py-12 bg-white dark:bg-zinc-950">
+    <section className="relative px-6 py-12">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-3 dark:opacity-5">
         <div className="absolute top-0 left-0 w-px h-full bg-current"></div>
@@ -93,7 +93,7 @@ export const ContactForm = () => {
                   onChange={handleInputChange}
                   placeholder={field.placeholder}
                   required
-                  className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100"
+                  className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100 rounded-none"
                 />
               </div>
             ))}
@@ -107,7 +107,7 @@ export const ContactForm = () => {
               onChange={handleInputChange}
               placeholder="Subject"
               required
-              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100"
+              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 text-zinc-900 dark:text-zinc-100 rounded-none"
             />
           </div>
 
@@ -119,7 +119,7 @@ export const ContactForm = () => {
               placeholder="Your message..."
               rows={6}
               required
-              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 resize-none text-zinc-900 dark:text-zinc-100"
+              className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 focus:border-zinc-400 dark:focus:border-zinc-600 transition-colors duration-300 resize-none text-zinc-900 dark:text-zinc-100 rounded-none "
             />
           </div>
 

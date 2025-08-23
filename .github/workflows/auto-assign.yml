@@ -18,7 +18,7 @@ jobs:
             github.rest.issues.addAssignees({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               assignees: [context.payload.pull_request.user.login]
             });
 
@@ -29,7 +29,7 @@ jobs:
             const { data: files } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.issue.number
+              pull_number: context.payload.pull_request.number
             });
 
             const additions = files.reduce((sum, file) => sum + file.additions, 0);
@@ -46,6 +46,6 @@ jobs:
             github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               labels: [sizeLabel]
             });
