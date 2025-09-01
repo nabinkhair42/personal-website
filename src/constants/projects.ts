@@ -2,7 +2,7 @@ import { IconType } from 'react-icons';
 import { FaBlogger } from 'react-icons/fa';
 import { RiGeminiFill } from 'react-icons/ri';
 import {
-  SiAuth0,
+  // SiAuth0,
   SiAwslambda,
   SiChromewebstore,
   SiCss3,
@@ -47,33 +47,33 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  {
-    id: 'env-store',
-    title: 'Env Store',
-    description:
-      'Env Store lets you securely save and manage environment variables for all your projects—so you never lose your .env files again. Perfect for when you revisit old projects and need your envs back, or want to keep separate configs for dev and prod. Built with Next.js, Auth.js, and MongoDB.',
-    demoUrl: 'https://envstore.nabinkhair.com.np',
-    image: '/projects/env-store.png',
-    technologies: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'Auth.js', icon: SiAuth0 },
-      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-      { name: 'Vercel', icon: SiVercel },
-      { name: 'Shadcn', icon: SiShadcnui },
-    ],
-    features: [
-      'Securely store and organize environment variables for all your projects.',
-      'Retrieve .env files anytime, even after deleting local project folders.',
-      'Support for multiple environments (dev, prod, etc.) per project.',
-      'Authentication and user management with Auth.js.',
-      'Built with Next.js, MongoDB, and Tailwind CSS.',
-      'Deployed on Vercel for fast, reliable access anywhere.',
-    ],
-    category: 'webapp',
-    year: '2025',
-  },
+  // {
+  //   id: 'env-store',
+  //   title: 'Env Store',
+  //   description:
+  //     'Env Store lets you securely save and manage environment variables for all your projects—so you never lose your .env files again. Perfect for when you revisit old projects and need your envs back, or want to keep separate configs for dev and prod. Built with Next.js, Auth.js, and MongoDB.',
+  //   demoUrl: 'https://envstore.nabinkhair.com.np',
+  //   image: '/projects/env-store.png',
+  //   technologies: [
+  //     { name: 'Next.js', icon: SiNextdotjs },
+  //     { name: 'Auth.js', icon: SiAuth0 },
+  //     { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+  //     { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+  //     { name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
+  //     { name: 'Vercel', icon: SiVercel },
+  //     { name: 'Shadcn', icon: SiShadcnui },
+  //   ],
+  //   features: [
+  //     'Securely store and organize environment variables for all your projects.',
+  //     'Retrieve .env files anytime, even after deleting local project folders.',
+  //     'Support for multiple environments (dev, prod, etc.) per project.',
+  //     'Authentication and user management with Auth.js.',
+  //     'Built with Next.js, MongoDB, and Tailwind CSS.',
+  //     'Deployed on Vercel for fast, reliable access anywhere.',
+  //   ],
+  //   category: 'webapp',
+  //   year: '2025',
+  // },
   {
     id: 'flow-mint',
     title: 'Flow Mint',
