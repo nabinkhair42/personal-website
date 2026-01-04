@@ -1,6 +1,8 @@
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DeveloperDetails } from "@/dev-constants/details";
 import type { BlogFrontmatter } from "@/lib/markdown/mdx";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 
 interface BlogHeaderProps {
@@ -24,7 +26,12 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
-              <User className="h-4 w-4" />
+              <Avatar className="h-6 w-6 border">
+                <AvatarImage src = {DeveloperDetails.avatar} />
+                <AvatarFallback>
+                  {DeveloperDetails.initials}
+                </AvatarFallback>
+              </Avatar>
               <span>{frontmatter.developer}</span>
             </div>
 
