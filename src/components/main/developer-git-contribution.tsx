@@ -12,11 +12,10 @@ import {
 } from "@/components/ui/extended/contribution-graph";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { format, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import { format, isAfter, parseISO, startOfDay, subMonths } from "date-fns";
+import { useEffect, useRef, useState } from "react";
 
 const username = "nabinkhair42";
-const currentYear = new Date().getFullYear();
 
 const legendLevelClasses = [
   "bg-[#ebedf0] dark:bg-[#161b22]",
@@ -35,7 +34,8 @@ type ContributionApiResponse = {
 
 const fetchContributions = async () => {
   const url = new URL(`/v4/${username}`, "https://github-contributions-api.jogruber.de");
-  url.searchParams.set("y", String(currentYear));
+  // Fetch last year's data to get rolling 12 months
+  url.searchParams.set("y", "last");
 
   const response = await fetch(url.toString(), {
     headers: {
@@ -48,11 +48,10 @@ const fetchContributions = async () => {
   }
 
   const json = (await response.json()) as ContributionApiResponse;
-  const yearKey = String(currentYear);
 
   const normalizeContributions = () => {
     if (Array.isArray(json.contributions)) {
-      return json.contributions.filter((day) => day.date.startsWith(`${yearKey}-`));
+      return json.contributions;
     }
 
     if (
@@ -60,23 +59,23 @@ const fetchContributions = async () => {
       typeof json.contributions === "object" &&
       !Array.isArray(json.contributions)
     ) {
-      const fromYear = json.contributions[yearKey];
-
-      if (Array.isArray(fromYear)) {
-        return fromYear;
-      }
-
+      // Flatten all years' contributions
       return Object.values(json.contributions).flat();
     }
 
     return [] as ContributionDay[];
   };
 
-  const contributions = normalizeContributions();
+  const allContributions = normalizeContributions();
 
-  const total =
-    (json.total && typeof json.total[yearKey] === "number" ? json.total[yearKey] : undefined) ??
-    contributions.reduce((sum, activity) => sum + activity.count, 0);
+  // Filter to only include the past 12 months
+  const twelveMonthsAgo = startOfDay(subMonths(new Date(), 12));
+  const contributions = allContributions.filter((day) => {
+    const date = parseISO(day.date);
+    return isAfter(date, twelveMonthsAgo);
+  });
+
+  const total = contributions.reduce((sum, activity) => sum + activity.count, 0);
 
   return {
     data: contributions,
@@ -138,8 +137,13 @@ const DeveloperGitContribution = () => {
 
   return (
     <ShellWrapper>
-      <ContributionGraph data={activities} totalCount={totalCount} className="p-2">
-        <ContributionGraphCalendar>
+      <ContributionGraph
+        data={activities}
+        totalCount={totalCount}
+        className="p-2"
+        labels={{ totalCount: "{{count}} activities in past 12 months" }}
+      >
+        <ContributionGraphCalendar scrollToEnd>
           {({ activity, dayIndex, weekIndex }) => (
             <Tooltip>
               <TooltipTrigger asChild>

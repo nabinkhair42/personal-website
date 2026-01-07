@@ -20,7 +20,9 @@ import {
   type ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
 } from "react";
 
 export type Activity = {
@@ -164,6 +166,8 @@ const getMonthLabels = (
   weeks: Week[],
   monthNames: string[] = DEFAULT_MONTH_LABELS
 ): MonthLabel[] => {
+  let previousYear: number | null = null;
+
   return weeks
     .reduce<MonthLabel[]>((labels, week, weekIndex) => {
       const firstActivity = week.find((activity) => activity !== undefined);
@@ -172,7 +176,9 @@ const getMonthLabels = (
         throw new Error(`Unexpected error: Week ${weekIndex + 1} is empty: [${week}].`);
       }
 
-      const month = monthNames[getMonth(parseISO(firstActivity.date))];
+      const date = parseISO(firstActivity.date);
+      const month = monthNames[getMonth(date)];
+      const year = getYear(date);
 
       if (!month) {
         const monthName = new Date(firstActivity.date).toLocaleString("en-US", {
@@ -182,9 +188,18 @@ const getMonthLabels = (
       }
 
       const prevLabel = labels.at(-1);
+      const isNewYear = previousYear !== null && year !== previousYear;
+      const yearSuffix =
+        isNewYear || (weekIndex === 0 && getMonth(date) !== 0) ? ` '${String(year).slice(-2)}` : "";
+      const labelWithYear = `${month}${yearSuffix}`;
 
-      if (weekIndex === 0 || !prevLabel || prevLabel.label !== month) {
-        return labels.concat({ weekIndex, label: month });
+      // Track year changes - add year suffix when year changes
+      if (previousYear === null || year !== previousYear) {
+        previousYear = year;
+      }
+
+      if (weekIndex === 0 || !prevLabel || !prevLabel.label.startsWith(month)) {
+        return labels.concat({ weekIndex, label: labelWithYear });
       }
 
       return labels;
@@ -196,8 +211,9 @@ const getMonthLabels = (
         return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks;
       }
 
+      // Always show the last label (current month) even if less than minWeeks
       if (index === labels.length - 1) {
-        return weeks.slice(weekIndex).length >= minWeeks;
+        return true;
       }
 
       return true;
@@ -330,21 +346,34 @@ export const ContributionGraphBlock = ({
 export type ContributionGraphCalendarProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
   hideMonthLabels?: boolean;
   className?: string;
+  scrollToEnd?: boolean;
   children: (props: { activity: Activity; dayIndex: number; weekIndex: number }) => ReactNode;
 };
 
 export const ContributionGraphCalendar = ({
   hideMonthLabels = false,
   className,
+  scrollToEnd = false,
   children,
   ...props
 }: ContributionGraphCalendarProps) => {
   const { weeks, width, height, blockSize, blockMargin, labels } = useContributionGraph();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const monthLabels = useMemo(() => getMonthLabels(weeks, labels.months), [weeks, labels.months]);
 
+  useEffect(() => {
+    if (scrollToEnd && containerRef.current) {
+      containerRef.current.scrollLeft = containerRef.current.scrollWidth;
+    }
+  }, [scrollToEnd, weeks]);
+
   return (
-    <div className={cn("max-w-full overflow-x-auto overflow-y-hidden", className)} {...props}>
+    <div
+      ref={containerRef}
+      className={cn("max-w-full overflow-x-auto overflow-y-hidden", className)}
+      {...props}
+    >
       <svg
         className="block overflow-visible"
         height={height}

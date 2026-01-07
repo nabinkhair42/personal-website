@@ -27,10 +27,8 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
               <Avatar className="h-6 w-6 border">
-                <AvatarImage src = {DeveloperDetails.avatar} />
-                <AvatarFallback>
-                  {DeveloperDetails.initials}
-                </AvatarFallback>
+                <AvatarImage src={DeveloperDetails.avatar} />
+                <AvatarFallback>{DeveloperDetails.initials}</AvatarFallback>
               </Avatar>
               <span>{frontmatter.developer}</span>
             </div>
