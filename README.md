@@ -1,14 +1,33 @@
-# Personal Portfolio and Blog Template:
-This is a customizable personal portfolio and blog template built with Tailwind CSS, Next.js, and TypeScript. It provides a clean and modern design that can be easily modified to showcase your work and share your thoughts.
+# nabinkhair.com.np
 
-# Customize the project as per your requirements
+Personal portfolio and blog built with Next.js 16, TypeScript, and Tailwind CSS.
 
-1. Clone this repository to your local machine.
-2. Navigate to the project directory.
-3. Install the necessary dependencies using your preferred package manager (e.g., `npm`, `yarn`).
-4. Start the development server `npm run dev` or `yarn dev`.
-5. Open your web browser and go to `http://localhost:3000` to view the application.
-6. Make changes to the content as per your requirements from `/src/dev-constants/` directory.
-7. Save the changes and refresh the browser to see the updates.
-8. To build the project for production, run `npm run build` or `yarn build`.
-9. Deploy the built project to your preferred hosting service.
+![Next.js](https://img.shields.io/badge/Next.js_16-000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-38B2AC?logo=tailwindcss&logoColor=white)
+![MDX](https://img.shields.io/badge/MDX-FCB32C?logo=mdx&logoColor=black)
+![Framer Motion](https://img.shields.io/badge/Motion-0055FF?logo=framer&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000?logo=shadcnui&logoColor=white)
+
+## Features
+
+- MDX blog with syntax highlighting and reading time
+- GitHub contribution graph (rolling 12 months)
+- Dark/light theme with system detection
+- JSON-LD structured data for SEO
+- Fully responsive and accessible
+
+[![Stargazers over time](https://starchart.cc/nabinkhair42/nabinkhair.com.np.svg?variant=adaptive)](https://starchart.cc/nabinkhair42/nabinkhair.com.np)
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Build
+
+```bash
+pnpm build
+```
