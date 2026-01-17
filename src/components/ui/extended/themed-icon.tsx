@@ -7,6 +7,7 @@ interface ThemedIconProps {
   size?: number;
   hasDarkVariant?: boolean;
   className?: string;
+  title?: string;
 }
 
 const ThemedIcon = ({
@@ -15,6 +16,7 @@ const ThemedIcon = ({
   size = 20,
   hasDarkVariant = false,
   className,
+  title
 }: ThemedIconProps) => {
   const darkSrc = src.replace(".svg", "-dark.svg");
 
@@ -26,6 +28,7 @@ const ThemedIcon = ({
         width={size}
         height={size}
         className={cn(className, hasDarkVariant && "dark:hidden")}
+        title={title}
       />
       {hasDarkVariant && (
         <Image

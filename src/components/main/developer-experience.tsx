@@ -24,25 +24,32 @@ const DeveloperExperience = () => {
       <ExpandableSection>
         <ExpandableSectionHeader>
           <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-          <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
+          <ExpandableSectionTitle>
+            Professional Experience
+          </ExpandableSectionTitle>
           <ExpandableSectionDescription>
-            A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
-            with in various projects and companies.
+            A timeline of my career path, showcasing the roles and technologies
+            I&apos;ve worked with in various projects and companies.
           </ExpandableSectionDescription>
         </ExpandableSectionHeader>
 
         <ExpandableSectionList>
-          {ExperienceData.map((experience) => (
-            <ExpandableSectionItem key={experience.company}>
+          {ExperienceData.map((experience, index) => (
+            <ExpandableSectionItem key={experience.company} className="relative">
+              {/* Connecting line - spans full item height */}
+              {index < ExperienceData.length - 1 && (
+                <div className="absolute left-[20px] top-[44px] bottom-[-16px] w-px bg-muted-foreground/30" />
+              )}
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
-                  <div>
+                  <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1 relative z-10">
                     <Image
                       src={experience.logo}
                       alt={experience.company}
                       width={100}
                       height={100}
-                      className="h-8 w-8 mt-1 rounded object-contain"
+                      className="h-8 w-8 rounded object-cover"
+                      title={experience.company}
                     />
                   </div>
                   <div className="space-y-1 pl-3">

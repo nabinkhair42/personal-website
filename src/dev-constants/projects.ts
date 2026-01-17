@@ -121,22 +121,6 @@ export const ProjectsData: Projects[] = [
       { name: "Postman", icon: "/tech-icon/postman.svg" },
     ],
   },
-
-  {
-    icon: "/tech-icon/nextjs.svg",
-    title: "YourGit",
-    tagline: "GitHub Profile Stats Summary",
-    liveLink: "https://yourgit.vercel.app/",
-    description: [],
-    techStack: [
-      { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
-      { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
-      { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
-      { name: "Vercel", icon: "/tech-icon/vercel.svg", hasDarkIcon: true },
-      { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
-      { name: "Stripe", icon: "/tech-icon/stripe.svg" },
-    ],
-  },
   {
     icon: "/projects/flow-mint.png",
     title: "FlowMint",
@@ -158,6 +142,21 @@ export const ProjectsData: Projects[] = [
       { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
       { name: "Stripe", icon: "/tech-icon/stripe.svg" },
       { name: "Zod", icon: "/tech-icon/zod.svg" },
+    ],
+  },
+  {
+    icon: "/tech-icon/nextjs.svg",
+    title: "YourGit",
+    tagline: "GitHub Profile Stats Summary",
+    liveLink: "https://yourgit.vercel.app/",
+    description: [],
+    techStack: [
+      { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
+      { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
+      { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
+      { name: "Vercel", icon: "/tech-icon/vercel.svg", hasDarkIcon: true },
+      { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
+      { name: "Stripe", icon: "/tech-icon/stripe.svg" },
     ],
   },
 ];

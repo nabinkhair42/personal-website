@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { PlusIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
 
@@ -179,7 +179,7 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
         type="button"
         onClick={toggle}
         className={cn(
-          "flex w-full cursor-pointer items-center justify-between p-2 text-left",
+          "flex w-full cursor-pointer items-center justify-between text-left",
           className
         )}
         aria-expanded={isOpen}
@@ -187,11 +187,12 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
       >
         {children}
         <motion.span
-          className="text-sm uppercase tracking-[0.3em] text-muted-foreground"
-          animate={{ rotate: isOpen ? 45 : 0 }}
+          className="text-muted-foreground"
+          animate={{ rotate: isOpen ? 180 : 0 }}
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }}
+          title={isOpen ? "Collapse section" : "Expand section"}
         >
-          <PlusIcon />
+          <ChevronDown className="h-5 w-5" />
         </motion.span>
       </button>
     );

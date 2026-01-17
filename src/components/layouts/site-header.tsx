@@ -2,12 +2,28 @@
 
 import { GitHubButtons } from "@/components/ui/extended/github-buttons";
 import ThemeSwitcher from "@/components/ui/extended/theme-switcher";
+import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const SiteHeader = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60",
+        isScrolled && "border-b border-border"
+      )}
+    >
       <div className="flex h-14 px-8 md:px-0 max-w-2xl mx-auto items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <span className="font-medium inline-block text-lg">devn.</span>
