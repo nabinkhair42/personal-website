@@ -86,9 +86,20 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
       />
     ),
-    a: ({ className, ...props }: React.ComponentProps<"a">) => (
-      <a className={cn("font-medium underline underline-offset-4", className)} {...props} />
-    ),
+    a: ({ className, href, ...props }: React.ComponentProps<"a">) => {
+      const isExternal = href?.startsWith("http") && !href?.includes("nabinkhair.com.np");
+      return (
+        <a
+          href={href}
+          className={cn("font-medium underline underline-offset-4", className)}
+          {...(isExternal && {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          })}
+          {...props}
+        />
+      );
+    },
     p: ({ className, ...props }: React.ComponentProps<"p">) => (
       <p className={cn("leading-relaxed not-first:mt-6", className)} {...props} />
     ),
