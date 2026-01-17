@@ -24,12 +24,10 @@ const DeveloperProjects = () => {
       <ExpandableSection>
         <ExpandableSectionHeader>
           <ExpandableSectionLabel>My Work</ExpandableSectionLabel>
-          <ExpandableSectionTitle>
-            Projects I&apos;m proud of
-          </ExpandableSectionTitle>
+          <ExpandableSectionTitle>Projects I&apos;m proud of</ExpandableSectionTitle>
           <ExpandableSectionDescription>
-            A snapshot of product-focused experiments and client work where I
-            handled everything from UX flow to production deployment.
+            A snapshot of product-focused experiments and client work where I handled everything
+            from UX flow to production deployment.
           </ExpandableSectionDescription>
         </ExpandableSectionHeader>
 
@@ -52,9 +50,7 @@ const DeveloperProjects = () => {
                     <h3 className="text-lg font-medium text-foreground md:text-xl">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {project.tagline}
-                    </p>
+                    <p className="text-sm text-muted-foreground">{project.tagline}</p>
                   </div>
                 </div>
               </ExpandableSectionTrigger>
@@ -83,12 +79,7 @@ const DeveloperProjects = () => {
                 {(project.liveLink || project.repo) && (
                   <div className="flex flex-wrap gap-2 pt-2">
                     {project.liveLink && (
-                      <Button
-                        asChild
-                        size="icon"
-                        variant="outline"
-                        className="rounded-full"
-                      >
+                      <Button asChild size="icon" variant="outline" className="rounded-full">
                         <Link
                           href={project.liveLink}
                           target="_blank"
@@ -101,12 +92,7 @@ const DeveloperProjects = () => {
                       </Button>
                     )}
                     {project.repo && (
-                      <Button
-                        asChild
-                        size="icon"
-                        variant="outline"
-                        className="rounded-full"
-                      >
+                      <Button asChild size="icon" variant="outline" className="rounded-full">
                         <Link
                           href={project.repo}
                           target="_blank"

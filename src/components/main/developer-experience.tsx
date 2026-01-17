@@ -24,12 +24,10 @@ const DeveloperExperience = () => {
       <ExpandableSection>
         <ExpandableSectionHeader>
           <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-          <ExpandableSectionTitle>
-            Professional Experience
-          </ExpandableSectionTitle>
+          <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
           <ExpandableSectionDescription>
-            A timeline of my career path, showcasing the roles and technologies
-            I&apos;ve worked with in various projects and companies.
+            A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
+            with in various projects and companies.
           </ExpandableSectionDescription>
         </ExpandableSectionHeader>
 

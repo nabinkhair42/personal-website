@@ -16,7 +16,7 @@ const ThemedIcon = ({
   size = 20,
   hasDarkVariant = false,
   className,
-  title
+  title,
 }: ThemedIconProps) => {
   const darkSrc = src.replace(".svg", "-dark.svg");
 
