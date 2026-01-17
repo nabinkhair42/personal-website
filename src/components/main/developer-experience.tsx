@@ -43,7 +43,7 @@ const DeveloperExperience = () => {
                   <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1 relative z-10">
                     <Image
                       src={experience.logo}
-                      alt={experience.company}
+                      alt={`${experience.company} company logo`}
                       width={100}
                       height={100}
                       className="h-8 w-8 rounded object-cover"

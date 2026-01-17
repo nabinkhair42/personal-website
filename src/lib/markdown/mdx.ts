@@ -13,6 +13,7 @@ export interface BlogFrontmatter {
   date: string;
   image: string;
   published?: boolean;
+  tags?: string[];
 }
 
 export interface BlogPost {

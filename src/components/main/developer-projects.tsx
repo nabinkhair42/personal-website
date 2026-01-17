@@ -39,7 +39,7 @@ const DeveloperProjects = () => {
                   <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1">
                     <Image
                       src={project.icon}
-                      alt={project.title}
+                      alt={`${project.title} project icon`}
                       width={100}
                       height={100}
                       className="h-8 w-8 rounded object-cover"

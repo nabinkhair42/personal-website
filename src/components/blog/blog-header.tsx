@@ -27,7 +27,10 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
               <Avatar className="h-6 w-6 border">
-                <AvatarImage src={DeveloperDetails.avatar} />
+                <AvatarImage
+                  src={DeveloperDetails.avatar}
+                  alt={`${DeveloperDetails.name} avatar`}
+                />
                 <AvatarFallback>{DeveloperDetails.initials}</AvatarFallback>
               </Avatar>
               <span>{frontmatter.developer}</span>
@@ -59,7 +62,7 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
               src={frontmatter.image}
               width={1000}
               height={1000}
-              alt={frontmatter.title}
+              alt={`Cover image for ${frontmatter.title}`}
               title={frontmatter.title}
               className="max-h-96 mx-auto aspect-video border"
             />

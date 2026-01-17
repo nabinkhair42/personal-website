@@ -31,7 +31,7 @@ const DeveloperEducation = () => {
                   {education.logo ? (
                     <Image
                       src={education.logo}
-                      alt={education.institution}
+                      alt={`${education.institution} logo`}
                       width={100}
                       height={100}
                       className="h-8 w-8 rounded object-contain"

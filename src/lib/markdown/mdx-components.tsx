@@ -171,7 +171,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
         width={props.width ? Number(props.width) : 800}
         height={props.height ? Number(props.height) : 400}
         className="rounded"
-        alt={props.alt || ""}
+        alt={props.alt || "Blog post image"}
       />
     ),
     hr: () => <hr className="border" />,

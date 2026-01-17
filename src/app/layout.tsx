@@ -16,6 +16,9 @@ export const metadata: Metadata = {
 
 const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
 metadata.metadataBase = new URL(siteUrl);
+metadata.alternates = {
+  canonical: siteUrl,
+};
 
 // Open Graph and Twitter card metadata so social previews pick up the og image
 const ogImage = `${siteUrl}/og-image.png`;

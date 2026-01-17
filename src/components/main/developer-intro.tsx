@@ -11,7 +11,7 @@ const DeveloperIntro = () => {
         <div className="flex flex-col md:flex-row md:justify-between md:space-x-3 space-y-3 md:space-y-0 ">
           <Image
             src={avatar}
-            alt={name}
+            alt={`Profile photo of ${name}, ${designation}`}
             width={1000}
             height={1000}
             className="h-28 w-28 md:h-32 md:w-32 md:mt-2.5 shrink-0 rounded border object-cover shadow-md"
