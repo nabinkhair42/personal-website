@@ -72,13 +72,14 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   }
 
   const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
+  const publishedDate = new Date(post.frontmatter.date).toISOString();
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.frontmatter.title,
     description: post.frontmatter.description,
     image: post.frontmatter.image ? `${siteUrl}${post.frontmatter.image}` : undefined,
-    datePublished: post.frontmatter.date,
+    datePublished: publishedDate,
     author: {
       "@type": "Person",
       name: post.frontmatter.developer,
