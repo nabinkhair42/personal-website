@@ -11,7 +11,7 @@ export const ProjectsData: Projects[] = [
       "Secure sharing with public links, password protection, expiry dates, and configurable per-user storage quotas.",
       "OTP-based email authentication, drag-and-drop uploads, auto-generated thumbnails, and full dark mode support.",
     ],
-    liveLink: "https://assetsman.nabinkhair.com.np",
+    liveLink: "https://assets-man.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/assets-man",
     techStack: [
       { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
