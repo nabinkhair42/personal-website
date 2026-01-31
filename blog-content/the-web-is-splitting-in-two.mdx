@@ -239,7 +239,7 @@ Simple, transparent pricing. Choose the plan that's right for your team.
 All plans include 14-day free trial. No credit card required.
 ```
 
-The markdown version is 15x smaller, 100% parseable, and contains every fact from the original page. When an AI agent ingests this, it can answer &ldquo;how much does the Pro plan cost?&rdquo; or &ldquo;do they offer SLAs?&rdquo; with perfect accuracy.
+The markdown version is 15x smaller, 100% parseable, and contains every fact from the original page. When an AI agent ingests this, it can answer "how much does the Pro plan cost?" or "do they offer SLAs?" with perfect accuracy.
 
 ## The Two Delivery Models
 
@@ -250,11 +250,12 @@ Once you have AI-ready markdown, there are two ways to get it to the agents:
 The website itself detects AI agents and serves markdown. Works for sites that can add middleware: Next.js, Express, Rails, Django, or any framework with request interceptors.
 
 ```mermaid
-flowchart LR
-    A["🤖 AI Agent"] -->|"Accept: text/markdown"| S["example.com/pricing"]
+flowchart TD
+    S["example.com/pricing"]
+    A["🤖 AI Agent"] -->|"Accept: text/markdown"| S
     B["🌐 Browser"] -->|"Accept: text/html"| S
-    S -->|"200 OK · text/markdown · 2kb"| A
-    S -->|"200 OK · text/html · 500kb"| B
+    S -->|"text/markdown · 2kb"| A
+    S -->|"text/html · 500kb"| B
 ```
 
 Pros: No third party involved. No DNS change. No proxy. No latency overhead.

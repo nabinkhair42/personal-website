@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import {
   BlogCard,
   BlogCardContent,
@@ -10,7 +11,6 @@ import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
 import type { BlogPost } from "@/lib/markdown/mdx";
-import { ArrowUpRight } from "lucide-react";
 
 interface BlogsGridProps {
   posts: BlogPost[];

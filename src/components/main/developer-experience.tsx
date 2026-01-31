@@ -1,5 +1,8 @@
 "use client";
 
+import { DotIcon } from "lucide-react";
+import { motion } from "motion/react";
+import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
   ExpandableSection,
@@ -14,9 +17,6 @@ import {
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
 import { ExperienceData } from "@/dev-constants/experience";
-import { DotIcon } from "lucide-react";
-import { motion } from "motion/react";
-import Image from "next/image";
 
 const DeveloperExperience = () => {
   return (

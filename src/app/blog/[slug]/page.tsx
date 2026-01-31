@@ -1,11 +1,11 @@
+import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { BlogHeader } from "@/components/blog/blog-header";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { getAllBlogSlugs, getBlogPostBySlug, mdxOptions } from "@/lib/markdown/mdx";
 import { useMDXComponents } from "@/lib/markdown/mdx-components";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
   params: Promise<{

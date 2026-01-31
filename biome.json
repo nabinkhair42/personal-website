@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -26,7 +26,8 @@
         "noArrayIndexKey": "off"
       },
       "complexity": {
-        "noStaticOnlyClass": "off"
+        "noStaticOnlyClass": "off",
+        "noImportantStyles": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -36,8 +37,17 @@
       }
     }
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "javascript": {
     "formatter": {
@@ -47,6 +57,15 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", ".next", "dist", "out", "build", "prisma/migrations", "*.config.js"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!out",
+      "!build",
+      "!prisma/migrations",
+      "!*.config.js"
+    ]
   }
 }

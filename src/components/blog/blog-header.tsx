@@ -1,9 +1,9 @@
+import { Calendar, Clock } from "lucide-react";
+import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
 import type { BlogFrontmatter } from "@/lib/markdown/mdx";
-import { Calendar, Clock } from "lucide-react";
-import Image from "next/image";
 
 interface BlogHeaderProps {
   frontmatter: BlogFrontmatter;

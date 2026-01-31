@@ -1,5 +1,5 @@
-import { DeveloperDetails } from "@/dev-constants/details";
 import Image from "next/image";
+import { DeveloperDetails } from "@/dev-constants/details";
 import ShellWrapper from "../layouts/shell-wrapper";
 
 const DeveloperIntro = () => {

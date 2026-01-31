@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTheme } from "next-themes";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CopyButton } from "@/lib/markdown/copy-button";
 
 interface MermaidDiagramProps {

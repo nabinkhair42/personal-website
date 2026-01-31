@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
+import { cn } from "@/lib/utils";
 
 // Root component
 interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {

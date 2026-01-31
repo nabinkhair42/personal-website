@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { useEffect } from "react";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useEffect } from "react";
 
 export default function ErrorPage({
   error,

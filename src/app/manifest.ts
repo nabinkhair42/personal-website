@@ -1,5 +1,5 @@
-import { DeveloperDetails } from "@/dev-constants/details";
 import type { MetadataRoute } from "next";
+import { DeveloperDetails } from "@/dev-constants/details";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {

@@ -1,8 +1,8 @@
+import type { MDXComponents } from "mdx/types";
+import Image, { type ImageProps } from "next/image";
 import { CodeBlock } from "@/lib/markdown/code-block";
 import { MermaidDiagram } from "@/lib/markdown/mermaid-diagram";
 import { cn } from "@/lib/utils";
-import type { MDXComponents } from "mdx/types";
-import Image, { type ImageProps } from "next/image";
 
 type CodeChild = {
   props: {
@@ -118,8 +118,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     a: ({ className, href, ...props }: React.ComponentProps<"a">) => {
-      const isExternal =
-        href?.startsWith("http") && !href?.includes("nabinkhair.com.np");
+      const isExternal = href?.startsWith("http") && !href?.includes("nabinkhair.com.np");
       return (
         <a
           href={href}
@@ -133,10 +132,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     p: ({ className, ...props }: React.ComponentProps<"p">) => (
-      <p
-        className={cn("leading-7 not-first:mt-5", className)}
-        {...props}
-      />
+      <p className={cn("leading-7 not-first:mt-5", className)} {...props} />
     ),
     strong: ({ className, ...props }: React.ComponentProps<"strong">) => (
       <strong className={cn("font-semibold", className)} {...props} />
@@ -145,24 +141,15 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
       <em className={cn("italic", className)} {...props} />
     ),
     ul: ({ className, ...props }: React.ComponentProps<"ul">) => (
-      <ul
-        className={cn("my-5 ml-6 list-disc [&>li]:mt-2", className)}
-        {...props}
-      />
+      <ul className={cn("my-5 ml-6 list-disc [&>li]:mt-2", className)} {...props} />
     ),
     ol: ({ className, ...props }: React.ComponentProps<"ol">) => (
-      <ol
-        className={cn("my-5 ml-6 list-decimal [&>li]:mt-2", className)}
-        {...props}
-      />
+      <ol className={cn("my-5 ml-6 list-decimal [&>li]:mt-2", className)} {...props} />
     ),
     li: ({ className, ...props }: React.ComponentProps<"li">) => (
       <li className={cn("leading-7", className)} {...props} />
     ),
-    blockquote: ({
-      className,
-      ...props
-    }: React.ComponentProps<"blockquote">) => (
+    blockquote: ({ className, ...props }: React.ComponentProps<"blockquote">) => (
       <blockquote
         className={cn(
           "my-5 border-l-4 border-border pl-5 italic text-muted-foreground [&>p]:mt-2",
@@ -173,10 +160,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
     ),
     table: ({ className, ...props }: React.ComponentProps<"table">) => (
       <div className="my-5 w-full overflow-hidden rounded-lg border">
-        <table
-          className={cn("w-full border-collapse text-sm", className)}
-          {...props}
-        />
+        <table className={cn("w-full border-collapse text-sm", className)} {...props} />
       </div>
     ),
     tr: ({ className, ...props }: React.ComponentProps<"tr">) => (

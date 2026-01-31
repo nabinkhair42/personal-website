@@ -1,6 +1,6 @@
-import { DeveloperDetails } from "@/dev-constants/details";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { DeveloperDetails } from "@/dev-constants/details";
 
 const SiteFooter = () => {
   return (

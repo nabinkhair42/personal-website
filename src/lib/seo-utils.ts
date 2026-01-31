@@ -1,6 +1,6 @@
+import type { MetadataRoute } from "next";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { getAllBlogPosts } from "@/lib/markdown";
-import type { MetadataRoute } from "next";
 
 const normalizeSiteUrl = (url: string) => {
   return url.replace(/\/$/, "");

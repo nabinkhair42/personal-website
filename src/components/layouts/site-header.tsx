@@ -1,11 +1,11 @@
 "use client";
 
-import { GitHubButtons } from "@/components/ui/extended/github-buttons";
-import ThemeSwitcher from "@/components/ui/extended/theme-switcher";
-import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { GitHubButtons } from "@/components/ui/extended/github-buttons";
+import ThemeSwitcher from "@/components/ui/extended/theme-switcher";
+import { cn } from "@/lib/utils";
 
 const SiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);

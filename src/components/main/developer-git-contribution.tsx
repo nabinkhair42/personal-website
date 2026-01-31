@@ -1,5 +1,7 @@
 "use client";
 
+import { format, isAfter, parseISO, startOfDay, subMonths } from "date-fns";
+import { useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
   type Activity,
@@ -12,8 +14,6 @@ import {
 } from "@/components/ui/extended/contribution-graph";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { format, isAfter, parseISO, startOfDay, subMonths } from "date-fns";
-import { useEffect, useRef, useState } from "react";
 
 const username = "nabinkhair42";
 

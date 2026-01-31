@@ -1,10 +1,10 @@
 import "./globals.css";
+import type { Metadata } from "next";
+import { Space_Grotesk } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
 import { DeveloperDetails } from "@/dev-constants/details";
-import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-import { Space_Grotesk } from "next/font/google";
 
 export const metadata: Metadata = {
   title: DeveloperDetails.seo.title,

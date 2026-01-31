@@ -1,9 +1,9 @@
+import { ArrowUpRight, FileText, Mail } from "lucide-react";
+import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import ThemedIcon from "@/components/ui/extended/themed-icon";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { ArrowUpRight, FileText, Mail } from "lucide-react";
-import Link from "next/link";
 
 const DeveloperConnect = () => {
   const SocialLinks = DeveloperDetails.socialLinks;

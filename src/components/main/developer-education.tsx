@@ -1,7 +1,7 @@
-import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { DeveloperDetails } from "@/dev-constants/details";
 import { GraduationCap, MapPin } from "lucide-react";
 import Image from "next/image";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { DeveloperDetails } from "@/dev-constants/details";
 
 const DeveloperEducation = () => {
   const educationData = DeveloperDetails.education;

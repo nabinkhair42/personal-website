@@ -1,3 +1,6 @@
+import { DotIcon, Globe } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +17,6 @@ import {
 import StackBadge from "@/components/ui/extended/stack-badge";
 import ThemedIcon from "@/components/ui/extended/themed-icon";
 import { ProjectsData } from "@/dev-constants/projects";
-import { DotIcon, Globe } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 const DeveloperProjects = () => {
   return (
