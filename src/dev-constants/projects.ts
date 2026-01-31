@@ -2,6 +2,40 @@ import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
   {
+    icon: "/projects/assets-man.svg",
+    title: "Assets Man",
+    tagline: "A self-hosted, open-source Google Drive alternative.",
+    description: [
+      "Privacy-first file management platform with your own S3-compatible storage backend.",
+      "Full-featured file browser with instant search, rich previews for PDFs/images/code, and nested folder hierarchy.",
+      "Secure sharing with public links, password protection, expiry dates, and configurable per-user storage quotas.",
+      "OTP-based email authentication, drag-and-drop uploads, auto-generated thumbnails, and full dark mode support.",
+    ],
+    liveLink: "https://assetsman.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/assets-man",
+    techStack: [
+      { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
+      { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
+      { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
+      { name: "PostgreSQL", icon: "/tech-icon/postgresql.svg" },
+      {
+        name: "Drizzle ORM",
+        icon: "/tech-icon/drizzle-orm.svg",
+        hasDarkIcon: true,
+      },
+      { name: "Express", icon: "/tech-icon/expressjs.svg", hasDarkIcon: true },
+      {
+        name: "Turborepo",
+        icon: "/tech-icon/turborepo.svg",
+        hasDarkIcon: true,
+      },
+
+      { name: "AWS S3", icon: "/tech-icon/aws.svg", hasDarkIcon: true },
+      { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
+      { name: "Zod", icon: "/tech-icon/zod.svg" },
+    ],
+  },
+  {
     icon: "/projects/better-form.svg",
     title: "Better Form",
     tagline: "DX-First Dynamic Form Builder for React & Next.js",
