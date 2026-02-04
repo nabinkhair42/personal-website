@@ -1,19 +1,23 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "Page Not Found | Nabin Khair",
-  description: "The page you're looking for doesn't exist or has been moved.",
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
-
 export default function NotFound() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      router.push("/");
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [router]);
+
   return (
     <PageShellWrapper>
       <section className="relative flex h-screen w-full items-center justify-center px-8 py-16 md:px-0">
@@ -30,8 +34,7 @@ export default function NotFound() {
               This page took a different route
             </h1>
             <p className="text-base leading-relaxed text-muted-foreground">
-              The link you followed is no longer available. Head back home or jump into the blog to
-              keep exploring the latest updates.
+              The link you followed is no longer available. You&apos;ll be redirected to the home page in 5 seconds, or you can navigate manually.
             </p>
           </header>
           <ShellWrapper>
