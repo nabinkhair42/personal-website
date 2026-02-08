@@ -2,6 +2,44 @@ import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
   {
+    icon: "/projects/pestjs.png",
+    title: "PEST.js",
+    tagline: "CLI to Scaffold Production-Ready Express 5 + TypeScript APIs",
+    description: [
+      "A CLI tool that scaffolds production-grade Express 5 + TypeScript projects with a single command.",
+      "Interactive prompts for project config: database ORM (Prisma, Drizzle, TypeORM), Docker, package manager, and more.",
+      "Generates a complete stack: Express 5, Helmet, CORS, Pino logging, Zod validation, rate limiting, Jest + Supertest, ESLint, Prettier, and Husky.",
+      "Monorepo with a dedicated docs website built on Next.js, fumadocs, and a custom Structural Grid design system.",
+    ],
+    liveLink: "https://pestjs.vercel.app",
+    repo: "https://github.com/nabinkhair42/pest-js",
+    techStack: [
+      { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
+      { name: "Node.js", icon: "/tech-icon/nodejs.svg" },
+      {
+        name: "Express",
+        icon: "/tech-icon/expressjs.svg",
+        hasDarkIcon: true,
+      },
+      { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
+      {name: "NPM Package", icon:"/tech-icon/npm.svg"},
+      { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
+      { name: "Zod", icon: "/tech-icon/zod.svg" },
+      {
+        name: "Prisma",
+        icon: "/tech-icon/prisma.svg",
+        hasDarkIcon: true,
+      },
+      {
+        name: "Drizzle ORM",
+        icon: "/tech-icon/drizzle-orm.svg",
+        hasDarkIcon: true,
+      },
+      { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
+      { name: "Vercel", icon: "/tech-icon/vercel.svg", hasDarkIcon: true },
+    ],
+  },
+  {
     icon: "/projects/assets-man.svg",
     title: "Assets Man",
     tagline: "A self-hosted, open-source Google Drive alternative.",
