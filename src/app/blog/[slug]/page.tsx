@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const imageUrl = post.frontmatter.image ? `${siteUrl}${post.frontmatter.image}` : undefined;
 
   return {
-    title: `${post.frontmatter.title} | Nabin Khair`,
+    title: post.frontmatter.title,
     description: post.frontmatter.description,
     keywords: post.frontmatter.tags || [],
     authors: [{ name: post.frontmatter.developer }],
@@ -48,6 +48,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       siteName: DeveloperDetails.name,
       type: "article",
       publishedTime: post.frontmatter.date,
+      modifiedTime: post.frontmatter.date,
       authors: [post.frontmatter.developer],
       images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : undefined,
     },
@@ -80,6 +81,8 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
     description: post.frontmatter.description,
     image: post.frontmatter.image ? `${siteUrl}${post.frontmatter.image}` : undefined,
     datePublished: publishedDate,
+    dateModified: publishedDate,
+    keywords: post.frontmatter.tags?.join(", "),
     author: {
       "@type": "Person",
       name: post.frontmatter.developer,

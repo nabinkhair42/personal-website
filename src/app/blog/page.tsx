@@ -30,11 +30,33 @@ const BlogPage = () => {
     ],
   };
 
+  const collectionPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Blog | Nabin Khair",
+    description:
+      "Technical articles on React, Next.js, TypeScript, and web development by Nabin Khair.",
+    url: `${siteUrl}/blog`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteUrl}/blog/${post.slug}`,
+        name: post.frontmatter.title,
+      })),
+    },
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }}
       />
       <PageShellWrapper>
         <BlogIntroduction />

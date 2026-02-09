@@ -6,6 +6,8 @@ const normalizeSiteUrl = (url: string) => {
   return url.replace(/\/$/, "");
 };
 
+const SITE_LAST_UPDATED = "2026-02-09";
+
 export const generateSitemap = (): MetadataRoute.Sitemap => {
   const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
 
@@ -14,7 +16,7 @@ export const generateSitemap = (): MetadataRoute.Sitemap => {
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: new Date(SITE_LAST_UPDATED),
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1.0 : 0.8,
   }));
@@ -38,6 +40,19 @@ export const generateRobots = (): MetadataRoute.Robots => {
         userAgent: "*",
         allow: "/",
       },
+      {
+        userAgent: [
+          "GPTBot",
+          "ClaudeBot",
+          "Google-Extended",
+          "Bytespider",
+          "CCBot",
+          "Amazonbot",
+          "meta-externalagent",
+          "Applebot-Extended",
+        ],
+        disallow: "/",
+      },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
   };
@@ -45,9 +60,10 @@ export const generateRobots = (): MetadataRoute.Robots => {
 
 export const blogMetadata = () => {
   const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
+  const ogImage = `${siteUrl}/og-image.png`;
 
   return {
-    title: "Blog | Nabin Khair",
+    title: "Blog",
     description:
       "Technical articles on React, Next.js, TypeScript, and web development by Nabin Khair. Tips, tutorials, and insights for developers.",
     keywords: [
@@ -66,15 +82,27 @@ export const blogMetadata = () => {
       url: `${siteUrl}/blog`,
       siteName: DeveloperDetails.name,
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Blog | Nabin Khair",
+        },
+      ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary_large_image" as const,
       title: "Blog | Nabin Khair",
       description:
         "Technical articles on React, Next.js, TypeScript, and web development by Nabin Khair.",
+      images: [ogImage],
     },
     alternates: {
       canonical: `${siteUrl}/blog`,
+      types: {
+        "application/rss+xml": `${siteUrl}/feed.xml`,
+      },
     },
   };
 };

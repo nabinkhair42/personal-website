@@ -7,22 +7,67 @@ import DeveloperGitContribution from "@/components/main/developer-git-contributi
 import DeveloperIntro from "@/components/main/developer-intro";
 import DeveloperProjects from "@/components/main/developer-projects";
 import DeveloperStack from "@/components/main/developer-stack";
+import { DeveloperDetails } from "@/dev-constants/details";
+import { ProjectsData } from "@/dev-constants/projects";
 import { getRecentPosts } from "@/lib/markdown";
+
+const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
+
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: DeveloperDetails.name,
+    url: siteUrl,
+    image: `${siteUrl}${DeveloperDetails.avatar}`,
+    jobTitle: DeveloperDetails.designation,
+    description: DeveloperDetails.bio,
+    sameAs: DeveloperDetails.socialLinks.map((link) => link.url),
+  },
+};
+
+const projectsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": ProjectsData.map((project) => ({
+    "@type": "SoftwareSourceCode",
+    name: project.title,
+    description: project.tagline,
+    url: project.liveLink,
+    codeRepository: project.repo || undefined,
+    programmingLanguage: project.techStack.map((tech) => tech.name),
+    author: {
+      "@type": "Person",
+      name: DeveloperDetails.name,
+      url: siteUrl,
+    },
+  })),
+};
 
 const Page = () => {
   const recentPosts = getRecentPosts();
 
   return (
-    <PageShellWrapper>
-      <DeveloperIntro />
-      <DeveloperProjects />
-      <DeveloperExperience />
-      <DeveloperEducation />
-      <DeveloperGitContribution />
-      <DeveloperStack />
-      <BlogsGrid maxPosts={4} posts={recentPosts} />
-      <DeveloperConnect />
-    </PageShellWrapper>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+      />
+      <PageShellWrapper>
+        <DeveloperIntro />
+        <DeveloperProjects />
+        <DeveloperExperience />
+        <DeveloperEducation />
+        <DeveloperGitContribution />
+        <DeveloperStack />
+        <BlogsGrid maxPosts={4} posts={recentPosts} />
+        <DeveloperConnect />
+      </PageShellWrapper>
+    </>
   );
 };
 

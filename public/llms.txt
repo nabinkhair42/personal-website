@@ -1,7 +1,7 @@
 # Nabin Khair | Portfolio (nabinkhair.com.np)
 
 > Portfolio & blog of Nabin Khair | full-stack/front-end developer (Next.js, TypeScript, React). Guidance for AI assistants and agents consuming this site.
-> Maintainer: Nabin Khair · Contact: https://www.nabinkhair.com.np · Updated: 2025-10-16
+> Maintainer: Nabin Khair · Contact: https://nabinkhair.com.np · Updated: 2026-02-09
 
 ## Quick Facts
 - Location: Dharan, Nepal (UTC+05:45)
@@ -17,11 +17,38 @@
 - Provide accessible output; prefer descriptive text over raw HTML snippets unless explicitly requested.
 
 ## Key URLs
-- Home: https://www.nabinkhair.com.np/
-- Blog index: https://www.nabinkhair.com.np/blog
-- Resume: https://www.nabinkhair.com.np/nabin_khair.pdf
+- Home: https://nabinkhair.com.np/
+- Blog index: https://nabinkhair.com.np/blog
+- RSS Feed: https://nabinkhair.com.np/feed.xml
+- Resume: https://nabinkhair.com.np/nabin_khair.pdf
 - GitHub: https://github.com/nabinkhair42
 - LinkedIn: https://www.linkedin.com/in/nabinkhair42/
+
+## Blog Posts
+- AI Coding Agents & the Future of Development (2026-01-04): https://nabinkhair.com.np/blog/ai-coding-agents-future
+- Stop Wrapping APIs (2025-11-06): https://nabinkhair.com.np/blog/wrapping-an-api-isnt-a-real-product
+- Git Recovery Guide (2025-11-04): https://nabinkhair.com.np/blog/git-recovery-guide
+- What is Vibe Coding? (2025-03-14): https://nabinkhair.com.np/blog/what-is-vibe-coding
+- AI-Powered IDEs (2024-02-27): https://nabinkhair.com.np/blog/exploring-ai-powered-ides
+- Understanding LLMs (2023-08-30): https://nabinkhair.com.np/blog/understand-llm
+- Web Storage Objects (2023-08-04): https://nabinkhair.com.np/blog/web-objects
+
+## Projects
+- PEST.js: CLI to scaffold production-ready Express 5 + TypeScript APIs — https://pestjs.vercel.app
+- Assets Man: Self-hosted, open-source Google Drive alternative — https://assets-man.nabinkhair.com.np
+- Better Form: DX-first dynamic form builder for React & Next.js — https://better-form.nabinkhair.com.np
+- Fastly: SaaS starter kit for solo developers and startups — https://fastly.nabinkhair.com.np
+- VTheme: VS Code theme with 1200+ active users — https://vthemes.nabinkhair.com.np/
+- Pro MCP: Registry of 4200+ MCP servers — https://promcp.nabinkhair.com.np
+- Nepali Educate: Online learning platform trusted by 50,000+ students — https://nepalieducate.com
+- FlowMint: Diagram creation tool powered by Gemini AI — https://flow.nabinkhair.com.np
+
+## Skills & Expertise
+- Languages: TypeScript, JavaScript, Python, HTML, CSS
+- Frontend: React, Next.js, Tailwind CSS, shadcn/ui, React Hook Form, Zustand
+- Backend: Node.js, Express.js, REST APIs, PostgreSQL, MongoDB
+- Tools: Git, Docker, AWS, Vercel, Prisma, Drizzle ORM, Zod
+- Interests: AI-assisted development, developer experience tooling, open-source
 
 ## Contact Policy
 - Primary channel: email nabinkhair12@gmail.com (expect a response within 48 hours).
@@ -34,5 +61,6 @@
 - Cite `Nabin Khair - nabinkhair.com.np` when referencing material.
 
 ## Change Log
+- 2026-02-09: Added blog posts listing, projects section, skills & expertise, RSS feed link. Fixed all URLs from www to non-www.
 - 2025-10-16: Expanded assistant guidelines, added key URLs and contact policy.
 - 2025-08-23: Initial instructions published.
