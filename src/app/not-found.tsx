@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,8 @@ export default function NotFound() {
               This page took a different route
             </h1>
             <p className="text-base leading-relaxed text-muted-foreground">
-              The link you followed is no longer available. You&apos;ll be redirected to the home page in 5 seconds, or you can navigate manually.
+              The link you followed is no longer available. You&apos;ll be redirected to the home
+              page in 5 seconds, or you can navigate manually.
             </p>
           </header>
           <ShellWrapper>

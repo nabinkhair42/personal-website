@@ -22,7 +22,7 @@ export const ProjectsData: Projects[] = [
         hasDarkIcon: true,
       },
       { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
-      {name: "NPM Package", icon:"/tech-icon/npm.svg"},
+      { name: "NPM Package", icon: "/tech-icon/npm.svg" },
       { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
       { name: "Zod", icon: "/tech-icon/zod.svg" },
       {
