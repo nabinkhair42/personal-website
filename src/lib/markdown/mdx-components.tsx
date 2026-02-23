@@ -230,9 +230,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
           alt={props.alt || "Blog post image"}
         />
         {props.alt ? (
-          <span className="block mt-2 text-center text-sm text-muted-foreground">
-            {props.alt}
-          </span>
+          <span className="block mt-2 text-center text-sm text-muted-foreground">{props.alt}</span>
         ) : null}
       </span>
     ),
