@@ -221,7 +221,7 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     img: (props) => (
-      <figure className="my-6">
+      <span className="block my-6">
         <Image
           {...(props as ImageProps)}
           width={props.width ? Number(props.width) : 800}
@@ -230,11 +230,11 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
           alt={props.alt || "Blog post image"}
         />
         {props.alt ? (
-          <figcaption className="mt-2 text-center text-sm text-muted-foreground">
+          <span className="block mt-2 text-center text-sm text-muted-foreground">
             {props.alt}
-          </figcaption>
+          </span>
         ) : null}
-      </figure>
+      </span>
     ),
     hr: () => <hr className="my-8 border-t border-border" />,
 

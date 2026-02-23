@@ -1,0 +1,213 @@
+---
+title: "Bypass Vercel's GitHub Auto-Deploy Restrictions Using GitHub Actions"
+description: "Deploy to Vercel from organization repos on the free Hobby plan using GitHub Actions and a single git config trick."
+developer: "Nabin Khair"
+date: "2026-02-23"
+published: true
+image: "/blog/vercel-deploy.webp"
+tags: ["Vercel", "GitHub Actions", "Next.js", "Deployment", "CI/CD", "DevOps", "Free Deployment"]
+---
+
+If you have ever tried deploying a Next.js app to Vercel from a GitHub organization repository on the free Hobby plan, you have probably seen this:
+
+> Cannot deploy from a private GitHub organization repository on the Hobby plan.
+
+Vercel wants $20 per user per month. For a side project or early-stage startup, that adds up fast. Here is how to bypass it using GitHub Actions and the Vercel CLI.
+
+## The Problem
+
+Vercel's Hobby plan works fine when the repo lives under your personal GitHub account. Move it to a GitHub Organization and Vercel blocks deployments, even if you are the only contributor.
+
+On top of that, Vercel checks the **git commit author email** to verify team access. So even with a CI pipeline, if the commit author is not a recognized team member, the deploy gets rejected:
+
+> Git author yourname@gmail.com must have access to the team on Vercel to create deployments.
+
+We need to solve both problems.
+
+## Part 1: Vercel Setup
+
+Install the Vercel CLI and link your project:
+
+```bash
+npm i -g vercel
+cd your-project
+vercel link
+```
+
+When prompted, select your **personal account** as the scope. After linking, a `.vercel/project.json` file is generated:
+
+```json
+{
+  "orgId": "team_xxxxxxxxxxxx",
+  "projectId": "prj_xxxxxxxxxxxx"
+}
+```
+
+Next, create an access token at [vercel.com/account/tokens](https://vercel.com/account/tokens). Copy it immediately.
+
+
+![Create Vercel Token](/blog/vercel-token.webp "Create Vercel Token")
+
+
+If your repo was previously connected to Vercel, go to **Vercel dashboard > Project Settings > Git** and disconnect it. Otherwise Vercel's built-in integration will conflict with the GitHub Action.
+
+## Part 2: Git Setup
+
+Vercel identifies the deployer by a single thing: **the email on the git commit**. Not the token, not the repo permissions. Just the email from `git config user.email`.
+
+If you are working with collaborators, the person pushing might not have Vercel team access. The fix is simple: override the git author in CI so the commit appears to come from an authorized email.
+
+This only happens inside the ephemeral GitHub Actions runner. Your actual repository history is never modified.
+
+For local development, a collaborator can scope it to just the project:
+
+```bash
+git config --local user.email "authorized@example.com"
+```
+
+The `--local` flag only affects that one repository. Git scopes follow priority order: **local > global > system**, so the local config always wins without touching other projects.
+
+## Part 3: GitHub Actions Setup
+
+Add four secrets to your repository at **Settings > Secrets and variables > Actions**:
+
+| Secret Name | Value |
+|---|---|
+| `VERCEL_TOKEN` | Your access token |
+| `VERCEL_ORG_ID` | `orgId` from `.vercel/project.json` |
+| `VERCEL_PROJECT_ID` | `projectId` from `.vercel/project.json` |
+| `VERCEL_DEPLOYER_EMAIL` | Email of someone with Vercel team access |
+
+Create `.github/workflows/deploy-vercel.yml`:
+
+```yaml
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        type: choice
+        options:
+          - production
+          - preview
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Override git author so Vercel sees an authorized email
+      - name: Set deployer identity
+        run: |
+          git config user.email "${{ secrets.VERCEL_DEPLOYER_EMAIL }}"
+          git config user.name "deployer"
+          git commit --amend --no-edit --reset-author
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Determine environment
+        id: env
+        run: |
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "is_production=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.environment }}" == "production" ]]; then
+            echo "is_production=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_production=false" >> $GITHUB_OUTPUT
+          fi
+
+      # --- Production ---
+      - name: Pull Vercel environment (production)
+        if: steps.env.outputs.is_production == 'true'
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build (production)
+        if: steps.env.outputs.is_production == 'true'
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy (production)
+        if: steps.env.outputs.is_production == 'true'
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      # --- Preview ---
+      - name: Pull Vercel environment (preview)
+        if: steps.env.outputs.is_production == 'false'
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build (preview)
+        if: steps.env.outputs.is_production == 'false'
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy (preview)
+        if: steps.env.outputs.is_production == 'false'
+        id: preview
+        run: |
+          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$url" >> $GITHUB_OUTPUT
+
+      - name: Comment preview URL on PR
+        if: steps.env.outputs.is_production == 'false' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.preview.outputs.url }}';
+            if (url) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `Preview deployment ready: ${url}`
+              });
+            }
+```
+
+This gives you production deploys on push to `main`, preview URLs on pull requests, and a manual trigger from the Actions tab.
+
+## Monorepo?
+
+If your app is in a subdirectory like `frontend/`, set the Root Directory in Vercel's project settings and add a paths filter:
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy-vercel.yml"
+```
+
+Run the Vercel commands from the repo root. Vercel handles the subdirectory automatically.
+
+## Things to Know
+
+- **`vercel pull`** downloads project settings and env vars into a local `.vercel` directory
+- **`vercel build`** builds the project locally, producing a `.vercel/output` folder
+- **`vercel deploy --prebuilt`** uploads only the build artifacts, Vercel never sees your source code
+- **Environment variables** are pulled from the Vercel dashboard automatically, no need to duplicate them in GitHub Secrets
+- **Build times** count against GitHub Actions free tier (2,000 min/month for private repos, a Next.js build typically takes 1-3 minutes)
+
+## Wrapping Up
+
+Four GitHub Secrets, one workflow file, one `git config` trick. No paid plans, no hacks that break on the next Vercel update, just the official CLI doing what it was designed to do.
+
+If this saved you $20 a month, share it with someone who might need it too.
