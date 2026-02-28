@@ -1,6 +1,6 @@
 "use client";
 
-import { format, isAfter, parseISO, startOfDay, subMonths } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
@@ -15,8 +15,6 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-const username = "nabinkhair42";
-
 const legendLevelClasses = [
   "bg-[#ebedf0] dark:bg-[#161b22]",
   "bg-[#9be9a8] dark:bg-[#0e4429]",
@@ -25,62 +23,14 @@ const legendLevelClasses = [
   "bg-[#216e39] dark:bg-[#39d353]",
 ];
 
-type ContributionDay = Activity;
-
-type ContributionApiResponse = {
-  total?: Record<string, number>;
-  contributions?: ContributionDay[] | Record<string, ContributionDay[]> | undefined;
-};
-
-const fetchContributions = async () => {
-  const url = new URL(`/v4/${username}`, "https://github-contributions-api.jogruber.de");
-  // Fetch last year's data to get rolling 12 months
-  url.searchParams.set("y", "last");
-
-  const response = await fetch(url.toString(), {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+const fetchContributions = async (): Promise<{ data: Activity[]; total: number }> => {
+  const response = await fetch("/api/github-contributions");
 
   if (!response.ok) {
     throw new Error(`Failed to load contributions: ${response.status}`);
   }
 
-  const json = (await response.json()) as ContributionApiResponse;
-
-  const normalizeContributions = () => {
-    if (Array.isArray(json.contributions)) {
-      return json.contributions;
-    }
-
-    if (
-      json.contributions &&
-      typeof json.contributions === "object" &&
-      !Array.isArray(json.contributions)
-    ) {
-      // Flatten all years' contributions
-      return Object.values(json.contributions).flat();
-    }
-
-    return [] as ContributionDay[];
-  };
-
-  const allContributions = normalizeContributions();
-
-  // Filter to only include the past 12 months
-  const twelveMonthsAgo = startOfDay(subMonths(new Date(), 12));
-  const contributions = allContributions.filter((day) => {
-    const date = parseISO(day.date);
-    return isAfter(date, twelveMonthsAgo);
-  });
-
-  const total = contributions.reduce((sum, activity) => sum + activity.count, 0);
-
-  return {
-    data: contributions,
-    total,
-  };
+  return response.json();
 };
 
 const DeveloperGitContribution = () => {
