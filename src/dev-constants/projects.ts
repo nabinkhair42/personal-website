@@ -2,6 +2,28 @@ import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
   {
+    icon: "/projects/git-chat.svg",
+    title: "GitChat",
+    tagline: "Chat-based GitHub Client powered by AI",
+    description: [
+      "Chat with any GitHub repo: browse, review, and manage without leaving the conversation.",
+      "96 agentic tools covering the full GitHub surface: PRs, issues, CI/CD, security, and more.",
+      "Super Mode chains multi-step workflows end-to-end with zero manual confirmation.",
+      "Multi-provider AI support with model switching, mentions, and a command palette.",
+    ],
+    liveLink: "https://gitpilot.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/git-chat",
+    techStack: [
+      { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
+      { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
+      { name: "Tailwind CSS", icon: "/tech-icon/tailwindcss.svg" },
+      { name: "Vercel AI SDK", icon: "/tech-icon/vercel.svg", hasDarkIcon: true },
+      { name: "shadcn/ui", icon: "/tech-icon/shadcnui.svg", hasDarkIcon: true },
+      { name: "GitHub API", icon: "/tech-icon/github.svg", hasDarkIcon: true },
+      { name: "Zod", icon: "/tech-icon/zod.svg" },
+    ],
+  },
+  {
     icon: "/projects/pestjs.png",
     title: "PEST.js",
     tagline: "CLI to Scaffold Production-Ready Express 5 + TypeScript APIs",
