@@ -25,11 +25,15 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
       <div className="p-2">
         {posts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {displayPosts.map((post) => {
+            {displayPosts.map((post, index) => {
               const { slug, frontmatter } = post;
               return (
                 <BlogCard key={slug} link={`/blog/${slug}`} className="group">
-                  <BlogCardImage src={frontmatter.image || "/image.png"} alt={frontmatter.title} />
+                  <BlogCardImage
+                    src={frontmatter.image || "/image.png"}
+                    alt={frontmatter.title}
+                    priority={index === 0}
+                  />
                   <BlogCardContent className="space-y-2">
                     <BlogCardTitle
                       className="group-hover:underline group-hover:underline-offset-2 text-muted-foreground group-hover:text-foreground transition-colors duration-300"

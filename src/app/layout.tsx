@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import SiteFooter from "@/components/layouts/site-footer";
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: `${DeveloperDetails.name} | Open Graph Image`,
+        alt: `Portfolio hero image for ${DeveloperDetails.name}, Full Stack Developer from Nepal`,
       },
     ],
     locale: "en_US",
@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     title: DeveloperDetails.seo.title,
     description: DeveloperDetails.seo.description,
     images: [ogImage],
+    creator: "@khairnabin",
   },
 };
 
@@ -59,13 +60,26 @@ const personJsonLd = {
   image: `${siteUrl}${DeveloperDetails.avatar}`,
   jobTitle: DeveloperDetails.designation,
   description: DeveloperDetails.bio,
-  email: `mailto:${DeveloperDetails.email}`,
+  email: DeveloperDetails.email,
   address: {
     "@type": "PostalAddress",
     addressLocality: DeveloperDetails.location.city,
     addressCountry: DeveloperDetails.location.country,
   },
   sameAs: DeveloperDetails.socialLinks.map((link) => link.url),
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Full Stack Development",
+    "Web Development",
+  ],
+  alumniOf: DeveloperDetails.education.map((edu) => ({
+    "@type": "EducationalOrganization",
+    name: edu.institution,
+    address: edu.location,
+  })),
 };
 
 const websiteJsonLd = {
@@ -74,10 +88,21 @@ const websiteJsonLd = {
   name: DeveloperDetails.name,
   url: siteUrl,
   description: DeveloperDetails.seo.description,
+  inLanguage: "en",
   author: {
     "@type": "Person",
     name: DeveloperDetails.name,
+    url: siteUrl,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 const font = Space_Grotesk({

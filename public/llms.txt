@@ -1,7 +1,7 @@
 # Nabin Khair | Portfolio (nabinkhair.com.np)
 
 > Portfolio & blog of Nabin Khair | full-stack/front-end developer (Next.js, TypeScript, React). Guidance for AI assistants and agents consuming this site.
-> Maintainer: Nabin Khair · Contact: https://nabinkhair.com.np · Updated: 2026-02-09
+> Maintainer: Nabin Khair · Contact: https://nabinkhair.com.np · Updated: 2026-03-03
 
 ## Quick Facts
 - Location: Dharan, Nepal (UTC+05:45)
@@ -25,7 +25,9 @@
 - LinkedIn: https://www.linkedin.com/in/nabinkhair42/
 
 ## Blog Posts
-- AI Coding Agents & the Future of Development (2026-01-04): https://nabinkhair.com.np/blog/ai-coding-agents-future
+- What is an LLM Distillation Attack? (2026-02-27): https://nabinkhair.com.np/blog/what-is-llm-distillation-attack
+- Bypass Vercel's GitHub Auto-Deploy Restrictions (2026-02-23): https://nabinkhair.com.np/blog/bypass-vercel-deploy-restriction
+- The Web Is Splitting in Two (2026-02-01): https://nabinkhair.com.np/blog/the-web-is-splitting-in-two
 - Stop Wrapping APIs (2025-11-06): https://nabinkhair.com.np/blog/wrapping-an-api-isnt-a-real-product
 - Git Recovery Guide (2025-11-04): https://nabinkhair.com.np/blog/git-recovery-guide
 - What is Vibe Coding? (2025-03-14): https://nabinkhair.com.np/blog/what-is-vibe-coding
@@ -61,6 +63,7 @@
 - Cite `Nabin Khair - nabinkhair.com.np` when referencing material.
 
 ## Change Log
+- 2026-03-03: Added 3 missing blog posts (what-is-llm-distillation-attack, bypass-vercel-deploy-restriction, the-web-is-splitting-in-two). Updated to current date.
 - 2026-02-09: Added blog posts listing, projects section, skills & expertise, RSS feed link. Fixed all URLs from www to non-www.
 - 2025-10-16: Expanded assistant guidelines, added key URLs and contact policy.
 - 2025-08-23: Initial instructions published.

@@ -34,7 +34,10 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 
   const postUrl = `${siteUrl}/blog/${slug}`;
-  const imageUrl = post.frontmatter.image ? `${siteUrl}${post.frontmatter.image}` : undefined;
+  const imageUrl = post.frontmatter.image
+    ? `${siteUrl}${post.frontmatter.image}`
+    : `${siteUrl}/og-image.png`;
+  const modifiedTime = post.frontmatter.updatedDate ?? post.frontmatter.date;
 
   return {
     title: post.frontmatter.title,
@@ -48,15 +51,15 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       siteName: DeveloperDetails.name,
       type: "article",
       publishedTime: post.frontmatter.date,
-      modifiedTime: post.frontmatter.date,
+      modifiedTime,
       authors: [post.frontmatter.developer],
-      images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : undefined,
+      images: [{ url: imageUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.frontmatter.title,
       description: post.frontmatter.description,
-      images: imageUrl ? [imageUrl] : undefined,
+      images: [imageUrl],
     },
     alternates: {
       canonical: postUrl,
@@ -74,24 +77,34 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 
   const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
   const publishedDate = new Date(post.frontmatter.date).toISOString();
+  const modifiedDate = post.frontmatter.updatedDate
+    ? new Date(post.frontmatter.updatedDate).toISOString()
+    : publishedDate;
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.frontmatter.title,
     description: post.frontmatter.description,
-    image: post.frontmatter.image ? `${siteUrl}${post.frontmatter.image}` : undefined,
+    image: post.frontmatter.image
+      ? `${siteUrl}${post.frontmatter.image}`
+      : `${siteUrl}/og-image.png`,
     datePublished: publishedDate,
-    dateModified: publishedDate,
-    keywords: post.frontmatter.tags?.join(", "),
+    dateModified: modifiedDate,
+    inLanguage: "en",
+    keywords: post.frontmatter.tags || [],
     author: {
       "@type": "Person",
       name: post.frontmatter.developer,
       url: siteUrl,
     },
     publisher: {
-      "@type": "Person",
+      "@type": "Organization",
       name: DeveloperDetails.name,
       url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}${DeveloperDetails.avatar}`,
+      },
     },
     mainEntityOfPage: {
       "@type": "WebPage",

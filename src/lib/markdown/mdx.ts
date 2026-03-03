@@ -11,6 +11,7 @@ export interface BlogFrontmatter {
   description: string;
   developer: string;
   date: string;
+  updatedDate?: string;
   image: string;
   published?: boolean;
   tags?: string[];

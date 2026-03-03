@@ -60,8 +60,10 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
           <div className="overflow-hidden bg-[repeating-linear-gradient(-45deg,var(--color-border),var(--color-border)_1px,transparent_1px,transparent_6px)]">
             <Image
               src={frontmatter.image}
-              width={1000}
-              height={1000}
+              width={800}
+              height={450}
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
               alt={`Cover image for ${frontmatter.title}`}
               title={frontmatter.title}
               className="max-h-96 mx-auto aspect-video border"

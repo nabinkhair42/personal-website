@@ -6,7 +6,7 @@ const normalizeSiteUrl = (url: string) => {
   return url.replace(/\/$/, "");
 };
 
-const SITE_LAST_UPDATED = "2026-02-09";
+const SITE_LAUNCH_DATE = "2024-01-01";
 
 export const generateSitemap = (): MetadataRoute.Sitemap => {
   const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
@@ -14,9 +14,13 @@ export const generateSitemap = (): MetadataRoute.Sitemap => {
   const staticRoutes = ["/", "/blog"];
   const posts = getAllBlogPosts();
 
+  const mostRecentPostDate = posts[0]?.frontmatter.date
+    ? new Date(posts[0].frontmatter.date)
+    : new Date(SITE_LAUNCH_DATE);
+
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
-    lastModified: new Date(SITE_LAST_UPDATED),
+    lastModified: route === "/blog" ? mostRecentPostDate : new Date(),
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1.0 : 0.8,
   }));
@@ -41,10 +45,10 @@ export const generateRobots = (): MetadataRoute.Robots => {
         allow: "/",
       },
       {
+        // Block AI training crawlers but allow Google-Extended for Gemini AI Overviews
         userAgent: [
           "GPTBot",
           "ClaudeBot",
-          "Google-Extended",
           "Bytespider",
           "CCBot",
           "Amazonbot",

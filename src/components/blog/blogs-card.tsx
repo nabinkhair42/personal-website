@@ -25,8 +25,8 @@ BlogCard.displayName = "BlogCard";
 
 const BlogCardImage = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { src: string; alt: string }
->(({ className, alt, src, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & { src: string; alt: string; priority?: boolean }
+>(({ className, alt, src, priority = false, ...props }, ref) => (
   <div
     ref={ref}
     className={cn("relative h-[190px] w-full rounded-t overflow-hidden mb-3", className)}
@@ -38,7 +38,7 @@ const BlogCardImage = React.forwardRef<
       fill
       className="object-cover"
       sizes="(max-width: 768px) 100vw, 400px"
-      priority
+      priority={priority}
     />
   </div>
 ));

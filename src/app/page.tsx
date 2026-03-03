@@ -16,6 +16,10 @@ const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
 const profilePageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
+  url: siteUrl,
+  dateCreated: "2024-01-01T00:00:00.000Z",
+  dateModified: new Date().toISOString(),
+  inLanguage: "en",
   mainEntity: {
     "@type": "Person",
     name: DeveloperDetails.name,
@@ -27,6 +31,17 @@ const profilePageJsonLd = {
   },
 };
 
+const PROGRAMMING_LANGUAGES = new Set([
+  "TypeScript",
+  "JavaScript",
+  "Python",
+  "Java",
+  "Go",
+  "Rust",
+  "JSON",
+  "SQL",
+]);
+
 const projectsJsonLd = {
   "@context": "https://schema.org",
   "@graph": ProjectsData.map((project) => ({
@@ -34,8 +49,13 @@ const projectsJsonLd = {
     name: project.title,
     description: project.tagline,
     url: project.liveLink,
-    codeRepository: project.repo || undefined,
-    programmingLanguage: project.techStack.map((tech) => tech.name),
+    ...(project.repo ? { codeRepository: project.repo } : {}),
+    programmingLanguage: project.techStack
+      .map((tech) => tech.name)
+      .filter((name) => PROGRAMMING_LANGUAGES.has(name)),
+    runtimePlatform: project.techStack
+      .map((tech) => tech.name)
+      .filter((name) => !PROGRAMMING_LANGUAGES.has(name)),
     author: {
       "@type": "Person",
       name: DeveloperDetails.name,

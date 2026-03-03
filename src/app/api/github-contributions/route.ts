@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 const GITHUB_GRAPHQL = "https://api.github.com/graphql";
-const USERNAME =
-  DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.handle ??
-  "";
+const USERNAME = DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.handle ?? "";
 
 type ContributionDay = {
   date: string;
@@ -42,10 +40,7 @@ const LEVEL_MAP: Record<string, number> = {
 export async function GET() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    return NextResponse.json(
-      { error: "GITHUB_TOKEN not configured" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "GITHUB_TOKEN not configured" }, { status: 500 });
   }
 
   const now = new Date();
@@ -80,15 +75,11 @@ export async function GET() {
   });
 
   if (!res.ok) {
-    return NextResponse.json(
-      { error: `GitHub API error: ${res.status}` },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: `GitHub API error: ${res.status}` }, { status: 502 });
   }
 
   const json = (await res.json()) as GraphQLResponse;
-  const weeks =
-    json.data.user.contributionsCollection.contributionCalendar.weeks;
+  const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
 
   let total = 0;
   const data: { date: string; count: number; level: number }[] = [];
@@ -108,8 +99,8 @@ export async function GET() {
     { data, total },
     {
       headers: {
-        "Cache-Control": "s-maxage=3600, stale-while-revalidate",
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
       },
-    },
+    }
   );
 }

@@ -201,8 +201,8 @@ export const ProjectsData: Projects[] = [
     tagline: "Your Story, Your Stage",
     liveLink: "https://jujuconnect.com",
     description: [
-      "Work on writing and designing the Backend of the Platform",
-      "Hosted and Deployed entire services on AWS and Cloudflare",
+      "Wrote and designed the backend architecture for the platform.",
+      "Hosted and deployed all services on AWS and Cloudflare.",
       "Tested and developed APIs using Postman",
       "Collaborated with cross-functional teams to define, design, and ship new features",
     ],
@@ -243,7 +243,10 @@ export const ProjectsData: Projects[] = [
     title: "YourGit",
     tagline: "GitHub Profile Stats Summary",
     liveLink: "https://yourgit.vercel.app/",
-    description: [],
+    description: [
+      "Visualize any GitHub profile's contribution stats in a clean, shareable summary card.",
+      "Displays repos, stars, followers, and contribution streaks at a glance.",
+    ],
     techStack: [
       { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
       { name: "TypeScript", icon: "/tech-icon/typescript.svg" },

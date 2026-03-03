@@ -1,9 +1,12 @@
+import { FileText, Mail } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { DeveloperDetails } from "@/dev-constants/details";
 import ShellWrapper from "../layouts/shell-wrapper";
 
 const DeveloperIntro = () => {
-  const { name, designation, bio, avatar } = DeveloperDetails;
+  const { name, designation, bio, avatar, email, resume } = DeveloperDetails;
 
   return (
     <ShellWrapper>
@@ -12,8 +15,10 @@ const DeveloperIntro = () => {
           <Image
             src={avatar}
             alt={`Profile photo of ${name}, ${designation}`}
-            width={1000}
-            height={1000}
+            width={128}
+            height={128}
+            priority
+            sizes="128px"
             className="h-28 w-28 md:h-32 md:w-32 md:mt-2.5 shrink-0 rounded border object-cover shadow-md"
             title={`Avatar of ${name}`}
           />
@@ -27,6 +32,24 @@ const DeveloperIntro = () => {
               </p>
             </div>
             <p className="text-base leading-relaxed text-justify text-muted-foreground">{bio}</p>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {email && (
+                <Button asChild size="sm">
+                  <Link href={`mailto:${email}`}>
+                    <Mail className="size-4" />
+                    Email Me
+                  </Link>
+                </Button>
+              )}
+              {resume && (
+                <Button asChild size="sm" variant="outline">
+                  <Link href={resume} target="_blank" rel="noreferrer noopener">
+                    <FileText className="size-4" />
+                    Resume
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

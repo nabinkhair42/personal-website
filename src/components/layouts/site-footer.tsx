@@ -11,9 +11,12 @@ const SiteFooter = () => {
           <p className="text-sm text-muted-foreground text-center">
             Built by{" "}
             <Link
-              href={DeveloperDetails.socialLinks[1].url}
+              href={
+                DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.url ??
+                "https://github.com/nabinkhair42"
+              }
               className="hover:underline underline-offset-2 hover:text-primary transition-colors duration-300"
-              title={`Developer ${DeveloperDetails.socialLinks[1].name} account`}
+              title="Developer GitHub account"
             >
               nabinkhair
               <ArrowUpRight size={15} className="inline-block" />

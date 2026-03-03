@@ -44,8 +44,9 @@ const DeveloperExperience = () => {
                     <Image
                       src={experience.logo}
                       alt={`${experience.company} company logo`}
-                      width={100}
-                      height={100}
+                      width={32}
+                      height={32}
+                      sizes="32px"
                       className="h-8 w-8 rounded object-cover"
                       title={experience.company}
                     />

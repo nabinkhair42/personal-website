@@ -37,12 +37,18 @@ const BlogPage = () => {
     description:
       "Technical articles on React, Next.js, TypeScript, and web development by Nabin Khair.",
     url: `${siteUrl}/blog`,
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: DeveloperDetails.name,
+      url: siteUrl,
+    },
     mainEntity: {
       "@type": "ItemList",
       itemListElement: posts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `${siteUrl}/blog/${post.slug}`,
+        item: `${siteUrl}/blog/${post.slug}`,
         name: post.frontmatter.title,
       })),
     },

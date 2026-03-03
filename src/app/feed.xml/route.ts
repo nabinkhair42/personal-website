@@ -45,6 +45,11 @@ export function GET() {
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>${siteUrl}/og-image.png</url>
+      <title>${escapeXml(DeveloperDetails.name)} - Blog</title>
+      <link>${siteUrl}/blog</link>
+    </image>
 ${items}
   </channel>
 </rss>`;
