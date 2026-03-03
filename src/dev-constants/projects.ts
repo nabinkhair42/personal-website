@@ -12,7 +12,7 @@ export const ProjectsData: Projects[] = [
       "Multi-provider AI support with model switching, mentions, and a command palette.",
     ],
     liveLink: "https://gitpilot.nabinkhair.com.np",
-    repo: "https://github.com/nabinkhair42/git-chat",
+    // repo: "https://github.com/nabinkhair42/git-chat",
     techStack: [
       { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
       { name: "TypeScript", icon: "/tech-icon/typescript.svg" },
