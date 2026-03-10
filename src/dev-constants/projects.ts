@@ -11,7 +11,7 @@ export const ProjectsData: Projects[] = [
       "Super Mode chains multi-step workflows end-to-end with zero manual confirmation.",
       "Multi-provider AI support with model switching, mentions, and a command palette.",
     ],
-    liveLink: "https://gitpilot.nabinkhair.com.np",
+    liveLink: "https://git.nabinkhair.com.np",
     // repo: "https://github.com/nabinkhair42/git-chat",
     techStack: [
       { name: "Next.js", icon: "/tech-icon/nextjs.svg", hasDarkIcon: true },
