@@ -31,6 +31,45 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Blogger RSS/Atom feed URLs
+      {
+        source: "/feeds/:path*",
+        destination: "/feed.xml",
+        permanent: true,
+      },
+      // Blogger search/label pages
+      {
+        source: "/search/:path*",
+        destination: "/blog",
+        permanent: true,
+      },
+      // Blogger root .html pages (e.g., /some-page.html)
+      {
+        source: "/:slug(.*)\\.html",
+        destination: "/",
+        permanent: true,
+      },
+      // Catch favicon.ico requests from old Blogger setup
+      {
+        source: "/favicon.ico",
+        destination: "/icon.png",
+        permanent: true,
+      },
+      // --- GSC 404 cleanup: old routes that no longer exist ---
+      // Old standalone pages → home
+      { source: "/about", destination: "/", permanent: true },
+      { source: "/contact", destination: "/", permanent: true },
+      { source: "/projects", destination: "/", permanent: true },
+      { source: "/background-images", destination: "/", permanent: true },
+      { source: "/en-US", destination: "/", permanent: true },
+      // Old/phantom blog slugs that never existed or were removed → blog index
+      { source: "/blog/ui-ux-guide", destination: "/blog", permanent: true },
+      { source: "/blog/introducing-civen-ai", destination: "/blog", permanent: true },
+      {
+        source: "/blog/brutalist-minimalism-architectural-web-design",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
 
