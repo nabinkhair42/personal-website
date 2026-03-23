@@ -4,7 +4,6 @@ import { Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
-import StructuralGridToast from "@/components/ui/extended/structural-grid-toast";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
@@ -143,7 +142,6 @@ export default function RootLayout({
           <SiteHeader />
           <main id="main-content">{children}</main>
           <SiteFooter />
-          <StructuralGridToast />
         </ThemeProvider>
       </body>
     </html>

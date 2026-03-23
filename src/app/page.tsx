@@ -7,6 +7,7 @@ import DeveloperGitContribution from "@/components/main/developer-git-contributi
 import DeveloperIntro from "@/components/main/developer-intro";
 import DeveloperProjects from "@/components/main/developer-projects";
 import DeveloperStack from "@/components/main/developer-stack";
+import DeveloperTemplates from "@/components/main/developer-templates";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { ProjectsData } from "@/dev-constants/projects";
 import { getRecentPosts } from "@/lib/markdown";
@@ -80,6 +81,7 @@ const Page = () => {
       <PageShellWrapper>
         <DeveloperIntro />
         <DeveloperProjects />
+        <DeveloperTemplates />
         <DeveloperExperience />
         <DeveloperEducation />
         <DeveloperGitContribution />
