@@ -65,6 +65,54 @@ const projectsJsonLd = {
   })),
 };
 
+const templatesJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      name: "Aura — Structural Grid Template",
+      description:
+        "A clean, luminous template with soft gradients and spacious layouts. Built for portfolios, landing pages, and SaaS sites.",
+      image: `${siteUrl}/templates/aura-light.png`,
+      brand: {
+        "@type": "Brand",
+        name: "Structural Grid",
+      },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "USD",
+        seller: {
+          "@type": "Person",
+          name: DeveloperDetails.name,
+          url: siteUrl,
+        },
+      },
+    },
+    {
+      "@type": "Product",
+      name: "Onyx — Structural Grid Template",
+      description:
+        "A bold, dark-first template with sharp contrasts and dense information hierarchy. Built for developer tools and dashboards.",
+      image: `${siteUrl}/templates/onyx-light.png`,
+      brand: {
+        "@type": "Brand",
+        name: "Structural Grid",
+      },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "USD",
+        seller: {
+          "@type": "Person",
+          name: DeveloperDetails.name,
+          url: siteUrl,
+        },
+      },
+    },
+  ],
+};
+
 const Page = () => {
   const recentPosts = getRecentPosts();
 
@@ -77,6 +125,10 @@ const Page = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(templatesJsonLd) }}
       />
       <PageShellWrapper>
         <DeveloperIntro />

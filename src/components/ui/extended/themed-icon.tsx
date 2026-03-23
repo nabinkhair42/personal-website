@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 interface ThemedIconProps {
@@ -18,28 +21,19 @@ const ThemedIcon = ({
   className,
   title,
 }: ThemedIconProps) => {
-  const darkSrc = src.replace(".svg", "-dark.svg");
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+  const activeSrc = hasDarkVariant && isDark ? src.replace(".svg", "-dark.svg") : src;
 
   return (
-    <>
-      <Image
-        src={src}
-        alt={alt}
-        width={size}
-        height={size}
-        className={cn(className, hasDarkVariant && "dark:hidden")}
-        title={title}
-      />
-      {hasDarkVariant && (
-        <Image
-          src={darkSrc}
-          alt={alt}
-          width={size}
-          height={size}
-          className={cn(className, "hidden dark:block")}
-        />
-      )}
-    </>
+    <Image
+      src={activeSrc}
+      alt={alt}
+      width={size}
+      height={size}
+      className={cn(className)}
+      title={title}
+    />
   );
 };
 

@@ -27,11 +27,10 @@
 ## Blog Posts
 - What is an LLM Distillation Attack? (2026-02-27): https://nabinkhair.com.np/blog/what-is-llm-distillation-attack
 - Bypass Vercel's GitHub Auto-Deploy Restrictions (2026-02-23): https://nabinkhair.com.np/blog/bypass-vercel-deploy-restriction
-- The Web Is Splitting in Two (2026-02-01): https://nabinkhair.com.np/blog/the-web-is-splitting-in-two
 - Stop Wrapping APIs (2025-11-06): https://nabinkhair.com.np/blog/wrapping-an-api-isnt-a-real-product
 - Git Recovery Guide (2025-11-04): https://nabinkhair.com.np/blog/git-recovery-guide
 - What is Vibe Coding? (2025-03-14): https://nabinkhair.com.np/blog/what-is-vibe-coding
-- AI-Powered IDEs (2024-02-27): https://nabinkhair.com.np/blog/exploring-ai-powered-ides
+- AI-Powered IDEs (2025-02-27): https://nabinkhair.com.np/blog/exploring-ai-powered-ides
 - Understanding LLMs (2023-08-30): https://nabinkhair.com.np/blog/understand-llm
 - Web Storage Objects (2023-08-04): https://nabinkhair.com.np/blog/web-objects
 
@@ -63,7 +62,8 @@
 - Cite `Nabin Khair - nabinkhair.com.np` when referencing material.
 
 ## Change Log
-- 2026-03-03: Added 3 missing blog posts (what-is-llm-distillation-attack, bypass-vercel-deploy-restriction, the-web-is-splitting-in-two). Updated to current date.
+- 2026-03-23: Removed deleted post (the-web-is-splitting-in-two). Added templates section.
+- 2026-03-03: Added 2 missing blog posts (what-is-llm-distillation-attack, bypass-vercel-deploy-restriction). Updated to current date.
 - 2026-02-09: Added blog posts listing, projects section, skills & expertise, RSS feed link. Fixed all URLs from www to non-www.
 - 2025-10-16: Expanded assistant guidelines, added key URLs and contact policy.
 - 2025-08-23: Initial instructions published.

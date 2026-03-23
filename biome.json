@@ -65,7 +65,8 @@
       "!out",
       "!build",
       "!prisma/migrations",
-      "!*.config.js"
+      "!*.config.js",
+      "!src/components/deprecated"
     ]
   }
 }
