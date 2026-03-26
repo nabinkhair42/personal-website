@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import { BlogIntroduction, BlogsGrid, NoMoreBlogs } from "@/components/blog";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { getAllBlogPosts } from "@/lib/markdown";
 import { blogMetadata } from "@/lib/seo-utils";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = blogMetadata();
 

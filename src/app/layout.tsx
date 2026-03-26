@@ -93,6 +93,14 @@ const websiteJsonLd = {
     name: DeveloperDetails.name,
     url: siteUrl,
   },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteUrl}/blog?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const viewport: Viewport = {

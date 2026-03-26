@@ -248,7 +248,7 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
-    icon: "https://yourgit.vercel.app/favicon.ico",
+    icon: "/projects/your-git.png",
     title: "YourGit",
     tagline: "GitHub Profile Stats Summary",
     liveLink: "https://yourgit.vercel.app/",

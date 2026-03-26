@@ -1,11 +1,16 @@
-import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { BlogHeader } from "@/components/blog/blog-header";
+import { TableOfContents } from "@/components/blog/table-of-contents";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { getAllBlogSlugs, getBlogPostBySlug, mdxOptions } from "@/lib/markdown/mdx";
+import {
+  getAllBlogSlugs,
+  getBlogPostBySlug,
+  mdxOptions,
+} from "@/lib/markdown/mdx";
 import { useMDXComponents } from "@/lib/markdown/mdx-components";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -150,11 +155,21 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
       />
       <PageShellWrapper>
         <ShellWrapper>
-          <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
+          <BlogHeader
+            frontmatter={post.frontmatter}
+            readingTime={post.readingTime}
+          />
+        </ShellWrapper>
+        <ShellWrapper>
+          <TableOfContents content={post.content} />
         </ShellWrapper>
         <ShellWrapper>
           <article className="p-2 text-justify">
-            <MDXRemote source={post.content} components={components} options={mdxOptions} />
+            <MDXRemote
+              source={post.content}
+              components={components}
+              options={mdxOptions}
+            />
           </article>
         </ShellWrapper>
       </PageShellWrapper>

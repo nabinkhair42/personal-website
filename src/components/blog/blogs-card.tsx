@@ -48,7 +48,7 @@ const BlogCardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h3
+  <h2
     ref={ref}
     className={cn("text-lg font-medium leading-tight line-clamp-2", className)}
     {...props}

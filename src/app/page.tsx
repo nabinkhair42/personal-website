@@ -80,8 +80,9 @@ const templatesJsonLd = {
       },
       offers: {
         "@type": "Offer",
-        availability: "https://schema.org/InStock",
+        price: "0",
         priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
         seller: {
           "@type": "Person",
           name: DeveloperDetails.name,
@@ -101,8 +102,9 @@ const templatesJsonLd = {
       },
       offers: {
         "@type": "Offer",
-        availability: "https://schema.org/InStock",
+        price: "0",
         priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
         seller: {
           "@type": "Person",
           name: DeveloperDetails.name,

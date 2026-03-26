@@ -78,6 +78,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -161,6 +162,7 @@ html:not(.dark) .shiki span {
 
 /* Reduced motion support for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
