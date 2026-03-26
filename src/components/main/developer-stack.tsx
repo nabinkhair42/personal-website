@@ -1,4 +1,3 @@
-import ThemedIcon from "@/components/ui/extended/themed-icon";
 import { TechStacksList } from "@/dev-constants/stack";
 import ShellWrapper from "../layouts/shell-wrapper";
 
@@ -23,19 +22,13 @@ const DeveloperStack = () => {
           className="grid gap-0 border-l border-t border-border"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))" }}
         >
-          {TechStacksList.map(({ name, icon, hasDarkIcon }) => (
+          {TechStacksList.map(({ name, icon: Icon }) => (
             <div
               key={name}
               className="group flex flex-col items-center justify-center aspect-square p-2 border-r border-b transition-all duration-200 cursor-pointer overflow-hidden"
             >
               <div className="flex items-center justify-center text-foreground/60 group-hover:text-foreground transition-colors duration-200">
-                <ThemedIcon
-                  src={icon}
-                  alt={name}
-                  size={20}
-                  hasDarkVariant={hasDarkIcon}
-                  className="size-4 aspect-square"
-                />
+                <Icon className="size-4 aspect-square" />
               </div>
               <p className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-200 mt-2">
                 {name}

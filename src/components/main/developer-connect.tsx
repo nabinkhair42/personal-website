@@ -2,7 +2,6 @@ import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
-import ThemedIcon from "@/components/ui/extended/themed-icon";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 const DeveloperConnect = () => {
@@ -24,34 +23,30 @@ const DeveloperConnect = () => {
           </header>
 
           <div className="grid grid-cols-2 border *:border-r *:border-b [&>*:nth-child(2n)]:border-r-0 [&>*:nth-last-child(-n+2)]:border-b-0">
-            {Object.entries(SocialLinks).map(([key, link]) => (
-              <Link
-                key={key}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={`Open ${link.handle} on ${key}`}
-                className="flex items-center gap-2 group"
-              >
-                <span className="flex size-12 items-center justify-center border-r border-dashed">
-                  <ThemedIcon
-                    src={link.icon}
-                    alt={link.handle}
-                    size={32}
-                    hasDarkVariant={link.hasDarkIcon}
-                    className="size-8"
-                    title={`Open ${link.handle} on ${link.name}`}
-                  />
-                </span>
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="truncate text-sm font-medium text-foreground">{link.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">{link.handle}</span>
-                </div>
-                <div className="text-muted-foreground transition-colors group-hover:text-foreground">
-                  <ArrowUpRight className="size-4" />
-                </div>
-              </Link>
-            ))}
+            {Object.entries(SocialLinks).map(([key, link]) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={key}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`Open ${link.handle} on ${key}`}
+                  className="flex items-center gap-2 group"
+                >
+                  <span className="flex size-12 items-center justify-center border-r border-dashed">
+                    <Icon className="size-8" aria-hidden="true" />
+                  </span>
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="truncate text-sm font-medium text-foreground">{link.name}</span>
+                    <span className="truncate text-xs text-muted-foreground">{link.handle}</span>
+                  </div>
+                  <div className="text-muted-foreground transition-colors group-hover:text-foreground">
+                    <ArrowUpRight className="size-4" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </ShellWrapper>

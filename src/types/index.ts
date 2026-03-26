@@ -1,3 +1,7 @@
+import type { ComponentType, SVGProps } from "react";
+
+export type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
 export interface DeveloperConfig {
   name: string;
   initials: string;
@@ -11,8 +15,7 @@ export interface DeveloperConfig {
   socialLinks: {
     name: string;
     url: string;
-    icon: string;
-    hasDarkIcon: boolean;
+    icon: IconComponent;
     handle: string;
   }[];
 
@@ -48,8 +51,7 @@ export interface Projects {
 
 export interface TechStack {
   name: string;
-  icon: string;
-  hasDarkIcon?: boolean;
+  icon: IconComponent;
   link?: string;
 }
 export interface Experience {

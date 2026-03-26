@@ -1,3 +1,4 @@
+import { GithubIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "@/icons/social";
 import type { DeveloperConfig } from "@/types";
 
 export const DeveloperDetails: DeveloperConfig = {
@@ -13,29 +14,25 @@ export const DeveloperDetails: DeveloperConfig = {
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/nabinkhair42/",
-      icon: "/social/linkedin.svg",
-      hasDarkIcon: false,
+      icon: LinkedinIcon,
       handle: "nabinkhair42",
     },
     {
       name: "GitHub",
       url: "https://github.com/nabinkhair42",
-      icon: "/social/github.svg",
-      hasDarkIcon: true,
+      icon: GithubIcon,
       handle: "nabinkhair42",
     },
     {
       name: "Twitter",
       url: "https://twitter.com/khairnabin",
-      icon: "/social/twitter.svg",
-      hasDarkIcon: false,
+      icon: TwitterIcon,
       handle: "khairnabin",
     },
     {
       name: "Instagram",
       url: "https://www.instagram.com/nabinkhair2",
-      icon: "/social/instagram.svg",
-      hasDarkIcon: false,
+      icon: InstagramIcon,
       handle: "nabinkhair2",
     },
   ],

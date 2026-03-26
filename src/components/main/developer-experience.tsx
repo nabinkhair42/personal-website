@@ -2,7 +2,6 @@
 
 import { DotIcon } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
   ExpandableSection,
@@ -24,28 +23,33 @@ const DeveloperExperience = () => {
       <ExpandableSection>
         <ExpandableSectionHeader>
           <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-          <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
+          <ExpandableSectionTitle>
+            Professional Experience
+          </ExpandableSectionTitle>
           <ExpandableSectionDescription>
-            A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
-            with in various projects and companies.
+            A timeline of my career path, showcasing the roles and technologies
+            I&apos;ve worked with in various projects and companies.
           </ExpandableSectionDescription>
         </ExpandableSectionHeader>
 
         <ExpandableSectionList>
           {ExperienceData.map((experience, index) => (
-            <ExpandableSectionItem key={experience.company} className="relative">
+            <ExpandableSectionItem
+              key={experience.company}
+              className="relative"
+            >
               {/* Connecting line - spans full item height */}
               {index < ExperienceData.length - 1 && (
-                <div className="absolute left-[20px] top-[44px] bottom-[-16px] w-px bg-muted-foreground/30" />
+                <div className="absolute left-5 top-11 -bottom-4 w-px bg-muted-foreground/30" />
               )}
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
                   <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1 relative z-10">
-                    <Image
+                    <img
                       src={experience.logo}
                       alt={`${experience.company} company logo`}
-                      width={32}
-                      height={32}
+                      width={200}
+                      height={200}
                       sizes="32px"
                       className="h-8 w-8 rounded object-cover"
                       title={experience.company}
@@ -57,9 +61,9 @@ const DeveloperExperience = () => {
                         {experience.company}
                       </h3>
                       {experience.isCurrent && (
-                        <div className="relative flex h-3 w-3 items-center justify-center">
+                        <div className="relative flex h-3 w-3 items-center justify-center mt-1 ml-1">
                           <motion.span
-                            className="absolute h-full w-full rounded-full bg-emerald-400"
+                            className="absolute h-full w-full rounded-full bg-lime-500"
                             animate={{
                               scale: [1, 1.8, 1.8],
                               opacity: [0.7, 0, 0],
@@ -70,7 +74,7 @@ const DeveloperExperience = () => {
                               ease: "easeOut",
                             }}
                           />
-                          <span className="relative h-2 w-2 rounded-full bg-emerald-500" />
+                          <span className="relative h-2 w-2 rounded-full bg-lime-500" />
                         </div>
                       )}
                     </div>
@@ -102,7 +106,6 @@ const DeveloperExperience = () => {
                         key={skill.name}
                         name={skill.name}
                         icon={skill.icon}
-                        hasDarkIcon={skill.hasDarkIcon}
                       />
                     ))}
                   </div>

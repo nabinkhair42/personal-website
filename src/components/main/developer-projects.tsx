@@ -15,7 +15,7 @@ import {
   ExpandableSectionTrigger,
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
-import ThemedIcon from "@/components/ui/extended/themed-icon";
+import { GithubIcon } from "@/icons/tech";
 import { ProjectsData } from "@/dev-constants/projects";
 
 const DeveloperProjects = () => {
@@ -72,7 +72,6 @@ const DeveloperProjects = () => {
                         key={tech.name}
                         name={tech.name}
                         icon={tech.icon}
-                        hasDarkIcon={tech.hasDarkIcon}
                       />
                     ))}
                   </div>
@@ -100,13 +99,9 @@ const DeveloperProjects = () => {
                           rel="noreferrer noopener"
                           aria-label={`View repository for ${project.title}`}
                         >
-                          <ThemedIcon
-                            src="/tech-icon/github.svg"
-                            alt="GitHub"
-                            size={20}
-                            hasDarkVariant
+                          <GithubIcon
                             className="h-4 w-4 rounded"
-                            title={`View repository for ${project.title} on GitHub`}
+                            aria-hidden="true"
                           />
                         </Link>
                       </Button>
