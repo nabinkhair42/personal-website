@@ -1,13 +1,170 @@
 import type { SVGProps } from "react";
 
 const GeminiIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <title>Gemini</title><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="#3186FF"></path><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#lobe-icons-gemini-fill-0)"></path><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#lobe-icons-gemini-fill-1)"></path><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#lobe-icons-gemini-fill-2)"></path><defs><linearGradient gradientUnits="userSpaceOnUse" x1="7" x2="11" y1="15.5" y2="12"><stop stopColor="#08B962"></stop><stop offset="1" stopColor="#08B962" stopOpacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" x1="8" x2="11.5" y1="5.5" y2="11"><stop stopColor="#F94543"></stop><stop offset="1" stopColor="#F94543" stopOpacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" x1="3.5" x2="17.5" y1="13.5" y2="12"><stop stopColor="#FABC12"></stop><stop offset=".46" stopColor="#FABC12" stopOpacity="0"></stop></linearGradient></defs>
+  <svg {...props} viewBox="0 0 296 298" fill="none">
+    <mask
+      id="gemini__a"
+      width="296"
+      height="298"
+      x="0"
+      y="0"
+      maskUnits="userSpaceOnUse"
+      style={{ maskType: "alpha" }}
+    >
+      <path
+        fill="#3186FF"
+        d="M141.201 4.886c2.282-6.17 11.042-6.071 13.184.148l5.985 17.37a184.004 184.004 0 0 0 111.257 113.049l19.304 6.997c6.143 2.227 6.156 10.91.02 13.155l-19.35 7.082a184.001 184.001 0 0 0-109.495 109.385l-7.573 20.629c-2.241 6.105-10.869 6.121-13.133.025l-7.908-21.296a184 184 0 0 0-109.02-108.658l-19.698-7.239c-6.102-2.243-6.118-10.867-.025-13.132l20.083-7.467A183.998 183.998 0 0 0 133.291 26.28l7.91-21.394Z"
+      />
+    </mask>
+    <g mask="url(#gemini__a)">
+      <g filter="url(#gemini__b)">
+        <ellipse cx="163" cy="149" fill="#3689FF" rx="196" ry="159" />
+      </g>
+      <g filter="url(#gemini__c)">
+        <ellipse cx="33.5" cy="142.5" fill="#F6C013" rx="68.5" ry="72.5" />
+      </g>
+      <g filter="url(#gemini__d)">
+        <ellipse cx="19.5" cy="148.5" fill="#F6C013" rx="68.5" ry="72.5" />
+      </g>
+      <g filter="url(#gemini__e)">
+        <path
+          fill="#FA4340"
+          d="M194 10.5C172 82.5 65.5 134.333 22.5 135L144-66l50 76.5Z"
+        />
+      </g>
+      <g filter="url(#gemini__f)">
+        <path
+          fill="#FA4340"
+          d="M190.5-12.5C168.5 59.5 62 111.333 19 112L140.5-89l50 76.5Z"
+        />
+      </g>
+      <g filter="url(#gemini__g)">
+        <path
+          fill="#14BB69"
+          d="M194.5 279.5C172.5 207.5 66 155.667 23 155l121.5 201 50-76.5Z"
+        />
+      </g>
+      <g filter="url(#gemini__h)">
+        <path
+          fill="#14BB69"
+          d="M196.5 320.5C174.5 248.5 68 196.667 25 196l121.5 201 50-76.5Z"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="gemini__b"
+        width="464"
+        height="390"
+        x="-69"
+        y="-46"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="18"
+        />
+      </filter>
+      <filter
+        id="gemini__c"
+        width="265"
+        height="273"
+        x="-99"
+        y="6"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+      <filter
+        id="gemini__d"
+        width="265"
+        height="273"
+        x="-113"
+        y="12"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+      <filter
+        id="gemini__e"
+        width="299.5"
+        height="329"
+        x="-41.5"
+        y="-130"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+      <filter
+        id="gemini__f"
+        width="299.5"
+        height="329"
+        x="-45"
+        y="-153"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+      <filter
+        id="gemini__g"
+        width="299.5"
+        height="329"
+        x="-41"
+        y="91"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+      <filter
+        id="gemini__h"
+        width="299.5"
+        height="329"
+        x="-39"
+        y="132"
+        colorInterpolationFilters="sRGB"
+        filterUnits="userSpaceOnUse"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur
+          result="effect1_foregroundBlur_69_17998"
+          stdDeviation="32"
+        />
+      </filter>
+    </defs>
   </svg>
 );
 

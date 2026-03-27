@@ -1,3 +1,9 @@
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+
 interface TocItem {
   text: string;
   slug: string;
@@ -32,26 +38,53 @@ interface TableOfContentsProps {
 
 export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const headings = extractHeadings(content);
+  const [isOpen, setIsOpen] = useState(false);
 
   if (headings.length < 3) return null;
 
   return (
-    <nav aria-label="Table of contents" className="p-2">
-      <p className="text-normal">On this page</p>
-      <ol className="space-y-1">
-        {headings.map((heading) => (
-          <li key={heading.slug}>
-            <a
-              href={`#${heading.slug}`}
-              className={`block text-sm text-muted-foreground hover:text-normal transition-colors ${
-                heading.level === 3 ? "pl-6" : "pl-3"
-              }`}
-            >
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ol>
+    <nav aria-label="Table of contents" className="p-2 bg-muted/50">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-normal text-xl cursor-pointer select-none flex items-center justify-between w-full"
+      >
+        <p>On this page</p>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {isOpen ? (
+            <ChevronUp className="h-4 w-4" />
+          ) : (
+            <ChevronDown className="h-4 w-4" />
+          )}
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ol
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="space-y-1 mt-2 overflow-hidden"
+          >
+            {headings.map((heading) => (
+              <li key={heading.slug}>
+                <a
+                  href={`#${heading.slug}`}
+                  className={`block text-muted-foreground hover:text-primary transition-colors ease-in-out duration-300 hover:underline underline-offset-4 ${
+                    heading.level === 3 ? "pl-6" : "pl-3"
+                  }`}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </motion.ol>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
