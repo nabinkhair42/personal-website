@@ -13,8 +13,8 @@ import {
   NextJsIcon,
   NodeJsIcon,
   NpmIcon,
-  PostmanIcon,
   PostgresqlIcon,
+  PostmanIcon,
   PrismaIcon,
   PythonIcon,
   ReactHookFormIcon,
@@ -31,6 +31,30 @@ import {
 import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
+  {
+    icon: "/projects/datalens.svg",
+    title: "DataLens",
+    tagline: "The web-native, collaborative database IDE",
+    description: [
+      "A web-based database IDE for effortless data exploration and management.",
+      "Connect to any database with a simple connection string and intuitive UI.",
+      "Collaborate in real-time with teammates, sharing queries, results, and insights.",
+      "Visualize data with built-in charts and export results in multiple formats.",
+    ],
+    liveLink: "https://datalens.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/datalens",
+    techStack: [
+      { name: "Next.js", icon: NextJsIcon },
+      { name: "TypeScript", icon: TypescriptIcon },
+      { name: "Tailwind CSS", icon: TailwindCssIcon },
+      { name: "Vercel", icon: VercelIcon },
+      { name: "shadcn/ui", icon: ShadcnUiIcon },
+      { name: "Zod", icon: ZodIcon },
+      { name: "React Query", icon: ReactQueryIcon },
+      { name: "PostgreSQL", icon: PostgresqlIcon },
+      { name: "Drizzle ORM", icon: DrizzleOrmIcon },
+    ],
+  },
   {
     icon: "/projects/git-chat.svg",
     title: "GitChat",

@@ -1,8 +1,7 @@
-import { DotIcon, Globe } from "lucide-react";
+import { DotIcon, SquareMousePointer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { Button } from "@/components/ui/button";
 import {
   ExpandableSection,
   ExpandableSectionContent,
@@ -15,8 +14,8 @@ import {
   ExpandableSectionTrigger,
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
-import { GithubIcon } from "@/icons/tech";
 import { ProjectsData } from "@/dev-constants/projects";
+import { GithubIcon } from "@/icons/tech";
 
 const DeveloperProjects = () => {
   return (
@@ -33,7 +32,7 @@ const DeveloperProjects = () => {
 
         <ExpandableSectionList>
           {ProjectsData.map((project) => (
-            <ExpandableSectionItem key={project.title}>
+            <ExpandableSectionItem key={project.title} className="pb-4">
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
                   <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1">
@@ -68,43 +67,32 @@ const DeveloperProjects = () => {
                 {project.techStack && (
                   <div className="flex flex-wrap gap-2">
                     {project.techStack.map((tech) => (
-                      <StackBadge
-                        key={tech.name}
-                        name={tech.name}
-                        icon={tech.icon}
-                      />
+                      <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
                     ))}
                   </div>
                 )}
                 {(project.liveLink || project.repo) && (
                   <div className="flex flex-wrap gap-2 pt-2">
                     {project.liveLink && (
-                      <Button asChild size="icon" variant="outline" className="rounded-full">
-                        <Link
-                          href={project.liveLink}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          aria-label={`Open live site for ${project.title}`}
-                          title={`Open live site for ${project.title}`}
-                        >
-                          <Globe className="size-4" />
-                        </Link>
-                      </Button>
+                      <Link
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        aria-label={`Open live site for ${project.title}`}
+                        title={`Open live site for ${project.title}`}
+                      >
+                        <SquareMousePointer className="size-4" />
+                      </Link>
                     )}
                     {project.repo && (
-                      <Button asChild size="icon" variant="outline" className="rounded-full">
-                        <Link
-                          href={project.repo}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          aria-label={`View repository for ${project.title}`}
-                        >
-                          <GithubIcon
-                            className="h-4 w-4 rounded"
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      </Button>
+                      <Link
+                        href={project.repo}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        aria-label={`View repository for ${project.title}`}
+                      >
+                        <GithubIcon aria-hidden="true" />
+                      </Link>
                     )}
                   </div>
                 )}

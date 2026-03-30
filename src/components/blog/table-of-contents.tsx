@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 
 function slugify(text: string): string {
   return text
@@ -37,17 +37,17 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   if (headings.length < 3) return null;
 
   return (
-    <nav aria-label="Table of contents" className="p-2 bg-muted/50">
+    <nav
+      aria-label="Table of contents"
+      className="p-2 bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed bg-muted/40"
+    >
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="text-normal text-xl cursor-pointer select-none flex items-center justify-between w-full"
       >
         <p>On this page</p>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
           <ChevronDown className="h-4 w-4" />
         </motion.div>
       </button>
@@ -58,10 +58,10 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="mt-2 overflow-hidden border-l border-muted-foreground/20"
+            className="mt-2 overflow-hidden border-l"
           >
-            {headings.map((heading) => (
-              <li key={heading.slug}>
+            {headings.map((heading, index) => (
+              <li key={index}>
                 <a
                   href={`#${heading.slug}`}
                   className={`block py-1 text-muted-foreground hover:text-primary transition-colors ease-in-out duration-300 hover:underline underline-offset-4 border-l-2 border-transparent hover:border-primary -ml-px ${

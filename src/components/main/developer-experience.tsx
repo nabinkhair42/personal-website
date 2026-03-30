@@ -23,21 +23,16 @@ const DeveloperExperience = () => {
       <ExpandableSection>
         <ExpandableSectionHeader>
           <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-          <ExpandableSectionTitle>
-            Professional Experience
-          </ExpandableSectionTitle>
+          <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
           <ExpandableSectionDescription>
-            A timeline of my career path, showcasing the roles and technologies
-            I&apos;ve worked with in various projects and companies.
+            A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
+            with in various projects and companies.
           </ExpandableSectionDescription>
         </ExpandableSectionHeader>
 
         <ExpandableSectionList>
           {ExperienceData.map((experience, index) => (
-            <ExpandableSectionItem
-              key={experience.company}
-              className="relative"
-            >
+            <ExpandableSectionItem key={experience.company} className="relative">
               {/* Connecting line - spans full item height */}
               {index < ExperienceData.length - 1 && (
                 <div className="absolute left-5 top-11 -bottom-4 w-px bg-muted-foreground/30" />
@@ -102,11 +97,7 @@ const DeveloperExperience = () => {
                 {experience.skills && (
                   <div className="flex flex-wrap gap-2">
                     {experience.skills.map((skill) => (
-                      <StackBadge
-                        key={skill.name}
-                        name={skill.name}
-                        icon={skill.icon}
-                      />
+                      <StackBadge key={skill.name} name={skill.name} icon={skill.icon} />
                     ))}
                   </div>
                 )}

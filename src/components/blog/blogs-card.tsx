@@ -89,11 +89,11 @@ BlogCardFooter.displayName = "BlogCardFooter";
 
 export {
   BlogCard,
+  BlogCardContent,
+  BlogCardDescription,
+  BlogCardFooter,
   BlogCardImage,
   BlogCardTitle,
-  BlogCardDescription,
-  BlogCardContent,
-  BlogCardFooter,
 };
 
 export default BlogCard;

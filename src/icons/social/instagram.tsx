@@ -1,11 +1,7 @@
 import type { SVGProps } from "react";
 
 const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 264.583 264.583"
-  >
+  <svg {...props} xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 264.583 264.583">
     <defs>
       <radialGradient
         xlinkHref="#instagram_icon__a"

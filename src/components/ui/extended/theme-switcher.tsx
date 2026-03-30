@@ -14,7 +14,7 @@ const ThemeSwitcher = () => {
       onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
       aria-label="Toggle theme"
       title="Toggle theme"
-      className="rounded-full min-h-12 min-w-12"
+      className="rounded-full h-7 w-7"
     >
       <Sun className="h-5 w-5 dark:hidden" />
       <Moon className="hidden h-5 w-5 dark:block" />

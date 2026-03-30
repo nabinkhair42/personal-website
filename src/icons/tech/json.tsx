@@ -1,11 +1,7 @@
 import type { SVGProps } from "react";
 
 const JsonIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 160 160"
-  >
+  <svg {...props} xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 160 160">
     <defs>
       <linearGradient id="json__a">
         <stop offset="0" />

@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { GithubIcon } from "@/icons/social";
 import { DeveloperDetails } from "@/dev-constants/details";
+import { GithubIcon } from "@/icons/social";
 
 export const GitHubButtons = () => {
   const githubUrl =
@@ -15,7 +15,7 @@ export const GitHubButtons = () => {
     <Button
       variant="ghost"
       size="icon"
-      className="rounded-full min-h-12 min-w-12"
+      className="rounded-full h-7 w-7"
       onClick={handleClick}
       aria-label="View GitHub profile"
       title="GitHub"

@@ -252,12 +252,12 @@ ExpandableSectionContent.displayName = "ExpandableSectionContent";
 
 export {
   ExpandableSection,
-  ExpandableSectionHeader,
-  ExpandableSectionLabel,
-  ExpandableSectionTitle,
-  ExpandableSectionDescription,
-  ExpandableSectionList,
-  ExpandableSectionItem,
-  ExpandableSectionTrigger,
   ExpandableSectionContent,
+  ExpandableSectionDescription,
+  ExpandableSectionHeader,
+  ExpandableSectionItem,
+  ExpandableSectionLabel,
+  ExpandableSectionList,
+  ExpandableSectionTitle,
+  ExpandableSectionTrigger,
 };

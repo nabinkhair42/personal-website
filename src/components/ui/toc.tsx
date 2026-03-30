@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { MenuIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
@@ -24,7 +23,7 @@ function useActiveItem(itemIds: string[]) {
           }
         }
       },
-      { rootMargin: "0% 0% -80% 0%" },
+      { rootMargin: "0% 0% -80% 0%" }
     );
 
     for (const id of itemIds ?? []) {
@@ -63,10 +62,7 @@ export function DocsTableOfContents({
   hideLabel?: boolean;
 }) {
   const [open, setOpen] = React.useState(false);
-  const itemIds = React.useMemo(
-    () => toc.map((item) => item.url.replace("#", "")),
-    [toc],
-  );
+  const itemIds = React.useMemo(() => toc.map((item) => item.url.replace("#", "")), [toc]);
   const activeHeading = useActiveItem(itemIds);
 
   if (!toc?.length) {
@@ -77,11 +73,7 @@ export function DocsTableOfContents({
     return (
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn("h-8 md:h-7", className)}
-          >
+          <Button variant="outline" size="sm" className={cn("h-8 md:h-7", className)}>
             <MenuIcon /> On This Page
           </Button>
         </DropdownMenuTrigger>
