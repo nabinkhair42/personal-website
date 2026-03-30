@@ -27,7 +27,7 @@ const DeveloperEducation = () => {
                 <div className="absolute left-[20px] top-[44px] bottom-[-16px] w-px bg-muted-foreground/30" />
               )}
               <div className="flex space-x-2">
-                <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1 relative z-10">
+                <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded-md mt-1 relative z-10">
                   {education.logo ? (
                     <Image
                       src={education.logo}
@@ -35,11 +35,11 @@ const DeveloperEducation = () => {
                       width={32}
                       height={32}
                       sizes="32px"
-                      className="h-8 w-8 rounded object-contain"
+                      className="h-8 w-8 object-contain"
                       title={education.institution}
                     />
                   ) : (
-                    <div className="flex size-8 items-center justify-center mt-1 rounded bg-muted/40">
+                    <div className="flex size-8 items-center justify-center mt-1 rounded-md bg-muted/40">
                       <GraduationCap className="size-5 text-muted-foreground" />
                     </div>
                   )}

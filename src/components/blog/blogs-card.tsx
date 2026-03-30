@@ -12,7 +12,7 @@ const BlogCard = React.forwardRef<HTMLDivElement, BlogCardProps>(
   ({ className, link, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("rounded border hover:shadow-md transition", className)}
+      className={cn("rounded-md border hover:shadow-md transition", className)}
       {...props}
     >
       <Link href={link} className="block h-full w-full">
@@ -29,7 +29,7 @@ const BlogCardImage = React.forwardRef<
 >(({ className, alt, src, priority = false, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("relative h-[190px] w-full rounded-t overflow-hidden mb-3", className)}
+    className={cn("relative h-47.5 w-full rounded-t-md overflow-hidden mb-3", className)}
     {...props}
   >
     <Image

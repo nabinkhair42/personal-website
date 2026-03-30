@@ -119,7 +119,7 @@ const Page = () => {
   const recentPosts = getRecentPosts();
 
   return (
-    <>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
@@ -143,7 +143,7 @@ const Page = () => {
         <BlogsGrid maxPosts={4} posts={recentPosts} />
         <DeveloperConnect />
       </PageShellWrapper>
-    </>
+    </div>
   );
 };
 

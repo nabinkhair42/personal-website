@@ -39,8 +39,8 @@ const DeveloperTemplates = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {TEMPLATES.map((template) => (
-            <div key={template.name} className="group rounded border overflow-hidden">
-              <div className="relative h-[200px] w-full overflow-hidden border-b bg-muted">
+            <div key={template.name} className="rounded-md border hover:shadow-md transition">
+              <div className="relative h-47.5 w-full rounded-t-md overflow-hidden mb-3">
                 <Image
                   src={template.light}
                   alt={`${template.name} template preview — light mode`}
@@ -56,10 +56,10 @@ const DeveloperTemplates = () => {
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
               </div>
-              <div className="p-3 space-y-3">
+              <div className="px-3 space-y-3">
                 <div className="space-y-1">
-                  <h3 className="text-lg font-medium text-foreground">{template.name}</h3>
-                  <p className="text-sm text-muted-foreground">{template.description}</p>
+                  <h3 className="text-lg font-medium leading-tight">{template.name}</h3>
+                  <p className="text-sm text-muted-foreground pb-2 line-clamp-3">{template.description}</p>
                 </div>
                 <Button asChild size="sm">
                   <Link
@@ -71,6 +71,7 @@ const DeveloperTemplates = () => {
                   </Link>
                 </Button>
               </div>
+              <div className="px-3 py-2" />
             </div>
           ))}
         </div>

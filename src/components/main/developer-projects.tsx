@@ -32,17 +32,17 @@ const DeveloperProjects = () => {
 
         <ExpandableSectionList>
           {ProjectsData.map((project) => (
-            <ExpandableSectionItem key={project.title} className="pb-4">
+            <ExpandableSectionItem key={project.title}>
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
-                  <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded mt-1">
+                  <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded-md mt-1">
                     <Image
                       src={project.icon}
                       alt={`${project.title} project icon`}
                       width={32}
                       height={32}
                       sizes="32px"
-                      className="h-8 w-8 rounded object-cover"
+                      className="h-8 w-8 object-cover"
                       title={project.title}
                     />
                   </div>
@@ -72,7 +72,7 @@ const DeveloperProjects = () => {
                   </div>
                 )}
                 {(project.liveLink || project.repo) && (
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 py-2">
                     {project.liveLink && (
                       <Link
                         href={project.liveLink}
