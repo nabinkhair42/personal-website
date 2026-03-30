@@ -1,14 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-
-interface TocItem {
-  text: string;
-  slug: string;
-  level: number;
-}
 
 function slugify(text: string): string {
   return text
@@ -19,14 +13,14 @@ function slugify(text: string): string {
     .replace(/--+/g, "-");
 }
 
-function extractHeadings(content: string): TocItem[] {
+function extractHeadings(content: string) {
   const headingRegex = /^(#{2,3})\s+(.+)$/gm;
-  const headings: TocItem[] = [];
+  const headings: { text: string; slug: string; depth: number }[] = [];
 
   for (const match of content.matchAll(headingRegex)) {
-    const level = match[1].length;
+    const depth = match[1].length;
     const text = match[2].replace(/[*_`[\]()]/g, "").trim();
-    headings.push({ text, slug: slugify(text), level });
+    headings.push({ text, slug: slugify(text), depth });
   }
 
   return headings;
@@ -54,11 +48,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          {isOpen ? (
-            <ChevronUp className="h-4 w-4" />
-          ) : (
-            <ChevronDown className="h-4 w-4" />
-          )}
+          <ChevronDown className="h-4 w-4" />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -68,14 +58,14 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="space-y-1 mt-2 overflow-hidden"
+            className="mt-2 overflow-hidden border-l border-muted-foreground/20"
           >
             {headings.map((heading) => (
               <li key={heading.slug}>
                 <a
                   href={`#${heading.slug}`}
-                  className={`block text-muted-foreground hover:text-primary transition-colors ease-in-out duration-300 hover:underline underline-offset-4 ${
-                    heading.level === 3 ? "pl-6" : "pl-3"
+                  className={`block py-1 text-muted-foreground hover:text-primary transition-colors ease-in-out duration-300 hover:underline underline-offset-4 border-l-2 border-transparent hover:border-primary -ml-px ${
+                    heading.depth === 3 ? "pl-6" : "pl-3"
                   }`}
                 >
                   {heading.text}

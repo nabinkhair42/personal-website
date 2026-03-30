@@ -1,0 +1,153 @@
+---
+title: "How to Kill a Process Running on a Port"
+description: "A quick reference for finding and killing processes blocking a port on macOS, Linux, and Windows."
+developer: "Nabin Khair"
+date: "2026-03-30"
+published: true
+image: "/blog/kill-port.webp"
+tags: ["Terminal", "DevOps", "Developer Guide", "Linux", "macOS", "Windows", "Networking"]
+---
+
+You run `npm run dev` and the terminal yells back: **"Port 3000 is already in use."** A previous server didn't shut down cleanly, or another tool grabbed the port while you weren't looking. This happens often enough that every developer should have the fix memorized.
+
+## Find the Process
+
+Before killing anything, confirm what is actually holding the port. Running blind kill commands can shut down services you still need.
+
+### Linux and macOS
+
+```bash
+lsof -i :3000
+```
+
+This prints the process name, PID, user, and connection state. Look at the `PID` column — that is the number you need.
+
+If `lsof` is not available, use `ss` on Linux:
+
+```bash
+ss -tlnp | grep 3000
+```
+
+### Windows
+
+```powershell
+netstat -ano | findstr :3000
+```
+
+The last column is the PID. To see the process name:
+
+```powershell
+tasklist /FI "PID eq 12345"
+```
+
+## Kill the Process
+
+Once you have the PID, terminate it.
+
+### Linux and macOS
+
+```bash
+kill -9 <PID>
+```
+
+The `-9` flag sends `SIGKILL`, which forces the process to stop immediately. Use it when a regular `kill <PID>` (which sends `SIGTERM`) doesn't work.
+
+### Windows
+
+```powershell
+taskkill /PID 12345 /F
+```
+
+The `/F` flag forces termination, similar to `SIGKILL` on Unix systems.
+
+## One-Liner: Find and Kill in a Single Command
+
+When you know exactly which port to free and don't need to inspect anything first, a one-liner saves time.
+
+### Linux and macOS
+
+```bash
+kill -9 $(lsof -t -i :3000)
+```
+
+The `-t` flag tells `lsof` to output only the PID, making it easy to pipe into `kill`.
+
+For multiple ports at once:
+
+```bash
+kill -9 $(lsof -t -i :3000 -i :3001 -i :5173)
+```
+
+### Windows (PowerShell)
+
+```powershell
+Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess -Force
+```
+
+## Using npx as a Shortcut
+
+If you work in a Node.js environment, `kill-port` is a popular utility that handles cross-platform differences for you.
+
+```bash
+npx kill-port 3000
+```
+
+Multiple ports:
+
+```bash
+npx kill-port 3000 3001 5173
+```
+
+No installation required. It works on Linux, macOS, and Windows without remembering platform-specific flags.
+
+## Create a Shell Alias
+
+If you free ports frequently, save a few keystrokes by adding an alias to your shell config (`~/.bashrc`, `~/.zshrc`, or `~/.config/fish/config.fish`).
+
+```bash
+# Add to ~/.zshrc or ~/.bashrc
+killport() {
+  kill -9 $(lsof -t -i :"$1") 2>/dev/null && echo "Port $1 freed." || echo "Nothing running on port $1."
+}
+```
+
+Reload the shell and use it:
+
+```bash
+source ~/.zshrc
+killport 3000
+```
+
+Now freeing a port is a single word.
+
+## Common Ports You'll Run Into
+
+| Port | Typical Service |
+| --- | --- |
+| 3000 | React, Next.js, Express |
+| 3001 | Next.js (fallback) |
+| 4200 | Angular CLI |
+| 5173 | Vite |
+| 5432 | PostgreSQL |
+| 8000 | Django, FastAPI |
+| 8080 | Spring Boot, misc servers |
+| 27017 | MongoDB |
+
+## When `kill -9` Doesn't Work
+
+Rarely, a zombie process or a system-level service resists `SIGKILL`. A few things to check:
+
+- **Zombie processes** — The parent hasn't collected the exit status. Find the parent PID with `ps -o ppid= -p <PID>` and kill that instead.
+- **Root-owned processes** — Prefix your command with `sudo`. If you didn't start the process, you may not have permission to kill it.
+- **Kernel threads** — Shown in brackets in `ps` output (e.g., `[kworker]`). These cannot be killed. If a kernel thread holds a port, something deeper is wrong.
+
+## Quick Reference
+
+| Goal | Linux / macOS | Windows |
+| --- | --- | --- |
+| Find process on port | `lsof -i :PORT` | `netstat -ano \| findstr :PORT` |
+| Kill by PID | `kill -9 PID` | `taskkill /PID PID /F` |
+| One-liner kill | `kill -9 $(lsof -t -i :PORT)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT).OwningProcess -Force` |
+| Cross-platform shortcut | `npx kill-port PORT` | `npx kill-port PORT` |
+
+That covers every situation I've hit in daily development. Bookmark this page, or better yet, set up the shell alias and never think about it again.
