@@ -1,26 +1,10 @@
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import { DeveloperDetails } from "@/dev-constants/details";
-
-const TEMPLATES = [
-  {
-    name: "Aura",
-    description:
-      "A clean, luminous template with soft gradients and spacious layouts. Built for portfolios, landing pages, and SaaS sites.",
-    light: "/templates/aura-light.png",
-    dark: "/templates/aura-dark.png",
-  },
-  {
-    name: "Onyx",
-    description:
-      "A bold, dark-first template with sharp contrasts and dense information hierarchy. Built for developer tools and dashboards.",
-    light: "/templates/onyx-light.png",
-    dark: "/templates/only-dark.png",
-  },
-] as const;
+import { TEMPLATES } from "@/dev-constants/templates";
 
 const DeveloperTemplates = () => {
   return (
@@ -59,17 +43,26 @@ const DeveloperTemplates = () => {
               <div className="px-3 space-y-3">
                 <div className="space-y-1">
                   <h3 className="text-lg font-medium leading-tight">{template.name}</h3>
-                  <p className="text-sm text-muted-foreground pb-2 line-clamp-3">{template.description}</p>
+                  <p className="text-sm text-muted-foreground pb-2 line-clamp-3">
+                    {template.description}
+                  </p>
                 </div>
-                <Button asChild size="sm">
-                  <Link
-                    href={`mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(`Template Purchase Inquiry — ${template.name}`)}&body=${encodeURIComponent(`Hi Nabin,\n\nI'm interested in purchasing the ${template.name} template.\n\nPlease share the details.\n\nThanks!`)}`}
-                  >
-                    <Mail className="size-4" />
-                    Purchase {template.name}
-                    <ArrowUpRight className="size-3" />
-                  </Link>
-                </Button>
+                <div className="flex items-center justify-between">
+                  <Button asChild size="sm" variant={"outline"}>
+                    <Link
+                      href={`mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(`Template Purchase Inquiry — ${template.name}`)}&body=${encodeURIComponent(`Hi Nabin,\n\nI'm interested in purchasing the ${template.name} template.\n\nPlease share the details.\n\nThanks!`)}`}
+                    >
+                      <Mail className="size-4 text-muted-foreground" />
+                      Purchase {template.name}
+                    </Link>
+                  </Button>
+                  <Button asChild size="sm" variant={"link"}>
+                    <Link href={template.link} target="_blank">
+                      Live Demo
+                      <ExternalLink className="size-4 text-muted-foreground" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
               <div className="px-3 py-2" />
             </div>

@@ -2,6 +2,7 @@
 
 import { DotIcon } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
   ExpandableSection,
@@ -40,12 +41,11 @@ const DeveloperExperience = () => {
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
                   <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded-md mt-1 relative z-10">
-                    <img
+                    <Image
                       src={experience.logo}
                       alt={`${experience.company} company logo`}
                       width={200}
                       height={200}
-                      sizes="32px"
                       className="h-8 w-8 object-cover"
                       title={experience.company}
                     />
