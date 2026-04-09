@@ -31,7 +31,7 @@ export const ExperienceData: Experience[] = [
     logo: "/company/mersel-ai.png",
     designation: "Forward Deployed Engineer",
     type: "Full-time",
-    startDate: "11.2025",
+    startDate: "Nov 2025",
     endDate: "Present",
     isCurrent: true,
     description: [
@@ -59,8 +59,8 @@ export const ExperienceData: Experience[] = [
     logo: "/company/tulio-health.svg",
     designation: "Software Engineer",
     type: "Contract",
-    startDate: "08.2025",
-    endDate: "12.2025",
+    startDate: "Aug 2025",
+    endDate: "Dec 2025",
     isCurrent: false,
     description: [
       "Developed AI-powered healthcare dashboard and playground, enhancing doctor and patient interactions.",
@@ -84,8 +84,8 @@ export const ExperienceData: Experience[] = [
     logo: "/company/truly-care.webp",
     designation: "Frontend Developer",
     type: "Contract",
-    startDate: "06.2025",
-    endDate: "08.2025",
+    startDate: "Jun 2025",
+    endDate: "Aug 2025",
     isCurrent: false,
     description: [
       "Improved the design pattern of the existing codebase for better maintainability and scalability.",
@@ -107,8 +107,8 @@ export const ExperienceData: Experience[] = [
     logo: "/company/fin-fox.svg",
     designation: "Frontend Developer and UI/UX Designer",
     type: "Full-time",
-    startDate: "05.2025",
-    endDate: "08.2025",
+    startDate: "May 2025",
+    endDate: "Aug 2025",
     isCurrent: false,
     description: [
       "Led the frontend development and UI/UX design for a fintech SaaS platform, enhancing user experience and engagement.",
@@ -129,8 +129,8 @@ export const ExperienceData: Experience[] = [
     logo: "/company/ust.webp",
     designation: "Web Developer",
     type: "Part-time",
-    startDate: "03.2024",
-    endDate: "05.2025",
+    startDate: "Mar 2024",
+    endDate: "May 2025",
     isCurrent: false,
     description: [
       "Developed strong backend for short videos sharing mobile application.",

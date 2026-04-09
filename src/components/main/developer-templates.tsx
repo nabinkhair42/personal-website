@@ -53,7 +53,7 @@ const DeveloperTemplates = () => {
                       href={`mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(`Template Purchase Inquiry — ${template.name}`)}&body=${encodeURIComponent(`Hi Nabin,\n\nI'm interested in purchasing the ${template.name} template.\n\nPlease share the details.\n\nThanks!`)}`}
                     >
                       <Mail className="size-4 text-muted-foreground" />
-                      Purchase {template.name}
+                      Get {template.name}
                     </Link>
                   </Button>
                   <Button asChild size="sm" variant={"link"}>

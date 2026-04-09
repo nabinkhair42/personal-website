@@ -375,7 +375,7 @@ export const ContributionGraphCalendar = ({
       {...props}
     >
       <svg
-        className="block overflow-visible"
+        className="block"
         height={height}
         viewBox={`0 0 ${width} ${height}`}
         width={width}

@@ -30,7 +30,7 @@ const DeveloperIntro = () => {
                 {designation}
               </p>
             </div>
-            <p className="text-base leading-relaxed text-justify text-muted-foreground">{bio}</p>
+            <p className="text-base leading-relaxed text-left text-muted-foreground">{bio}</p>
             <div className="flex flex-wrap gap-2 pt-1">
               {email && (
                 <Button asChild size="sm">

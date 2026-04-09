@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import {
   BlogCard,
   BlogCardContent,
@@ -22,7 +23,17 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
 
   return (
     <ShellWrapper>
-      <div className="p-2">
+      <div className="space-y-3 p-2">
+        <header className="space-y-2">
+          <div className="space-y-1">
+            <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
+              From the blog
+            </p>
+            <h2 className="mt-1 text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+              Latest Posts
+            </h2>
+          </div>
+        </header>
         {posts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {displayPosts.map((post, index) => {
@@ -49,7 +60,7 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
                         <AvatarImage src={DeveloperDetails.avatar} alt={DeveloperDetails.name} />
                         <AvatarFallback>{DeveloperDetails.initials}</AvatarFallback>
                       </Avatar>
-                      <div className="flx flex-col items-start justify-start">
+                      <div className="flex flex-col items-start justify-start">
                         <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           {DeveloperDetails.name}
                         </p>
@@ -80,6 +91,17 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <h2 className="text-2xl font-medium mb-2">No blog posts found</h2>
             <p className="text-muted-foreground">Check back later for new content!</p>
+          </div>
+        )}
+        {maxPosts && posts.length > maxPosts && (
+          <div className="flex items-center pt-1">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              View all posts
+              <ArrowUpRight className="size-3" />
+            </Link>
           </div>
         )}
       </div>
