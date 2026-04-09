@@ -2,8 +2,10 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { HotKeyProvider } from "@/components/hot-key-provider";
 import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
@@ -141,15 +143,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:ring-2 focus:ring-ring focus:rounded-md"
-          >
-            Skip to main content
-          </a>
-          <SiteHeader />
-          <main id="main-content">{children}</main>
-          <SiteFooter />
+          <TooltipProvider>
+            <HotKeyProvider>
+              <SiteHeader />
+              <main id="main-content">{children}</main>
+              <SiteFooter />
+            </HotKeyProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

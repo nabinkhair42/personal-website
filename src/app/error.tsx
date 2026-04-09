@@ -19,8 +19,8 @@ export default function ErrorPage({
 
   return (
     <PageShellWrapper>
-      <section className="relative flex h-screen w-full items-center justify-center px-8 py-16 md:px-0">
-        <div className="relative flex max-w-xl flex-col items-left space-y-6">
+      <section className="relative flex h-screen w-[42rem] max-w-full items-center justify-center px-8 py-16 md:px-0">
+        <div className="relative flex w-full flex-col items-left space-y-6">
           <ShellWrapper>
             <span className="text-[clamp(4rem,18vw,10rem)] font-medium leading-none tracking-tight text-foreground/10">
               Oops

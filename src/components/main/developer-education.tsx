@@ -27,14 +27,14 @@ const DeveloperEducation = () => {
                 <div className="absolute left-5 top-11 -bottom-4 w-px bg-muted-foreground/30" />
               )}
               <div className="flex space-x-2">
-                <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded-md mt-1 relative z-10">
+                <div className="h-11 w-11 flex items-center justify-center rounded-lg border p-px">
                   {education.logo ? (
                     <Image
                       src={education.logo}
                       alt={`${education.institution} logo`}
                       width={1000}
                       height={1000}
-                      className="h-8 w-8 object-contain"
+                      className="h-10 w-10 object-contain border rounded-md bg-muted p-px"
                       title={education.institution}
                     />
                   ) : (

@@ -2,6 +2,7 @@ import { FileText, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
 import { DeveloperDetails } from "@/dev-constants/details";
 import ShellWrapper from "../layouts/shell-wrapper";
 
@@ -15,10 +16,8 @@ const DeveloperIntro = () => {
           <Image
             src={avatar}
             alt={`Profile photo of ${name}, ${designation}`}
-            width={128}
-            height={128}
-            priority
-            sizes="128px"
+            width={1000}
+            height={1000}
             className="h-28 w-28 md:h-32 md:w-32 md:mt-2.5 shrink-0 rounded-md border object-cover shadow-md"
             title={`Avatar of ${name}`}
           />
@@ -38,14 +37,21 @@ const DeveloperIntro = () => {
                   <Link href={`mailto:${email}`}>
                     <Mail className="size-4" />
                     Email Me
+                    <Kbd>E</Kbd>
                   </Link>
                 </Button>
               )}
               {resume && (
                 <Button asChild size="sm" variant="outline">
-                  <Link href={resume} target="_blank" rel="noreferrer noopener">
+                  <Link
+                    href={resume}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="bg-background"
+                  >
                     <FileText className="size-4" />
                     Resume
+                    <Kbd>R</Kbd>
                   </Link>
                 </Button>
               )}

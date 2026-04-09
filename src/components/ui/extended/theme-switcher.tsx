@@ -3,22 +3,32 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ThemeSwitcher = () => {
   const { setTheme, resolvedTheme } = useTheme();
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
-      aria-label="Toggle theme"
-      title="Toggle theme"
-      className="rounded-full h-7 w-7"
-    >
-      <Sun className="h-5 w-5 dark:hidden" />
-      <Moon className="hidden h-5 w-5 dark:block" />
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+          aria-label="Toggle theme (D)"
+          title="Toggle theme"
+          className="h-7 w-7"
+        >
+          <Sun className="h-5 w-5 dark:hidden" />
+          <Moon className="hidden h-5 w-5 dark:block" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent className="flex gap-1 items-center justify-between">
+        Toggle theme
+        <Kbd>D</Kbd>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

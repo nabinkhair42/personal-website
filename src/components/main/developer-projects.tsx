@@ -35,14 +35,13 @@ const DeveloperProjects = () => {
             <ExpandableSectionItem key={project.title}>
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
-                  <div className="aspect-square bg-muted h-10 flex items-center justify-center border rounded-md mt-1">
+                  <div className="h-11 w-11 flex items-center justify-center rounded-lg border p-px">
                     <Image
                       src={project.icon}
                       alt={`${project.title} project icon`}
-                      width={32}
-                      height={32}
-                      sizes="32px"
-                      className="h-8 w-8 object-cover"
+                      width={1000}
+                      height={1000}
+                      className="h-10 w-10 object-cover border rounded-md bg-muted p-px"
                       title={project.title}
                     />
                   </div>
@@ -80,8 +79,9 @@ const DeveloperProjects = () => {
                         rel="noreferrer noopener"
                         aria-label={`Open live site for ${project.title}`}
                         title={`Open live site for ${project.title}`}
+                        className="border rounded-md p-1"
                       >
-                        <SquareMousePointer className="size-4" />
+                        <SquareMousePointer className="h-5 w-5" />
                       </Link>
                     )}
                     {project.repo && (
@@ -90,8 +90,10 @@ const DeveloperProjects = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`View repository for ${project.title}`}
+                        title={`View repository for ${project.title}`}
+                        className="border rounded-md p-1"
                       >
-                        <GithubIcon aria-hidden="true" />
+                        <GithubIcon className="h-5 w-5" />
                       </Link>
                     )}
                   </div>

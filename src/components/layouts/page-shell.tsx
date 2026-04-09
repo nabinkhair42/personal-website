@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 const PageShellWrapper = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="relative grid min-h-screen w-full grid-cols-[minmax(0,1fr)_2rem_minmax(0,auto)_2rem_minmax(0,1fr)] grid-rows-[1fr_1px_auto_1px_1fr] overflow-x-hidden  [--pattern-fg:var(--muted)]">
+    <div className="relative grid min-h-screen w-full grid-cols-[minmax(0,1fr)_2rem_minmax(0,auto)_2rem_minmax(0,1fr)] grid-rows-[1fr_1px_auto_1px_1fr] overflow-x-hidden  [--pattern-fg:var(--muted)] ">
       <div className="col-start-3 row-start-3 flex w-full flex-col items-stretch space-y-8">
         {children}
       </div>
