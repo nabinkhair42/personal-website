@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="128" height="128" rx="14" fill="#2E2A4D"/>
-  
-  <!-- Letter V stylized -->
-  <path d="M64 20 L92 108 L76 108 L64 72 L52 108 L36 108 L64 20Z" fill="#F7B32B"/>
-  
-  <!-- Accent elements -->
-  <circle cx="64" cy="41" r="8" fill="#34B0A5"/>
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="192" height="192" fill="#2E2A4D"/>
+<path d="M95.5 40L131 152H110.714L95.5 106.182L80.2857 152H60L95.5 40Z" fill="#F7B32B"/>
+<path d="M95.5 77C101.299 77 106 72.5228 106 67C106 61.4772 101.299 57 95.5 57C89.701 57 85 61.4772 85 67C85 72.5228 89.701 77 95.5 77Z" fill="#34B0A5"/>
 </svg>

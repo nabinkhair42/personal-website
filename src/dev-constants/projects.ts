@@ -139,6 +139,7 @@ export const ProjectsData: Projects[] = [
       "Beautiful UI built with shadcn/ui components and Tailwind CSS",
     ],
     liveLink: "https://better-form.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/better-form",
     techStack: [
       { name: "Next.js", icon: NextJsIcon },
       { name: "TypeScript", icon: TypescriptIcon },
@@ -269,6 +270,28 @@ export const ProjectsData: Projects[] = [
       { name: "shadcn/ui", icon: ShadcnUiIcon },
       { name: "Stripe", icon: StripeIcon },
       { name: "Zod", icon: ZodIcon },
+    ],
+  },
+  {
+    icon: "/projects/env-store.svg",
+    title: "ENV Store",
+    tagline: "Never Lose Your .env Again",
+    description: [
+      "Securely manage and sync environment variables across devices with AES-256-GCM encryption.",
+      "GitHub OAuth authentication for seamless sign-in without password management.",
+      "Import existing .env files or export configurations as standard .env format.",
+      "Organize variables by project and environment — development, staging, and production.",
+    ],
+    liveLink: "https://envstore.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/env-store",
+    techStack: [
+      { name: "Next.js", icon: NextJsIcon },
+      { name: "TypeScript", icon: TypescriptIcon },
+      { name: "Tailwind CSS", icon: TailwindCssIcon },
+      { name: "MongoDB", icon: MongodbIcon },
+      { name: "Vercel", icon: VercelIcon },
+      { name: "GitHub API", icon: GithubIcon },
+      { name: "shadcn/ui", icon: ShadcnUiIcon },
     ],
   },
   {
