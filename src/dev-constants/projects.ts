@@ -78,7 +78,7 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
-    icon: "/projects/pestjs.png",
+    icon: "/projects/pestjs.svg",
     title: "PEST.js",
     tagline: "CLI to Scaffold Production-Ready Express 5 + TypeScript APIs",
     description: [
@@ -150,7 +150,7 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
-    icon: "/projects/fastly.png",
+    icon: "/projects/fastly.svg",
     title: "Fastly",
     tagline: "SaaS Starter Kit",
     description: [
@@ -249,7 +249,7 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
-    icon: "/projects/flow-mint.png",
+    icon: "/projects/flow-mint.svg",
     title: "FlowMint",
     tagline: "Diagrams Made Effortless",
     description: [
@@ -272,7 +272,7 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
-    icon: "/projects/your-git.png",
+    icon: "/projects/your-git.svg",
     title: "YourGit",
     tagline: "GitHub Profile Stats Summary",
     liveLink: "https://yourgit.vercel.app/",

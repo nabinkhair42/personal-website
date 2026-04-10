@@ -1,4 +1,9 @@
-import { GithubIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "@/icons/social";
+import { FigmaIcon } from "@/icons";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  TwitterIcon
+} from "@/icons/social";
 import type { DeveloperConfig } from "@/types";
 
 export const DeveloperDetails: DeveloperConfig = {
@@ -30,10 +35,10 @@ export const DeveloperDetails: DeveloperConfig = {
       handle: "khairnabin",
     },
     {
-      name: "Instagram",
-      url: "https://www.instagram.com/nabinkhair2",
-      icon: InstagramIcon,
-      handle: "nabinkhair2",
+      name: "Figma",
+      url: "http://figma.com/@nabinkhair",
+      icon: FigmaIcon,
+      handle: "nabinkhair",
     },
   ],
   location: {

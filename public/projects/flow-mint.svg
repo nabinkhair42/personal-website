@@ -1,0 +1,27 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2004_54)">
+<rect width="192" height="192" fill="black"/>
+<path d="M38.5164 38.7886C36.3234 40.9816 35 44.0291 35 47.4849L35 120.799C35 127.703 40.3123 133.016 47.2165 133.016L53.5875 133.019L53.0582 71.9179C53.069 67.0607 55.0033 62.4056 58.4379 58.971C61.8724 55.5364 66.5276 53.6021 71.3848 53.5913L132.482 53.5951L132.479 47.2241C132.747 40.5808 127.439 35.2647 120.799 35L47.2203 35.2647C45.6085 35.2472 44.0093 35.5497 42.5153 36.1546C41.0212 36.7595 39.662 37.6548 38.5164 38.7886ZM62.9531 63.2254C60.7601 65.4184 59.4368 68.4659 59.433 71.9179L59.4368 145.236C59.4368 152.14 64.7491 157.452 71.6495 157.449L81.0863 157.452C87.9942 157.449 92.3027 158.14 92.3065 151.232L92.3103 96.5826L149.964 96.575C156.868 96.575 157.18 91.2626 157.18 84.3585L157.18 71.9255C157.449 65.2822 151.875 59.7014 145.236 59.4368L71.6533 59.6977C70.0419 59.6812 68.4432 59.9845 66.9498 60.5901C65.4565 61.1956 64.098 62.0913 62.9531 63.2254Z" fill="#10B981"/>
+<g filter="url(#filter0_f_2004_54)">
+<circle cx="14" cy="16" r="50" fill="#10B981"/>
+</g>
+<g filter="url(#filter1_f_2004_54)">
+<circle cx="161" cy="146" r="50" fill="#10B981"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_2004_54" x="-180.6" y="-178.6" width="389.2" height="389.2" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="72.3" result="effect1_foregroundBlur_2004_54"/>
+</filter>
+<filter id="filter1_f_2004_54" x="-33.6" y="-48.6" width="389.2" height="389.2" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="72.3" result="effect1_foregroundBlur_2004_54"/>
+</filter>
+<clipPath id="clip0_2004_54">
+<rect width="192" height="192" fill="white"/>
+</clipPath>
+</defs>
+</svg>
