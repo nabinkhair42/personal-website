@@ -47,12 +47,14 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
                   />
                   <BlogCardContent className="space-y-2">
                     <BlogCardTitle
-                      className="group-hover:underline group-hover:underline-offset-2 text-muted-foreground group-hover:text-foreground transition-colors duration-300"
+                      className="group-hover:underline group-hover:underline-offset-2 text-muted-foreground group-hover:text-foreground transition-colors duration-300 truncate line-clamp-2"
                       title={frontmatter.title}
                     >
                       {frontmatter.title}
                     </BlogCardTitle>
-                    <BlogCardDescription>{frontmatter.description}</BlogCardDescription>
+                    <BlogCardDescription className="truncate line-clamp-2">
+                      {frontmatter.description}
+                    </BlogCardDescription>
                   </BlogCardContent>
                   <BlogCardFooter className="flex justify-between pb-5">
                     <div className="flex items-center gap-2">

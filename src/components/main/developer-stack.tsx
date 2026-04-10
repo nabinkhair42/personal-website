@@ -28,9 +28,9 @@ const DeveloperStack = () => {
               className="group flex flex-col items-center justify-center aspect-square p-2 border-r border-b transition-all duration-200 cursor-pointer overflow-hidden"
             >
               <div className="flex items-center justify-center text-foreground/60 group-hover:text-foreground transition-colors duration-200">
-                <Icon className="size-4 aspect-square" />
+                <Icon className="size-6 aspect-square" />
               </div>
-              <p className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-200 mt-2">
+              <p className="text-sm font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-200 mt-2">
                 {name}
               </p>
             </div>

@@ -35,13 +35,13 @@ const DeveloperProjects = () => {
             <ExpandableSectionItem key={project.title}>
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
-                  <div className="h-11 w-11 flex items-center justify-center rounded-lg border p-px">
+                  <div className="h-11 aspect-square flex items-center justify-center rounded-lg border p-px">
                     <Image
                       src={project.icon}
                       alt={`${project.title} project icon`}
                       width={1000}
                       height={1000}
-                      className="h-10 w-10 object-cover border rounded-md bg-muted p-px"
+                      className="h-10 aspect-square object-cover border rounded-md bg-muted p-px"
                       title={project.title}
                     />
                   </div>

@@ -40,13 +40,13 @@ const DeveloperExperience = () => {
               )}
               <ExpandableSectionTrigger>
                 <div className="flex space-x-2">
-                  <div className="h-11 w-11 flex items-center justify-center rounded-lg border p-px">
+                  <div className="h-11 aspect-square flex items-center justify-center rounded-lg border p-px">
                     <Image
                       src={experience.logo}
                       alt={`${experience.company} company logo`}
                       width={1000}
                       height={1000}
-                      className="h-10 w-10 object-contain border rounded-md bg-muted p-px"
+                      className="h-10 aspect-square object-contain border rounded-md bg-muted p-px"
                       title={experience.company}
                     />
                   </div>
