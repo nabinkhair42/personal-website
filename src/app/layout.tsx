@@ -105,6 +105,11 @@ const websiteJsonLd = {
   },
 };
 
+const structuredDataJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [personJsonLd, websiteJsonLd],
+};
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -126,17 +131,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-      </head>
       <body className={font.className} suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredDataJsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

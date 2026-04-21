@@ -74,6 +74,18 @@
   --ring: oklch(0.556 0 0);
 }
 
+@utility pattern-hatch {
+  background-image: repeating-linear-gradient(
+    315deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 10px 10px;
+  background-attachment: fixed;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -96,7 +108,7 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
+  background-color: var(--background) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
@@ -144,18 +156,4 @@ html:not(.dark) .shiki span {
 *::-webkit-scrollbar-thumb:active {
   background: oklch(0.55 0 0);
   background-clip: padding-box;
-}
-
-/* Horizontal scrollbar for code blocks */
-.shiki::-webkit-scrollbar {
-  height: 6px;
-}
-
-.shiki::-webkit-scrollbar-thumb {
-  background: oklch(0.4 0 0);
-  border-radius: 6px;
-}
-
-.shiki::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.5 0 0);
 }

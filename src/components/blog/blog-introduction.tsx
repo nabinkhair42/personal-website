@@ -6,7 +6,7 @@ export function BlogIntroduction() {
 
   return (
     <ShellWrapper>
-      <section className="space-y-4 p-2 bg-[repeating-linear-gradient(-45deg,var(--color-border),var(--color-border)_1px,transparent_1px,transparent_6px)] py-6">
+      <section className="space-y-4 p-2 pattern-hatch py-6">
         <header className="space-y-2">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Blog</p>
           <h1 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">

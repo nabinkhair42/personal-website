@@ -166,8 +166,6 @@ const getMonthLabels = (
   weeks: Week[],
   monthNames: string[] = DEFAULT_MONTH_LABELS
 ): MonthLabel[] => {
-  let previousYear: number | null = null;
-
   return weeks
     .reduce<MonthLabel[]>((labels, week, weekIndex) => {
       const firstActivity = week.find((activity) => activity !== undefined);
@@ -178,7 +176,6 @@ const getMonthLabels = (
 
       const date = parseISO(firstActivity.date);
       const month = monthNames[getMonth(date)];
-      const year = getYear(date);
 
       if (!month) {
         const monthName = new Date(firstActivity.date).toLocaleString("en-US", {
@@ -188,18 +185,9 @@ const getMonthLabels = (
       }
 
       const prevLabel = labels.at(-1);
-      const isNewYear = previousYear !== null && year !== previousYear;
-      const yearSuffix =
-        isNewYear || (weekIndex === 0 && getMonth(date) !== 0) ? ` '${String(year).slice(-2)}` : "";
-      const labelWithYear = `${month}${yearSuffix}`;
-
-      // Track year changes - add year suffix when year changes
-      if (previousYear === null || year !== previousYear) {
-        previousYear = year;
-      }
 
       if (weekIndex === 0 || !prevLabel || !prevLabel.label.startsWith(month)) {
-        return labels.concat({ weekIndex, label: labelWithYear });
+        return labels.concat({ weekIndex, label: month });
       }
 
       return labels;

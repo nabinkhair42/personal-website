@@ -153,9 +153,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <ShellWrapper>
           <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
         </ShellWrapper>
-        <ShellWrapper className="sticky top-24 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-          <TableOfContents content={post.content} />
-        </ShellWrapper>
+        <TableOfContents content={post.content} />
         <ShellWrapper>
           <article className="p-2 text-justify">
             <MDXRemote source={post.content} components={components} options={mdxOptions} />

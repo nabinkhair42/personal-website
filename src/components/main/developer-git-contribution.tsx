@@ -74,7 +74,7 @@ const DeveloperGitContribution = () => {
   if (isLoading) {
     return (
       <ShellWrapper>
-        <div className="bg-[repeating-linear-gradient(-45deg,var(--color-border),var(--color-border)_1px,transparent_1px,transparent_6px)] border bg-muted h-[11.9rem]" />
+        <div className="pattern-hatch border bg-muted h-[11.9rem]" />
       </ShellWrapper>
     );
   }
