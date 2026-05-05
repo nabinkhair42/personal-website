@@ -105,7 +105,7 @@ function useActiveHeading(slugs: string[]) {
   return active;
 }
 
-const SPRING = { type: "spring" as const, bounce: 0.15, duration: 0.35 };
+const SPRING = { type: "spring" as const, stiffness: 400, damping: 30 };
 
 interface TableOfContentsProps {
   content: string;
@@ -165,11 +165,12 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
           transition={{ duration: 0.4, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
           className="pointer-events-auto"
         >
-          <motion.div
+          <div
             ref={containerRef}
-            layout
-            animate={{ borderRadius: isExpanded ? 16 : 9999 }}
-            className="overflow-hidden border bg-card/95 shadow-lg backdrop-blur-md"
+            className={cn(
+              "overflow-hidden border bg-card/95 shadow-lg backdrop-blur-md",
+              isExpanded ? "rounded-2xl" : "rounded-full"
+            )}
           >
             <AnimatePresence mode="popLayout" initial={false}>
               {!isExpanded ? (
@@ -177,9 +178,10 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   key="collapsed"
                   type="button"
                   onClick={() => setIsExpanded(true)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, filter: "blur(3px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(3px)" }}
+                  transition={{ duration: 0.15 }}
                   aria-expanded={false}
                   aria-label={`Expand table of contents. Current section: ${activeTitle}`}
                   className="flex items-center gap-2.5 py-2 pr-3 pl-3 text-left cursor-pointer hover:bg-accent/50 transition-colors"
@@ -193,9 +195,10 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
               ) : (
                 <motion.div
                   key="expanded"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, filter: "blur(3px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(3px)" }}
+                  transition={{ duration: 0.15 }}
                   className="w-[min(90vw,26rem)] p-2"
                 >
                   <div className="flex items-center justify-between px-2 py-1">
@@ -224,7 +227,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </motion.div>
       </nav>
     </MotionConfig>

@@ -1,3 +1,4 @@
+export { Astro } from "./astro";
 export { default as AwsIcon } from "./aws";
 export { default as BashIcon } from "./bash";
 export { default as BloggerIcon } from "./blogger";

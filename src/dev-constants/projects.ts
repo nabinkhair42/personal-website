@@ -1,5 +1,7 @@
 import {
+  Astro,
   AwsIcon,
+  BashIcon,
   BloggerIcon,
   CanvaIcon,
   CloudflareIcon,
@@ -31,6 +33,26 @@ import {
 import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
+  {
+    icon: "/projects/skills.svg",
+    title: "nk-skills",
+    tagline: "Reusable agent skills for product engineers",
+    description: [
+      "Curated collection of installable agent skills packaged as SKILL.md files.",
+      "One-command install across 12+ AI tools: Claude Code, Cursor, Gemini CLI, Windsurf, and more.",
+      "Browse, search, and preview skills with syntax-highlighted content and topic filtering.",
+      "Built with Astro, shadcn/ui, and dark mode support. Ships with llms.txt for AI discovery.",
+    ],
+    liveLink: "https://skills.nabinkhair.com.np",
+    repo: "https://github.com/nabinkhair42/nk-skills",
+    techStack: [
+      { name: "Astro", icon: Astro },
+      { name: "JavaScript", icon: JavascriptIcon },
+      { name: "Tailwind CSS", icon: TailwindCssIcon },
+      { name: "shadcn/ui", icon: ShadcnUiIcon },
+      { name: "Bash", icon: BashIcon },
+    ],
+  },
   {
     icon: "/projects/datalens.svg",
     title: "DataLens",
@@ -77,6 +99,7 @@ export const ProjectsData: Projects[] = [
       { name: "Zod", icon: ZodIcon },
     ],
   },
+
   {
     icon: "/projects/pestjs.svg",
     title: "PEST.js",
