@@ -1,62 +1,81 @@
+"use client";
+
 import { ArrowUpRight, ExternalLink, Mail } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { TEMPLATES } from "@/dev-constants/templates";
+import { itemVariants, sectionVariants, VIEWPORT } from "../_motion";
+
+const buildMail = (name: string) =>
+  `mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(
+    `Template Purchase Inquiry — ${name}`
+  )}&body=${encodeURIComponent(
+    `Hi Nabin,\n\nI'm interested in purchasing the ${name} template.\n\nPlease share the details.\n\nThanks!`
+  )}`;
 
 const DeveloperTemplates = () => {
   return (
     <ShellWrapper>
-      <div className="space-y-3 p-2">
-        <header className="space-y-2">
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={VIEWPORT}
+        variants={sectionVariants}
+        className="space-y-3 p-2"
+      >
+        <motion.header variants={itemVariants} className="space-y-2">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Templates</p>
-          <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
             Structural Grid Templates
           </h2>
           <p className="text-base leading-relaxed text-muted-foreground">
             Production-ready templates built on the Structural Grid design system — the exposed grid
             aesthetic used by Linear, Vercel, and Resend.
           </p>
-        </header>
+        </motion.header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {TEMPLATES.map((template) => (
-            <div key={template.name} className="rounded-md border hover:shadow-md transition">
-              <div className="relative h-47.5 w-full rounded-t-md overflow-hidden mb-3">
+            <motion.article
+              key={template.name}
+              variants={itemVariants}
+              className="group rounded-md border"
+            >
+              <div className="relative h-47.5 overflow-hidden rounded-t-md">
                 <Image
                   src={template.light}
-                  alt={`${template.name} template preview — light mode`}
+                  alt={`${template.name} preview — light`}
                   fill
-                  className="object-cover object-top dark:hidden"
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 640px) 100vw, 400px"
+                  className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:hidden"
                 />
                 <Image
                   src={template.dark}
-                  alt={`${template.name} template preview — dark mode`}
+                  alt={`${template.name} preview — dark`}
                   fill
-                  className="object-cover object-top hidden dark:block"
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 640px) 100vw, 400px"
+                  className="hidden object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block"
                 />
               </div>
-              <div className="px-3 space-y-3">
+              <div className="space-y-3 p-3">
                 <div className="space-y-1">
                   <h3 className="text-lg font-medium leading-tight">{template.name}</h3>
-                  <p className="text-sm text-muted-foreground pb-2 line-clamp-3">
+                  <p className="line-clamp-3 text-sm text-muted-foreground">
                     {template.description}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <Button asChild size="sm" variant={"outline"}>
-                    <Link
-                      href={`mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(`Template Purchase Inquiry — ${template.name}`)}&body=${encodeURIComponent(`Hi Nabin,\n\nI'm interested in purchasing the ${template.name} template.\n\nPlease share the details.\n\nThanks!`)}`}
-                    >
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={buildMail(template.name)}>
                       <Mail className="size-4 text-muted-foreground" />
                       Get {template.name}
                     </Link>
                   </Button>
-                  <Button asChild size="sm" variant={"link"}>
+                  <Button asChild size="sm" variant="link">
                     <Link href={template.link} target="_blank">
                       Live Demo
                       <ExternalLink className="size-4 text-muted-foreground" />
@@ -64,12 +83,11 @@ const DeveloperTemplates = () => {
                   </Button>
                 </div>
               </div>
-              <div className="px-3 py-2" />
-            </div>
+            </motion.article>
           ))}
         </div>
 
-        <div className="flex items-center gap-3 pt-1">
+        <motion.div variants={itemVariants} className="flex items-center gap-3 pt-1">
           <Link
             href="https://github.com/nabinkhair42/structural-grid-skill"
             target="_blank"
@@ -88,8 +106,8 @@ const DeveloperTemplates = () => {
             skills
             <ArrowUpRight className="size-3" />
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.section>
     </ShellWrapper>
   );
 };

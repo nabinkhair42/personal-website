@@ -1,42 +1,48 @@
+"use client";
+
+import { motion } from "motion/react";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { TechStacksList } from "@/dev-constants/stack";
-import ShellWrapper from "../layouts/shell-wrapper";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../_motion";
 
 const DeveloperStack = () => {
   return (
     <ShellWrapper>
-      <div className="relative overflow-hidden p-2 space-y-3">
-        <header className="space-y-2">
-          <div className="space-y-1">
-            <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">My Skills</p>
-            <h2 className="mt-1 text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-              The tools I reach for every day
-            </h2>
-          </div>
-          <p className="text-base leading-relaxed text-justify text-muted-foreground">
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={VIEWPORT}
+        variants={sectionVariants}
+        className="space-y-3 p-2"
+      >
+        <motion.header variants={itemVariants} className="space-y-2">
+          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">My Skills</p>
+          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
+            The tools I reach for every day
+          </h2>
+          <p className="text-base leading-relaxed text-muted-foreground">
             A curated mix of frameworks, runtimes, and services that help me craft reliable,
             performant user experiences across the stack.
           </p>
-        </header>
+        </motion.header>
 
-        <div
-          className="grid gap-0 border-l border-t border-border"
+        <motion.div
+          variants={tightStaggerVariants}
+          className="grid border-l border-t"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))" }}
         >
           {TechStacksList.map(({ name, icon: Icon }) => (
-            <div
+            <motion.div
               key={name}
-              className="group flex flex-col items-center justify-center aspect-square p-2 border-r border-b transition-all duration-200 cursor-pointer overflow-hidden"
+              variants={itemVariants}
+              className="group flex aspect-square flex-col items-center justify-center gap-2 border-r border-b p-2 text-foreground/60 transition-colors hover:text-foreground"
             >
-              <div className="flex items-center justify-center text-foreground/60 group-hover:text-foreground transition-colors duration-200">
-                <Icon className="size-6 aspect-square" />
-              </div>
-              <p className="text-sm font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-200 mt-2">
-                {name}
-              </p>
-            </div>
+              <Icon className="size-6" />
+              <p className="text-sm font-medium">{name}</p>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.section>
     </ShellWrapper>
   );
 };

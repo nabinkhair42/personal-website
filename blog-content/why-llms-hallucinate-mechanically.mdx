@@ -1,0 +1,127 @@
+---
+title: "Why LLMs Hallucinate, Mechanically"
+description: "Hallucinations aren't a mystery. They're the predictable output of how these models are trained, evaluated, and wired internally."
+developer: "Nabin Khair"
+date: "2026-05-08"
+published: false
+image: '/blog/llm-hallucinations.webp'
+tags: ["LLM", "Hallucinations", "AI Safety", "Calibration", "RLHF", "Interpretability", "AI Reliability"]
+---
+
+The standard explanation for why language models hallucinate is that they predict the next word. This is true and almost useless. It explains why a model produces coherent text. It does not explain why that text is sometimes confidently, specifically wrong about things the model could have known. It does not explain why a model invents court cases, or fabricates Python packages, or says with conviction that someone's birthday is September 30 when the actual answer is in autumn.
+
+In the last two years the picture has become much clearer. We now have a precise mathematical account of why hallucinations are inevitable, mechanistic interpretability work showing what circuit fires when a model fabricates, and a long list of named real-world incidents that show what these failures look like in production. None of it is mysterious. The reasons sit at three levels — pretraining, post-training, and the internal circuitry of the model — and you cannot really understand the problem without seeing all three.
+
+This is what the actual answer looks like.
+
+## The paper most people missed
+
+In September 2025, OpenAI published [*Why Language Models Hallucinate*](https://arxiv.org/abs/2509.04664) by Adam Tauman Kalai, Ofir Nachum, Santosh Vempala, and Edwin Zhang. It is the cleanest formal account of the problem we have, and it makes one argument worth understanding before anything else.
+
+The argument is that generation is a harder version of classification. If you cannot reliably classify whether a string is a valid completion of a prompt, you cannot reliably generate one either. The paper formalizes this with what it calls the *Is-It-Valid* (IIV) framing — the binary task of judging whether a candidate response is a valid answer or an error. They prove that a model's generation error rate is bounded below by roughly twice the IIV misclassification rate.
+
+In plain language: hallucinations are the generative shadow of normal classification errors. They are not exotic, not a separate category of failure. Whatever rate at which the model would mis-judge "is this answer valid," it must hallucinate at least at that rate when generating. The paper's own framing:
+
+> Hallucinations need not be mysterious — they originate simply as errors in binary classification.
+
+This single result reframes everything. Hallucination is not the model "making things up." It is the model expressing a classifier failure through a generative interface.
+
+## What pretraining can and cannot teach
+
+The next layer is to ask why the underlying classifier fails in the first place. The answer comes from two facts about the pretraining objective.
+
+The first fact is that cross-entropy loss contains no truth signal. The gradient for the sentence "Paris is the capital of France" and "Lyon is the capital of France" depends only on which one appears more often in the training distribution, not which one is true. A language model is not — and cannot be — trained to know facts. It is trained to know how facts sound. The training procedure has no mechanism to distinguish a true claim from a plausible-sounding one. Whatever truth tracking happens, happens incidentally because the training corpus was on average biased toward true statements about a given topic.
+
+The second fact is the singleton problem, which is the more interesting one. In any natural corpus, a large share of facts appear exactly once. One person's birthday, one obscure court case, one specific date in a bibliography. Kalai and Vempala proved a sharp result about this in their earlier paper, [*Calibrated Language Models Must Hallucinate*](https://arxiv.org/abs/2311.14648):
+
+> The probability of generating a hallucination is close to the fraction of facts that occur exactly once in the training data.
+
+This is a [Good-Turing](https://en.wikipedia.org/wiki/Good%E2%80%93Turing_frequency_estimation) result — the same statistic that estimates how much probability mass sits on yet-unseen items also bounds how often a calibrated model will fabricate. The claim cuts deeper than it sounds. It says that being well-calibrated and never hallucinating are mathematically incompatible whenever the data has a singleton tail. The only way to drive hallucination to zero on long-tail facts is to refuse to answer any question whose answer might be a singleton — which is to be poorly calibrated, and useless.
+
+The 2025 paper sharpens this with a concrete example. Asked for the birthday of one of its own authors with explicit instructions to respond only if known, DeepSeek-V3 returned three different wrong dates across attempts. None of the dates was even in the right season. The reason is structural: a single mention of a birthday in a 600-billion-parameter training corpus does not generally survive as a recoverable fact. The model has to interpolate, and the interpolation is plausible-sounding text, not the actual answer.
+
+There is also a third, smaller class of hallucinations that come from how the input is represented. The famous "how many R's in strawberry" failure has nothing to do with reasoning. BPE tokenizers represent the word as a small number of subword units, and the model never sees individual letters at the input layer. Repeated letters can collapse into a generic double-letter feature. The model is being asked a question whose answer is not in its representation — the failure is architectural, not statistical.
+
+So pretraining gives you a model that has learned the texture of language extremely well, has memorized facts that appear many times, has no signal at all for truth versus plausibility, and is structurally incapable of accurately reproducing facts that appear once. Hallucination is built into that setup. You cannot post-train it away because the deficit is in the data, not in the alignment.
+
+## Why post-training makes it worse, not better
+
+If pretraining plants the seed, post-training waters it. The most important published evidence for this is one paragraph in OpenAI's [GPT-4 technical report](https://cdn.openai.com/papers/gpt-4.pdf):
+
+> The pre-trained model is highly calibrated (its predicted confidence in an answer generally matches the probability of being correct). However, through our current post-training process, the calibration is reduced.
+
+That is the cleanest acknowledgement we have that RLHF degrades the one property you would most want to preserve. The pretrained checkpoint produces probabilities you can roughly trust. After human feedback fine-tuning, the model becomes more confident across the board, regardless of whether it is right. Leng et al.'s [*Taming Overconfidence in LLMs*](https://arxiv.org/abs/2410.09724) traces this to a structural bias in reward models: PPO-style RLHF systematically prefers high-confidence responses, which means the optimization pushes the model toward stating everything firmly, including things it does not know.
+
+The deeper problem is that the benchmarks the field uses to evaluate these models actively reward this behavior. The 2025 paper makes the argument with one of the more striking framings in recent ML writing:
+
+> Model A is an aligned model that correctly signals uncertainty and never hallucinates. Let Model B be similar to Model A except that it never indicates uncertainty and always 'guesses' when unsure. Model B will outperform A under 0-1 scoring, the basis of most current benchmarks.
+
+Most major benchmarks — GPQA, MMLU-Pro, Omni-MATH, SWE-bench, HLE, BBH — score binary correct or incorrect with no credit for "I don't know." Under those rules, abstaining is provably worse than guessing. A model that says "I'm not sure" loses to a model that bluffs and is occasionally right. Train on preferences derived from those benchmarks and you get exactly what you would expect: a model that has learned that confident specificity is rewarded and uncertainty is punished. The paper notes that bluffs tend to be "overconfident and specific, such as 'September 30' rather than 'Sometime in autumn'" — which is the right strategy under the wrong scoring rule.
+
+The fix the paper proposes is not a new benchmark. It is changing how the existing dominant benchmarks score uncertainty. Add explicit confidence thresholds to prompts, give partial credit for abstention, penalise confident wrong answers proportionally. It is a socio-technical fix because the field has to coordinate on it. As long as the leaderboards reward bluffing, the labs will train models that bluff. This is one of the few cases where the cure is genuinely not technical.
+
+## What the model is actually doing inside
+
+The third level is mechanistic, and Anthropic's interpretability team has done the cleanest work here. Their March 2025 paper [*On the Biology of a Large Language Model*](https://transformer-circuits.pub/2025/attribution-graphs/biology.html), summarized in [*Tracing the Thoughts of a Large Language Model*](https://www.anthropic.com/research/tracing-thoughts-language-model), shows that hallucination is not a single failure but a competition between two circuits.
+
+Their finding is the opposite of what most people assume. Claude does not default to answering. It defaults to refusing.
+
+> Refusal to answer is the default behavior. [Claude has] a circuit that is "on" by default, that causes the model to state that it has insufficient information to answer any given question.
+
+Answering is what the model does only when a separate "known entity" feature fires strongly enough to inhibit the default refusal. The cleanest demonstration is a side-by-side experiment. Asked about Michael Jordan, the known-entity feature lights up and overrides the refusal — Claude answers. Asked about Michael Batkin, a name the researchers made up, no known-entity feature fires and the refusal circuit dominates — Claude declines.
+
+The interesting part is what happens when you intervene. The researchers artificially activated the known-entity feature on the Michael Batkin prompt, and the model confidently fabricated that he plays chess. Hallucinations in the wild appear to be naturally occurring versions of exactly this — partial activations of the known-entity feature on entities the model only weakly recognizes. When Karpathy asked Claude to list papers he had written, the known-answer features fired weakly because Karpathy is recognized, but the specific papers were not memorized. Weak activation was enough to suppress the refusal, and the model filled in the gap with plausible-sounding fabrications.
+
+This view changes how you should think about the problem. Hallucination is not the model failing to know it does not know. It is a circuit-level race condition between two mechanisms — one that suppresses output by default, one that releases it on entity recognition — and fine-tuning is the process of teaching the model when to wire which on. Get it slightly wrong and you get fabrications. The work on the model "knowing what it knows" is, mechanistically, work on calibrating the strength of these features.
+
+## A taxonomy worth knowing
+
+There is a lot of terminology in this space. Two distinctions are worth carrying around because they predict which mitigation will help.
+
+Ji et al.'s 2022 [*Survey of Hallucination in NLG*](https://arxiv.org/abs/2202.03629) introduced **intrinsic versus extrinsic** hallucinations. An intrinsic hallucination contradicts the source content directly — a summary that says the article reaches the opposite conclusion to the one it actually reaches. An extrinsic hallucination introduces information that cannot be verified from the source. Both can be true or false; the distinction is whether the model could have grounded the claim in what was given to it.
+
+Huang et al.'s 2023 [*A Survey on Hallucination in Large Language Models*](https://arxiv.org/abs/2311.05232) sharpened this into **factuality versus faithfulness** hallucinations. Factuality hallucinations are about the world — Einstein won the Nobel for the photoelectric effect, not relativity. Faithfulness hallucinations are about the input — the model contradicts the prompt, ignores instructions, or invents details a provided document does not contain. RAG and tool use can address faithfulness failures, because the ground truth is in the context. They cannot really address factuality failures, because the ground truth is in the world.
+
+A few specialized categories are worth naming because they show up disproportionately in production. Reasoning hallucinations are chains of thought that sound right and arrive at the wrong answer; Anthropic's [*Reasoning Models Don't Always Say What They Think*](https://www.anthropic.com/research/reasoning-models-dont-say-think) found that reasoning models verbalize their use of provided hints less than 20% of the time, meaning the visible chain of thought is unfaithful to the actual computation a strong majority of the time. Tool-use hallucinations are agents calling functions that do not exist or fabricating argument schemas. Code hallucinations are imports of packages that do not exist or method calls on real classes that do not have those methods. Each of these has its own causes, but all of them descend from the same singleton-fact and confidence-bias mechanisms above.
+
+## When hallucinations leave the lab
+
+The reason this matters beyond research is that these failures have already produced concrete consequences in the world. A few cases are worth knowing because they illustrate the mechanism rather than just the headline.
+
+In *Mata v. Avianca* (2023), a New York lawyer used ChatGPT for legal research and filed a brief that cited six entirely fictional court cases — *Varghese v. China Southern Airlines*, *Petersen v. Iran Air*, and four others. When he asked ChatGPT to confirm the cases were real, it confirmed they were. Judge Castel sanctioned the lawyers $5,000 and required them to send personally signed letters to each of the real judges falsely identified as authors of the fake opinions. The interesting part is the meta-hallucination: not just that the model invented cases, but that it confidently confirmed its own inventions on follow-up. That is a clean signature of the bluff-incentive failure mode — there is no internal mechanism that lets the model recognize the cases are its own fabrications.
+
+In *Moffatt v. Air Canada* (2024), a customer was told by Air Canada's chatbot that he could apply for a bereavement fare retroactively. The actual policy required pre-booking application. The British Columbia Civil Resolution Tribunal awarded CAD $812.02 in damages and rejected Air Canada's defense that the chatbot was a "separate legal entity." This is the case that established that a company cannot offload liability for its model's hallucinations onto the model itself.
+
+The most operationally significant class of incidents may be slopsquatting. Spracklen et al.'s [*We Have a Package for You!*](https://arxiv.org/abs/2406.10279), at USENIX Security 2025, ran 576,000 code samples across 16 LLMs and measured how often the models suggested Python or JavaScript packages that did not exist. Average commercial-model rate: 5.2%. Average open-source rate: 21.7%. The numbers are bad. The interesting finding is the next one: when the same prompt was rerun ten times, 43% of hallucinated package names were repeated all ten times. Hallucinations are not random — they are systematic and reproducible. That is what makes the attack viable. Bar Lanyado, a security researcher, demonstrated this by registering an empty package called `huggingface-cli` on PyPI after noticing models repeatedly suggested it. Within three months it had been downloaded over 30,000 times by people copy-pasting AI suggestions. The hallucinations had become a real attack surface.
+
+## Why long context and RAG are not enough
+
+The standard recommendation for "fixing" hallucinations is to ground the model in retrieved or supplied context — RAG, long-context windows, or both. This helps but does not close the gap. There are three reasons.
+
+The first is the [*Lost in the Middle*](https://arxiv.org/abs/2307.03172) effect: even when the answer is in the context, models attend best to the beginning and end of the window. Information placed in the middle is recovered with significantly lower accuracy. A long-context model is not the same thing as a model that uses long context uniformly.
+
+The second is the knowledge-conflict problem. When retrieved content contradicts what the model thinks it knows from pretraining, behavior is inconsistent — sometimes the model overrides retrieval with stale parametric knowledge, sometimes it accepts noisy retrieved content uncritically. Mechanistic work on this (notably the [ReDeEP paper](https://arxiv.org/abs/2410.11414)) shows the failure traces to specific FFN layers over-emphasizing parametric knowledge in the residual stream while copying heads under-utilize the retrieved tokens. The model is wired in a way that does not always defer to its own context.
+
+The third is the simple faithfulness gap. Even with the source fully visible, models can summarize it incorrectly. The [Vectara HHEM benchmark](https://github.com/vectara/hallucination-leaderboard) measures grounded-summarization hallucination rates and the numbers are sobering. Gemini 2.5 Flash Lite sits around 3% — about as good as it gets. Most frontier models cluster between 5% and 11%. Reasoning models are uniformly worse, with several exceeding 10% on the harder dataset and Grok-4-fast-reasoning hitting 20.2%. Adding more reasoning steps gives the model more room to drift from the source.
+
+The picture you should hold in your head is that grounding helps with faithfulness but not factuality, that long context is not the same as attentive context, and that no current technique fully closes the faithfulness gap even when the answer is sitting in the prompt.
+
+## What actually helps, and what each thing costs
+
+It is worth being honest about what mitigations do and do not do. None of them is a silver bullet. Most of them trade off something — helpfulness, latency, cost, or simplicity.
+
+Changing benchmark scoring is the cleanest fix and the hardest to deploy because it requires field-wide coordination. Abstention training (R-Tuning and similar) teaches the model to refuse when uncertain, but tends to over-refuse. RAG with citations grounds factuality but inherits the faithfulness gap. Self-consistency sampling (SelfCheckGPT and variants) catches inconsistencies but multiplies inference cost by 5-20x and only catches errors where the model already disagrees with itself — confident wrong consensus slips through. Verifier models inherit the same blind spots as the generator. Constrained decoding helps with format, not truth. Tool use grounds claims in real data but the tool selection itself can hallucinate. Verbalised confidence ("how sure are you?") is unreliable specifically because RLHF has miscalibrated the model's verbalized confidence. Calibration-aware reward modeling (PPO-M, PPO-C) is promising but not yet standard.
+
+The honest summary is that every mitigation either trades helpfulness for caution, adds inference cost, or layers an external truth source on top. There is no purely-internal fix because the underlying issue — that pure language modeling has no truth signal — does not have one.
+
+## The uncomfortable conclusion
+
+If you put the three layers together, hallucination stops looking like a defect and starts looking like a property of the optimization problem.
+
+Pretraining produces a model that has learned the texture of language without any signal for truth. The corpus has a long tail of singleton facts that no calibrated model can reliably recover, and the math says that calibration and zero-hallucination are mutually exclusive on those facts. Post-training, instead of repairing the calibration, degrades it further because the benchmarks reward bluffing over abstention and the reward models inherit the bias. The internal circuitry that decides whether to answer or refuse is a delicate competitive dynamic that fine-tuning has to balance, and the failure mode of that balance is exactly the kind of fabrication we observe.
+
+The deeper point, and the one I think is genuinely uncomfortable, is that the same machinery that produces hallucination is the machinery that produces every other useful behavior of a language model. Sampling from a distribution over plausible continuations is what lets the model write a poem, summarize an unfamiliar document, extrapolate from incomplete information, or generate a function from a description. There is no separate "creative" subsystem and "factual" subsystem. The line between creative writing and false report exists in the user's intent, not in the model's internals. Asking a language model to never hallucinate is asking it to never generalize, which is asking it not to be a language model.
+
+This is why the engineering response cannot be "make the model stop." It has to be a system around the model — better grounding, calibrated benchmarks, abstention training, verification chains, tool use for ground truth, honest UX about confidence. The model is going to keep generating plausible text. The job is to build everything else around it that decides when plausible text is enough.
+
+> Hallucination is not the model failing to be a search engine. It is the model succeeding at being a generator. The two have always been the same problem.

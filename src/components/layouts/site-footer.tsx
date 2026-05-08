@@ -2,39 +2,36 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { DeveloperDetails } from "@/dev-constants/details";
 
+const githubUrl =
+  DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.url ??
+  "https://github.com/nabinkhair42";
+
 const SiteFooter = () => {
   return (
-    <footer className="w-full">
-      <div className="flex h-24 px-8 md:px-0 max-w-2xl mx-auto items-center justify-between">
-        <div className="flex flex-col items-center justify-center w-full space-y-1">
-          <p className="font-medium text-lg text-center">devn</p>
-          <p className="text-sm text-muted-foreground text-center">
-            Built by{" "}
-            <Link
-              href={
-                DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.url ??
-                "https://github.com/nabinkhair42"
-              }
-              className="hover:underline underline-offset-2 hover:text-primary transition-colors duration-300"
-              title="Developer GitHub account"
-            >
-              nabinkhair
-              <ArrowUpRight size={15} className="inline-block" />
-            </Link>{" "}
-            at{" "}
-            <Link
-              href="https://github.com/codixra"
-              className="hover:underline underline-offset-2 hover:text-amber-400 transition-colors duration-300"
-              title="Codixra Lab GitHub account"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              codixra
-              <ArrowUpRight size={15} className="inline-block" />
-            </Link>
-          </p>
-        </div>
-      </div>
+    <footer className="flex h-24 flex-col items-center justify-center space-y-1 text-center">
+      <p className="text-lg font-medium">devn</p>
+      <p className="text-sm text-muted-foreground">
+        Built by{" "}
+        <Link
+          href={githubUrl}
+          className="transition-colors hover:text-primary hover:underline underline-offset-2"
+          title="Developer GitHub account"
+        >
+          nabinkhair
+          <ArrowUpRight size={15} className="inline-block" />
+        </Link>{" "}
+        at{" "}
+        <Link
+          href="https://github.com/codixra"
+          className="transition-colors hover:text-amber-400 hover:underline underline-offset-2"
+          title="Codixra Lab GitHub account"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          codixra
+          <ArrowUpRight size={15} className="inline-block" />
+        </Link>
+      </p>
     </footer>
   );
 };

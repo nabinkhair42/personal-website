@@ -1,99 +1,57 @@
+import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import type { BlogPost } from "@/lib/markdown/mdx";
 
-interface BlogCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  link: string;
-  children?: React.ReactNode;
+interface BlogCardProps {
+  post: BlogPost;
+  priority?: boolean;
 }
 
-const BlogCard = React.forwardRef<HTMLDivElement, BlogCardProps>(
-  ({ className, link, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("rounded-md border hover:shadow-md transition", className)}
-      {...props}
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+export const BlogCard = ({ post, priority }: BlogCardProps) => {
+  const { slug, frontmatter, readingTime } = post;
+  return (
+    <Link
+      href={`/blog/${slug}`}
+      className="group flex h-full flex-col overflow-hidden rounded-md border transition-colors hover:border-foreground/40"
     >
-      <Link href={link} className="block h-full w-full">
-        {children}
-      </Link>
-    </div>
-  )
-);
-BlogCard.displayName = "BlogCard";
-
-const BlogCardImage = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { src: string; alt: string; priority?: boolean }
->(({ className, alt, src, priority = false, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("relative h-47.5 w-full rounded-t-md overflow-hidden mb-3", className)}
-    {...props}
-  >
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 400px"
-      priority={priority}
-    />
-  </div>
-));
-BlogCardImage.displayName = "BlogCardImage";
-
-const BlogCardTitle = React.forwardRef<
-  HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h2
-    ref={ref}
-    className={cn("text-lg font-medium leading-tight line-clamp-2", className)}
-    {...props}
-  />
-));
-BlogCardTitle.displayName = "BlogCardTitle";
-
-const BlogCardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-muted-foreground pb-2 line-clamp-3", className)}
-    {...props}
-  />
-));
-BlogCardDescription.displayName = "BlogCardDescription";
-
-const BlogCardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => <div ref={ref} className={cn("px-3", className)} {...props} />
-);
-BlogCardContent.displayName = "BlogCardContent";
-
-const BlogCardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "flex items-center justify-between px-3 py-2 text-sm text-muted-foreground",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-BlogCardFooter.displayName = "BlogCardFooter";
-
-export {
-  BlogCard,
-  BlogCardContent,
-  BlogCardDescription,
-  BlogCardFooter,
-  BlogCardImage,
-  BlogCardTitle,
+      <div className="relative aspect-video shrink-0 overflow-hidden border-b">
+        <Image
+          src={frontmatter.image || "/image.png"}
+          alt={frontmatter.title}
+          fill
+          priority={priority}
+          sizes="(max-width: 640px) 100vw, 400px"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        />
+      </div>
+      <div className="flex flex-1 flex-col gap-2 p-3">
+        <h3 className="line-clamp-2 text-base font-medium leading-snug" title={frontmatter.title}>
+          {frontmatter.title}
+        </h3>
+        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+          {frontmatter.description}
+        </p>
+        <p className="flex items-center gap-3 pt-1 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <Calendar className="size-3" />
+            {formatDate(frontmatter.date)}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="size-3" />
+            {readingTime}
+          </span>
+        </p>
+      </div>
+    </Link>
+  );
 };
 
 export default BlogCard;

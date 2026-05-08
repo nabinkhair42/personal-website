@@ -150,12 +150,10 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <PageShellWrapper>
-        <ShellWrapper>
-          <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
-        </ShellWrapper>
+        <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
         <TableOfContents content={post.content} />
         <ShellWrapper>
-          <article className="p-2 text-justify">
+          <article className="p-2">
             <MDXRemote source={post.content} components={components} options={mdxOptions} />
           </article>
         </ShellWrapper>

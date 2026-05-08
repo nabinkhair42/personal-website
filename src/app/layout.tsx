@@ -144,9 +144,17 @@ export default function RootLayout({
         >
           <TooltipProvider>
             <HotKeyProvider>
-              <SiteHeader />
-              <main id="main-content">{children}</main>
-              <SiteFooter />
+              <div className="relative grid min-h-screen w-full grid-cols-[1fr_min(50rem,calc(100%-3rem))_1fr]">
+                <div className="col-start-2 flex min-h-screen w-full flex-col">
+                  <SiteHeader />
+                  <main id="main-content" className="flex flex-1 flex-col">
+                    {children}
+                  </main>
+                  <SiteFooter />
+                </div>
+                <div className="col-start-1 row-span-full border-r border-dashed border-r-(--pattern-fg) pattern-hatch" />
+                <div className="col-start-3 row-span-full border-l border-dashed border-l-(--pattern-fg) pattern-hatch" />
+              </div>
             </HotKeyProvider>
           </TooltipProvider>
         </ThemeProvider>
