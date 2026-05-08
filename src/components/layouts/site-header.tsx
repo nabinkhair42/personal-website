@@ -44,7 +44,7 @@ const SiteHeader = () => {
         className={cn(
           "flex items-center transition-[background-color,border-color,box-shadow,height] duration-200",
           isScrolled
-            ? "mt-3 h-11 gap-2.5 border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
+            ? "mt-3 h-11 gap-2.5 w-76 justify-between border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
             : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
         )}
       >

@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { APPLE_EASE } from "../../motion";
 
 // Root component
 interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -151,7 +152,7 @@ const ExpandableSectionItem = React.forwardRef<HTMLDivElement, ExpandableSection
       <ExpandableSectionItemContext.Provider value={contextValue}>
         <div
           ref={ref}
-          className={cn("group", className)}
+          className={cn("group/item", className)}
           data-state={isOpen ? "open" : "closed"}
           {...props}
         >
@@ -179,7 +180,9 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
         type="button"
         onClick={toggle}
         className={cn(
-          "flex w-full cursor-pointer items-center justify-between text-left",
+          "group/trigger flex w-full cursor-pointer items-center justify-between text-left",
+          "transition-[opacity,transform] duration-150 ease-out",
+          "active:scale-[0.995] active:opacity-80",
           className
         )}
         aria-expanded={isOpen}
@@ -187,12 +190,25 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
       >
         {children}
         <motion.span
-          className="text-muted-foreground"
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 380, damping: 28, mass: 0.7 }
+          }
           title={isOpen ? "Collapse section" : "Expand section"}
+          className="shrink-0"
         >
-          <ChevronDown className="h-5 w-5" />
+          <span
+            className={cn(
+              "flex items-center justify-center rounded-full p-1.5 -m-1.5",
+              "text-muted-foreground transition-colors duration-200",
+              "group-hover/trigger:bg-muted/70 group-hover/trigger:text-foreground",
+              "group-data-[state=open]/item:bg-muted/50 group-data-[state=open]/item:text-foreground"
+            )}
+          >
+            <ChevronDown className="h-5 w-5" />
+          </span>
         </motion.span>
       </button>
     );
@@ -214,34 +230,50 @@ const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSect
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
+            initial={shouldReduceMotion ? false : { height: 0 }}
             animate={{
               height: "auto",
-              opacity: 1,
               transition: shouldReduceMotion
                 ? { duration: 0 }
-                : {
-                    height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-                    opacity: { duration: 0.25, delay: 0.05 },
-                  },
+                : { duration: 0.42, ease: APPLE_EASE },
             }}
             exit={
               shouldReduceMotion
-                ? { height: 0, opacity: 0, transition: { duration: 0 } }
-                : {
-                    height: 0,
-                    opacity: 0,
-                    transition: {
-                      height: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
-                      opacity: { duration: 0.15 },
-                    },
-                  }
+                ? { height: 0, transition: { duration: 0 } }
+                : { height: 0, transition: { duration: 0.32, ease: APPLE_EASE } }
             }
             className="overflow-hidden"
           >
-            <div ref={ref} className={cn("space-y-3 mt-3 pl-11", className)} {...props}>
-              {children}
-            </div>
+            <motion.div
+              initial={
+                shouldReduceMotion ? false : { opacity: 0, y: -8, filter: "blur(4px)", scale: 0.97 }
+              }
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                scale: 1,
+                transition: shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.45, ease: APPLE_EASE, delay: 0.06 },
+              }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : {
+                      opacity: 0,
+                      y: -4,
+                      filter: "blur(2px)",
+                      scale: 0.98,
+                      transition: { duration: 0.2, ease: "easeIn" },
+                    }
+              }
+              style={{ transformOrigin: "top" }}
+            >
+              <div ref={ref} className={cn("space-y-3 mt-3 pl-11", className)} {...props}>
+                {children}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
