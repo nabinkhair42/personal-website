@@ -38,14 +38,14 @@ const DeveloperTemplates = () => {
           </p>
         </motion.header>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:auto-rows-fr">
           {TEMPLATES.map((template) => (
             <motion.article
               key={template.name}
               variants={itemVariants}
-              className="group rounded-md border"
+              className="group flex h-full flex-col overflow-hidden rounded-md border transition-colors hover:border-foreground/40"
             >
-              <div className="relative h-47.5 overflow-hidden rounded-t-md">
+              <div className="relative aspect-video shrink-0 overflow-hidden border-b">
                 <Image
                   src={template.light}
                   alt={`${template.name} preview — light`}
@@ -61,14 +61,14 @@ const DeveloperTemplates = () => {
                   className="hidden object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block"
                 />
               </div>
-              <div className="space-y-3 p-3">
+              <div className="flex flex-1 flex-col gap-3 p-3">
                 <div className="space-y-1">
                   <h3 className="text-lg font-medium leading-tight">{template.name}</h3>
                   <p className="line-clamp-3 text-sm text-muted-foreground">
                     {template.description}
                   </p>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="mt-auto flex items-center justify-between gap-2">
                   <Button asChild size="sm" variant="outline">
                     <Link href={buildMail(template.name)}>
                       <Mail className="size-4 text-muted-foreground" />

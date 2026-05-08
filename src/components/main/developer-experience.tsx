@@ -40,7 +40,7 @@ const DeveloperExperience = () => {
             </ExpandableSectionHeader>
           </motion.div>
 
-          <ExpandableSectionList>
+          <ExpandableSectionList className="space-y-8">
             {ExperienceData.map((experience, index) => {
               const hasNext = index < ExperienceData.length - 1;
               return (
@@ -56,31 +56,35 @@ const DeveloperExperience = () => {
                       viewport={VIEWPORT}
                       transition={{ duration: 0.6, delay: 0.2, ease: APPLE_EASE }}
                       style={{ originY: 0 }}
-                      className="absolute left-5 top-11 -bottom-4 w-px bg-muted-foreground/30"
+                      className="absolute left-5 top-10 -bottom-12 w-px bg-muted-foreground/30"
                     />
                   )}
                   <ExpandableSectionItem>
                     <ExpandableSectionTrigger>
-                      <div className="flex items-start gap-3">
-                        <Image
-                          src={experience.logo}
-                          alt={`${experience.company} logo`}
-                          width={40}
-                          height={40}
-                          className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
-                        />
-                        <div className="space-y-1">
-                          <h3 className="flex items-center gap-2 text-lg font-medium md:text-xl">
-                            {experience.company}
-                            {experience.isCurrent && <CurrentBadge />}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {experience.designation} • {experience.type}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {experience.startDate} - {experience.endDate}
-                          </p>
+                      <div className="flex w-full items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                          <Image
+                            src={experience.logo}
+                            alt={`${experience.company} logo`}
+                            width={40}
+                            height={40}
+                            className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
+                          />
+                          <div className="space-y-1">
+                            <h3 className="flex items-center gap-2 text-lg font-medium md:text-xl">
+                              {experience.company}
+                              {experience.isCurrent && <CurrentBadge />}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {experience.designation}
+                              <span className="mx-1.5 text-muted-foreground/40">·</span>
+                              {experience.type}
+                            </p>
+                          </div>
                         </div>
+                        <p className="shrink-0 self-center whitespace-nowrap text-xs text-muted-foreground/70 tabular-nums">
+                          {experience.startDate} – {experience.endDate}
+                        </p>
                       </div>
                     </ExpandableSectionTrigger>
 

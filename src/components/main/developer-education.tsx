@@ -27,7 +27,7 @@ const DeveloperEducation = () => {
           </p>
         </motion.header>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-8">
           {educationData.map((education, index) => {
             const hasNext = index < educationData.length - 1;
             return (
@@ -43,7 +43,7 @@ const DeveloperEducation = () => {
                     viewport={VIEWPORT}
                     transition={{ duration: 0.6, delay: 0.2, ease: APPLE_EASE }}
                     style={{ originY: 0 }}
-                    className="absolute left-5 top-11 -bottom-4 w-px bg-muted-foreground/30"
+                    className="absolute left-5 top-10 -bottom-12 w-px bg-muted-foreground/30"
                   />
                 )}
                 <div className="flex items-start gap-3">
@@ -62,15 +62,18 @@ const DeveloperEducation = () => {
                   )}
                   <div className="space-y-1">
                     <h3 className="text-lg font-medium md:text-xl">{education.institution}</h3>
-                    <p className="text-sm text-muted-foreground">{education.degree}</p>
                     <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MapPin className="size-4" />
-                      {education.location}
+                      {education.degree}
+                      <span className="text-muted-foreground/40">·</span>
+                      <span className="inline-flex items-center gap-1">
+                        <MapPin className="size-3.5" />
+                        {education.location}
+                      </span>
                     </p>
                   </div>
                 </div>
-                <p className="shrink-0 text-sm text-muted-foreground">
-                  {education.startDate} - {education.endDate}
+                <p className="shrink-0 whitespace-nowrap text-xs text-muted-foreground/70 tabular-nums">
+                  {education.startDate} – {education.endDate}
                 </p>
               </motion.div>
             );

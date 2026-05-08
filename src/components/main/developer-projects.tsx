@@ -42,7 +42,7 @@ const DeveloperProjects = () => {
             </ExpandableSectionHeader>
           </motion.div>
 
-          <ExpandableSectionList>
+          <ExpandableSectionList className="space-y-6">
             {ProjectsData.map((project) => (
               <motion.div key={project.title} variants={itemVariants}>
                 <ExpandableSectionItem>
