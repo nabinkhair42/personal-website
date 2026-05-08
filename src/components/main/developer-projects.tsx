@@ -19,7 +19,7 @@ import {
 import StackBadge from "@/components/ui/extended/stack-badge";
 import { ProjectsData } from "@/dev-constants/projects";
 import { GithubIcon } from "@/icons/tech";
-import { itemVariants, sectionVariants, VIEWPORT } from "../_motion";
+import { itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const DeveloperProjects = () => {
   return (

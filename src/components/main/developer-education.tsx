@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../_motion";
+import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const DeveloperEducation = () => {
   const educationData = DeveloperDetails.education;

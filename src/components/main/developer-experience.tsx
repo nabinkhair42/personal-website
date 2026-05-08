@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
 import { ExperienceData } from "@/dev-constants/experience";
-import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../_motion";
+import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const DeveloperExperience = () => {
   return (

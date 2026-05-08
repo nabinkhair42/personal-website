@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { BlogCard } from "@/components/blog/blogs-card";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants, VIEWPORT } from "@/components/_motion";
+import { itemVariants, VIEWPORT } from "@/components/motion";
 import type { BlogPost } from "@/lib/markdown/mdx";
 
 interface BlogsGridProps {

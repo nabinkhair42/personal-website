@@ -8,7 +8,7 @@ import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { TEMPLATES } from "@/dev-constants/templates";
-import { itemVariants, sectionVariants, VIEWPORT } from "../_motion";
+import { itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const buildMail = (name: string) =>
   `mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(

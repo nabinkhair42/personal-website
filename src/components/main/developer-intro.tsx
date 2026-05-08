@@ -8,7 +8,7 @@ import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { itemVariants, sectionVariants } from "../_motion";
+import { itemVariants, sectionVariants } from "../motion";
 
 const DeveloperIntro = () => {
   const { name, designation, bio, avatar, email, resume } = DeveloperDetails;

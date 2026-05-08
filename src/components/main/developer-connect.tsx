@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../_motion";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
 const DeveloperConnect = () => {
   const links = Object.entries(DeveloperDetails.socialLinks);

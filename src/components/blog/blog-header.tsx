@@ -4,7 +4,7 @@ import { Calendar, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants } from "@/components/_motion";
+import { itemVariants } from "@/components/motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
 import type { BlogFrontmatter } from "@/lib/markdown/mdx";

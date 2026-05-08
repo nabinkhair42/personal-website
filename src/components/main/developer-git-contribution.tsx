@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/extended/contribution-graph";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { sectionVariants, VIEWPORT } from "../_motion";
+import { sectionVariants, VIEWPORT } from "../motion";
 
 const LEVEL_FILLS = [
   'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',

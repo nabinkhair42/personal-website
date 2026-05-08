@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants } from "@/components/_motion";
+import { itemVariants } from "@/components/motion";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 export function BlogIntroduction() {
