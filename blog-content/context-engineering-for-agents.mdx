@@ -1,0 +1,161 @@
+---
+title: "Context Engineering for Agents"
+description: "Prompt engineering taught us how to talk to a model. Context engineering is the harder craft of deciding what an agent sees on every turn of its loop."
+developer: "Nabin Khair"
+date: "2026-05-08"
+published: true
+image: '/blog/context-engineering.webp'
+tags: ["AI Agents", "Context Engineering", "Claude Code", "MCP", "LLM", "Prompt Engineering", "Agent Design", "KV Cache"]
+---
+
+For a couple of years, "prompt engineering" was the phrase everyone used to describe the work of getting good output from a language model. It was a fine name when the work really was about wording a single instruction well. But anyone who has built a non-trivial agent in the last year knows the wording of the prompt is a small part of the job. The harder part is the hundred decisions you make about what the model sees on each step of its loop. That is the work the term "prompt engineering" never really captured, and the reason a different name has taken over.
+
+In June 2025, Tobi Lütke tweeted that he preferred [the term "context engineering"](https://x.com/tobi/status/1935533422589399127) — "the art of providing all the context for the task to be plausibly solvable by the LLM." A few days later, [Andrej Karpathy amplified it](https://x.com/karpathy/status/1937902205765607626) with a definition that has stuck:
+
+> Context engineering is the delicate art and science of filling the context window with just the right information for the next step.
+
+By September, Anthropic had [an engineering post by the same name](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). Cognition put it more bluntly in [their writing on Devin](https://cognition.ai/blog/dont-build-multi-agents): "Context engineering is effectively the #1 job of engineers building AI agents."
+
+The rename matters because the underlying activity changed. A chatbot turn is a single round trip. An agent is a loop that may run for hundreds of turns, each one deciding what to do next from a context window that is constantly being refilled with tool calls, file contents, search results, error messages, and partial plans. The model is only as good as what is sitting in that window when it makes its next decision. Choosing what goes in, what stays, and what gets thrown away — across a long trajectory — is a different kind of engineering problem. This article is about what that work actually looks like in practice.
+
+## What is actually in the context window
+
+It helps to be specific about what we are managing. On every model call, four things sit in the context window, and you are responsible for all four:
+
+1. **The system prompt.** Role, rules, working style.
+2. **Tool definitions.** Names, descriptions, parameter schemas. Every tool you register sits in context on every turn, whether the agent uses it or not.
+3. **Retrieved context.** Files, search results, database rows, documentation, anything pulled in to inform the current step.
+4. **Message history.** The accumulating record of user messages, model responses, tool calls and their results. This is the part that grows on its own as the loop runs.
+
+Anthropic frames these as the four components of context engineering, and the framing is useful because it tells you where you have control. The first three you write or design. The fourth grows whether you like it or not, and managing it is most of the job.
+
+## Why the window is finite even when it is huge
+
+A common misunderstanding is that long-context models — Gemini at a million tokens, Claude at 200K — make context engineering a temporary problem that will go away. The empirical record so far says the opposite. Bigger windows have made the problem more visible, not smaller.
+
+The mechanism is the transformer's attention itself. Every token in the window can attend to every other token, which means an `n`-token context produces on the order of `n²` pairwise relationships. Anthropic describes this as an [attention budget](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents):
+
+> Like humans, who have limited working memory capacity, LLMs have an "attention budget" that they draw on when parsing large volumes of context. Every new token introduced depletes this budget by some amount.
+
+The empirical evidence behind this is older than the term. The 2023 paper [*Lost in the Middle*](https://arxiv.org/abs/2307.03172) found that models attend best to the very beginning and very end of their context and degrade in the middle, even on models explicitly trained for long context. GPT-3.5-Turbo's accuracy on multi-document QA dropped more than 20% when the relevant document was placed in the middle. In the worst configurations, performance was *lower than giving the model no documents at all*.
+
+Two years later, Chroma's ["Context Rot" study](https://www.trychroma.com/research/context-rot) ran 18 frontier models — Claude Opus 4 and Sonnet 4, GPT-4.1, o3, Gemini 2.5 Pro, Qwen3 — through a battery of long-context tasks. Their finding generalized the older paper:
+
+> Models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows.
+
+Degradation appeared at every increment, not just near the limit. A 1M-token model still rotted at 50K. Even on simple tasks like text replication, performance grew uneven as context lengthened. So the practical rule is the opposite of intuitive: a longer window does not mean you should fill more of it. The context window is more like a working set than a hard drive. You want the smallest set of high-signal tokens that supports the next decision.
+
+## How contexts fail
+
+Drew Breunig has written the most useful taxonomy I know of, naming [four ways contexts fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html). It is worth knowing each by name because they look different from the outside.
+
+**Context poisoning.** A hallucination or error gets written into the context — a notes scratchpad, a goals list, a summary — and is then referenced by every subsequent step. The mistake compounds. The most documented case is the [Gemini 2.5 Pro Pokémon agent](https://www.dbreunig.com/2025/06/17/an-agentic-case-study-playing-pok%C3%A9mon-with-gemini.html), which became "deluded into thinking that it had to retrieve the TEA in order to progress" — a confusion of game mechanics from a different version of the game. Once the false goal entered the agent's notes, it propagated through every plan, every summary, and every next step, costing hours of gameplay chasing an item that does not exist.
+
+**Context distraction.** Beyond a certain length, the context gets loud enough that the model starts copying patterns from its own history rather than reasoning fresh from training. The Gemini 2.5 Pro Pokémon agent began doing this around 100K tokens, "favoring repeating actions from its vast history rather than synthesizing novel plans." Smaller models distract earlier — Databricks reported degradation around 32K tokens on Llama 3.1 405B. The point is that context length and reasoning quality are not the same axis.
+
+**Context confusion.** Anything in the context the model can see, it has to attend to. Register fifty tools and the model has to consider all of them on every call, even on a question that needs none of them. The [Berkeley Function-Calling Leaderboard](https://gorilla.cs.berkeley.edu/leaderboard.html) shows every model performs worse with more tools available. A quantized Llama 3.1 8B succeeded with 19 tools and failed with 46 on the same benchmark. A separate paper found that limiting tool selection to fewer than 30 yielded around 3× better tool selection accuracy on DeepSeek-v3.
+
+**Context clash.** When a long, accumulating conversation contains contradictions — assumptions made early that no longer hold, partial answers the model now has to walk back — performance collapses. A joint Microsoft and Salesforce study converted single-prompt benchmarks into sharded multi-turn versions and saw average performance drop 39%. OpenAI's o3 fell from 98.1 to 64.1 on the same underlying problems, just because the information was spread across turns instead of given upfront. Their explanation: "When LLMs take a wrong turn in a conversation, they get lost and do not recover."
+
+These failure modes are the reason context engineering exists as a discipline. They are not edge cases. They are the default behaviour of any agent loop that is not actively managed.
+
+## Tools are context, not just capabilities
+
+Most engineers think about tool design as an API problem — what does this function do, what does it return. For agents, that is the wrong frame. A tool is a piece of documentation that the model reads on every turn, and that documentation shapes how the model thinks before it ever invokes the tool.
+
+Three things follow from this:
+
+**Names and descriptions are part of the prompt.** Anthropic's [internal guidance for tool authors](https://www.anthropic.com/engineering/writing-tools-for-agents) is to treat tool descriptions like onboarding docs for a new hire. Their heuristic: if a human engineer cannot clearly describe which of two similar tools to use in a given situation, the agent cannot either. A tool called `do_thing` with the description "does the thing" is a tax you pay on every model call forever.
+
+**Tool output shape determines the next several turns.** A tool that returns a 5,000-token JSON blob with deeply nested fields will burn the agent's next several turns just trying to parse what came back. A tool that returns a clean, well-structured 200-token summary lets the agent move on. Anthropic caps Claude Code tool responses at 25,000 tokens for exactly this reason; they also recommend pagination, filtering, and a `response_format` parameter so the agent can ask for a concise version when full detail is not needed.
+
+**More tools is almost never better.** The Berkeley and DeepSeek findings already cited make this concrete: dynamic tool selection improved Llama 3.1 8B by 44%, with 18% power savings and 77% speed improvements. The right number is the smallest set that covers the work, with consolidated functionality (one `schedule_event` rather than `list_users` + `list_events` + `create_event`) and namespaced prefixes (`asana_projects_search`, `asana_users_search`) that help the model route mentally.
+
+The simplest mental shift: the agent is downstream of your tools, not the other way around. You shape its decisions by shaping what it reads.
+
+## The KV cache, or why your tokens have two prices
+
+This is the part most articles on agents skip, and it is the part that decides whether your system survives contact with production economics.
+
+When a model processes a context, it builds an internal representation called a key-value cache. If you keep the prefix of the context identical across calls, the cache can be reused; you only pay to process the new suffix. On Claude Sonnet, [Anthropic's published pricing](https://www.anthropic.com/pricing) puts cached input at $0.30 per million tokens and uncached input at $3.00 — a 10× difference. For an agent that runs 50 tool calls per task and accumulates a 100:1 input-to-output ratio, this difference is the entire margin between a viable product and a money-losing one.
+
+The team behind Manus has [written the clearest engineering account of this](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus). Their position:
+
+> If I had to choose just one metric, I'd argue that the KV-cache hit rate is the single most important metric for a production-stage AI agent.
+
+Three rules follow:
+
+**Keep the prompt prefix stable.** A timestamp at the top of your system prompt — even one with second-level precision — invalidates the cache on every call. Manus is explicit: "It lets the model tell you the current time, but it also kills your cache hit rate."
+
+**Make the context append-only.** Never edit a prior tool call or observation. Any modification mid-context invalidates the cache from that point forward. If you serialize JSON, do it deterministically — non-deterministic key ordering quietly destroys cache hits even when the data is identical.
+
+**Mask, don't remove.** When you need to restrict which tools the agent can use at a given step, do not remove tools from the registered set — that changes the prefix and invalidates the cache. Instead, mask the logits of unwanted tools at decode time. Manus uses a state machine that toggles tool availability per phase while keeping the registered tool list constant.
+
+You can build agents without thinking about the KV cache. They will work in development. They will be expensive and slow in production.
+
+## Just-in-time over upfront
+
+The first instinct when building an agent is to load it up with everything it might need: the whole codebase index, all the documentation, every config file. It feels thorough. It is the wrong shape for a long-running loop.
+
+Anthropic frames the alternative as [just-in-time retrieval](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents):
+
+> Rather than pre-processing all relevant data up front, agents built with the "just-in-time" approach maintain lightweight identifiers (file paths, stored queries, web links, etc.) and use these references to dynamically load data into context at runtime using tools.
+
+The cognitive analogy they offer is good: humans do not memorize the contents of their hard drive. They keep filenames and bookmarks and pull things in when needed. An agent with good `read_file`, `glob`, and `grep` tools does not need a 400K-token codebase dump.
+
+The production sweet spot is hybrid. Claude Code loads `CLAUDE.md` upfront because it is small, project-specific, and almost always relevant. Everything else is retrieved on demand. Cursor's `.cursor/rules/` and Devin's auto-indexed wiki play similar roles. The principle is: load what is *always* needed, retrieve what is *sometimes* needed.
+
+## Sub-agents are a context isolation trick
+
+Sub-agents tend to be discussed as a way to do work in parallel. Parallelism is real but it is the boring reason. The interesting reason is that a sub-agent runs in its own isolated context window. You can hand it an exploratory task, let it burn through 50 tool calls and tens of thousands of tokens, and get back a clean two-paragraph summary. The parent agent never sees the noise.
+
+Anthropic [used this pattern in their multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) and reported a few numbers worth remembering. The multi-agent system used 15× more tokens than a chat call. Token usage alone explained 80% of the performance variance on browsing evaluations. A multi-agent setup with an Opus 4 lead and Sonnet 4 sub-agents outperformed single-agent Opus 4 by 90.2% on internal research evaluations.
+
+That is one side of the debate. The other side is Cognition's [*Don't Build Multi-Agents*](https://cognition.ai/blog/dont-build-multi-agents), which argues that for coordination-heavy work — coding, in particular — splitting context across agents produces fragile systems:
+
+> Share context, and share full agent traces, not just individual messages.
+
+Their example is a Flappy Bird clone where one sub-agent built a Mario-style background and another built a bird that did not match it. The combining agent was left to reconcile two miscommunications. Their conclusion: "Running multiple agents in collaboration only results in fragile systems."
+
+Reading both posts together, the real distinction is task topology. Research is parallelizable; multiple sub-agents exploring independent threads adds genuine coverage. Coding is coordination-heavy; one decision implies dozens of others, and splitting the context loses information that none of the sub-agents can reconstruct on their own. The right question is not "should I use sub-agents" but "is this task one where independent exploration helps or hurts."
+
+## Memory outside the window
+
+For agents that run beyond a single session — or beyond what fits in any window — the context window cannot be the unit of memory. It has to live somewhere else.
+
+Manus calls the file system "the ultimate context": unlimited in size, persistent, and directly operable by the agent. The pattern is to treat the filesystem as structured externalized memory, with the agent reading and writing files as it works. Anthropic ships a [memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) that does the same thing in a more managed form. Devin maintains an auto-indexed "Devin Wiki" that gets refreshed every couple of hours.
+
+The same idea works inside a single session, in miniature. Anthropic's writeup of Claude playing Pokémon describes the agent maintaining "precise tallies across thousands of game steps... maps of explored regions... strategic notes of combat strategies" — all stored as scratchpad files that get re-read when relevant. Manus's `todo.md` recitation, where the agent rewrites its own goals at the bottom of the context on each turn, is the same trick exploiting the recency end of the lost-in-the-middle curve. By keeping the goal list at the most-attended position, the agent stays on task even after a hundred turns.
+
+The general principle: the working set stays in the window, the long-term store sits in files. Pull in by name, push out by name.
+
+## Compaction is necessary, but trust it carefully
+
+When the loop runs long enough, accumulated history will exhaust the window no matter what else you do. Compaction — summarizing the trajectory and reinitializing on top of the summary — is the standard answer. Claude Code triggers automatic compaction around 95% of the window. `/clear` wipes history; `/compact` summarizes and continues.
+
+The non-obvious part is what to compact and how aggressively. Anthropic's guidance is to start by maximizing recall — making sure the summary captures every relevant piece of information from the trace — and then iterate to improve precision by removing what turns out to be unneeded. Compact too eagerly and you lose subtle details whose importance only becomes apparent later. A safer cheap version is *tool result clearing*: drop the verbose outputs of old tool calls whose results are no longer relevant, while keeping the model's reasoning about them.
+
+The thing to be careful about is trusting the model to summarize itself. Cognition's most useful warning, from their [Devin Sonnet 4.5 writeup](https://cognition.ai/blog/devin-sonnet-4-5-lessons-and-challenges):
+
+> When we relied on the model's own notes without our compacting and summarization systems, we saw performance degradation and gaps in specific knowledge: the model didn't know what it didn't know.
+
+A model summarizing its own history will preserve what it considers important right now, which is not the same as what some future step will need. Production agents tend to use a separate compaction model, an explicit summarization prompt, or a structured format that forces certain fields (decisions, open questions, error states) to be preserved.
+
+## What expert practice actually looks like
+
+A year ago, designing an agent meant writing a careful system prompt and hoping for the best. The questions I find myself asking now are different, and the answers feel less like prompt-craft and more like systems engineering:
+
+- What is the smallest system prompt that produces the behavior I want, organized in a way the model can section through?
+- For each tool: is the name unambiguous, is the description specific enough to prevent confusion with neighboring tools, and is the output shaped so the next turn is easier?
+- How many tools is the agent carrying, and does it need them on every call or only in certain phases?
+- What gets loaded upfront, and what gets retrieved on demand?
+- What is the cache prefix? Where does it break? What is the cost of the average task on cached vs. uncached input?
+- What can be moved into a sub-agent so the main loop stays clean — and is this task one where isolation helps or hurts coordination?
+- Where does long-term state live when it does not fit in the window?
+- When the loop runs long, what gets compacted, what stays, and who decides?
+
+None of those questions are about prompt wording. All of them are about what sits in the window at decision time, and what it costs to keep it there. That is the actual job.
+
+The shift is real and it is not going away. Models are getting better at long context, but the mechanisms that produce context rot, distraction, and clash are properties of the transformer, not artifacts of any one model generation. The teams that ship agents people actually use are the ones that have stopped thinking about prompts and started thinking about working sets, attention budgets, cache hits, and information topology.
+
+> Prompt engineering was the skill we needed when we were talking to models. Context engineering is the skill we need now that we are building systems around them.

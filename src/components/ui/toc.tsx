@@ -1,6 +1,7 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
+import { motion } from "motion/react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+
+const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
+
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.025,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -6, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { type: "spring" as const, stiffness: 460, damping: 38 },
+  },
+};
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
@@ -100,23 +124,42 @@ export function DocsTableOfContents({
   }
 
   return (
-    <div className={cn("flex flex-col gap-2 p-4 pt-0 text-sm", className)}>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={listContainerVariants}
+      className={cn("flex flex-col gap-2 p-4 pt-0 text-sm", className)}
+    >
       {!hideLabel && (
-        <p className="sticky top-0 h-6 bg-background text-xs font-medium text-muted-foreground">
-          On This Page
-        </p>
-      )}
-      {toc.map((item) => (
-        <a
-          key={item.url}
-          href={item.url}
-          className="text-[0.8rem] text-muted-foreground/50 no-underline transition-colors hover:text-muted-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-          data-active={item.url === `#${activeHeading}`}
-          data-depth={item.depth}
+        <motion.p
+          variants={listItemVariants}
+          className="sticky top-0 h-6 bg-background text-xs font-medium text-muted-foreground"
         >
-          {item.title}
-        </a>
-      ))}
-    </div>
+          On This Page
+        </motion.p>
+      )}
+      {toc.map((item) => {
+        const isActive = item.url === `#${activeHeading}`;
+        return (
+          <motion.a
+            key={item.url}
+            href={item.url}
+            variants={listItemVariants}
+            className="relative text-[0.8rem] text-muted-foreground/50 no-underline transition-colors hover:text-muted-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active={isActive}
+            data-depth={item.depth}
+          >
+            {isActive && (
+              <motion.span
+                layoutId="docs-toc-active-indicator"
+                className="absolute -left-2 top-1/2 -translate-y-1/2 h-3.5 w-0.5 rounded-full bg-foreground"
+                transition={{ type: "spring", stiffness: 500, damping: 38 }}
+              />
+            )}
+            {item.title}
+          </motion.a>
+        );
+      })}
+    </motion.div>
   );
 }

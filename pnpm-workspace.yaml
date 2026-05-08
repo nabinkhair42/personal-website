@@ -1,6 +1,9 @@
 packages:
   - .
 
+allowBuilds:
+  sharp: true
+
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@tailwindcss/oxide'

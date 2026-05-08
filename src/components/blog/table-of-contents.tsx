@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { List, X } from "lucide-react";
 import { AnimatePresence, MotionConfig, type MotionValue, motion, useScroll } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -105,7 +105,45 @@ function useActiveHeading(slugs: string[]) {
   return active;
 }
 
-const SPRING = { type: "spring" as const, stiffness: 400, damping: 30 };
+const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
+const SPRING = { type: "spring" as const, stiffness: 380, damping: 32, mass: 0.8 };
+const ITEM_SPRING = { type: "spring" as const, stiffness: 460, damping: 36 };
+
+const sheetVariants = {
+  hidden: { opacity: 0, scale: 0.86, y: 12, filter: "blur(14px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      ...SPRING,
+      staggerChildren: 0.028,
+      delayChildren: 0.08,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.92,
+    y: 8,
+    filter: "blur(8px)",
+    transition: { duration: 0.18, ease: APPLE_EASE, staggerChildren: 0 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -6, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: ITEM_SPRING,
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1, ease: APPLE_EASE },
+  },
+};
 
 interface TableOfContentsProps {
   content: string;
@@ -118,30 +156,19 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     [sections]
   );
   const activeSlug = useActiveHeading(allSlugs);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
 
-  const activeTitle = useMemo(() => {
-    if (!activeSlug) return sections[0]?.text ?? "Introduction";
-    for (const section of sections) {
-      if (section.slug === activeSlug) return section.text;
-      for (const child of section.children) {
-        if (child.slug === activeSlug) return child.text;
-      }
-    }
-    return sections[0]?.text ?? "Introduction";
-  }, [sections, activeSlug]);
-
   useEffect(() => {
-    if (!isExpanded) return;
+    if (!isOpen) return;
     const handleClick = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setIsExpanded(false);
+        setIsOpen(false);
       }
     };
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsExpanded(false);
+      if (e.key === "Escape") setIsOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("keydown", handleEscape);
@@ -149,7 +176,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
       document.removeEventListener("mousedown", handleClick);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isExpanded]);
+  }, [isOpen]);
 
   if (allSlugs.length < 3) return null;
 
@@ -157,82 +184,103 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     <MotionConfig transition={SPRING}>
       <nav
         aria-label="Table of contents"
-        className="fixed inset-x-0 bottom-6 z-50 flex justify-center px-4 pointer-events-none"
+        className="fixed bottom-6 right-6 z-50 pointer-events-none"
       >
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
-          className="pointer-events-auto"
+          ref={containerRef}
+          initial={{ opacity: 0, y: 24, scale: 0.9, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.7, delay: 0.2, ease: APPLE_EASE }}
+          className="pointer-events-auto relative"
         >
-          <div
-            ref={containerRef}
-            className={cn(
-              "overflow-hidden border bg-card/95 shadow-lg backdrop-blur-md",
-              isExpanded ? "rounded-2xl" : "rounded-full"
-            )}
-          >
-            <AnimatePresence mode="popLayout" initial={false}>
-              {!isExpanded ? (
-                <motion.button
-                  key="collapsed"
-                  type="button"
-                  onClick={() => setIsExpanded(true)}
-                  initial={{ opacity: 0, filter: "blur(3px)" }}
-                  animate={{ opacity: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, filter: "blur(3px)" }}
-                  transition={{ duration: 0.15 }}
-                  aria-expanded={false}
-                  aria-label={`Expand table of contents. Current section: ${activeTitle}`}
-                  className="flex items-center gap-2.5 py-2 pr-3 pl-3 text-left cursor-pointer hover:bg-accent/50 transition-colors"
-                >
-                  <ProgressRing progress={scrollYProgress} />
-                  <span className="text-sm font-medium truncate max-w-[180px] sm:max-w-[280px]">
-                    {activeTitle}
-                  </span>
-                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                </motion.button>
-              ) : (
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                key="sheet"
+                variants={sheetVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                role="dialog"
+                aria-label="Table of contents"
+                className={cn(
+                  "absolute bottom-14 right-0 w-[min(86vw,20rem)]",
+                  "origin-bottom-right overflow-hidden rounded-2xl",
+                  "border border-border bg-background",
+                  "shadow-2xl shadow-black/30"
+                )}
+              >
                 <motion.div
-                  key="expanded"
-                  initial={{ opacity: 0, filter: "blur(3px)" }}
-                  animate={{ opacity: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, filter: "blur(3px)" }}
-                  transition={{ duration: 0.15 }}
-                  className="w-[min(90vw,26rem)] p-2"
+                  variants={itemVariants}
+                  className="flex items-center justify-between px-3.5 pt-3 pb-2"
                 >
-                  <div className="flex items-center justify-between px-2 py-1">
-                    <div className="flex items-center gap-2.5">
-                      <span className="">On this page</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsExpanded(false)}
-                      aria-label="Collapse table of contents"
-                      className="-mr-1 rounded p-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors"
-                    >
-                      <ChevronDown className="h-3.5 w-3.5 rotate-180" />
-                    </button>
-                  </div>
-                  <ol className="mt-1 flex flex-col gap-0.5">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                    On this page
+                  </span>
+                  <span className="text-[11px] tabular-nums text-muted-foreground/70">
+                    <ScrollPercent progress={scrollYProgress} />
+                  </span>
+                </motion.div>
+                <div className="max-h-[60vh] overflow-y-auto px-2 pb-2">
+                  <ol className="flex flex-col gap-0.5">
                     {sections.map((section) => (
                       <SectionItem
                         key={section.slug}
                         section={section}
                         activeSlug={activeSlug}
-                        onNavigate={() => setIsExpanded(false)}
+                        onNavigate={() => setIsOpen(false)}
                       />
                     ))}
                   </ol>
-                </motion.div>
-              )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <motion.button
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.92 }}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? "Close table of contents" : "Open table of contents"}
+            className={cn(
+              "relative flex size-11 items-center justify-center rounded-full cursor-pointer",
+              "border border-border bg-background",
+              "shadow-lg shadow-black/20 transition-colors hover:bg-accent/40"
+            )}
+          >
+            <ProgressRing progress={scrollYProgress} />
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={isOpen ? "close" : "open"}
+                initial={{ opacity: 0, scale: 0.6, rotate: isOpen ? -90 : 90 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.6, rotate: isOpen ? 90 : -90 }}
+                transition={{ duration: 0.2, ease: APPLE_EASE }}
+                className="relative inline-flex"
+              >
+                {isOpen ? (
+                  <X className="size-3.5" strokeWidth={2.25} />
+                ) : (
+                  <List className="size-3.5" strokeWidth={2.25} />
+                )}
+              </motion.span>
             </AnimatePresence>
-          </div>
+          </motion.button>
         </motion.div>
       </nav>
     </MotionConfig>
   );
 };
+
+function ScrollPercent({ progress }: { progress: MotionValue<number> }) {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    return progress.on("change", (v) => setPct(Math.round(v * 100)));
+  }, [progress]);
+  return <>{pct}%</>;
+}
 
 function SectionItem({
   section,
@@ -245,7 +293,7 @@ function SectionItem({
 }) {
   const isActive = activeSlug === section.slug;
   return (
-    <li>
+    <motion.li variants={itemVariants}>
       <TocLink
         slug={section.slug}
         text={section.text}
@@ -255,7 +303,7 @@ function SectionItem({
       {section.children.length > 0 && (
         <ol className="ml-3 flex flex-col gap-0.5 shadow-[inset_1px_0_0_0_var(--color-border)]">
           {section.children.map((child) => (
-            <li key={child.slug}>
+            <motion.li key={child.slug} variants={itemVariants}>
               <TocLink
                 slug={child.slug}
                 text={child.text}
@@ -263,11 +311,11 @@ function SectionItem({
                 onNavigate={onNavigate}
                 nested
               />
-            </li>
+            </motion.li>
           ))}
         </ol>
       )}
-    </li>
+    </motion.li>
   );
 }
 
@@ -310,28 +358,18 @@ function TocLink({
 function ProgressRing({ progress }: { progress: MotionValue<number> }) {
   return (
     <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      className="shrink-0 -rotate-90"
+      viewBox="0 0 44 44"
+      className="absolute inset-0 size-full -rotate-90 pointer-events-none"
       aria-hidden="true"
     >
-      <circle
-        cx="8"
-        cy="8"
-        r="6"
-        fill="none"
-        strokeWidth={1.5}
-        className="stroke-muted-foreground/25"
-      />
       <motion.circle
-        cx="8"
-        cy="8"
-        r="6"
+        cx="22"
+        cy="22"
+        r="20"
         fill="none"
         strokeWidth={1.5}
         strokeLinecap="round"
-        className="stroke-foreground"
+        className="stroke-foreground/80"
         style={{ pathLength: progress }}
       />
     </svg>

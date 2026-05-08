@@ -80,12 +80,12 @@ const DeveloperTemplates = () => {
             <ArrowUpRight className="size-3" />
           </Link>
           <Link
-            href="https://skills.sh"
+            href="https://skills.nabinkhair.com.np"
             target="_blank"
             rel="noreferrer noopener"
             className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            skills.sh
+            skills
             <ArrowUpRight className="size-3" />
           </Link>
         </div>
