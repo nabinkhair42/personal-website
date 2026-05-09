@@ -1,153 +1,205 @@
 ---
-title: "How to Kill a Process Running on a Port"
-description: "A quick reference for finding and killing processes blocking a port on macOS, Linux, and Windows."
+title: "Killing a Process on a Port, Properly"
+description: "What a stuck port actually is, why TIME_WAIT and CLOSE_WAIT happen, and how to free the port without leaving a mess behind your app."
 developer: "Nabin Khair"
 date: "2026-03-30"
 published: true
 image: "/blog/kill-port.webp"
-tags: ["Terminal", "DevOps", "Developer Guide", "Linux", "macOS", "Windows", "Networking"]
+tags: ["Terminal", "DevOps", "TCP", "Sockets", "Linux", "macOS", "Windows", "Docker", "Networking"]
 ---
 
-You run `npm run dev` and the terminal yells back: **"Port 3000 is already in use."** A previous server didn't shut down cleanly, or another tool grabbed the port while you weren't looking. This happens often enough that every developer should have the fix memorized.
+You run `npm run dev` and the terminal yells back: **"Port 3000 is already in use."** Most posts on the internet tell you to run `kill -9` and move on. That works often enough that nobody questions it, and it is also the reason you sometimes lose unsaved data, leave half-written log files, or end up with a port that *still* will not free even after you have killed everything you can find.
 
-## Find the Process
+This article is the version of "how to free a port" that I wish I had read earlier. It explains what is actually happening when a port is stuck, why `kill -9` is the wrong first move, what `TIME_WAIT` and `CLOSE_WAIT` actually mean, and how to handle the modern causes — Docker, SSH tunnels, macOS background services — that the average tutorial does not mention. There is a quick reference at the end if you just want the commands.
 
-Before killing anything, confirm what is actually holding the port. Running blind kill commands can shut down services you still need.
+## What "the port is in use" actually means
 
-### Linux and macOS
+A TCP port is not a thing the OS owns. It is a number that, combined with an IP address and a protocol, identifies one end of a socket. When a process calls `bind(2)` on a socket and then `listen(2)`, the kernel records the tuple `(protocol, address, port)` as belonging to that socket's file descriptor in that process. While the file descriptor is open in any process, no other socket can `bind()` the same tuple. A second `bind()` returns `EADDRINUSE` — the kernel-level error your dev server prints in human-readable form.
+
+The port becomes free again when *every* file descriptor referring to that listening socket is closed. That last sentence is more important than it looks. If your Node server forks a worker that inherits the listen socket, the port stays bound until both the parent *and* the worker exit. If you `Ctrl+C` the parent and the worker keeps running, the port is still busy and you will be confused about why. This is the orphan-worker scenario, and it is one of the more common reasons "I killed it but the port is still stuck."
+
+The other reason is more subtle: even when no process holds the socket, the kernel itself can keep the port reserved for a short time. To understand why, you have to know a few of the TCP states.
+
+## The three states that bite developers
+
+[RFC 9293](https://datatracker.ietf.org/doc/html/rfc9293), the current TCP specification, defines eleven states a connection can move through. Most of them you will never see. Three of them are worth knowing because they map directly to "why is my port stuck."
+
+**LISTEN** is the obvious one. A process called `bind()` and `listen()` and is currently accepting connections. The fix is to stop the process.
+
+**TIME_WAIT** is where the kernel is being careful on your behalf. RFC 9293 describes it as "waiting for enough time to pass to be sure the remote TCP peer received the acknowledgment of its connection termination request and to avoid new connections being impacted by delayed segments from previous connections." Translated: when one side of a TCP connection closes first, its socket sits in `TIME_WAIT` long enough that any straggling packets from the old connection cannot accidentally get delivered to a brand-new connection that happened to reuse the same port. The connection is over from your application's point of view, but the kernel still owns the tuple.
+
+The duration is not what most people think. The RFC says `2 × MSL` (Maximum Segment Lifetime) and recommends an MSL of 2 minutes, so the spec maximum is 4 minutes. Real systems pick shorter values:
+
+- **Linux**: 60 seconds. Hardcoded in `include/net/tcp.h` as `TCP_TIMEWAIT_LEN (60*HZ)`. There is no sysctl to tune it — you would have to recompile the kernel.
+- **macOS / BSD**: about 30 seconds. The MSL constant is 15 seconds (`TCPTV_MSL` in Darwin's `bsd/netinet/tcp_timer.h`); confirmable at runtime with `sysctl net.inet.tcp.msl`.
+- **Windows**: 120 seconds by default. Tunable via the registry value `HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpTimedWaitDelay`, range 2-300.
+
+If you stop a server, restart it immediately, and see "address already in use" for a minute or two even though `lsof` shows nothing — that is `TIME_WAIT`. The fix is not to kill anything. The fix is `SO_REUSEADDR`, which we will get to.
+
+There is one nuance worth flagging: `TIME_WAIT` lands on whichever side called `close()` first. If your *server* initiated the close, the listening socket gets stuck. If a *client* closed first (a browser tab, a curl exit), `TIME_WAIT` is on the client end and your server's listen port is unaffected. This is why `TIME_WAIT` blocks restarts after a crash or `Ctrl+C` but not during normal operation.
+
+**CLOSE_WAIT** is the most interesting state, because it almost always means *your app has a bug*. RFC 9293 describes it as "waiting for a connection termination request from the local user." The remote side has sent `FIN`, the kernel has acknowledged it, and it is now waiting for *your application* to call `close()`. There is no kernel timeout for `CLOSE_WAIT`. The socket — and the port — stay there until your app exits or finally closes the file descriptor.
+
+If you see many `CLOSE_WAIT` entries piling up in `ss -tan state close-wait`, it means somewhere in your code there is a code path — usually an unhandled exception, a missing `try/finally`, or a forgotten `close()` in a long-running worker — that opens connections and never tears them down properly. Restarting the process clears it. Fixing the bug is the real solution.
+
+## Finding what holds the port
+
+Before you kill anything, find out what owns the port. Killing blind is how you accidentally take down a database or a system service.
+
+On **Linux**, the modern tool is `ss`, not `netstat`. `ss` reads from the kernel's `NETLINK_INET_DIAG` socket-diagnostic interface, while `netstat` parses `/proc/net/tcp` line by line — `ss` is faster and has better state filtering.
 
 ```bash
-lsof -i :3000
+ss -tlnp | grep :3000
 ```
 
-This prints the process name, PID, user, and connection state. Look at the `PID` column — that is the number you need.
+The flags: `-t` for TCP, `-l` for listening sockets only, `-n` for numeric output (skip DNS and `/etc/services` lookups), `-p` to show the owning process. You will get output like `users:(("node",pid=12345,fd=20))`.
 
-If `lsof` is not available, use `ss` on Linux:
+On **macOS**, there is no `ss`. Use `lsof`:
 
 ```bash
-ss -tlnp | grep 3000
+lsof -nP -iTCP:3000 -sTCP:LISTEN
 ```
 
-### Windows
+`-n` skips DNS, `-P` skips port-name translation, `-iTCP:3000` filters to TCP port 3000, `-sTCP:LISTEN` filters to listening sockets only. This is more precise than the bare `lsof -i :3000` you see in most tutorials, which prints everything including outbound connections from your browser.
+
+A useful caveat: by default `lsof` shows only files visible to your user. If the port is held by a system process owned by `root`, you will see nothing and assume the port is free. Run with `sudo` when in doubt:
+
+```bash
+sudo lsof -nP -iTCP:3000 -sTCP:LISTEN
+```
+
+On **Windows**, the PowerShell-native form is cleaner than `netstat`:
 
 ```powershell
-netstat -ano | findstr :3000
+Get-NetTCPConnection -LocalPort 3000 | Select-Object OwningProcess, State
+Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess
 ```
 
-The last column is the PID. To see the process name:
+The classic `netstat -ano | findstr :3000` still works. Add `-b` to see executable names, but that requires Administrator privileges.
 
-```powershell
-tasklist /FI "PID eq 12345"
-```
+## Killing the process, properly
 
-## Kill the Process
+This is the part where most tutorials get it wrong.
 
-Once you have the PID, terminate it.
+When you run `kill <PID>` with no signal, the kernel sends `SIGTERM` (signal 15). When you run `kill -9 <PID>`, it sends `SIGKILL` (signal 9). The two are not equivalent.
 
-### Linux and macOS
+`SIGTERM` is a polite request. The process can install a handler with `sigaction(2)`, run cleanup code, flush buffers, close database connections, write a final log line, and then exit cleanly. Most well-written servers do exactly this — Node's `process.on('SIGTERM')`, Python's signal handlers, Go's `signal.Notify`, all hook into `SIGTERM`.
+
+`SIGKILL` cannot be caught, blocked, or ignored. The Linux `signal(7)` man page is unambiguous: *"The signals SIGKILL and SIGSTOP cannot be caught, blocked, or ignored."* The kernel terminates the process directly, without ever scheduling its userland code again. No `atexit` handlers run. No destructors fire. No buffered writes flush. No graceful TCP close. The kernel will close the file descriptors as part of process teardown, which means open client connections get an `RST` instead of a clean `FIN` — clients see "connection reset by peer" rather than a normal disconnect.
+
+For a dev server with no in-flight work, none of this matters. For anything writing to a database, holding a file lock, or maintaining state that needs to be flushed, `kill -9` first is a way to lose data.
+
+The conventional escalation, used by `systemd` (default `TimeoutStopSec=90s`) and Docker (`docker stop --time=10`), is:
+
+1. `kill <PID>` — sends `SIGTERM`.
+2. Wait 5-10 seconds.
+3. If still alive, `kill -9 <PID>` — sends `SIGKILL`.
+
+I keep this as a small shell function:
 
 ```bash
-kill -9 <PID>
-```
-
-The `-9` flag sends `SIGKILL`, which forces the process to stop immediately. Use it when a regular `kill <PID>` (which sends `SIGTERM`) doesn't work.
-
-### Windows
-
-```powershell
-taskkill /PID 12345 /F
-```
-
-The `/F` flag forces termination, similar to `SIGKILL` on Unix systems.
-
-## One-Liner: Find and Kill in a Single Command
-
-When you know exactly which port to free and don't need to inspect anything first, a one-liner saves time.
-
-### Linux and macOS
-
-```bash
-kill -9 $(lsof -t -i :3000)
-```
-
-The `-t` flag tells `lsof` to output only the PID, making it easy to pipe into `kill`.
-
-For multiple ports at once:
-
-```bash
-kill -9 $(lsof -t -i :3000 -i :3001 -i :5173)
-```
-
-### Windows (PowerShell)
-
-```powershell
-Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess -Force
-```
-
-## Using npx as a Shortcut
-
-If you work in a Node.js environment, `kill-port` is a popular utility that handles cross-platform differences for you.
-
-```bash
-npx kill-port 3000
-```
-
-Multiple ports:
-
-```bash
-npx kill-port 3000 3001 5173
-```
-
-No installation required. It works on Linux, macOS, and Windows without remembering platform-specific flags.
-
-## Create a Shell Alias
-
-If you free ports frequently, save a few keystrokes by adding an alias to your shell config (`~/.bashrc`, `~/.zshrc`, or `~/.config/fish/config.fish`).
-
-```bash
-# Add to ~/.zshrc or ~/.bashrc
 killport() {
-  kill -9 $(lsof -t -i :"$1") 2>/dev/null && echo "Port $1 freed." || echo "Nothing running on port $1."
+  local port="$1"
+  local pid=$(lsof -ti :"$port")
+  if [ -z "$pid" ]; then
+    echo "Nothing on port $port"
+    return
+  fi
+  kill "$pid" 2>/dev/null
+  for i in 1 2 3 4 5; do
+    sleep 1
+    kill -0 "$pid" 2>/dev/null || { echo "Port $port freed"; return; }
+  done
+  echo "Process $pid did not respond to SIGTERM, sending SIGKILL"
+  kill -9 "$pid"
 }
 ```
 
-Reload the shell and use it:
+This is the version I wish more dotfiles repos shipped. It tries the right thing first, gives the process a few seconds to clean up, and only escalates when it has to.
+
+On Linux, `fuser -k 3000/tcp` is a one-shot equivalent. The default signal it sends is `SIGKILL`, so for the same reason as above, prefer `fuser -TERM -k 3000/tcp` first if you care about clean shutdown.
+
+## When the holder is not your dev server
+
+Half the time I have spent fighting "port already in use" was not because of a stuck Node process. It was something less obvious. These are the modern causes worth knowing.
+
+**Docker.** When you `docker run -p 3000:3000`, two things happen on Linux. The Docker daemon adds an iptables `DNAT` rule that rewrites incoming packets, and it spawns a userland helper called `docker-proxy` that binds to the host port and forwards bytes to the container. The reason for both is that Linux netfilter does not apply NAT to loopback traffic, so without the userland proxy, `curl localhost:3000` from the host would not reach the container. The practical consequence: `lsof -i :3000` shows `docker-proxy` as the listener, not your app. On Docker Desktop (macOS, Windows), the listener will appear as `com.docker.backend` or `vpnkit`. If `docker ps` shows a running container with the port mapped, that is your culprit. Stop the container with `docker stop`, not `kill`. Stopped containers (visible only in `docker ps -a`) do *not* hold the port.
+
+**SSH local port forwarding.** `ssh -L 3000:localhost:3000 user@host` opens a local listener on port 3000 that tunnels to the remote host. If you backgrounded the SSH session with `-f`, ran it inside a tmux pane, or just forgot about a terminal, the local port stays bound until the SSH client exits. `lsof -i :3000` will show `COMMAND` as `ssh` — if that ever surprises you, this is why.
+
+**macOS background services.** Since macOS Monterey (12), AirPlay Receiver listens on **port 5000** and **port 7000** by default. This collides with anything trying to use 5000 — Flask's default, plenty of dev servers. The fix is one toggle: System Settings → General → AirDrop & Handoff → "AirPlay Receiver" off. The owning process is `ControlCenter` or `rapportd`. You will not be able to kill these and have them stay dead — `launchd` will respawn them. Toggle the setting instead.
+
+**`launchd` auto-respawn.** macOS's PID 1 is `launchd`, and any service with `KeepAlive=true` in its plist gets restarted within seconds of being killed. If you `kill` something and the port reappears within ten seconds, look in `launchctl list` and `launchctl print` for the offender. Use `launchctl unload <plist>` or `launchctl bootout` rather than `kill`.
+
+**Privileged ports.** Ports below 1024 require root on Unix. This is enforced by the kernel — Linux's `ip(7)` man page: *"a privileged process (on Linux: a process that has the **CAP_NET_BIND_SERVICE** capability in the user namespace governing its network namespace) may bind(2) to these sockets."* If your app is trying to bind port 80 or 443 and getting `EACCES`, you are not the owner of port — there is no owner — you just lack the capability. The two clean fixes are running behind a reverse proxy (nginx, Caddy) that has the capability and forwarding to a high port your app owns, or granting the capability to the binary directly:
 
 ```bash
-source ~/.zshrc
-killport 3000
+sudo setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 ```
 
-Now freeing a port is a single word.
+The `setcap` approach has caveats — you have to reapply it after every binary update, and giving the capability to an interpreter (Node, Python) effectively gives it to every script you run with that interpreter. The reverse-proxy approach is what production systems use for a reason.
 
-## Common Ports You'll Run Into
+**WSL2.** On Windows 11 22H2 and later, WSL2 supports mirrored networking mode, where the WSL2 VM shares the host's network stack and `localhost` works transparently in both directions. Add this to `.wslconfig`:
 
-| Port | Typical Service |
-| --- | --- |
-| 3000 | React, Next.js, Express |
-| 3001 | Next.js (fallback) |
-| 4200 | Angular CLI |
-| 5173 | Vite |
-| 5432 | PostgreSQL |
-| 8000 | Django, FastAPI |
-| 8080 | Spring Boot, misc servers |
-| 27017 | MongoDB |
+```ini
+[wsl2]
+networkingMode=mirrored
+```
 
-## When `kill -9` Doesn't Work
+In the older NAT mode, ports bound inside WSL2 are not automatically reachable from Windows; people end up with stale `netsh interface portproxy` rules they forgot they added. If a port behaves strangely on WSL2, check `netsh interface portproxy show all` from an Administrator PowerShell.
 
-Rarely, a zombie process or a system-level service resists `SIGKILL`. A few things to check:
+## The fix when you control the server: SO_REUSEADDR
 
-- **Zombie processes** — The parent hasn't collected the exit status. Find the parent PID with `ps -o ppid= -p <PID>` and kill that instead.
-- **Root-owned processes** — Prefix your command with `sudo`. If you didn't start the process, you may not have permission to kill it.
-- **Kernel threads** — Shown in brackets in `ps` output (e.g., `[kworker]`). These cannot be killed. If a kernel thread holds a port, something deeper is wrong.
+If you are restarting your own server and `TIME_WAIT` is what is blocking the rebind, the right fix is not killing anything — it is setting `SO_REUSEADDR` on the listening socket before `bind()`. From `socket(7)`: *"SO_REUSEADDR indicates that the rules used in validating addresses supplied in a `bind(2)` call should allow reuse of local addresses."* Specifically on Linux, it allows binding when a previous socket for the same `(addr, port)` tuple is in `TIME_WAIT`. It does *not* let you steal a port from a process that is still actively listening — that protection stays in place.
 
-## Quick Reference
+In Node's `http` server this is on by default (`exclusive: false`). In Python's standard library, you have to set it explicitly:
 
-| Goal | Linux / macOS | Windows |
-| --- | --- | --- |
-| Find process on port | `lsof -i :PORT` | `netstat -ano \| findstr :PORT` |
-| Kill by PID | `kill -9 PID` | `taskkill /PID PID /F` |
-| One-liner kill | `kill -9 $(lsof -t -i :PORT)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT).OwningProcess -Force` |
-| Cross-platform shortcut | `npx kill-port PORT` | `npx kill-port PORT` |
+```python
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(('0.0.0.0', 3000))
+```
 
-That covers every situation I've hit in daily development. Bookmark this page, or better yet, set up the shell alias and never think about it again.
+If you find yourself running "kill the port" between every restart of a server you wrote, this is usually the line you are missing.
+
+A separate option, `SO_REUSEPORT` (Linux 3.9+), permits multiple sockets to bind to the same address and port simultaneously, with the kernel load-balancing across them. That is for production multi-process servers, not for fixing dev-loop annoyances.
+
+## Tools to keep around
+
+A few small utilities are worth installing for moments when the OS native ones feel clunky.
+
+`npx kill-port 3000` is convenient if you live inside a Node toolchain and do not want to remember which platform-specific command to use. It shells out to `lsof`/`netstat` under the hood and sends `SIGKILL`, so know what it is doing before you run it on something stateful.
+
+`fuser -k 3000/tcp` on Linux is the cleanest one-liner for the simple case.
+
+`htop` and `procs` are nicer for seeing the process tree (parent/child relationships matter when an orphan worker is holding a socket).
+
+For Windows, `Process Explorer` from Sysinternals shows handles and can find which process holds a TCP port without leaving the GUI.
+
+## Quick reference
+
+| Goal | Linux | macOS | Windows |
+|---|---|---|---|
+| Find listener on a port | `ss -tlnp \| grep :PORT` | `lsof -nP -iTCP:PORT -sTCP:LISTEN` | `Get-NetTCPConnection -LocalPort PORT` |
+| Find any process touching a port | `lsof -i :PORT` | `lsof -i :PORT` | `netstat -ano \| findstr :PORT` |
+| Polite kill (SIGTERM) | `kill PID` | `kill PID` | `Stop-Process -Id PID` |
+| Force kill (SIGKILL) | `kill -9 PID` | `kill -9 PID` | `Stop-Process -Id PID -Force` |
+| One-shot port kill | `fuser -k PORT/tcp` | `kill $(lsof -ti :PORT)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT).OwningProcess -Force` |
+| See TCP states | `ss -tan` | `netstat -anv -p tcp` | `Get-NetTCPConnection` |
+| Check what Docker holds | `docker ps` | `docker ps` | `docker ps` |
+| Cross-platform shortcut | `npx kill-port PORT` | `npx kill-port PORT` | `npx kill-port PORT` |
+
+## What to remember
+
+The port is held by a file descriptor somewhere — find that first, then decide what to do.
+
+`SIGTERM` first, `SIGKILL` only when the process refuses to leave. Five seconds is plenty.
+
+`TIME_WAIT` is the kernel doing its job. The fix is `SO_REUSEADDR`, not killing anything.
+
+`CLOSE_WAIT` accumulating is your code forgetting to call `close()`. Restarting masks it; you still have a leak.
+
+Modern "stuck port" causes are usually Docker, SSH tunnels, AirPlay on macOS, or a worker process you forgot about. Look there before you reach for the hammer.
+
+> A port that will not free is almost always a question worth answering, not a process worth killing harder.
