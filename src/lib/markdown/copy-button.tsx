@@ -1,18 +1,20 @@
 "use client";
 
 import { Check, Copy } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { APPLE_EASE } from "../../components/motion";
 
 interface CopyButtonProps {
   value: string;
   className?: string;
 }
 
-export function CopyButton({ value }: CopyButtonProps) {
+export function CopyButton({ value, className }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     return () => {
@@ -41,16 +43,53 @@ export function CopyButton({ value }: CopyButtonProps) {
   }, [value]);
 
   return (
-    <Button
+    <button
       type="button"
       onClick={handleCopy}
-      size={"icon"}
-      variant={"ghost"}
       aria-label={copied ? "Code copied" : "Copy code"}
       title={copied ? "Copied" : "Copy code"}
-      className="size-6 rounded!"
+      className={cn(
+        "relative inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted-foreground/80",
+        "outline-none transition-[color,background-color,transform] duration-150 ease-out",
+        "hover:bg-muted/70 hover:text-foreground",
+        "focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
+        "active:scale-[0.94]",
+        className
+      )}
     >
-      {copied ? <Check className="size-3" aria-hidden /> : <Copy className="size-3" aria-hidden />}
-    </Button>
+      <AnimatePresence mode="wait" initial={false}>
+        {copied ? (
+          <motion.span
+            key="check"
+            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.6, rotate: -20 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: 20 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.22, ease: APPLE_EASE }
+            }
+            className="absolute inset-0 flex items-center justify-center text-foreground"
+          >
+            <Check className="size-3.5" aria-hidden strokeWidth={2.5} />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="copy"
+            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.6, rotate: 20 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: -20 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.22, ease: APPLE_EASE }
+            }
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <Copy className="size-3.5" aria-hidden />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </button>
   );
 }

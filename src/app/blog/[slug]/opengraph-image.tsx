@@ -14,10 +14,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const description = post?.frontmatter.description ?? "";
   const date = post?.frontmatter.date
     ? new Date(post.frontmatter.date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
     : "";
 
   return new ImageResponse(
@@ -39,7 +39,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             fontSize: "16px",
             fontWeight: 500,
             letterSpacing: "0.15em",
-            textTransform: "uppercase",
+            textTransform: "",
             color: "#a1a1aa",
           }}
         >

@@ -12,8 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
-
 const listContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -37,37 +35,61 @@ const listItemVariants = {
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
+  const key = itemIds.join("|");
 
   React.useEffect(() => {
+    if (itemIds.length === 0) return;
+
+    const visible = new Map<string, number>();
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+            visible.set(entry.target.id, entry.boundingClientRect.top);
+          } else {
+            visible.delete(entry.target.id);
           }
         }
+        if (visible.size === 0) return;
+        let bestId: string | null = null;
+        let bestTop = Number.POSITIVE_INFINITY;
+        for (const [id, top] of visible) {
+          if (top < bestTop) {
+            bestTop = top;
+            bestId = id;
+          }
+        }
+        if (bestId) setActiveId(bestId);
       },
-      { rootMargin: "0% 0% -80% 0%" }
+      { rootMargin: "0px 0px -65% 0px" }
     );
 
-    for (const id of itemIds ?? []) {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
+    const observed: HTMLElement[] = [];
+    for (const id of itemIds) {
+      const el = document.getElementById(id);
+      if (el) {
+        observer.observe(el);
+        observed.push(el);
       }
     }
 
     return () => {
-      for (const id of itemIds ?? []) {
-        const element = document.getElementById(id);
-        if (element) {
-          observer.unobserve(element);
-        }
-      }
+      for (const el of observed) observer.unobserve(el);
+      observer.disconnect();
     };
-  }, [itemIds]);
+  }, [key]);
 
   return activeId;
+}
+
+function scrollToHeading(id: string) {
+  if (typeof window === "undefined") return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  window.history.replaceState(null, "", `#${id}`);
 }
 
 export function DocsTableOfContents({
@@ -105,19 +127,30 @@ export function DocsTableOfContents({
           align="start"
           className="no-scrollbar max-h-[70svh] max-w-[calc(100vw-2rem)] overflow-x-hidden"
         >
-          {toc.map((item) => (
-            <DropdownMenuItem
-              key={item.url}
-              asChild
-              onClick={() => {
-                setOpen(false);
-              }}
-              data-depth={item.depth}
-              className="data-[depth=3]:pl-6 data-[depth=4]:pl-8"
-            >
-              <a href={item.url}>{item.title}</a>
-            </DropdownMenuItem>
-          ))}
+          {toc.map((item) => {
+            const id = item.url.replace("#", "");
+            const isActive = id === activeHeading;
+            return (
+              <DropdownMenuItem
+                key={item.url}
+                asChild
+                data-depth={item.depth}
+                className="data-[depth=3]:pl-6 data-[depth=4]:pl-8"
+              >
+                <a
+                  href={item.url}
+                  aria-current={isActive ? "location" : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToHeading(id);
+                    setOpen(false);
+                  }}
+                >
+                  {item.title}
+                </a>
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -139,12 +172,18 @@ export function DocsTableOfContents({
         </motion.p>
       )}
       {toc.map((item) => {
-        const isActive = item.url === `#${activeHeading}`;
+        const id = item.url.replace("#", "");
+        const isActive = id === activeHeading;
         return (
           <motion.a
             key={item.url}
             href={item.url}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToHeading(id);
+            }}
             variants={listItemVariants}
+            aria-current={isActive ? "location" : undefined}
             className="relative text-[0.8rem] text-muted-foreground/50 no-underline transition-colors hover:text-muted-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active={isActive}
             data-depth={item.depth}

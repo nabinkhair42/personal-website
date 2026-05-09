@@ -48,7 +48,7 @@ const ExpandableSectionLabel = React.forwardRef<HTMLParagraphElement, Expandable
     return (
       <p
         ref={ref}
-        className={cn("text-sm uppercase tracking-[0.2em] text-muted-foreground", className)}
+        className={cn("text-sm  tracking-[0.2em] text-muted-foreground", className)}
         {...props}
       >
         {children}
@@ -261,12 +261,12 @@ const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSect
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
                   : {
-                      opacity: 0,
-                      y: -4,
-                      filter: "blur(2px)",
-                      scale: 0.98,
-                      transition: { duration: 0.2, ease: "easeIn" },
-                    }
+                    opacity: 0,
+                    y: -4,
+                    filter: "blur(2px)",
+                    scale: 0.98,
+                    transition: { duration: 0.2, ease: "easeIn" },
+                  }
               }
               style={{ transformOrigin: "top" }}
             >

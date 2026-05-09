@@ -20,7 +20,7 @@ const DeveloperEducation = () => {
         className="space-y-3 p-2"
       >
         <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Education</p>
+          <p className="text-sm  tracking-[0.2em] text-muted-foreground">Education</p>
           <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Academic Background</h2>
           <p className="text-base leading-relaxed text-muted-foreground">
             My educational journey that shaped my foundation in technology and problem-solving.

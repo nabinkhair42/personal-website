@@ -16,7 +16,7 @@ export function BlogIntroduction() {
         variants={itemVariants}
         className="space-y-2 p-2 py-6"
       >
-        <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Blog</p>
+        <p className="text-sm  tracking-[0.2em] text-muted-foreground">Blog</p>
         <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
           Something worth reading.
         </h1>

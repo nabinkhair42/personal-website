@@ -1,5 +1,6 @@
 "use client";
 
+import { Workflow } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CopyButton } from "@/lib/markdown/copy-button";
@@ -53,12 +54,17 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
 
   return (
     <figure
-      className="not-prose my-5 overflow-hidden rounded-sm border border-border bg-muted/20"
+      className="not-prose my-6 overflow-hidden rounded-lg border border-border/70 shadow-[0_1px_2px_-0.5px_rgb(0_0_0/0.04),0_2px_6px_-3px_rgb(0_0_0/0.04)] transition-[box-shadow,border-color] duration-200 hover:border-border hover:shadow-[0_2px_4px_-0.5px_rgb(0_0_0/0.06),0_8px_20px_-4px_rgb(0_0_0/0.06)]"
       role="img"
       aria-label={title ?? "Mermaid diagram"}
     >
-      <figcaption className="flex items-center justify-between border-b bg-muted/40 px-2 py-1 text-xs font-medium text-muted-foreground">
-        <span className="truncate">{displayLabel}</span>
+      <figcaption className="flex items-center justify-between gap-3 border-b border-border/60 bg-linear-to-b from-muted/45 to-muted/15 px-3.5 py-2">
+        <div className="flex min-w-0 items-center gap-2">
+          <Workflow className="size-3.5 shrink-0 text-muted-foreground/70" aria-hidden />
+          <span className="truncate font-mono text-[12px] text-foreground/85">
+            {displayLabel}
+          </span>
+        </div>
         <CopyButton value={code.trim()} />
       </figcaption>
 

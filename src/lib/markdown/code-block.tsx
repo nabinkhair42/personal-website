@@ -1,5 +1,7 @@
+import { FileCode2 } from "lucide-react";
 import { type BundledLanguage, codeToHtml } from "shiki";
 import { CopyButton } from "@/lib/markdown/copy-button";
+import { cn } from "@/lib/utils";
 
 const THEMES = {
   light: "github-light-default",
@@ -92,6 +94,11 @@ function extractTitle(meta?: string | null): string | null {
   return match[2];
 }
 
+function hasShowLineNumbers(meta?: string | null): boolean {
+  if (!meta) return false;
+  return /\bshowLineNumbers\b/.test(meta);
+}
+
 function formatLanguageLabel(original?: string | null, resolved?: HighlightLanguage): string {
   const source = (original ?? (typeof resolved === "string" ? resolved : null))?.toLowerCase();
 
@@ -111,7 +118,8 @@ interface CodeBlockProps {
 export async function CodeBlock({ code, language, meta }: CodeBlockProps) {
   const lang = resolveLanguage(language ?? undefined);
   const title = extractTitle(meta);
-  const displayLabel = title ?? formatLanguageLabel(language, lang);
+  const showLineNumbers = hasShowLineNumbers(meta);
+  const languageLabel = formatLanguageLabel(language, lang);
   const normalizedCode = code.replace(/[\r\n]*$/u, "");
   const html = await codeToHtml(normalizedCode, {
     lang: lang as unknown as BundledLanguage,
@@ -121,12 +129,39 @@ export async function CodeBlock({ code, language, meta }: CodeBlockProps) {
 
   return (
     <figure
-      className="not-prose overflow-hidden rounded-sm border border-border bg-muted/20"
+      className={cn(
+        "not-prose group/code relative my-7 overflow-hidden rounded-xl bg-card",
+        "ring-1 ring-border/70 ring-inset"
+      )}
       data-language={language ?? lang}
+      data-line-numbers={showLineNumbers ? "" : undefined}
     >
-      <figcaption className="flex items-center justify-between border-b bg-muted/40 px-2 py-1 text-xs font-medium text-muted-foreground">
-        <span className="truncate">{displayLabel}</span>
-        <CopyButton value={normalizedCode} />
+      <figcaption className="flex items-center justify-between gap-3 border-b border-border/60 bg-muted/35 px-4 py-2.5 dark:bg-muted/20">
+        <div className="flex min-w-0 items-center gap-2.5">
+          {title ? (
+            <>
+              <FileCode2
+                className="size-3.5 shrink-0 text-muted-foreground/80"
+                aria-hidden
+              />
+              <span className="truncate font-mono text-[12.5px] font-medium tracking-tight text-foreground/90">
+                {title}
+              </span>
+            </>
+          ) : (
+            <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/85">
+              {languageLabel}
+            </span>
+          )}
+        </div>
+        <div className="flex shrink-0 items-center gap-2.5">
+          {title ? (
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/60">
+              {languageLabel}
+            </span>
+          ) : null}
+          <CopyButton value={normalizedCode} />
+        </div>
       </figcaption>
       <div className="shiki-container" dangerouslySetInnerHTML={{ __html: html }} />
     </figure>

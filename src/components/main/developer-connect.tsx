@@ -20,7 +20,7 @@ const DeveloperConnect = () => {
         className="space-y-3 p-2"
       >
         <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Connect</p>
+          <p className="text-sm  tracking-[0.2em] text-muted-foreground">Connect</p>
           <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
             Let&apos;s build together
           </h2>

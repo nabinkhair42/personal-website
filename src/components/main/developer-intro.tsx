@@ -38,7 +38,7 @@ const DeveloperIntro = () => {
         <div className="space-y-2">
           <motion.div variants={itemVariants} className="space-y-1">
             <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
-            <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-sm  tracking-[0.2em] text-muted-foreground">
               {designation}
             </p>
           </motion.div>

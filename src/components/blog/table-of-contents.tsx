@@ -1,8 +1,16 @@
 "use client";
 
-import { List, X } from "lucide-react";
-import { AnimatePresence, MotionConfig, type MotionValue, motion, useScroll } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { List } from "lucide-react";
+import {
+  AnimatePresence,
+  MotionConfig,
+  type MotionValue,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 function slugify(text: string): string {
@@ -41,94 +49,81 @@ function extractSections(content: string): Section[] {
   return sections;
 }
 
+// Active heading = the last heading whose top has crossed ~25% of the viewport.
+// Predictable on both short and long sections, and never jumpy on long titles.
 function useActiveHeading(slugs: string[]) {
   const [active, setActive] = useState<string | null>(null);
   const key = slugs.join("|");
 
   useEffect(() => {
     if (slugs.length === 0) return;
-
     const elements = slugs
       .map((slug) => document.getElementById(slug))
       .filter((el): el is HTMLElement => el !== null);
     if (elements.length === 0) return;
 
-    const states = new Map<string, { active: boolean; t: number }>(
-      slugs.map((slug) => [slug, { active: false, t: 0 }])
-    );
-
-    const compute = (viewTop: number | null) => {
-      let best: { slug: string; t: number } | null = null;
-      for (const [slug, s] of states) {
-        if (!s.active) continue;
-        if (!best || s.t > best.t) best = { slug, t: s.t };
-      }
-      if (best) {
-        setActive(best.slug);
+    const update = () => {
+      // At the bottom of the document, the trailing sections may never cross
+      // the 25vh trigger because the page can't scroll any further. Force the
+      // last heading active so the indicator matches what the reader sees.
+      const docEl = document.documentElement;
+      const atBottom = window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
+      if (atBottom) {
+        setActive(elements[elements.length - 1].id);
         return;
       }
-      if (viewTop === null) return;
-      let nearestSlug: string | null = null;
-      let nearestDist = Number.POSITIVE_INFINITY;
+
+      const trigger = window.innerHeight * 0.25;
+      let activeId: string | null = null;
       for (const el of elements) {
-        const d = Math.abs(viewTop - el.getBoundingClientRect().top);
-        if (d < nearestDist) {
-          nearestDist = d;
-          nearestSlug = el.id;
+        const top = el.getBoundingClientRect().top;
+        if (top - trigger <= 0) {
+          activeId = el.id;
+        } else {
+          break;
         }
       }
-      if (nearestSlug) setActive(nearestSlug);
+      if (!activeId) {
+        for (const el of elements) {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) {
+            activeId = el.id;
+            break;
+          }
+        }
+      }
+      if (activeId) setActive(activeId);
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const now = Date.now();
-        let viewTop: number | null = null;
-        for (const entry of entries) {
-          const s = states.get(entry.target.id);
-          if (!s) continue;
-          if (s.active !== entry.isIntersecting) {
-            s.active = entry.isIntersecting;
-            s.t = now;
-          }
-          if (entry.rootBounds) viewTop = entry.rootBounds.top;
-        }
-        compute(viewTop);
-      },
-      { threshold: 0.9 }
-    );
-
-    for (const el of elements) observer.observe(el);
-    return () => observer.disconnect();
+    update();
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [key]);
 
   return active;
 }
 
 const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
-const SPRING = { type: "spring" as const, stiffness: 380, damping: 32, mass: 0.8 };
-const ITEM_SPRING = { type: "spring" as const, stiffness: 460, damping: 36 };
+// Tuned for the Dynamic Island morph: snappy attack, light overshoot, settles fast.
+const ISLAND_SPRING = { type: "spring" as const, stiffness: 360, damping: 30, mass: 0.85 };
+const ITEM_SPRING = { type: "spring" as const, stiffness: 480, damping: 36 };
 
-const sheetVariants = {
-  hidden: { opacity: 0, scale: 0.86, y: 12, filter: "blur(14px)" },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      ...SPRING,
-      staggerChildren: 0.028,
-      delayChildren: 0.08,
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.92,
-    y: 8,
-    filter: "blur(8px)",
-    transition: { duration: 0.18, ease: APPLE_EASE, staggerChildren: 0 },
-  },
+const listVariants = {
+  hidden: { transition: { staggerChildren: 0.005, staggerDirection: -1 } },
+  visible: { transition: { staggerChildren: 0.022, delayChildren: 0.1 } },
 };
 
 const itemVariants = {
@@ -138,10 +133,6 @@ const itemVariants = {
     x: 0,
     filter: "blur(0px)",
     transition: ITEM_SPRING,
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.1, ease: APPLE_EASE },
   },
 };
 
@@ -156,149 +147,251 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     [sections]
   );
   const activeSlug = useActiveHeading(allSlugs);
+  const activeTitle = useMemo(() => {
+    if (!activeSlug) return null;
+    for (const s of sections) {
+      if (s.slug === activeSlug) return s.text;
+      for (const c of s.children) {
+        if (c.slug === activeSlug) return c.text;
+      }
+    }
+    return null;
+  }, [sections, activeSlug]);
   const [isOpen, setIsOpen] = useState(false);
+  const [pct, setPct] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
+
+  // Always-on subscription so the percentage stays in sync regardless of sheet state.
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setPct(Math.round(v * 100));
+  });
+
+  useEffect(() => {
+    setPct(Math.round(scrollYProgress.get() * 100));
+  }, [scrollYProgress]);
 
   useEffect(() => {
     if (!isOpen) return;
-    const handleClick = (e: MouseEvent) => {
+    const onClick = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+      }
     };
-    document.addEventListener("mousedown", handleClick);
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
     return () => {
-      document.removeEventListener("mousedown", handleClick);
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
     };
   }, [isOpen]);
 
-  if (allSlugs.length < 3) return null;
+  // After the morph completes, focus the active link (falls back to first).
+  useEffect(() => {
+    if (!isOpen) return;
+    const t = setTimeout(() => {
+      const target = activeSlug
+        ? (containerRef.current?.querySelector<HTMLAnchorElement>(`a[data-slug="${activeSlug}"]`) ??
+          firstLinkRef.current)
+        : firstLinkRef.current;
+      target?.focus({ preventScroll: true });
+    }, 220);
+    return () => clearTimeout(t);
+  }, [isOpen, activeSlug]);
+
+  const handleNavigate = useCallback(
+    (slug: string) => {
+      const el = document.getElementById(slug);
+      if (!el) return;
+      el.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      window.history.replaceState(null, "", `#${slug}`);
+      setIsOpen(false);
+    },
+    [reduceMotion]
+  );
+
+  if (allSlugs.length < 2) return null;
 
   return (
-    <MotionConfig transition={SPRING}>
+    <MotionConfig transition={ISLAND_SPRING}>
       <nav
         aria-label="Table of contents"
-        className="fixed bottom-6 right-6 z-50 pointer-events-none"
+        className={cn(
+          "fixed z-50 flex items-end gap-2 pointer-events-none",
+          "right-[max(1rem,env(safe-area-inset-right))]",
+          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
+        )}
       >
+        <AnimatePresence>
+          {!isOpen && activeTitle && (
+            <motion.button
+              key="active-pill"
+              type="button"
+              layout
+              onClick={() => setIsOpen(true)}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: 24, scale: 0.85, filter: "blur(6px)" }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                transition: { delay: 0.18, ...ISLAND_SPRING },
+              }}
+              exit={{
+                opacity: 0,
+                x: 24,
+                scale: 0.85,
+                filter: "blur(6px)",
+                transition: { duration: 0.16, ease: APPLE_EASE },
+              }}
+              aria-label={`Currently reading: ${activeTitle}. Open table of contents.`}
+              className={cn(
+                "pointer-events-auto inline-flex h-11 max-w-[min(50vw,18rem)] items-center gap-2",
+                "rounded-full border border-border bg-background/95 px-4 backdrop-blur-xl",
+                "shadow-2xl shadow-black/30 cursor-pointer transition-colors hover:bg-accent/40",
+                "outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              )}
+            >
+              <span className="size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
+              <span className="relative block min-w-0 overflow-hidden">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={activeTitle}
+                    initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                    transition={ITEM_SPRING}
+                    className="block truncate text-sm font-medium text-foreground"
+                  >
+                    {activeTitle}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </motion.button>
+          )}
+        </AnimatePresence>
+
         <motion.div
           ref={containerRef}
-          initial={{ opacity: 0, y: 24, scale: 0.9, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.7, delay: 0.2, ease: APPLE_EASE }}
-          className="pointer-events-auto relative"
+          layout
+          animate={{ borderRadius: isOpen ? 24 : 999 }}
+          className={cn(
+            "pointer-events-auto relative overflow-hidden",
+            "border border-border bg-background/95 backdrop-blur-xl",
+            "shadow-2xl shadow-black/30"
+          )}
+          style={{ originX: 1, originY: 1 }}
         >
-          <AnimatePresence>
-            {isOpen && (
+          <AnimatePresence mode="popLayout" initial={false}>
+            {isOpen ? (
               <motion.div
-                key="sheet"
-                variants={sheetVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                role="dialog"
-                aria-label="Table of contents"
-                className={cn(
-                  "absolute bottom-14 right-0 w-[min(86vw,20rem)]",
-                  "origin-bottom-right overflow-hidden rounded-2xl",
-                  "border border-border bg-background",
-                  "shadow-2xl shadow-black/30"
-                )}
+                key="expanded"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  transition: { delay: 0.06, duration: 0.18, ease: APPLE_EASE },
+                }}
+                exit={{ opacity: 0, transition: { duration: 0.1, ease: APPLE_EASE } }}
+                role="region"
+                aria-labelledby="toc-heading"
+                className="flex w-[min(86vw,20rem)] flex-col"
               >
-                <motion.div
-                  variants={itemVariants}
-                  className="flex items-center justify-between px-3.5 pt-3 pb-2"
+                <motion.header
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0, transition: { delay: 0.08, ...ITEM_SPRING } }}
+                  exit={{ opacity: 0 }}
+                  className="flex items-center justify-between px-4 pt-3 pb-2"
                 >
-                  <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                  <span
+                    id="toc-heading"
+                    className="text-[11px] font-medium tracking-[0.08em] text-muted-foreground"
+                  >
                     On this page
                   </span>
-                  <span className="text-[11px] tabular-nums text-muted-foreground/70">
-                    <ScrollPercent progress={scrollYProgress} />
-                  </span>
-                </motion.div>
-                <div className="max-h-[60vh] overflow-y-auto px-2 pb-2">
+                  <span className="text-[11px] tabular-nums text-muted-foreground/70">{pct}%</span>
+                </motion.header>
+
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={listVariants}
+                  className="max-h-[60vh] overflow-y-auto px-2 pb-2"
+                >
                   <ol className="flex flex-col gap-0.5">
-                    {sections.map((section) => (
+                    {sections.map((section, sIdx) => (
                       <SectionItem
                         key={section.slug}
                         section={section}
                         activeSlug={activeSlug}
-                        onNavigate={() => setIsOpen(false)}
+                        firstLinkRef={sIdx === 0 ? firstLinkRef : undefined}
+                        onNavigate={handleNavigate}
                       />
                     ))}
                   </ol>
-                </div>
+                </motion.div>
               </motion.div>
+            ) : (
+              <motion.button
+                key="collapsed"
+                ref={triggerRef}
+                type="button"
+                onClick={() => setIsOpen(true)}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.92 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { delay: 0.04 } }}
+                exit={{ opacity: 0, transition: { duration: 0.08 } }}
+                aria-expanded={false}
+                aria-label={`Open table of contents — ${pct}% read`}
+                className={cn(
+                  "relative grid size-11 place-items-center cursor-pointer",
+                  "transition-colors hover:bg-accent/40"
+                )}
+              >
+                <ProgressRing progress={scrollYProgress} />
+                <List className="relative size-3.5" strokeWidth={2.25} />
+              </motion.button>
             )}
           </AnimatePresence>
-
-          <motion.button
-            type="button"
-            onClick={() => setIsOpen((v) => !v)}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.92 }}
-            aria-expanded={isOpen}
-            aria-label={isOpen ? "Close table of contents" : "Open table of contents"}
-            className={cn(
-              "relative flex size-11 items-center justify-center rounded-full cursor-pointer",
-              "border border-border bg-background",
-              "shadow-lg shadow-black/20 transition-colors hover:bg-accent/40"
-            )}
-          >
-            <ProgressRing progress={scrollYProgress} />
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.span
-                key={isOpen ? "close" : "open"}
-                initial={{ opacity: 0, scale: 0.6, rotate: isOpen ? -90 : 90 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.6, rotate: isOpen ? 90 : -90 }}
-                transition={{ duration: 0.2, ease: APPLE_EASE }}
-                className="relative inline-flex"
-              >
-                {isOpen ? (
-                  <X className="size-3.5" strokeWidth={2.25} />
-                ) : (
-                  <List className="size-3.5" strokeWidth={2.25} />
-                )}
-              </motion.span>
-            </AnimatePresence>
-          </motion.button>
         </motion.div>
       </nav>
     </MotionConfig>
   );
 };
 
-function ScrollPercent({ progress }: { progress: MotionValue<number> }) {
-  const [pct, setPct] = useState(0);
-  useEffect(() => {
-    return progress.on("change", (v) => setPct(Math.round(v * 100)));
-  }, [progress]);
-  return <>{pct}%</>;
-}
-
 function SectionItem({
   section,
   activeSlug,
   onNavigate,
+  firstLinkRef,
 }: {
   section: Section;
   activeSlug: string | null;
-  onNavigate: () => void;
+  onNavigate: (slug: string) => void;
+  firstLinkRef?: React.Ref<HTMLAnchorElement>;
 }) {
-  const isActive = activeSlug === section.slug;
   return (
     <motion.li variants={itemVariants}>
       <TocLink
         slug={section.slug}
         text={section.text}
-        isActive={isActive}
+        isActive={activeSlug === section.slug}
         onNavigate={onNavigate}
+        linkRef={firstLinkRef}
       />
       {section.children.length > 0 && (
         <ol className="ml-3 flex flex-col gap-0.5 shadow-[inset_1px_0_0_0_var(--color-border)]">
@@ -325,28 +418,37 @@ function TocLink({
   isActive,
   onNavigate,
   nested = false,
+  linkRef,
 }: {
   slug: string;
   text: string;
   isActive: boolean;
-  onNavigate: () => void;
+  onNavigate: (slug: string) => void;
   nested?: boolean;
+  linkRef?: React.Ref<HTMLAnchorElement>;
 }) {
   return (
     <a
+      ref={linkRef}
       href={`#${slug}`}
+      data-slug={slug}
       data-active={isActive || undefined}
-      onClick={onNavigate}
+      aria-current={isActive ? "location" : undefined}
+      onClick={(e) => {
+        e.preventDefault();
+        onNavigate(slug);
+      }}
       className={cn(
-        "relative block py-1.5 pr-2 text-sm leading-snug transition-colors duration-200",
+        "relative block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
+        "focus-visible:bg-accent/40",
         nested ? "pl-4" : "pl-3",
-        isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
+        isActive ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
       )}
     >
       {isActive && (
         <motion.span
           layoutId="toc-active-indicator"
-          className="absolute left-0 top-1.5 bottom-1.5 w-0.5 rounded-full bg-primary"
+          className="absolute bottom-1.5 left-0 top-1.5 w-0.5 rounded-full bg-primary"
           transition={{ type: "spring", stiffness: 500, damping: 40 }}
         />
       )}
@@ -359,7 +461,7 @@ function ProgressRing({ progress }: { progress: MotionValue<number> }) {
   return (
     <svg
       viewBox="0 0 44 44"
-      className="absolute inset-0 size-full -rotate-90 pointer-events-none"
+      className="pointer-events-none absolute inset-0 size-full -rotate-90"
       aria-hidden="true"
     >
       <motion.circle

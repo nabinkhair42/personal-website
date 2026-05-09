@@ -32,7 +32,7 @@ export default function ErrorPage({
 
       <ShellWrapper>
         <header className="space-y-3 p-2">
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-sm  tracking-[0.2em] text-muted-foreground">
             Something went wrong
           </p>
           <h1 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
