@@ -140,10 +140,7 @@ export async function CodeBlock({ code, language, meta }: CodeBlockProps) {
         <div className="flex min-w-0 items-center gap-2.5">
           {title ? (
             <>
-              <FileCode2
-                className="size-3.5 shrink-0 text-muted-foreground/80"
-                aria-hidden
-              />
+              <FileCode2 className="size-3.5 shrink-0 text-muted-foreground/80" aria-hidden />
               <span className="truncate font-mono text-[12.5px] font-medium tracking-tight text-foreground/90">
                 {title}
               </span>

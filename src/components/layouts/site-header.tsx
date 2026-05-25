@@ -2,9 +2,9 @@
 
 import { Moon, Sun } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Kbd } from "@/components/ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

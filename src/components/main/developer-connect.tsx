@@ -51,9 +51,7 @@ const DeveloperConnect = () => {
                     <span className="truncate text-sm font-medium">{link.name}</span>
                     <span className="truncate text-xs text-muted-foreground">{link.handle}</span>
                   </span>
-                  <ArrowUpRight
-                    className="mr-2 size-4 text-muted-foreground transition-[transform,color] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
-                  />
+                  <ArrowUpRight className="mr-2 size-4 text-muted-foreground transition-[transform,color] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                 </Link>
               </motion.div>
             );

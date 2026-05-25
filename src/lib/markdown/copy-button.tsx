@@ -64,11 +64,7 @@ export function CopyButton({ value, className }: CopyButtonProps) {
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.6, rotate: -20 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: 20 }}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.22, ease: APPLE_EASE }
-            }
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.22, ease: APPLE_EASE }}
             className="absolute inset-0 flex items-center justify-center text-foreground"
           >
             <Check className="size-3.5" aria-hidden strokeWidth={2.5} />
@@ -79,11 +75,7 @@ export function CopyButton({ value, className }: CopyButtonProps) {
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.6, rotate: 20 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: -20 }}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.22, ease: APPLE_EASE }
-            }
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.22, ease: APPLE_EASE }}
             className="absolute inset-0 flex items-center justify-center"
           >
             <Copy className="size-3.5" aria-hidden />

@@ -61,9 +61,7 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
       <figcaption className="flex items-center justify-between gap-3 border-b border-border/60 bg-linear-to-b from-muted/45 to-muted/15 px-3.5 py-2">
         <div className="flex min-w-0 items-center gap-2">
           <Workflow className="size-3.5 shrink-0 text-muted-foreground/70" aria-hidden />
-          <span className="truncate font-mono text-[12px] text-foreground/85">
-            {displayLabel}
-          </span>
+          <span className="truncate font-mono text-[12px] text-foreground/85">{displayLabel}</span>
         </div>
         <CopyButton value={code.trim()} />
       </figcaption>

@@ -21,9 +21,8 @@ export function BlogIntroduction() {
           Something worth reading.
         </h1>
         <p className="text-base leading-relaxed text-muted-foreground">
-          Notes I&apos;ve written by hand — not generated. Web development, design, the messy
-          middle of building things, and what I&apos;m learning as a {designation}. Written by{" "}
-          {name}.
+          Notes I&apos;ve written by hand — not generated. Web development, design, the messy middle
+          of building things, and what I&apos;m learning as a {designation}. Written by {name}.
         </p>
       </motion.section>
     </ShellWrapper>

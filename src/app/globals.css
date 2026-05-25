@@ -97,10 +97,15 @@
 /* Shiki dual theme support for code blocks */
 .shiki {
   font-family:
-    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   font-size: 13px;
-  font-feature-settings: "calt" 1, "liga" 1, "ss01" 1, "ss02" 1, "ss19" 1;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss19" 1;
   font-variant-ligatures: contextual;
   line-height: 1.7;
   padding: 0.95rem 1.15rem;

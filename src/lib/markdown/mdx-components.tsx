@@ -209,7 +209,10 @@ export function makeMDXComponents(components: MDXComponents): MDXComponents {
     ),
     thead: ({ className, ...props }: React.ComponentProps<"thead">) => (
       <thead
-        className={cn("bg-linear-to-b from-muted/50 to-muted/20 border-b border-border/60", className)}
+        className={cn(
+          "bg-linear-to-b from-muted/50 to-muted/20 border-b border-border/60",
+          className
+        )}
         {...props}
       />
     ),

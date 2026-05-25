@@ -44,11 +44,7 @@ const DeveloperExperience = () => {
             {ExperienceData.map((experience, index) => {
               const hasNext = index < ExperienceData.length - 1;
               return (
-                <motion.div
-                  key={experience.company}
-                  variants={itemVariants}
-                  className="relative"
-                >
+                <motion.div key={experience.company} variants={itemVariants} className="relative">
                   {hasNext && (
                     <motion.div
                       initial={{ scaleY: 0 }}

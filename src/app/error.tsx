@@ -32,20 +32,15 @@ export default function ErrorPage({
 
       <ShellWrapper>
         <header className="space-y-3 p-2">
-          <p className="text-sm  tracking-[0.2em] text-muted-foreground">
-            Something went wrong
-          </p>
+          <p className="text-sm  tracking-[0.2em] text-muted-foreground">Something went wrong</p>
           <h1 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
             An unexpected error occurred
           </h1>
           <p className="text-base leading-relaxed text-muted-foreground">
-            Don&apos;t worry, these things happen. Try again, or head back home to keep
-            exploring.
+            Don&apos;t worry, these things happen. Try again, or head back home to keep exploring.
           </p>
           {error?.digest ? (
-            <p className="font-mono text-xs text-muted-foreground/80">
-              Reference: {error.digest}
-            </p>
+            <p className="font-mono text-xs text-muted-foreground/80">Reference: {error.digest}</p>
           ) : null}
         </header>
       </ShellWrapper>

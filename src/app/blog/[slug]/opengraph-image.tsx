@@ -14,10 +14,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const description = post?.frontmatter.description ?? "";
   const date = post?.frontmatter.date
     ? new Date(post.frontmatter.date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
     : "";
 
   return new ImageResponse(
