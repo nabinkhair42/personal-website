@@ -1,37 +1,169 @@
 ---
 title: "Understanding AI Harness Engineering"
-description: "AI Harness Engineering is the practice of designing and building the infrastructure and tools necessary to develop, deploy, and maintain AI products effectively."
+description: "An agent is a model plus a harness. The model has stayed roughly the same for months. The harness is the part you actually build."
 developer: "Nabin Khair"
-date: "2026-05-24"
+date: "2026-05-26"
 published: true
 image: "/blog/ai-harness-engineering.png"
 tags:
   [
-    "AI Harness Engineering",
-    "AI Infrastructure",
-    "AI Tools",
+    "AI Agents",
+    "Agent Harness",
+    "Claude Code",
+    "Tools",
+    "MCP",
+    "Sandboxes",
+    "Agent Design",
     "Future of AI",
-    "Software Development",
   ]
 ---
 
-**TL;DR:**
-Agents = LLMs + Harness
+**TL;DR:** Agent = Model + Harness. The model does the thinking. The harness is everything else — tools, memory, prompts, sandboxes, hooks, guardrails. Most of the work of building an agent today is harness work, not model work.
 
-# What is AI Harness?
+## What is a harness?
 
-Harness is the software or the piece of code and is not a model itself.
+A model on its own is a text-in, text-out function. It cannot remember the last conversation. It cannot run code. It cannot read your files. It cannot call APIs. It just predicts tokens.
 
-To convert a raw model into an agent, we need to wrap the model with a harness. The harness provide the complete environment for the model to execute tasks and interact with the outside world for solving complex problems.
+To turn that model into something that can actually *do work*, you wrap it in code. That wrapper is the harness.
 
-Without harness, a model is just a black box that takes input and produces output. With harness, the model can be integrated into a larger system, allowing it to access external resources, manage its own state, and interact with users or other systems.
+[LangChain](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) defines it simply:
 
-Harness can include features such as:
+> Agent = Model + Harness. If you're not the model, you're the harness.
 
-- **Orchestration**: Creating sub-agents, managing the flow of information, and coordinating the execution of tasks.
-- **System Prompts**: Providing instructions and context to the model to guide its behavior and decision-making.
-- **Tools**: Integrating external tools and APIs that the model can use to perform specific tasks or access information.
-- **MCP**: Model Context Protocols that allow the model to manage and utilize its context effectively by communicating with the external worlds via certain protocols.
-- **Hooks**: Allowing the model to trigger specific actions or events based on certain conditions or outputs.
+So the harness is anything around the model that helps it act on the world.
 
--- To be continued...
+## What goes inside a harness?
+
+Here are the pieces you will find in most modern agents:
+
+- **Context engine** — builds the prompt on every turn from the system prompt, tool specs, retrieved files, and recent history.
+- **Orchestrator (the loop)** — calls the model, parses its output, dispatches tools, feeds results back, repeats.
+- **Memory store** — short-term scratchpads inside a session, long-term files across sessions.
+- **Tool runtime** — dispatches the model's tool calls, runs them in a sandbox, normalizes the response.
+- **Guardrails & hooks** — schema checks, policy filters, lifecycle hooks, and approval gates for irreversible actions.
+- **State & checkpoints** — snapshots so a long task can resume after a crash, and replay for debugging.
+- **Tracing & observability** — logs, cost attribution, and audit trails that wrap every model and tool call.
+- **External world** — the things the agent ultimately acts on: filesystem, shell, browser, databases, HTTP APIs, MCP servers.
+
+None of those are model capabilities. All of them are choices you make as the engineer.
+
+Here is how the pieces fit together. The model sits in the middle. Everything around it is harness. Anything outside the dashed boundary is the world the agent acts on.
+
+<div style={{ margin: '0 auto', width: 'fit-content', maxWidth: '100%' }}>
+  ![Agent harness architecture](/blog/ai-harness-arch.svg)
+</div>
+
+It is worth tracing one turn of the loop, because the diagram only makes sense once you read it as motion rather than blocks.
+
+1. A user request enters the **orchestrator**.
+2. The orchestrator pulls fresh context from the **context engine** and any relevant notes from the **memory store**.
+3. It sends the assembled prompt to the **model**. The model returns tokens, which the orchestrator parses into a tool call.
+4. The **tool runtime** dispatches the call. **Guardrails & hooks** validate it before it runs; **state & checkpoints** record it so the task is resumable.
+5. The tool acts on the **external world** — a file gets written, a shell command runs, an API gets called.
+6. The result comes back, becomes the next observation, and the loop runs again.
+
+Wrapping all of this, **tracing & observability** logs every model and tool call — that is what lets you debug why the agent did what it did three days later. And the dotted side-rail in the diagram is the most important arrow: each turn's result flows back into the next turn's context. The agent learns from what it did a moment ago. That feedback loop is the difference between a chatbot and an agent.
+
+## Why the harness matters more than the model
+
+People assume a better model means a better agent. Often, that's not true.
+
+Two teams using the *same* model can ship products with very different quality. Claude Code, Cursor, Cline, and Windsurf all run on the same underlying model APIs everyone else has access to. What sets them apart is not the weights. It is the harness around the weights.
+
+[Addy Osmani](https://addyosmani.com/blog/agent-harness-engineering/) puts it bluntly: the gap between what models *can* do and what agents *actually do* in production is a harness gap. A strong model with a weak harness loses, every time, to a weaker model with a thoughtful harness.
+
+[Microsoft's Agent Framework team](https://devblogs.microsoft.com/agent-framework/agent-harness-in-agent-framework/) frames the harness as "the layer where model reasoning connects to real execution." They treat three things as core: shell access, approval gates, and context management. Those are the layers where agents break in real use.
+
+## The pieces that matter most
+
+Six components have settled out as the ones you almost always need.
+
+### 1. Filesystem as memory
+
+The model's working memory is the context window. The agent's working memory is the filesystem. Anything that needs to survive a restart or a new session lives in files.
+
+Examples:
+- `CLAUDE.md` — Claude Code reads it on every session.
+- `AGENTS.md` — a shared convention used by many agents.
+- `todo.md` — Manus rewrites it on every turn to keep its goals visible.
+
+The rule of thumb: load small, always-needed stuff at the start; pull in the rest only when you need it.
+
+### 2. Code execution
+
+Once the agent can run `bash` or write Python in a sandbox, you stop needing to pre-build every tool. The model just writes the tool it needs. This is the biggest leap from last year's function-calling assistants.
+
+### 3. Sandboxes
+
+Letting a model run code on your laptop is risky. Letting it run code in a throwaway micro-VM with no network and a 10-minute lifespan is safe. Tools like Vercel Sandbox, E2B, and Modal exist for this.
+
+Rule: any shell the model touches should be disposable.
+
+### 4. Hooks and guardrails
+
+The model is unpredictable. Some things should not be.
+
+- A pre-commit hook blocks a push if tests fail.
+- A lint check runs after every edit.
+- An approval gate stops the agent before any destructive action.
+
+These are deterministic. They run whether the model wants them to or not. They are how you make a stochastic system fail safely.
+
+### 5. Tool design
+
+Every tool you register is documentation the model reads on every turn. More tools is not better.
+
+The [Berkeley Function-Calling Leaderboard](https://gorilla.cs.berkeley.edu/leaderboard.html) has shown for over a year that more tools means worse tool selection. Ten focused, well-named tools beat fifty overlapping ones.
+
+Simple rules:
+- One clear name per tool. No `do_thing`.
+- Short, specific descriptions.
+- Keep tool outputs small. A 5,000-token JSON blob will burn the agent's next few turns just parsing it.
+
+### 6. Memory across sessions
+
+Within a session, the agent uses scratchpads. Across sessions, it uses files.
+
+The standard pattern is a short markdown file at the root of the project — `AGENTS.md` or `CLAUDE.md` — with project-specific rules. Osmani's advice: keep it under sixty lines, and every rule should trace back to a specific past failure. If a rule is too vague to have prevented a real bug, it does not belong there.
+
+## Treat every failure as a permanent fix
+
+This is the most useful habit in harness work.
+
+When the agent does something wrong — runs a destructive command, makes up a function call, gets stuck in a loop — do **not** assume the next conversation will go better. It will not. The model has no memory of this conversation.
+
+The fix is always a change to the harness:
+- A new hook to block that command.
+- A new line in `AGENTS.md`.
+- A tool description rewritten.
+- A new approval gate.
+
+If the fix lives only in your head, the same failure will happen again next week, with someone else, for the same reason.
+
+A useful corollary: **success should be silent, failures should be loud.** A log line for every passing test is noise. A clear error for the one that broke is signal. You want the signal to drive the next harness change.
+
+## What a harness does *not* give you
+
+There is a fair counterpoint worth saying out loud.
+
+A great harness is not a product. A model with the best possible scaffolding is still a tool, not a business. The harness gets the agent to "can do the task." Distribution, integrations, trust, support, the workflow it fits into — those are separate problems. The harness does not solve them.
+
+The mistake is treating the agent as the product. The agent is the engine. The product is the car. Most of the agent startups that quietly died in the last year did not die because of a bad harness. They died because the harness was the whole thing they had built.
+
+## What a harness engineer actually does
+
+If you strip out the philosophy, the day-to-day questions look like this:
+
+- What does the model read on the first turn of every session?
+- What tools are registered, and when?
+- What does each tool return? (Small summary or huge blob?)
+- Where do hooks fire? What do they block?
+- What state lives in the window, what lives in files, what lives in a database?
+- When does the agent run unattended, and when does it stop and ask?
+- For every past failure, what harness change makes it impossible next time?
+
+None of those are about the model. All of them shape what the model does.
+
+The model has been roughly the same for months. The harness is the part that ships.
+
+> The model is the engine. The harness is the car. Building agents, in 2026, is mostly about building the car.
