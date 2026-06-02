@@ -35,14 +35,21 @@
 - Web Storage Objects (2023-08-04): https://nabinkhair.com.np/blog/web-objects
 
 ## Projects
-- PEST.js: CLI to scaffold production-ready Express 5 + TypeScript APIs — https://pestjs.vercel.app
+- nk-skills: Installable agent skills for product engineers — https://skills.nabinkhair.com.np
+- GitChat: Chat-based GitHub client powered by AI — https://git.nabinkhair.com.np
 - Assets Man: Self-hosted, open-source Google Drive alternative — https://assets-man.nabinkhair.com.np
 - Better Form: DX-first dynamic form builder for React & Next.js — https://better-form.nabinkhair.com.np
 - Fastly: SaaS starter kit for solo developers and startups — https://fastly.nabinkhair.com.np
+- FlowMint: Diagram creation tool powered by Gemini AI — https://flow.nabinkhair.com.np
+- PEST.js: CLI to scaffold production-ready Express 5 + TypeScript APIs — https://pestjs.vercel.app
 - VTheme: VS Code theme with 1200+ active users — https://vthemes.nabinkhair.com.np/
 - Pro MCP: Registry of 4200+ MCP servers — https://promcp.nabinkhair.com.np
 - Nepali Educate: Online learning platform trusted by 50,000+ students — https://nepalieducate.com
-- FlowMint: Diagram creation tool powered by Gemini AI — https://flow.nabinkhair.com.np
+- DataLens: Collaborative database IDE for real-time data exploration — https://datalens.nabinkhair.com.np
+- Juju Connect: Backend architecture and API delivery for a social platform — https://jujuconnect.com
+- ENV Store: Encrypted environment variable manager for teams and devices — https://envstore.nabinkhair.com.np
+- YourGit: GitHub profile stats summary card — https://yourgit.vercel.app/
+- Nepali Calendar: Bikram Sambat menu bar app with festivals and holidays — https://calendar.nabinkhair.com.np/
 
 ## Skills & Expertise
 - Languages: TypeScript, JavaScript, Python, HTML, CSS

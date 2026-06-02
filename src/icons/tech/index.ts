@@ -42,3 +42,4 @@ export { default as ViteJsIcon } from "./vitejs";
 export { default as VscodeIcon } from "./vscode";
 export { default as ZodIcon } from "./zod";
 export { default as ZustandIcon } from "./zustand";
+export { default as SwiftIcon } from "./swift";

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nepali Calendar — app + favicon icon.
+
+  1024×1024 squircle (Apple-style 22% corner radius) with a Devanagari
+  "१" centered. The numeral makes the icon read instantly as Nepali at
+  any size — recognizable as script even by people who can't read it.
+
+  Renders correctly on macOS (Devanagari Sangam MN is a system font),
+  modern Linux distros with Noto fonts, and most browsers. For the
+  macOS .icns export we render this at 16/32/64/128/256/512/1024 via
+  rsvg-convert or qlmanage, then bundle with iconutil.
+-->
+<svg
+  width="1024"
+  height="1024"
+  viewBox="0 0 1024 1024"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Nepali Calendar"
+>
+  <defs>
+    <!-- Top-to-bottom warm-red gradient for subtle depth. -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EE4757" />
+      <stop offset="1" stop-color="#C52E41" />
+    </linearGradient>
+
+    <!-- Faint inner-shadow / vignette for material feel at large sizes. -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="60%">
+      <stop offset="60%" stop-color="black" stop-opacity="0" />
+      <stop offset="100%" stop-color="black" stop-opacity="0.18" />
+    </radialGradient>
+  </defs>
+
+  <!-- Squircle base. Apple's icon corner radius is ~22% of the side. -->
+  <rect width="1024" height="1024" rx="225" ry="225" fill="url(#bg)" />
+
+  <!-- Top highlight strip — a hint of light, not a band. -->
+  <rect
+    x="0"
+    y="0"
+    width="1024"
+    height="220"
+    rx="225"
+    ry="225"
+    fill="white"
+    fill-opacity="0.07"
+  />
+
+  <!-- Centered Devanagari numeral one. -->
+  <text
+    x="512"
+    y="690"
+    text-anchor="middle"
+    fill="white"
+    font-family="'Devanagari Sangam MN', 'Mukta', 'Noto Sans Devanagari', 'Tiro Devanagari Hindi', system-ui, serif"
+    font-size="700"
+    font-weight="600"
+  >१</text>
+
+  <!-- Subtle vignette to give the icon depth at hero sizes. -->
+  <rect width="1024" height="1024" rx="225" ry="225" fill="url(#vignette)" />
+</svg>
