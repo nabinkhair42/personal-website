@@ -43,7 +43,7 @@ export interface Projects {
   icon: string;
   title: string;
   tagline: string;
-  description: Array<string>;
+  description: string;
   liveLink?: string;
   repo?: string;
   techStack: Array<TechStack>;

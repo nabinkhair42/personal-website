@@ -1,6 +1,6 @@
 "use client";
 
-import { DotIcon, SquareMousePointer } from "lucide-react";
+import { SquareMousePointer } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -63,14 +63,9 @@ const DeveloperProjects = () => {
                   </ExpandableSectionTrigger>
 
                   <ExpandableSectionContent>
-                    <ul className="space-y-2 text-sm leading-relaxed text-muted-foreground">
-                      {project.description.map((line) => (
-                        <li key={line} className="flex">
-                          <DotIcon />
-                          <span>{line}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
                     {project.techStack && (
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
@@ -88,7 +83,7 @@ const DeveloperProjects = () => {
                             aria-label={`Open live site for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <SquareMousePointer className="size-5" />
+                            <SquareMousePointer className="size-5 fill-muted-foreground/20 text-muted-foreground" />
                           </Link>
                         )}
                         {project.repo && (
@@ -99,7 +94,7 @@ const DeveloperProjects = () => {
                             aria-label={`View repository for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <GithubIcon className="size-5" />
+                            <GithubIcon className="size-5 fill-muted-foreground/20 text-muted-foregroundd" />
                           </Link>
                         )}
                       </div>

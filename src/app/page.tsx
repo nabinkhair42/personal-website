@@ -134,14 +134,14 @@ const Page = () => {
       />
       <PageShellWrapper>
         <DeveloperIntro />
-        <DeveloperProjects />
-        <DeveloperTemplates />
         <DeveloperExperience />
-        <DeveloperEducation />
-        <DeveloperGitContribution />
-        <DeveloperStack />
+        <DeveloperProjects />
         <BlogsGrid maxPosts={4} posts={recentPosts} />
+        <DeveloperStack />
+        <DeveloperGitContribution />
+        <DeveloperEducation />
         <DeveloperConnect />
+        <DeveloperTemplates />
       </PageShellWrapper>
     </div>
   );

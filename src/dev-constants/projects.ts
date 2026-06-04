@@ -23,10 +23,10 @@ import {
   ReactQueryIcon,
   ShadcnUiIcon,
   StripeIcon,
+  SwiftIcon,
   TailwindCssIcon,
   TurborepoIcon,
   TypescriptIcon,
-  SwiftIcon,
   VercelIcon,
   VscodeIcon,
   ZodIcon,
@@ -38,12 +38,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/git-chat.svg",
     title: "GitChat",
     tagline: "Chat-based GitHub Client powered by AI",
-    description: [
-      "Chat with any GitHub repo: browse, review, and manage without leaving the conversation.",
-      "96 agentic tools covering the full GitHub surface: PRs, issues, CI/CD, security, and more.",
-      "Super Mode chains multi-step workflows end-to-end with zero manual confirmation.",
-      "Multi-provider AI support with model switching, mentions, and a command palette.",
-    ],
+    description:
+      "A chat-based GitHub client. The LLM browses repos, reviews PRs, and triggers CI workflows through tool calls, and asks for confirmation before anything destructive. Built solo. Live at git.nabinkhair.com.np.",
     liveLink: "https://git.nabinkhair.com.np",
     techStack: [
       { name: "Next.js", icon: NextJsIcon },
@@ -59,12 +55,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/assets-man.svg",
     title: "Assets Man",
     tagline: "A self-hosted, open-source Google Drive alternative.",
-    description: [
-      "Privacy-first file management platform with your own S3-compatible storage backend.",
-      "Full-featured file browser with instant search, rich previews for PDFs/images/code, and nested folder hierarchy.",
-      "Secure sharing with public links, password protection, expiry dates, and configurable per-user storage quotas.",
-      "OTP-based email authentication, drag-and-drop uploads, auto-generated thumbnails, and full dark mode support.",
-    ],
+    description:
+      "An open-source, self-hosted alternative to Google Drive. File storage, sharing, and asset organization for teams that want to keep their files on their own infrastructure.",
     liveLink: "https://assets-man.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/assets-man",
     techStack: [
@@ -84,12 +76,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/flow-mint.svg",
     title: "FlowMint",
     tagline: "Diagrams Made Effortless",
-    description: [
-      "A powerful diagramming tool for understanding and visualizing complex ideas.",
-      "Create diagrams from simple text prompts using Gemini AI",
-      "Export diagrams in multiple formats including PNG, SVG",
-      "User authentication and management with JWT",
-    ],
+    description:
+      "Turns a natural-language prompt into a shareable diagram. The LLM does the parsing, the renderer turns it into something you can paste anywhere.",
     liveLink: "https://flow.nabinkhair.com.np",
     techStack: [
       { name: "Next.js", icon: NextJsIcon },
@@ -107,12 +95,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/better-form.svg",
     title: "Better Form",
     tagline: "DX-First Dynamic Form Builder for React & Next.js",
-    description: [
-      "A next-generation developer-first dynamic form builder for React and Next.js",
-      "Build powerful forms with drag & drop, live preview, and code export functionality",
-      "Type-safe form building with TypeScript, Zod validation, and React Hook Form integration",
-      "Beautiful UI built with shadcn/ui components and Tailwind CSS",
-    ],
+    description:
+      "A type-safe dynamic form builder for React and Next.js. Schema-driven, zero-config, designed around how developers actually want to build forms. Open source.",
     liveLink: "https://better-form.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/better-form",
     techStack: [
@@ -129,13 +113,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/fastly.svg",
     title: "Fastly",
     tagline: "SaaS Starter Kit",
-    description: [
-      "A SaaS starter kit for solo developers and startups.",
-      "JWT Based Authentication and Authorization.",
-      "User Management Dashboard",
-      "Image Uploading with Uploadthing",
-      "Builtin Vercel Deployment",
-    ],
+    description:
+      "A SaaS starter kit for solo developers and startups, with JWT-based authentication and authorization, a user management dashboard, image uploading via Uploadthing, and built-in Vercel deployment.",
     liveLink: "https://fastly.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/fastly",
     techStack: [
@@ -154,12 +133,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/pestjs.svg",
     title: "PEST.js",
     tagline: "CLI to Scaffold Production-Ready Express 5 + TypeScript APIs",
-    description: [
-      "A CLI tool that scaffolds production-grade Express 5 + TypeScript projects with a single command.",
-      "Interactive prompts for project config: database ORM (Prisma, Drizzle, TypeORM), Docker, package manager, and more.",
-      "Generates a complete stack: Express 5, Helmet, CORS, Pino logging, Zod validation, rate limiting, Jest + Supertest, ESLint, Prettier, and Husky.",
-      "Monorepo with a dedicated docs website built on Next.js, fumadocs, and a custom Structural Grid design system.",
-    ],
+    description:
+      "A CLI tool that scaffolds production-grade Express 5 + TypeScript projects with a single command. Interactive prompts configure the database ORM (Prisma, Drizzle, TypeORM), Docker, and package manager, generating a complete stack with Helmet, CORS, Pino logging, Zod validation, rate limiting, Jest + Supertest, ESLint, Prettier, and Husky. Ships as a monorepo with a docs website built on Next.js, fumadocs, and a custom Structural Grid design system.",
     liveLink: "https://pestjs.vercel.app",
     repo: "https://github.com/nabinkhair42/pest-js",
     techStack: [
@@ -180,12 +155,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/skills.svg",
     title: "nk-skills",
     tagline: "Reusable agent skills for product engineers",
-    description: [
-      "Curated collection of installable agent skills packaged as SKILL.md files.",
-      "One-command install across 12+ AI tools: Claude Code, Cursor, Gemini CLI, Windsurf, and more.",
-      "Browse, search, and preview skills with syntax-highlighted content and topic filtering.",
-      "Built with Astro, shadcn/ui, and dark mode support. Ships with llms.txt for AI discovery.",
-    ],
+    description:
+      "Reusable engineering patterns I use as a product engineer, packaged as installable agent skills. Includes a 9-layer Next.js product stack, an optimistic cache pattern for React Query, and a structural-grid design system in the spirit of Linear and Vercel.",
     liveLink: "https://skills.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/nk-skills",
     techStack: [
@@ -201,12 +172,8 @@ export const ProjectsData: Projects[] = [
     title: "Pro MCP",
     tagline: "Registry of MCP Servers",
     liveLink: "https://promcp.nabinkhair.com.np",
-    description: [
-      "Over 4200+ MCP servers listed from around the world.",
-      "Custom Server Listing Website with auto scraping of server information.",
-      "User can search and upload servers information",
-      "User-friendly interface for easy navigation and access to server information.",
-    ],
+    description:
+      "A community-driven registry for MCP servers. Discovery, search, and integration patterns for the Model Context Protocol ecosystem.",
     techStack: [
       { name: "Next.js", icon: NextJsIcon },
       { name: "Python", icon: PythonIcon },
@@ -223,11 +190,8 @@ export const ProjectsData: Projects[] = [
     tagline: "Perfect VS Code Theme",
     liveLink: "https://vthemes.nabinkhair.com.np/",
     repo: "https://github.com/nabinkhair42/vtheme",
-    description: [
-      "Over 1200+ active users worldwide.",
-      "Carefully crafted colors that enhance coding experience and reduce eye strain.",
-      "A professionally designed color theme based on advanced color theory principles.",
-    ],
+    description:
+      "A professionally designed VS Code color theme based on advanced color theory principles, with carefully crafted colors that enhance the coding experience and reduce eye strain. Over 1200+ active users worldwide.",
     techStack: [
       { name: "JSON", icon: JsonIcon },
       { name: "VS Code", icon: VscodeIcon },
@@ -238,12 +202,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/nepali-educate.png",
     title: "Nepali Educate",
     tagline: "Online Learning Platform",
-    description: [
-      "An online learning platform offering a high quality study notes for students of grade  11 and 12",
-      "User-friendly interface for easy navigation and access to study materials.",
-      "Trusted by over 50,000 students across Nepal.",
-      "Over 100k monthly visitors",
-    ],
+    description:
+      "An online learning platform offering high-quality study notes for grade 11 and 12 students, with a user-friendly interface for easy access to study materials. Trusted by over 50,000 students across Nepal and serving over 100k monthly visitors.",
     liveLink: "https://nepalieducate.com",
     techStack: [
       { name: "Jquery", icon: JqueryIcon },
@@ -255,12 +215,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/datalens.svg",
     title: "DataLens",
     tagline: "The web-native, collaborative database IDE",
-    description: [
-      "A web-based database IDE for effortless data exploration and management.",
-      "Connect to any database with a simple connection string and intuitive UI.",
-      "Collaborate in real-time with teammates, sharing queries, results, and insights.",
-      "Visualize data with built-in charts and export results in multiple formats.",
-    ],
+    description:
+      "A web-based, collaborative database IDE for effortless data exploration and management. Connect to any database with a simple connection string and intuitive UI, collaborate in real time by sharing queries, results, and insights, and visualize data with built-in charts and multi-format exports.",
     liveLink: "https://datalens.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/datalens",
     techStack: [
@@ -280,12 +236,8 @@ export const ProjectsData: Projects[] = [
     title: "Juju Connect",
     tagline: "Your Story, Your Stage",
     liveLink: "https://jujuconnect.com",
-    description: [
-      "Wrote and designed the backend architecture for the platform.",
-      "Hosted and deployed all services on AWS and Cloudflare.",
-      "Tested and developed APIs using Postman",
-      "Collaborated with cross-functional teams to define, design, and ship new features",
-    ],
+    description:
+      "Designed and built the backend architecture for the platform, hosting and deploying all services on AWS and Cloudflare. Developed and tested APIs with Postman while collaborating with cross-functional teams to define, design, and ship new features.",
     techStack: [
       { name: "Node.js", icon: NodeJsIcon },
       { name: "Express.js", icon: ExpressJsIcon },
@@ -300,12 +252,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/env-store.svg",
     title: "ENV Store",
     tagline: "Never Lose Your .env Again",
-    description: [
-      "Securely manage and sync environment variables across devices with AES-256-GCM encryption.",
-      "GitHub OAuth authentication for seamless sign-in without password management.",
-      "Import existing .env files or export configurations as standard .env format.",
-      "Organize variables by project and environment — development, staging, and production.",
-    ],
+    description:
+      "Securely manage and sync environment variables across devices with AES-256-GCM encryption. Sign in via GitHub OAuth without password management, import existing .env files or export configurations as standard .env format, and organize variables by project and environment across development, staging, and production.",
     liveLink: "https://envstore.nabinkhair.com.np",
     repo: "https://github.com/nabinkhair42/env-store",
     techStack: [
@@ -323,10 +271,8 @@ export const ProjectsData: Projects[] = [
     title: "YourGit",
     tagline: "GitHub Profile Stats Summary",
     liveLink: "https://yourgit.vercel.app/",
-    description: [
-      "Visualize any GitHub profile's contribution stats in a clean, shareable summary card.",
-      "Displays repos, stars, followers, and contribution streaks at a glance.",
-    ],
+    description:
+      "Visualize any GitHub profile's contribution stats in a clean, shareable summary card showing repos, stars, followers, and contribution streaks at a glance.",
     techStack: [
       { name: "Next.js", icon: NextJsIcon },
       { name: "TypeScript", icon: TypescriptIcon },
@@ -340,12 +286,8 @@ export const ProjectsData: Projects[] = [
     icon: "/projects/nepali-calendar.svg",
     title: "Nepali Calendar",
     tagline: "Bikram Sambat in your macOS menu bar",
-    description: [
-      "A quiet macOS menu bar app for Bikram Sambat with festivals, public holidays, and a popover that stays out of the way.",
-      "Shows BS and AD together, with Nepali or English labels and keyboard shortcuts for fast month navigation.",
-      "Built for macOS 14 or later with no accounts, no telemetry, and a SHA-256 verified installer.",
-      "Distributes through the website and GitHub releases, with a one-command installer for the latest build.",
-    ],
+    description:
+      "A quiet macOS menu bar app for Bikram Sambat with festivals, public holidays, and a popover that stays out of the way. Shows BS and AD together with Nepali or English labels and keyboard shortcuts for fast month navigation. Built for macOS 14 or later with no accounts, no telemetry, and a SHA-256 verified installer, distributed through the website and GitHub releases with a one-command installer for the latest build.",
     liveLink: "https://calendar.nabinkhair.com.np/",
     repo: "https://github.com/nabinkhair42/nepali-calendar",
     techStack: [

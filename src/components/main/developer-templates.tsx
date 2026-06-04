@@ -12,9 +12,9 @@ import { itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const buildMail = (name: string) =>
   `mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(
-    `Template Purchase Inquiry — ${name}`
+    `Template Purchase Inquiry — ${name}`,
   )}&body=${encodeURIComponent(
-    `Hi Nabin,\n\nI'm interested in purchasing the ${name} template.\n\nPlease share the details.\n\nThanks!`
+    `Hi Nabin,\n\nI'm interested in purchasing the ${name} template.\n\nPlease share the details.\n\nThanks!`,
   )}`;
 
 const DeveloperTemplates = () => {
@@ -28,13 +28,14 @@ const DeveloperTemplates = () => {
         className="space-y-3 p-2"
       >
         <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm  tracking-[0.2em] text-muted-foreground">Templates</p>
+          <p className="text-sm  text-muted-foreground">Templates</p>
           <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
             Structural Grid Templates
           </h2>
           <p className="text-base leading-relaxed text-muted-foreground">
-            Production-ready templates built on the Structural Grid design system — the exposed grid
-            aesthetic used by Linear, Vercel, and Resend.
+            Production-ready templates built on the Structural Grid design
+            system — the exposed grid aesthetic used by Linear, Vercel, and
+            Resend.
           </p>
         </motion.header>
 
@@ -63,7 +64,9 @@ const DeveloperTemplates = () => {
               </div>
               <div className="flex flex-1 flex-col gap-3 p-3">
                 <div className="space-y-1">
-                  <h3 className="text-lg font-medium leading-tight">{template.name}</h3>
+                  <h3 className="text-lg font-medium leading-tight">
+                    {template.name}
+                  </h3>
                   <p className="line-clamp-3 text-sm text-muted-foreground">
                     {template.description}
                   </p>
@@ -87,7 +90,10 @@ const DeveloperTemplates = () => {
           ))}
         </div>
 
-        <motion.div variants={itemVariants} className="flex items-center gap-3 pt-1">
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center gap-3 pt-1"
+        >
           <Link
             href="https://github.com/nabinkhair42/structural-grid-skill"
             target="_blank"

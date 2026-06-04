@@ -20,10 +20,13 @@ const DeveloperEducation = () => {
         className="space-y-3 p-2"
       >
         <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm  tracking-[0.2em] text-muted-foreground">Education</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Academic Background</h2>
+          <p className="text-sm  text-muted-foreground">Education</p>
+          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
+            Academic Background
+          </h2>
           <p className="text-base leading-relaxed text-muted-foreground">
-            My educational journey that shaped my foundation in technology and problem-solving.
+            My educational journey that shaped my foundation in technology and
+            problem-solving.
           </p>
         </motion.header>
 
@@ -61,7 +64,9 @@ const DeveloperEducation = () => {
                     </div>
                   )}
                   <div className="space-y-1">
-                    <h3 className="text-lg font-medium md:text-xl">{education.institution}</h3>
+                    <h3 className="text-lg font-medium md:text-xl">
+                      {education.institution}
+                    </h3>
                     <p className="flex items-center gap-2 text-sm text-muted-foreground">
                       {education.degree}
                       <span className="text-muted-foreground/40">·</span>

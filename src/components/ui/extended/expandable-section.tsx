@@ -48,7 +48,7 @@ const ExpandableSectionLabel = React.forwardRef<HTMLParagraphElement, Expandable
     return (
       <p
         ref={ref}
-        className={cn("text-sm  tracking-[0.2em] text-muted-foreground", className)}
+        className={cn("text-sm  text-muted-foreground", className)}
         {...props}
       >
         {children}

@@ -5,10 +5,10 @@ import type { DeveloperConfig } from "@/types";
 export const DeveloperDetails: DeveloperConfig = {
   name: "Nabin Khair",
   initials: "NK",
-  designation: "Fullstack Developer",
+  designation: "Founding Engineer | AI Systems",
   portfolio: "https://nabinkhair.com.np",
   email: "nabinkhair12@gmail.com",
-  bio: "Hi World, I'm Nabin Khair, a fullstack developer from Nepal with 2+ years of experience building performant, accessible web applications. I specialize in React, Next.js and TypeScript, and I focus on creating maintainable code, thoughtful UX, and reliable backends.",
+  bio: "I ship production AI products end to end. Frontend, backend, LLM orchestration, edge infrastructure, multi-cloud ops. Whatever the product needs, I can own from architecture through live debugging. I work comfortably across OpenAI, Anthropic, Gemini, and Perplexity, with backends on AWS, GCP, and Cloudflare. Currently open to founding engineer roles at AI-native startups.",
   avatar: "/nabin_khair.webp",
   resume: "https://nabinkhair.com.np/nabin_khair.pdf",
   socialLinks: [

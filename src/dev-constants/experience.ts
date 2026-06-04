@@ -35,11 +35,10 @@ export const ExperienceData: Experience[] = [
     endDate: "Present",
     isCurrent: true,
     description: [
-      "Design and develop scalable web AI powered video generation platform.",
-      "Implement robust backend services and APIs to support AI functionalities.",
-      "Integrate cross-platform AI models into the platform.",
-      "Optimize application performance and ensure seamless user experience.",
-      "Design optimal pipelines for various video generation use-cases.",
+      "Designed and shipped Mersel's GEO platform from scratch across 5 production subsystems: a Cloudflare edge worker, a Python FastAPI LLM service, a multi-tenant Payload CMS, a scheduled job worker, and a Next.js dashboard.",
+      "Built citation monitoring across 6 AI search surfaces (ChatGPT, Gemini, Claude, Perplexity, Google AI Overview, AI Mode) with per-platform concurrency control.",
+      "Engineered an AI-traffic reconciliation system that surfaces 1.5 to 3 times more attributable AI traffic than GA4 alone reports.",
+      "Own deployments and live debugging across Cloudflare, AWS, GCP, Supabase, and Railway.",
     ],
     skills: [
       { name: "Next.js", icon: NextJsIcon },
@@ -63,8 +62,9 @@ export const ExperienceData: Experience[] = [
     endDate: "Dec 2025",
     isCurrent: false,
     description: [
-      "Developed AI-powered healthcare dashboard and playground, enhancing doctor and patient interactions.",
-      "Implemented robust authentication and authorization mechanisms using Clerk",
+      "Optimized performance across the AI healthcare dashboard and prompt playground used by doctors and patients.",
+      "Set up authentication and authorization with Clerk.",
+      "Built the React components and integrated REST APIs for the clinical workflows.",
     ],
     skills: [
       { name: "Clerk", icon: ClerkIcon },
@@ -88,9 +88,9 @@ export const ExperienceData: Experience[] = [
     endDate: "Aug 2025",
     isCurrent: false,
     description: [
-      "Improved the design pattern of the existing codebase for better maintainability and scalability.",
-      "Developed performance optimized onboarding forms with better user interaction.",
-      "Collaborated with backend developers to integrate RESTful APIs and ensure seamless functionality.",
+      "Refactored the existing frontend so the codebase was easier to extend and maintain.",
+      "Built the multi-step onboarding forms with a focus on speed and a smoother user flow.",
+      "Wired the forms to the REST API working with the backend team.",
     ],
     skills: [
       { name: "Clerk", icon: ClerkIcon },
@@ -105,14 +105,14 @@ export const ExperienceData: Experience[] = [
   {
     company: "FinFox",
     logo: "/company/fin-fox.svg",
-    designation: "Frontend Developer and UI/UX Designer",
+    designation: "Frontend Developer & UI/UX Designer",
     type: "Full-time",
     startDate: "May 2025",
     endDate: "Aug 2025",
     isCurrent: false,
     description: [
-      "Led the frontend development and UI/UX design for a fintech SaaS platform, enhancing user experience and engagement.",
-      "Worked closely with backend developers to integrate APIs and ensure seamless functionality.",
+      "Led the frontend and UI/UX design for a fintech SaaS platform.",
+      "Integrated REST APIs across the financial workflows in partnership with the backend team.",
     ],
     skills: [
       { name: "Figma", icon: FigmaIcon },
@@ -133,10 +133,9 @@ export const ExperienceData: Experience[] = [
     endDate: "May 2025",
     isCurrent: false,
     description: [
-      "Developed strong backend for short videos sharing mobile application.",
-      "Improved webapp performance and improved SEO using best practices.",
-      "Worked on multiple web development projects for clients with diverse requirements.",
-      "Designed UI/UX mockups and prototypes multiple mobile and web applications.",
+      "Built backend services for a short-form video sharing mobile app.",
+      "Improved web performance and SEO across several of the company's products.",
+      "Designed UI/UX prototypes in Figma for both mobile and web.",
     ],
     skills: [
       { name: "AWS", icon: AwsIcon },

@@ -38,7 +38,7 @@ const DeveloperIntro = () => {
         <div className="space-y-2">
           <motion.div variants={itemVariants} className="space-y-1">
             <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
-            <p className="text-sm  tracking-[0.2em] text-muted-foreground">{designation}</p>
+            <p className="text-muted-foreground">{designation}</p>
           </motion.div>
 
           <motion.p
@@ -52,7 +52,7 @@ const DeveloperIntro = () => {
             {email && (
               <Button asChild>
                 <Link href={`mailto:${email}`}>
-                  <Mail className="size-4" />
+                  <Mail className="size-4 fill-muted-foreground/20 text-muted-foreground" />
                   Hire Me
                   <Kbd>E</Kbd>
                 </Link>
@@ -61,7 +61,7 @@ const DeveloperIntro = () => {
             {resume && (
               <Button asChild size="sm" variant="outline">
                 <Link href={resume} target="_blank" rel="noreferrer noopener">
-                  <FileText className="size-4" />
+                  <FileText className="size-4 fill-muted-foreground/20 text-muted-foreground" />
                   Resume
                   <Kbd>R</Kbd>
                 </Link>
