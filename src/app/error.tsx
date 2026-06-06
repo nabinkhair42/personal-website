@@ -37,13 +37,10 @@ export default function ErrorPage({
             An unexpected error occurred
           </h1>
           <p className="text-base leading-relaxed text-muted-foreground">
-            Don&apos;t worry, these things happen. Try again, or head back home
-            to keep exploring.
+            Don&apos;t worry, these things happen. Try again, or head back home to keep exploring.
           </p>
           {error?.digest ? (
-            <p className="font-mono text-xs text-muted-foreground/80">
-              Reference: {error.digest}
-            </p>
+            <p className="font-mono text-xs text-muted-foreground/80">Reference: {error.digest}</p>
           ) : null}
         </header>
       </ShellWrapper>
