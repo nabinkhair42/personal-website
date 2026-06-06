@@ -37,7 +37,9 @@ const DeveloperIntro = () => {
 
         <div className="space-y-2">
           <motion.div variants={itemVariants} className="space-y-1">
-            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
+            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+              {name}
+            </h1>
             <p className="text-muted-foreground">{designation}</p>
           </motion.div>
 
@@ -48,11 +50,14 @@ const DeveloperIntro = () => {
             {bio}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2 pt-1">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap items-center gap-2 pt-1"
+          >
             {email && (
               <Button asChild>
                 <Link href={`mailto:${email}`}>
-                  <Mail className="size-4 fill-muted-foreground/20 text-muted-foreground" />
+                  <Mail className="size-4 text-white/80 fill-white/50 dark:fill-muted-foreground/20 dark:text-muted-foreground" />
                   Hire Me
                   <Kbd>E</Kbd>
                 </Link>
