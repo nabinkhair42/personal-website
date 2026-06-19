@@ -1,0 +1,137 @@
+---
+title: "Loop Engineering"
+description: "Prompt engineering was about asking the right question. Loop engineering is about building the system that never has to ask."
+date: "2026-06-19"
+published: true
+image: "/blog/loop-engineering.webp"
+tags:
+  [
+    "Loop Engineering",
+    "Agentic Coding",
+    "AI Systems",
+    "AI Development",
+    "Claude Code",
+    "AI Agents",
+  ]
+---
+
+For the last two years, getting something done with AI meant typing. You typed the prompt, read the output, typed the next one. The craft was in the phrasing. We called it prompt engineering and it was useful.
+
+Then agents arrived and the job moved. It was no longer about the words you sent. It was about what the model sees on every turn: tools, retrieved files, message history, scratchpad state. I wrote about that [here](/blog/context-engineering-for-agents).
+
+Then it moved again. Better context still did not make agents reliable. You needed scaffolding around the model: guardrails, sandboxes, approval gates, hooks that fire before destructive actions. That was harness engineering. I wrote about that [here](/blog/ai-harness-engineering).
+
+[On June 8, 2026, Peter Steinberger (@steipete) posted two sentences that got 6.5 million views:](https://x.com/steipete/status/2063697162748260627)
+
+> "Here's your monthly reminder that you shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents."
+
+That is the fourth layer. Loop engineering. And it is where the job is now.
+
+## What a loop actually is
+
+Boris Cherny created Claude Code as a side project in September 2024. It now accounts for close to 4% of all public commits on GitHub. At WorkOS Acquired Unplugged on June 2, four days before Steinberger's post, he gave the cleanest definition:
+
+> "I don't prompt Claude anymore. I have loops that are running. They're the ones that are prompting Claude and figuring out what to do. My job is to write loops."
+
+A loop does five things per tick:
+
+1. **State check** — read the current situation: test results, logs, PR state, open issues.
+2. **Decision** — figure out the next action.
+3. **Execution** — hand it to the agent. Write code, call a tool, run a command.
+4. **Feedback** — capture what came back: diffs, test output, error messages.
+5. **Verification** — decide if the goal is met. If not, go back to 2.
+   With prompt engineering you controlled step 2 by hand, every time. With loop engineering you write the program that runs all five steps and leave it running while you sleep.
+
+The model becomes a subroutine. You become the author of the system that calls it.
+
+## The progression that got us here
+
+Each layer was a response to a real failure mode the previous one could not handle.
+
+**Prompt engineering (~2024).** The model is a text-in, text-out function. The work is crafting the input. The limit: every task requires a human in the loop.
+
+**Context engineering (2025).** Agents changed the problem. A task now spans dozens of model calls, not one. Tobi Lutke defined context engineering as "providing all the context for the task to be plausibly solvable by the model." Karpathy called it "the delicate art and science of filling the context window with just the right information for the next step."
+
+**Harness engineering (early 2026).** Better context still did not make agents reliable. Agents got into unrecoverable states, called the wrong tool twelve times, or produced correct output that caused production incidents because nothing in the runtime said no. The harness is what makes agents reliable rather than merely clever.
+
+**Loop engineering (2026).** The harness makes one agent run safely. The loop makes the system run continuously, with no human in any step.
+
+Each layer nests inside the ones below it. None of them replace each other. They stack.
+
+![The abstraction layers of AI engineering — from raw LLM calls to loop engineering](/blog/loop-engineering-class-hierarchy.svg)
+
+## A loop is not a cron job
+
+The obvious version: run Claude Code every hour, give it a task list. That is the beginning, not the thing.
+
+From @mosyaseen, in the reply Steinberger highlighted:
+
+> "designing the loop is half of it. the other half is putting something in the loop that can say no: a test, a type check, a real error. a loop with nothing to push back is the agent agreeing with itself on repeat."
+
+That is the part most people skip. A loop without a verifier produces output at scale. That output may be confidently wrong at scale.
+
+A trustworthy loop has two agents, not one: a **maker** that produces work, and a **checker** that audits it. Different prompts, no visibility into each other's reasoning. When they disagree, the loop stops. When they agree, it ships.
+
+## What you actually build
+
+Five components, in roughly this order:
+
+**A scheduler.** A GitHub Action that fires on a PR. A cron job that runs at 2am. A webhook from your issue tracker. This is what turns a one-off agent run into a system.
+
+**A state reader.** Reads the current situation before each tick. Failing tests, open issues tagged `agent-task`, stale reports. The agent reads this to decide what to do next.
+
+**A task handoff.** The structured prompt the loop sends to the agent. Not free-form. Structured: what is the task, what is the goal, what does done look like. Less ambiguity here means fewer ticks.
+
+**A result reader.** Did the tests pass? Did the diff touch files it should not have? This is usually deterministic code, not another model call.
+
+**A decision.** Mark done, retry with new context, escalate, or move to the next item.
+
+The complexity budget goes into the verifier and the state reader. Those are the parts that decide whether the loop ships good work or bad work.
+
+## Cost controls
+
+Loops are cheap until they are not. A loop that gets stuck, retrying a task it cannot complete, accumulates context on every retry with no exit condition.
+
+Three controls:
+
+**Iteration cap.** Hard maximum ticks per task. If the agent has not finished in 10 iterations, it stops and escalates. Not because it gave up. Because you decided that in advance.
+
+**No-progress detection.** Check whether the diff between tick N and tick N-2 is the same or smaller. If it is, something is stuck. A loop can look active while going nowhere.
+
+**Dollar budget.** Claude Code supports a cost limit per session. Set a per-task budget in the loop and cancel before it is exceeded. Not a failure state, just a guard.
+
+The loop is cheap when it is doing real work. It is expensive when it is thrashing in a state space with no signal. The verifier is what converts uncertain work into real work.
+
+## The hierarchy, complete
+
+| Layer               | What you design                   | When       |
+| ------------------- | --------------------------------- | ---------- |
+| Raw LLM API         | Token-level model calls           | Always     |
+| Prompt Engineering  | The words you send                | 2023-2024  |
+| Context Engineering | Everything the model sees         | 2025       |
+| Harness Engineering | The environment the agent runs in | Early 2026 |
+| Loop Engineering    | The cycle that drives the agent   | 2026       |
+
+Each layer makes the previous one a component. The skill set has not been replaced. It has been extended upward.
+
+## What the job looks like now
+
+The questions I ask when I build a loop:
+
+- What is the pass/fail condition? If I cannot answer that, I cannot build a reliable loop.
+- What does the state reader check before each tick?
+- What is the verifier? A test, a type check, a second model, a human gate?
+- What is the iteration cap? What is the cost budget per task?
+- What does no-progress look like, and how does the loop detect it?
+  None of those are questions about prompts. All of them are questions about systems.
+
+The Steinberger post spread because it named something people had already started doing without calling it anything. You stop being the thing inside the loop that types. You become the author of the loop itself.
+
+> Prompt engineering was about asking the right question. Loop engineering is about building the system that never has to ask.
+
+---
+
+_Related reading:_
+
+- _[Context Engineering for Agents](/blog/context-engineering-for-agents)_
+- _[Understanding AI Harness Engineering](/blog/ai-harness-engineering)_
