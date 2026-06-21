@@ -5,10 +5,10 @@ import type { DeveloperConfig } from "@/types";
 export const DeveloperDetails: DeveloperConfig = {
   name: "Nabin Khair",
   initials: "NK",
-  designation: "Founding Engineer | AI Systems",
+  designation: "Full-Stack Engineer building AI-native products",
   portfolio: "https://nabinkhair.com.np",
   email: "nabinkhair12@gmail.com",
-  bio: "I ship production AI products end to end. Frontend, backend, LLM orchestration, edge infrastructure, multi-cloud ops. Whatever the product needs, I can own from architecture through live debugging. I work comfortably across OpenAI, Anthropic, Gemini, and Perplexity, with backends on AWS, GCP, and Cloudflare. Currently open to founding engineer roles at AI-native startups.",
+  bio: "I ship production AI products end to end. Frontend, backend, LLM orchestration, edge infrastructure, multi-cloud ops. Whatever the product needs, I can own from architecture through live debugging. I work comfortably across OpenAI, Anthropic, Gemini, and Perplexity, with backends on AWS, GCP, and Cloudflare.",
   avatar: "/nabin_khair.webp",
   resume: "https://nabinkhair.com.np/nabin_khair.pdf",
   socialLinks: [
@@ -42,9 +42,9 @@ export const DeveloperDetails: DeveloperConfig = {
     country: "Nepal",
   },
   seo: {
-    title: "Nabin Khair | Founding Engineer · AI Systems",
+    title: "Nabin Khair | Full-Stack Engineer building AI-native products",
     description:
-      "Nabin Khair is a founding engineer who ships production AI products end to end — frontend, backend, LLM orchestration, and multi-cloud infrastructure.",
+      "Nabin Khair is a Full-Stack Engineer specializing in AI-native products. With expertise in frontend, backend, LLM orchestration, and multi-cloud ops, Nabin ships production AI products end to end. Proficient across OpenAI, Anthropic, Gemini, and Perplexity, with backends on AWS, GCP, and Cloudflare.",
     keywords: [
       "Nabin Khair",
       "nabinkhair",
