@@ -31,16 +31,16 @@ const DeveloperProjects = () => {
         variants={sectionVariants}
       >
         <ExpandableSection>
-          <motion.div variants={itemVariants}>
-            <ExpandableSectionHeader>
-              <ExpandableSectionLabel>My Work</ExpandableSectionLabel>
-              <ExpandableSectionTitle>Projects I&apos;m proud of</ExpandableSectionTitle>
-              <ExpandableSectionDescription>
-                A snapshot of product-focused experiments and client work where I handled everything
-                from UX flow to production deployment.
-              </ExpandableSectionDescription>
-            </ExpandableSectionHeader>
-          </motion.div>
+          <ExpandableSectionHeader>
+            <ExpandableSectionLabel>My Work</ExpandableSectionLabel>
+            <ExpandableSectionTitle>
+              Projects I&apos;m proud of
+            </ExpandableSectionTitle>
+            <ExpandableSectionDescription>
+              A snapshot of product-focused experiments and client work where I
+              handled everything from UX flow to production deployment.
+            </ExpandableSectionDescription>
+          </ExpandableSectionHeader>
 
           <ExpandableSectionList className="space-y-6">
             {ProjectsData.map((project) => (
@@ -56,8 +56,12 @@ const DeveloperProjects = () => {
                         className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
                       />
                       <div className="space-y-1">
-                        <h3 className="text-lg font-medium md:text-xl">{project.title}</h3>
-                        <p className="text-sm text-muted-foreground">{project.tagline}</p>
+                        <h3 className="text-lg font-medium md:text-xl">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {project.tagline}
+                        </p>
                       </div>
                     </div>
                   </ExpandableSectionTrigger>
@@ -69,7 +73,11 @@ const DeveloperProjects = () => {
                     {project.techStack && (
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
-                          <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
+                          <StackBadge
+                            key={tech.name}
+                            name={tech.name}
+                            icon={tech.icon}
+                          />
                         ))}
                       </div>
                     )}

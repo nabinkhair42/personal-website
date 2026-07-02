@@ -35,6 +35,26 @@ import type { Projects } from "@/types";
 
 export const ProjectsData: Projects[] = [
   {
+    icon: "/projects/tallwatch.svg",
+    title: "TallWatch",
+    tagline: "Detect Downtime before your users do",
+    description:
+      "Tallwatch monitors your sites and APIs from multiple regions, alerts the right people when something breaks",
+    liveLink: "https://tallwatch.com",
+    techStack: [
+      { name: "AWS", icon: AwsIcon },
+      { name: "Cloudflare", icon: CloudflareIcon },
+      { name: "Nest.js", icon: NextJsIcon },
+      { name: "Next.js", icon: NextJsIcon },
+      { name: "PostgreSQL", icon: PostgresqlIcon },
+      { name: "React Query", icon: ReactQueryIcon },
+      { name: "TypeScript", icon: TypescriptIcon },
+      { name: "Tailwind CSS", icon: TailwindCssIcon },
+      { name: "Vercel", icon: VercelIcon },
+      { name: "Zod", icon: ZodIcon },
+    ],
+  },
+  {
     icon: "/projects/git-chat.svg",
     title: "GitChat",
     tagline: "Chat-based GitHub Client powered by AI",
@@ -45,8 +65,8 @@ export const ProjectsData: Projects[] = [
       { name: "Next.js", icon: NextJsIcon },
       { name: "TypeScript", icon: TypescriptIcon },
       { name: "Tailwind CSS", icon: TailwindCssIcon },
-      { name: "Vercel AI SDK", icon: VercelIcon },
       { name: "shadcn/ui", icon: ShadcnUiIcon },
+      { name: "Vercel AI SDK", icon: VercelIcon },
       { name: "GitHub API", icon: GithubIcon },
       { name: "Zod", icon: ZodIcon },
     ],
