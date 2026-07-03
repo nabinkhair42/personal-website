@@ -11,14 +11,14 @@ const SPRING = {
 };
 
 export const sectionVariants: Variants = {
-  hidden: { opacity: 0, filter: "blur(12px)" },
+  hidden: { opacity: 0, filter: "blur(50px)" },
   visible: {
     opacity: 1,
     filter: "blur(0px)",
     transition: {
       ...SPRING,
       staggerChildren: 0.08,
-      delayChildren: 0.04,
+      delayChildren: 0.01,
     },
   },
 };

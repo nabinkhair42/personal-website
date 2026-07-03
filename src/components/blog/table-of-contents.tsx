@@ -321,7 +321,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   >
                     On this page
                   </span>
-                  <span className="text-[11px] tabular-nums text-muted-foreground/70">{pct}%</span>
+                  <span className="text-[11px] text-muted-foreground/70">{pct}%</span>
                 </motion.header>
 
                 <motion.div

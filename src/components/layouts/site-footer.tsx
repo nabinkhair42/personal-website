@@ -9,8 +9,8 @@ const githubUrl =
 const SiteFooter = () => {
   return (
     <footer className="flex h-24 flex-col items-center justify-center space-y-1 text-center">
-      <p className="text-lg font-medium">devn</p>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-lg font-medium">devn.</p>
+      <p className="text-muted-foreground">
         Built by{" "}
         <Link
           href={githubUrl}

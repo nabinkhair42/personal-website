@@ -31,28 +31,33 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
         className="space-y-4 p-2 py-6"
       >
         <div className="space-y-2">
-          <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{frontmatter.title}</h1>
-          <p className="text-base leading-relaxed text-muted-foreground">
-            {frontmatter.description}
-          </p>
+          <h1 className="text-3xl font-medium md:text-4xl">
+            {frontmatter.title}
+          </h1>
+          <p className="text-muted-foreground">{frontmatter.description}</p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+          <div className="inline-flex items-center gap-1.5">
             <Avatar className="size-6 border">
-              <AvatarImage src={DeveloperDetails.avatar} alt={`${DeveloperDetails.name} avatar`} />
+              <AvatarImage
+                src={DeveloperDetails.avatar}
+                alt={`${DeveloperDetails.name} avatar`}
+              />
               <AvatarFallback>{DeveloperDetails.initials}</AvatarFallback>
             </Avatar>
             {frontmatter.developer}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
+          </div>
+          <div className="inline-flex items-center gap-1.5">
             <Calendar className="size-4" />
-            <time dateTime={frontmatter.date}>{formatDate(frontmatter.date)}</time>
-          </span>
-          <span className="inline-flex items-center gap-1.5">
+            <time dateTime={frontmatter.date}>
+              {formatDate(frontmatter.date)}
+            </time>
+          </div>
+          <div className="inline-flex items-center gap-1.5">
             <Clock className="size-4" />
             {readingTime}
-          </span>
+          </div>
         </div>
 
         {frontmatter.image && (

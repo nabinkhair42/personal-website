@@ -20,7 +20,7 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-md border transition-colors hover:border-foreground/40"
+      className="group flex h-full flex-col overflow-hidden rounded-md border transition-colors hover:border-foreground/30"
     >
       <div className="relative aspect-video shrink-0 overflow-hidden border-b">
         <Image
@@ -33,19 +33,22 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
         />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
-        <h3 className="line-clamp-2 text-base font-medium leading-snug" title={frontmatter.title}>
+        <h3
+          className="line-clamp-2 font-medium leading-snug"
+          title={frontmatter.title}
+        >
           {frontmatter.title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+        <p className="line-clamp-2 flex-1 text-muted-foreground">
           {frontmatter.description}
         </p>
-        <p className="flex items-center gap-3 pt-1 text-xs text-muted-foreground">
+        <p className="flex items-center gap-3 pt-1  text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
-            <Calendar className="size-3" />
+            <Calendar className="size-4" />
             {formatDate(frontmatter.date)}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Clock className="size-3" />
+            <Clock className="size-4" />
             {readingTime}
           </span>
         </p>

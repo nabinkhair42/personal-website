@@ -19,7 +19,7 @@ import {
 import StackBadge from "@/components/ui/extended/stack-badge";
 import { ProjectsData } from "@/dev-constants/projects";
 import { GithubIcon } from "@/icons/tech";
-import { itemVariants, sectionVariants, VIEWPORT } from "../motion";
+import { itemVariants } from "../motion";
 
 const DeveloperProjects = () => {
   return (
@@ -27,8 +27,7 @@ const DeveloperProjects = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={VIEWPORT}
-        variants={sectionVariants}
+        variants={itemVariants}
       >
         <ExpandableSection>
           <ExpandableSectionHeader>
@@ -46,7 +45,7 @@ const DeveloperProjects = () => {
             {ProjectsData.map((project) => (
               <motion.div key={project.title} variants={itemVariants}>
                 <ExpandableSectionItem>
-                  <ExpandableSectionTrigger>
+                  <ExpandableSectionTrigger className="flex w-full justify-between">
                     <div className="flex items-start gap-3">
                       <Image
                         src={project.icon}
@@ -55,11 +54,11 @@ const DeveloperProjects = () => {
                         height={40}
                         className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
                       />
-                      <div className="space-y-1">
+                      <div className="space-y-1 text-left">
                         <h3 className="text-lg font-medium md:text-xl">
                           {project.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-muted-foreground">
                           {project.tagline}
                         </p>
                       </div>
@@ -67,7 +66,7 @@ const DeveloperProjects = () => {
                   </ExpandableSectionTrigger>
 
                   <ExpandableSectionContent>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-muted-foreground">
                       {project.description}
                     </p>
                     {project.techStack && (
@@ -91,7 +90,7 @@ const DeveloperProjects = () => {
                             aria-label={`Open live site for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <SquareMousePointer className="size-5 fill-muted-foreground/20 text-muted-foreground" />
+                            <SquareMousePointer className="fill-current/20 text-muted-foreground" />
                           </Link>
                         )}
                         {project.repo && (
@@ -102,7 +101,7 @@ const DeveloperProjects = () => {
                             aria-label={`View repository for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <GithubIcon className="size-5 fill-muted-foreground/20 text-muted-foregroundd" />
+                            <GithubIcon className="fill-current/20 text-muted-foreground" />
                           </Link>
                         )}
                       </div>

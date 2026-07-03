@@ -13,7 +13,11 @@ import {
   ContributionGraphLegend,
   ContributionGraphTotalCount,
 } from "@/components/ui/extended/contribution-graph";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { sectionVariants, VIEWPORT } from "../motion";
 
@@ -33,9 +37,13 @@ const LEGEND_BG = [
   "bg-[#216e39] dark:bg-[#39d353]",
 ];
 
-const fetchContributions = async (): Promise<{ data: Activity[]; total: number }> => {
+const fetchContributions = async (): Promise<{
+  data: Activity[];
+  total: number;
+}> => {
   const response = await fetch("/api/github-contributions");
-  if (!response.ok) throw new Error(`Failed to load contributions: ${response.status}`);
+  if (!response.ok)
+    throw new Error(`Failed to load contributions: ${response.status}`);
   return response.json();
 };
 
@@ -98,16 +106,18 @@ const DeveloperGitContribution = () => {
           <ContributionGraphCalendar scrollToEnd>
             {({ activity, dayIndex, weekIndex }) => (
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <ContributionGraphBlock
-                    activity={activity}
-                    className={cn("cursor-pointer", LEVEL_FILLS)}
-                    dayIndex={dayIndex}
-                    weekIndex={weekIndex}
-                  />
-                </TooltipTrigger>
+                <TooltipTrigger
+                  render={
+                    <ContributionGraphBlock
+                      activity={activity}
+                      className={cn("cursor-pointer", LEVEL_FILLS)}
+                      dayIndex={dayIndex}
+                      weekIndex={weekIndex}
+                    />
+                  }
+                />
                 <TooltipContent>
-                  <span className="font-medium">{activity.count} contributions</span> on{" "}
+                  {activity.count} contributions on{" "}
                   {format(parseISO(activity.date), "MMM d, yyyy")}
                 </TooltipContent>
               </Tooltip>
@@ -120,7 +130,7 @@ const DeveloperGitContribution = () => {
                 <div
                   className={cn(
                     "h-3 w-3 rounded border border-border",
-                    LEGEND_BG[level] ?? LEGEND_BG[0]
+                    LEGEND_BG[level] ?? LEGEND_BG[0],
                   )}
                 />
               )}
