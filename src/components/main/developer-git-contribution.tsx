@@ -13,11 +13,7 @@ import {
   ContributionGraphLegend,
   ContributionGraphTotalCount,
 } from "@/components/ui/extended/contribution-graph";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { sectionVariants, VIEWPORT } from "../motion";
 
@@ -42,8 +38,7 @@ const fetchContributions = async (): Promise<{
   total: number;
 }> => {
   const response = await fetch("/api/github-contributions");
-  if (!response.ok)
-    throw new Error(`Failed to load contributions: ${response.status}`);
+  if (!response.ok) throw new Error(`Failed to load contributions: ${response.status}`);
   return response.json();
 };
 
@@ -117,8 +112,7 @@ const DeveloperGitContribution = () => {
                   }
                 />
                 <TooltipContent>
-                  {activity.count} contributions on{" "}
-                  {format(parseISO(activity.date), "MMM d, yyyy")}
+                  {activity.count} contributions on {format(parseISO(activity.date), "MMM d, yyyy")}
                 </TooltipContent>
               </Tooltip>
             )}
@@ -130,7 +124,7 @@ const DeveloperGitContribution = () => {
                 <div
                   className={cn(
                     "h-3 w-3 rounded border border-border",
-                    LEGEND_BG[level] ?? LEGEND_BG[0],
+                    LEGEND_BG[level] ?? LEGEND_BG[0]
                   )}
                 />
               )}

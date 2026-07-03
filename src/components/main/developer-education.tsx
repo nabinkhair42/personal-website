@@ -21,12 +21,9 @@ const DeveloperEducation = () => {
       >
         <motion.header variants={itemVariants} className="space-y-2">
           <p className="text-sm text-muted-foreground">Education</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            Academic Background
-          </h2>
+          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Academic Background</h2>
           <p className="text-muted-foreground">
-            My educational journey that shaped my foundation in technology and
-            problem-solving.
+            My educational journey that shaped my foundation in technology and problem-solving.
           </p>
         </motion.header>
 
@@ -64,9 +61,7 @@ const DeveloperEducation = () => {
                     </div>
                   )}
                   <div className="space-y-1">
-                    <h3 className="text-lg font-medium md:text-xl">
-                      {education.institution}
-                    </h3>
+                    <h3 className="text-lg font-medium md:text-xl">{education.institution}</h3>
                     <div className="flex items-center text-muted-foreground">
                       {education.degree} - {education.location}
                     </div>

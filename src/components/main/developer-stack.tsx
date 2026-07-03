@@ -3,12 +3,7 @@
 import { motion } from "motion/react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { TechStacksList } from "@/dev-constants/stack";
-import {
-  itemVariants,
-  sectionVariants,
-  tightStaggerVariants,
-  VIEWPORT,
-} from "../motion";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
 const DeveloperStack = () => {
   return (
@@ -26,8 +21,8 @@ const DeveloperStack = () => {
             The tools I reach for every day
           </h2>
           <p className="text-muted-foreground">
-            A curated mix of frameworks, runtimes, and services that help me
-            craft reliable, performant user experiences across the stack.
+            A curated mix of frameworks, runtimes, and services that help me craft reliable,
+            performant user experiences across the stack.
           </p>
         </motion.header>
 

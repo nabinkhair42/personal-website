@@ -10,16 +10,15 @@ interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const ExpandableSection = React.forwardRef<
-  HTMLDivElement,
-  ExpandableSectionProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <div ref={ref} className={cn("space-y-3 p-2", className)} {...props}>
-      {children}
-    </div>
-  );
-});
+const ExpandableSection = React.forwardRef<HTMLDivElement, ExpandableSectionProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn("space-y-3 p-2", className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+);
 ExpandableSection.displayName = "ExpandableSection";
 
 // Header component
@@ -27,16 +26,15 @@ interface ExpandableSectionHeaderProps extends React.HTMLAttributes<HTMLElement>
   children: React.ReactNode;
 }
 
-const ExpandableSectionHeader = React.forwardRef<
-  HTMLElement,
-  ExpandableSectionHeaderProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <header ref={ref} className={cn("space-y-2", className)} {...props}>
-      {children}
-    </header>
-  );
-});
+const ExpandableSectionHeader = React.forwardRef<HTMLElement, ExpandableSectionHeaderProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <header ref={ref} className={cn("space-y-2", className)} {...props}>
+        {children}
+      </header>
+    );
+  }
+);
 ExpandableSectionHeader.displayName = "ExpandableSectionHeader";
 
 // Label component
@@ -44,20 +42,15 @@ interface ExpandableSectionLabelProps extends React.HTMLAttributes<HTMLParagraph
   children: React.ReactNode;
 }
 
-const ExpandableSectionLabel = React.forwardRef<
-  HTMLParagraphElement,
-  ExpandableSectionLabelProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <p
-      ref={ref}
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    >
-      {children}
-    </p>
-  );
-});
+const ExpandableSectionLabel = React.forwardRef<HTMLParagraphElement, ExpandableSectionLabelProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props}>
+        {children}
+      </p>
+    );
+  }
+);
 ExpandableSectionLabel.displayName = "ExpandableSectionLabel";
 
 // Title component
@@ -65,23 +58,19 @@ interface ExpandableSectionTitleProps extends React.HTMLAttributes<HTMLHeadingEl
   children: React.ReactNode;
 }
 
-const ExpandableSectionTitle = React.forwardRef<
-  HTMLHeadingElement,
-  ExpandableSectionTitleProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <h2
-      ref={ref}
-      className={cn(
-        "text-3xl font-medium tracking-tight text-foreground md:text-4xl",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </h2>
-  );
-});
+const ExpandableSectionTitle = React.forwardRef<HTMLHeadingElement, ExpandableSectionTitleProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <h2
+        ref={ref}
+        className={cn("text-3xl font-medium tracking-tight text-foreground md:text-4xl", className)}
+        {...props}
+      >
+        {children}
+      </h2>
+    );
+  }
+);
 ExpandableSectionTitle.displayName = "ExpandableSectionTitle";
 
 // Description component
@@ -106,20 +95,15 @@ interface ExpandableSectionListProps extends React.HTMLAttributes<HTMLDivElement
   children: React.ReactNode;
 }
 
-const ExpandableSectionList = React.forwardRef<
-  HTMLDivElement,
-  ExpandableSectionListProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn("flex flex-col space-y-3", className)}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
+const ExpandableSectionList = React.forwardRef<HTMLDivElement, ExpandableSectionListProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn("flex flex-col space-y-3", className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+);
 ExpandableSectionList.displayName = "ExpandableSectionList";
 
 // Item component - now controlled with React state
@@ -133,47 +117,42 @@ interface ExpandableSectionItemContextValue {
   toggle: () => void;
 }
 
-const ExpandableSectionItemContext =
-  React.createContext<ExpandableSectionItemContextValue | null>(null);
+const ExpandableSectionItemContext = React.createContext<ExpandableSectionItemContextValue | null>(
+  null
+);
 
 const useExpandableSectionItem = () => {
   const context = React.useContext(ExpandableSectionItemContext);
   if (!context) {
-    throw new Error(
-      "useExpandableSectionItem must be used within an ExpandableSectionItem",
-    );
+    throw new Error("useExpandableSectionItem must be used within an ExpandableSectionItem");
   }
   return context;
 };
 
-const ExpandableSectionItem = React.forwardRef<
-  HTMLDivElement,
-  ExpandableSectionItemProps
->(({ className, children, defaultOpen = false, ...props }, ref) => {
-  const [isOpen, setIsOpen] = React.useState(defaultOpen);
+const ExpandableSectionItem = React.forwardRef<HTMLDivElement, ExpandableSectionItemProps>(
+  ({ className, children, defaultOpen = false, ...props }, ref) => {
+    const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
-  const toggle = React.useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
+    const toggle = React.useCallback(() => {
+      setIsOpen((prev) => !prev);
+    }, []);
 
-  const contextValue = React.useMemo(
-    () => ({ isOpen, toggle }),
-    [isOpen, toggle],
-  );
+    const contextValue = React.useMemo(() => ({ isOpen, toggle }), [isOpen, toggle]);
 
-  return (
-    <ExpandableSectionItemContext.Provider value={contextValue}>
-      <div
-        ref={ref}
-        className={cn("group/item", className)}
-        data-state={isOpen ? "open" : "closed"}
-        {...props}
-      >
-        {children}
-      </div>
-    </ExpandableSectionItemContext.Provider>
-  );
-});
+    return (
+      <ExpandableSectionItemContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          className={cn("group/item", className)}
+          data-state={isOpen ? "open" : "closed"}
+          {...props}
+        >
+          {children}
+        </div>
+      </ExpandableSectionItemContext.Provider>
+    );
+  }
+);
 ExpandableSectionItem.displayName = "ExpandableSectionItem";
 
 // Trigger component
@@ -181,30 +160,29 @@ interface ExpandableSectionTriggerProps extends React.HTMLAttributes<HTMLButtonE
   children: React.ReactNode;
 }
 
-const ExpandableSectionTrigger = React.forwardRef<
-  HTMLButtonElement,
-  ExpandableSectionTriggerProps
->(({ className, children, ...props }, ref) => {
-  const { isOpen, toggle } = useExpandableSectionItem();
+const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableSectionTriggerProps>(
+  ({ className, children, ...props }, ref) => {
+    const { isOpen, toggle } = useExpandableSectionItem();
 
-  return (
-    <button
-      ref={ref}
-      type="button"
-      onClick={toggle}
-      className={cn(
-        "group/trigger cursor-pointer",
-        "transition-[opacity,transform] duration-150 ease-out",
-        "active:scale-[0.995] active:opacity-80",
-        className,
-      )}
-      aria-expanded={isOpen}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-});
+    return (
+      <button
+        ref={ref}
+        type="button"
+        onClick={toggle}
+        className={cn(
+          "group/trigger cursor-pointer",
+          "transition-[opacity,transform] duration-150 ease-out",
+          "active:scale-[0.995] active:opacity-80",
+          className
+        )}
+        aria-expanded={isOpen}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
 ExpandableSectionTrigger.displayName = "ExpandableSectionTrigger";
 
 // Content component with Motion animations
@@ -212,72 +190,65 @@ interface ExpandableSectionContentProps extends React.HTMLAttributes<HTMLDivElem
   children: React.ReactNode;
 }
 
-const ExpandableSectionContent = React.forwardRef<
-  HTMLDivElement,
-  ExpandableSectionContentProps
->(({ className, children, ...props }, ref) => {
-  const { isOpen } = useExpandableSectionItem();
-  const shouldReduceMotion = useReducedMotion();
+const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSectionContentProps>(
+  ({ className, children, ...props }, ref) => {
+    const { isOpen } = useExpandableSectionItem();
+    const shouldReduceMotion = useReducedMotion();
 
-  return (
-    <AnimatePresence initial={false}>
-      {isOpen && (
-        <motion.div
-          initial={shouldReduceMotion ? false : { height: 0 }}
-          animate={{
-            height: "auto",
-            transition: shouldReduceMotion
-              ? { duration: 0 }
-              : { duration: 0.42, ease: APPLE_EASE },
-          }}
-          exit={
-            shouldReduceMotion
-              ? { height: 0, transition: { duration: 0 } }
-              : { height: 0, transition: { duration: 0.32, ease: APPLE_EASE } }
-          }
-          className="overflow-hidden"
-        >
+    return (
+      <AnimatePresence initial={false}>
+        {isOpen && (
           <motion.div
-            initial={
-              shouldReduceMotion
-                ? false
-                : { opacity: 0, y: -8, filter: "blur(4px)", scale: 0.97 }
-            }
+            initial={shouldReduceMotion ? false : { height: 0 }}
             animate={{
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              scale: 1,
+              height: "auto",
               transition: shouldReduceMotion
                 ? { duration: 0 }
-                : { duration: 0.45, ease: APPLE_EASE, delay: 0.06 },
+                : { duration: 0.42, ease: APPLE_EASE },
             }}
             exit={
               shouldReduceMotion
-                ? { opacity: 0, transition: { duration: 0 } }
-                : {
-                    opacity: 0,
-                    y: -4,
-                    filter: "blur(2px)",
-                    scale: 0.98,
-                    transition: { duration: 0.2, ease: "easeIn" },
-                  }
+                ? { height: 0, transition: { duration: 0 } }
+                : { height: 0, transition: { duration: 0.32, ease: APPLE_EASE } }
             }
-            style={{ transformOrigin: "top" }}
+            className="overflow-hidden"
           >
-            <div
-              ref={ref}
-              className={cn("space-y-3 mt-3 pl-11", className)}
-              {...props}
+            <motion.div
+              initial={
+                shouldReduceMotion ? false : { opacity: 0, y: -8, filter: "blur(4px)", scale: 0.97 }
+              }
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                scale: 1,
+                transition: shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.45, ease: APPLE_EASE, delay: 0.06 },
+              }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : {
+                      opacity: 0,
+                      y: -4,
+                      filter: "blur(2px)",
+                      scale: 0.98,
+                      transition: { duration: 0.2, ease: "easeIn" },
+                    }
+              }
+              style={{ transformOrigin: "top" }}
             >
-              {children}
-            </div>
+              <div ref={ref} className={cn("space-y-3 mt-3 pl-11", className)} {...props}>
+                {children}
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-});
+        )}
+      </AnimatePresence>
+    );
+  }
+);
 ExpandableSectionContent.displayName = "ExpandableSectionContent";
 
 export {

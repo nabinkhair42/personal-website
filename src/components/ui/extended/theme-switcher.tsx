@@ -11,19 +11,21 @@ const ThemeSwitcher = () => {
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
-          aria-label="Toggle theme (D)"
-          title="Toggle theme"
-          className="h-7 w-7"
-        >
-          <Sun className="h-5 w-5 dark:hidden" />
-          <Moon className="hidden h-5 w-5 dark:block" />
-        </Button>
-      </TooltipTrigger>
+      <TooltipTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+            aria-label="Toggle theme (D)"
+            title="Toggle theme"
+            className="h-7 w-7"
+          >
+            <Sun className="h-5 w-5 dark:hidden" />
+            <Moon className="hidden h-5 w-5 dark:block" />
+          </Button>
+        }
+      />
       <TooltipContent className="flex gap-1 items-center justify-between">
         Toggle theme
         <Kbd>D</Kbd>

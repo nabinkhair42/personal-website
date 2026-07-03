@@ -24,20 +24,14 @@ import { itemVariants } from "../motion";
 const DeveloperProjects = () => {
   return (
     <ShellWrapper>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        variants={itemVariants}
-      >
+      <motion.div initial="hidden" whileInView="visible" variants={itemVariants}>
         <ExpandableSection>
           <ExpandableSectionHeader>
             <ExpandableSectionLabel>My Work</ExpandableSectionLabel>
-            <ExpandableSectionTitle>
-              Projects I&apos;m proud of
-            </ExpandableSectionTitle>
+            <ExpandableSectionTitle>Projects I&apos;m proud of</ExpandableSectionTitle>
             <ExpandableSectionDescription>
-              A snapshot of product-focused experiments and client work where I
-              handled everything from UX flow to production deployment.
+              A snapshot of product-focused experiments and client work where I handled everything
+              from UX flow to production deployment.
             </ExpandableSectionDescription>
           </ExpandableSectionHeader>
 
@@ -55,28 +49,18 @@ const DeveloperProjects = () => {
                         className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
                       />
                       <div className="space-y-1 text-left">
-                        <h3 className="text-lg font-medium md:text-xl">
-                          {project.title}
-                        </h3>
-                        <p className="text-muted-foreground">
-                          {project.tagline}
-                        </p>
+                        <h3 className="text-lg font-medium md:text-xl">{project.title}</h3>
+                        <p className="text-muted-foreground">{project.tagline}</p>
                       </div>
                     </div>
                   </ExpandableSectionTrigger>
 
                   <ExpandableSectionContent>
-                    <p className="text-muted-foreground">
-                      {project.description}
-                    </p>
+                    <p className="text-muted-foreground">{project.description}</p>
                     {project.techStack && (
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
-                          <StackBadge
-                            key={tech.name}
-                            name={tech.name}
-                            icon={tech.icon}
-                          />
+                          <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
                         ))}
                       </div>
                     )}

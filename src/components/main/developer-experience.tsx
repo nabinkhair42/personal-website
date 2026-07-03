@@ -31,13 +31,10 @@ const DeveloperExperience = () => {
           <motion.div variants={itemVariants}>
             <ExpandableSectionHeader>
               <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-              <ExpandableSectionTitle>
-                Professional Experience
-              </ExpandableSectionTitle>
+              <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
               <ExpandableSectionDescription>
-                A timeline of my career path, showcasing the roles and
-                technologies I&apos;ve worked with in various projects and
-                companies.
+                A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
+                with in various projects and companies.
               </ExpandableSectionDescription>
             </ExpandableSectionHeader>
           </motion.div>
@@ -46,11 +43,7 @@ const DeveloperExperience = () => {
             {ExperienceData.map((experience, index) => {
               const hasNext = index < ExperienceData.length - 1;
               return (
-                <motion.div
-                  key={experience.company}
-                  variants={itemVariants}
-                  className="relative"
-                >
+                <motion.div key={experience.company} variants={itemVariants} className="relative">
                   {hasNext && (
                     <motion.div
                       initial={{ scaleY: 0 }}
@@ -101,11 +94,7 @@ const DeveloperExperience = () => {
                       {experience.skills && (
                         <div className="flex flex-wrap gap-2">
                           {experience.skills.map((skill) => (
-                            <StackBadge
-                              key={skill.name}
-                              name={skill.name}
-                              icon={skill.icon}
-                            />
+                            <StackBadge key={skill.name} name={skill.name} icon={skill.icon} />
                           ))}
                         </div>
                       )}

@@ -62,7 +62,7 @@ function useActiveItem(itemIds: string[]) {
         }
         if (bestId) setActiveId(bestId);
       },
-      { rootMargin: "0px 0px -65% 0px" },
+      { rootMargin: "0px 0px -65% 0px" }
     );
 
     const observed: HTMLElement[] = [];
@@ -87,9 +87,7 @@ function scrollToHeading(id: string) {
   if (typeof window === "undefined") return;
   const el = document.getElementById(id);
   if (!el) return;
-  const reduce = window.matchMedia?.(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   window.history.replaceState(null, "", `#${id}`);
 }
@@ -110,10 +108,7 @@ export function DocsTableOfContents({
   hideLabel?: boolean;
 }) {
   const [open, setOpen] = React.useState(false);
-  const itemIds = React.useMemo(
-    () => toc.map((item) => item.url.replace("#", "")),
-    [toc],
-  );
+  const itemIds = React.useMemo(() => toc.map((item) => item.url.replace("#", "")), [toc]);
   const activeHeading = useActiveItem(itemIds);
 
   if (!toc?.length) {
@@ -124,11 +119,7 @@ export function DocsTableOfContents({
     return (
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn("h-8 md:h-7", className)}
-          >
+          <Button variant="outline" size="sm" className={cn("h-8 md:h-7", className)}>
             <MenuIcon /> On This Page
           </Button>
         </DropdownMenuTrigger>

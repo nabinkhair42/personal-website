@@ -15,18 +15,20 @@ export const GitHubButtons = () => {
   };
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded h-7 w-7"
-          onClick={handleClick}
-          aria-label="View GitHub profile"
-          title="GitHub"
-        >
-          <GithubIcon className="h-5 w-5" />
-        </Button>
-      </TooltipTrigger>
+      <TooltipTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded h-7 w-7"
+            onClick={handleClick}
+            aria-label="View GitHub profile"
+            title="GitHub"
+          >
+            <GithubIcon className="h-5 w-5" />
+          </Button>
+        }
+      />
       <TooltipContent className="flex gap-1 items-center justify-between">
         View GitHub profile
         <Kbd>G + H</Kbd>
