@@ -44,7 +44,7 @@ const DeveloperConnect = () => {
                   aria-label={`Open ${link.handle} on ${key}`}
                   className="group flex h-full items-center gap-2"
                 >
-                  <div className="flex size-10 items-center justify-center border-r border-dashed">
+                  <div className="flex size-12 items-center justify-center border-r border-dashed">
                     <Icon className="size-8 rounded-md border bg-muted p-0.5" aria-hidden />
                   </div>
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">

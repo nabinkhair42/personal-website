@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -20,7 +20,8 @@
         "useKeyWithClickEvents": "off",
         "useSemanticElements": "off",
         "useFocusableInteractive": "off",
-        "noRedundantRoles": "off"
+        "noRedundantRoles": "off",
+        "noSvgWithoutTitle": "off"
       },
       "suspicious": {
         "noArrayIndexKey": "off"
@@ -66,9 +67,11 @@
       "!build",
       "!prisma/migrations",
       "!*.config.js",
-      "!src/components/deprecated"
+      "!src/components/deprecated",
+      "!public"
     ]
   },
+
   "overrides": [
     {
       "includes": ["src/icons/**/*.tsx"],

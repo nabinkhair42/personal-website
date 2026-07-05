@@ -74,7 +74,7 @@ const DeveloperProjects = () => {
                             aria-label={`Open live site for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <SquareMousePointer className="fill-current/20 text-muted-foreground" />
+                            <SquareMousePointer className="fill-current/20 h-auto w-6 text-muted-foreground" />
                           </Link>
                         )}
                         {project.repo && (
@@ -85,7 +85,7 @@ const DeveloperProjects = () => {
                             aria-label={`View repository for ${project.title}`}
                             className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
                           >
-                            <GithubIcon className="fill-current/20 text-muted-foreground" />
+                            <GithubIcon className="fill-current/20 h-auto w-6 text-muted-foreground" />
                           </Link>
                         )}
                       </div>
