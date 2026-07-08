@@ -4,8 +4,8 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { BlogCard } from "@/components/blog/blogs-card";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { SectionHeader } from "@/components/layouts/section-header";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { itemVariants, VIEWPORT } from "@/components/motion";
 import type { BlogPost } from "@/lib/markdown/mdx";
 
@@ -21,7 +21,12 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
   return (
     <ShellWrapper>
       <div className="space-y-3 p-2">
-        <motion.div initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={itemVariants}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+          variants={itemVariants}
+        >
           <SectionHeader label="From the blog" title="Latest Posts" className="space-y-1" />
         </motion.div>
 

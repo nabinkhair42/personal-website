@@ -9,8 +9,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { Kbd } from "@/components/ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { GithubIcon } from "@/icons/social";
-import { cn } from "@/lib/utils";
 import { githubUrl } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const SPRING = {
   type: "spring" as const,

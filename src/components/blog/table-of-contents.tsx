@@ -142,7 +142,7 @@ type IndicatorRect = { top: number; height: number; left: number };
 function useIndicatorPosition(
   listRef: React.RefObject<HTMLOListElement | null>,
   activeSlug: string | null,
-  isOpen: boolean,
+  isOpen: boolean
 ) {
   const [rect, setRect] = useState<IndicatorRect | null>(null);
 

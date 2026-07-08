@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { SectionHeader } from "@/components/layouts/section-header";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { TechStacksList } from "@/dev-constants/stack";
 import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 

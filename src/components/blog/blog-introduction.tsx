@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { SectionHeader } from "@/components/layouts/section-header";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { itemVariants } from "@/components/motion";
 import { DeveloperDetails } from "@/dev-constants/details";
 
@@ -27,5 +27,3 @@ export function BlogIntroduction() {
     </ShellWrapper>
   );
 }
-
-export default BlogIntroduction;

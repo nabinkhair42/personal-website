@@ -3,8 +3,8 @@
 import { GraduationCap } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { SectionHeader } from "@/components/layouts/section-header";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 

@@ -3,8 +3,8 @@
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { SectionHeader } from "@/components/layouts/section-header";
+import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 

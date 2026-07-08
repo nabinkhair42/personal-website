@@ -73,6 +73,7 @@ const DeveloperGitContribution = () => {
     return (
       <ShellWrapper>
         <div
+          role="status"
           aria-busy="true"
           aria-label="Loading GitHub contribution graph"
           className="h-[11.9rem] animate-pulse border bg-muted"

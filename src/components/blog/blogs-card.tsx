@@ -46,5 +46,3 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
     </Link>
   );
 };
-
-export default BlogCard;

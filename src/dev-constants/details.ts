@@ -1,5 +1,5 @@
-import { FigmaIcon } from "@/icons";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/icons/social";
+import { FigmaIcon } from "@/icons/tech";
 import type { DeveloperConfig } from "@/types";
 
 export const DeveloperDetails: DeveloperConfig = {

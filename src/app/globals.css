@@ -121,11 +121,13 @@
 }
 
 @utility pattern-hatch {
-  background-image: repeating-linear-gradient(45deg,
-      var(--pattern-fg) 0,
-      var(--pattern-fg) 1px,
-      transparent 0,
-      transparent 50%);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 1px,
+    transparent 0,
+    transparent 50%
+  );
   background-size: 10px 10px;
 }
 
@@ -143,7 +145,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
