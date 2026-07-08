@@ -8,18 +8,34 @@ image: '/blog/coding-agents.webp'
 tags: ["AI Agents", "Coding Agents", "Claude Code", "GitHub Copilot", "Future of Development", "AI Programming"]
 ---
 
-I have been using AI coding agents since mid-2024, and I have found them extremely helpful for writing most of my code. I have used almost all the major AI coding agents available in the market, such as [Codex (OpenAI)](https://openai.com/codex/)
-, [Claude Code (Anthropic)](https://claude.com/product/claude-code)
-, and [Gemini Pro](https://codeassist.google). While writing this blog article, I have an active agent writing code for my side project. Every day, week, or month, new LLM models are released for general-purpose use, along with fine-tuned versions specifically for coding, offering higher accuracy and reliability.
+I have been using AI coding agents since mid-2024, and I have found them extremely helpful for writing most of my code. I have used most of the major agents available today, such as the [OpenAI Codex agent](https://openai.com/codex/), [Claude Code (Anthropic)](https://claude.com/product/claude-code), and [Gemini Code Assist](https://codeassist.google). While writing this blog article, I have an active agent writing code for my side project. Every few weeks, new LLM models are released for general-purpose use, along with fine-tuned versions specifically for coding, offering higher accuracy and reliability.
 
-Along with the release of new and more precise LLMs, fear among developers about job security is also increasing. In the first two years of the AI revolution, we have seen that many entry-level jobs are almost being replaced. In the future, it is predicted that mid-level jobs may also be at risk. However, this advancement is not as scary as it seems, and I don’t see any reason for good developers or engineers to be worried.
+Along with better models, fear among developers about job security has also increased. Some hiring data shows fewer entry-level postings in certain markets, but the picture is mixed and still evolving. This advancement is not as scary as headlines suggest, and I do not see a reason for strong engineers to panic — but pretending nothing is changing would be dishonest.
 
 Every day, as a Developer / Programmer / Engineer, our job should focus more on how we think about solving a problem rather than prioritizing code syntax. As most experienced developers and seniors say, “Coding was never that complex of a job.” Test cases have also been automated for decades to reduce friction caused by manual testing and human interference.
 
-The most important part of coding using AI agents—also known as [Vibe Coding](https://www.nabinkhair.com.np/blog/what-is-vibe-coding)
-—is how we provide the prompt and how clearly we explain the problem to the agent. At this point, the entire debate about losing jobs is largely resolved. If you read that statement again, initially we are explaining the problem to the agent, which is the most complex and critical stage of software development. Based on that problem description, if we can provide the correct architecture and flow, the agent will be able to solve the problem very quickly.
+The most important part of coding using AI agents — also known as [Vibe Coding](https://www.nabinkhair.com.np/blog/what-is-vibe-coding) — is how you frame the problem and how clearly you explain constraints to the agent. Problem definition, architecture, and verification were always the hard parts of software development. Agents compress the typing and boilerplate; they do not remove the need to think.
 
-In the development journey, the most important part is designing the solution in the most efficient and simplest way so that users love using it. Once we provide real value to users by solving their problems in the easiest and most effective way, we win the entire game of development.
+In the development journey, the most important part is designing the solution in the most efficient and simplest way so that users love using it. Once you provide real value to users by solving their problems in the easiest and most effective way, you win the entire game of development.
 
+## What changes in practice
 
-Continued...
+Three shifts show up quickly once agents become part of your daily workflow.
+
+**You spend more time on specs and less on syntax.** The bottleneck moves from "how do I implement this API call" to "what should this API guarantee, and how do we know it works." That is where experienced engineers already added the most value; agents just make the gap more obvious.
+
+**Review becomes the core skill.** An agent can produce a working diff in minutes. Your job is to read it, run it, and catch wrong assumptions before they ship. The teams that win are not the ones that type fastest — they are the ones with the best tests, the clearest architecture, and the discipline to reject bad output.
+
+**The harness matters as much as the model.** Claude Code, Cursor, Cline, and Windsurf may call similar vendor models, but they differ in tool routing, context management, sandboxes, and guardrails. Picking the right agent environment is a product decision, not just a model decision.
+
+## Where agents struggle today
+
+Agents are strong at bounded tasks: scaffolding a feature, writing tests from a spec, refactoring with clear constraints, fixing a stack trace you paste in. They are weak at open-ended system design, subtle concurrency bugs, security reviews that require threat modeling, and anything that needs deep domain context you have not written down.
+
+Treat them as fast junior collaborators, not autonomous seniors. Give them a goal, a verification step, and a ceiling on how far they can wander before a human checks in.
+
+## What to focus on next
+
+If you are early in your career, double down on fundamentals that agents do not replace: data structures, debugging, reading other people's code, writing tests, and communicating trade-offs. If you are senior, your leverage is problem framing, architecture, and building the loops and guardrails that let agents work safely on your codebase.
+
+The future of development is not "developers disappear." It is developers who know how to direct, verify, and integrate agent output shipping faster than those who do not. That is a skill worth building deliberately — not something that resolves itself because the models got better.

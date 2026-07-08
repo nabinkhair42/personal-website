@@ -34,7 +34,7 @@ The first fact is that cross-entropy loss contains no truth signal. The gradient
 
 The second fact is the singleton problem, which is the more interesting one. In any natural corpus, a large share of facts appear exactly once. One person's birthday, one obscure court case, one specific date in a bibliography. Kalai and Vempala proved a sharp result about this in their earlier paper, [*Calibrated Language Models Must Hallucinate*](https://arxiv.org/abs/2311.14648):
 
-> The probability of generating a hallucination is close to the fraction of facts that occur exactly once in the training data.
+> Under calibration assumptions, the probability of generating a hallucination is bounded in terms of the fraction of facts that occur exactly once in the training data.
 
 This is a [Good-Turing](https://en.wikipedia.org/wiki/Good%E2%80%93Turing_frequency_estimation) result — the same statistic that estimates how much probability mass sits on yet-unseen items also bounds how often a calibrated model will fabricate. The claim cuts deeper than it sounds. It says that being well-calibrated and never hallucinating are mathematically incompatible whenever the data has a singleton tail. The only way to drive hallucination to zero on long-tail facts is to refuse to answer any question whose answer might be a singleton — which is to be poorly calibrated, and useless.
 
@@ -42,7 +42,7 @@ The 2025 paper sharpens this with a concrete example. Asked for the birthday of 
 
 There is also a third, smaller class of hallucinations that come from how the input is represented. The famous "how many R's in strawberry" failure has nothing to do with reasoning. BPE tokenizers represent the word as a small number of subword units, and the model never sees individual letters at the input layer. Repeated letters can collapse into a generic double-letter feature. The model is being asked a question whose answer is not in its representation — the failure is architectural, not statistical.
 
-So pretraining gives you a model that has learned the texture of language extremely well, has memorized facts that appear many times, has no signal at all for truth versus plausibility, and is structurally incapable of accurately reproducing facts that appear once. Hallucination is built into that setup. You cannot post-train it away because the deficit is in the data, not in the alignment.
+So pretraining gives you a model that has learned the texture of language extremely well, has memorized facts that appear many times, has no signal at all for truth versus plausibility, and is structurally incapable of accurately reproducing facts that appear once. Hallucination is built into that setup. Post-training can reduce some failure modes, but it cannot fully erase long-tail factual errors whose root cause is missing or singleton training evidence.
 
 ## Why post-training makes it worse, not better
 
@@ -102,7 +102,7 @@ The first is the [*Lost in the Middle*](https://arxiv.org/abs/2307.03172) effect
 
 The second is the knowledge-conflict problem. When retrieved content contradicts what the model thinks it knows from pretraining, behavior is inconsistent — sometimes the model overrides retrieval with stale parametric knowledge, sometimes it accepts noisy retrieved content uncritically. Mechanistic work on this (notably the [ReDeEP paper](https://arxiv.org/abs/2410.11414)) shows the failure traces to specific FFN layers over-emphasizing parametric knowledge in the residual stream while copying heads under-utilize the retrieved tokens. The model is wired in a way that does not always defer to its own context.
 
-The third is the simple faithfulness gap. Even with the source fully visible, models can summarize it incorrectly. The [Vectara HHEM benchmark](https://github.com/vectara/hallucination-leaderboard) measures grounded-summarization hallucination rates and the numbers are sobering. Gemini 2.5 Flash Lite sits around 3% — about as good as it gets. Most frontier models cluster between 5% and 11%. Reasoning models are uniformly worse, with several exceeding 10% on the harder dataset and Grok-4-fast-reasoning hitting 20.2%. Adding more reasoning steps gives the model more room to drift from the source.
+The third is the simple faithfulness gap. Even with the source fully visible, models can summarize it incorrectly. The [Vectara HHEM benchmark](https://github.com/vectara/hallucination-leaderboard) measures grounded-summarization hallucination rates and the numbers are sobering (as of early 2026; leaderboard rankings drift). Gemini 2.5 Flash Lite sits around 3% — about as good as it gets. Most frontier models cluster between 5% and 11%. Reasoning models are uniformly worse, with several exceeding 10% on the harder dataset and Grok-4-fast-reasoning hitting 20.2%. Adding more reasoning steps gives the model more room to drift from the source.
 
 The picture you should hold in your head is that grounding helps with faithfulness but not factuality, that long context is not the same as attentive context, and that no current technique fully closes the faithfulness gap even when the answer is sitting in the prompt.
 

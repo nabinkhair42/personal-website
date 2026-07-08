@@ -7,6 +7,7 @@ import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { itemVariants } from "@/components/motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
+import { formatDate } from "@/lib/format";
 import type { BlogFrontmatter } from "@/lib/markdown/mdx";
 
 interface BlogHeaderProps {
@@ -14,17 +15,10 @@ interface BlogHeaderProps {
   readingTime: string;
 }
 
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
 export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
   return (
     <ShellWrapper>
-      <motion.article
+      <motion.header
         initial="hidden"
         animate="visible"
         variants={itemVariants}
@@ -44,11 +38,11 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
             {frontmatter.developer}
           </div>
           <div className="inline-flex items-center gap-1.5">
-            <Calendar className="size-4" />
-            <time dateTime={frontmatter.date}>{formatDate(frontmatter.date)}</time>
+            <Calendar className="size-4" aria-hidden />
+            <time dateTime={frontmatter.date}>{formatDate(frontmatter.date, "long")}</time>
           </div>
           <div className="inline-flex items-center gap-1.5">
-            <Clock className="size-4" />
+            <Clock className="size-4" aria-hidden />
             {readingTime}
           </div>
         </div>
@@ -66,7 +60,7 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
             />
           </div>
         )}
-      </motion.article>
+      </motion.header>
     </ShellWrapper>
   );
 }

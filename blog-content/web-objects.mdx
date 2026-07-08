@@ -9,7 +9,7 @@ tags: ["JavaScript", "Web Storage", "LocalStorage", "SessionStorage", "Browser A
 ---
 
 
-Web storage objects are a type of client-side storage that allow web developers to store data in a web browser. They provide an easy and efficient way to store data that can be accessed later, even after the browser is closed. This article will discuss the two types of web storage objects, **Local Storage** and **Session Storage**, and how they are used in web development.
+Web storage objects are a type of client-side storage that allow web developers to store data in a web browser. They provide an easy and efficient way to store data that can be accessed later. This article covers the two main **Web Storage API** mechanisms — **localStorage** and **sessionStorage** — not cookies, IndexedDB, or the Cache API.
 
 ### Local Storage
 
@@ -26,7 +26,7 @@ Local Storage is a client-side storage object that persists even after the brows
 Session Storage is another client-side storage object with different characteristics compared to Local Storage. Key features include:
 
 - **Session-specific Storage**: Data stored in Session Storage is cleared when the browser tab is closed.
-- **Tab-specific Accessibility**: Data is only accessible within the same tab and window.
+- **Tab-scoped by default**: Data is isolated per top-level browsing context. Same-origin iframes in the same tab can share it; duplicated tabs copy the initial session storage snapshot.
 - **Ideal Use Cases**:
   - Temporarily storing user input, such as form data.
   - Managing session-specific preferences, such as UI settings for the current tab.
@@ -41,6 +41,9 @@ Session Storage is another client-side storage object with different characteris
 3. **No Automatic Server Transmission**:
    - Data stored in web storage objects is not sent to the server with every HTTP request.
    - This reduces network overhead and improves the performance and responsiveness of web applications.
+4. **Synchronous API with per-origin quotas**:
+   - Both APIs are synchronous and can block the main thread on large reads or writes.
+   - Browsers typically enforce a per-origin quota of about 5 MB (varies by browser).
 
 ### Browser Support
 

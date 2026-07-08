@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
@@ -19,15 +20,13 @@ const DeveloperConnect = () => {
         variants={sectionVariants}
         className="space-y-3 p-2"
       >
-        <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm text-muted-foreground">Connect</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            Let&apos;s build together
-          </h2>
-          <p className="text-muted-foreground">
-            Pick the channel that fits best — every link here stays in sync with my latest work.
-          </p>
-        </motion.header>
+        <motion.div variants={itemVariants}>
+          <SectionHeader
+            label="Connect"
+            title="Let's build together"
+            description="Pick the channel that fits best — every link here stays in sync with my latest work."
+          />
+        </motion.div>
 
         <motion.div
           variants={tightStaggerVariants}
@@ -51,7 +50,7 @@ const DeveloperConnect = () => {
                     <span className="truncate font-medium">{link.name}</span>
                     <span className="truncate text-muted-foreground">{link.handle}</span>
                   </span>
-                  <ArrowUpRight className="inline-flex items-center gap-1 underline underline-offset-4 text-muted-foreground group-transition-colors group-hover:text-foreground" />
+                  <ArrowUpRight className="inline-flex items-center gap-1 text-muted-foreground underline underline-offset-4 transition-colors group-hover:text-foreground" />
                 </Link>
               </motion.div>
             );

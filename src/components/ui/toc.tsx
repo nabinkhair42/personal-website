@@ -17,21 +17,70 @@ const listContainerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.025,
+      staggerChildren: 0.018,
       delayChildren: 0.04,
     },
   },
 };
 
+const TOC_EASE = [0.32, 0.72, 0, 1] as const;
+
 const listItemVariants = {
-  hidden: { opacity: 0, x: -6, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 4 },
   visible: {
     opacity: 1,
-    x: 0,
-    filter: "blur(0px)",
-    transition: { type: "spring" as const, stiffness: 460, damping: 38 },
+    y: 0,
+    transition: { duration: 0.22, ease: TOC_EASE },
   },
 };
+
+const INDICATOR_SPRING = { type: "spring" as const, stiffness: 520, damping: 44 };
+
+type IndicatorRect = { top: number; height: number; left: number };
+
+function useTocIndicator(
+  listRef: React.RefObject<HTMLDivElement | null>,
+  activeId: string | null,
+) {
+  const [rect, setRect] = React.useState<IndicatorRect | null>(null);
+
+  const measure = React.useCallback(() => {
+    const list = listRef.current;
+    if (!list || !activeId) {
+      setRect(null);
+      return;
+    }
+    const link = list.querySelector<HTMLElement>(`a[data-slug="${activeId}"]`);
+    if (!link) {
+      setRect(null);
+      return;
+    }
+    const depth = Number(link.dataset.depth ?? 2);
+    const listRect = list.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const leftByDepth: Record<number, number> = { 2: 0, 3: 16, 4: 32 };
+    setRect({
+      top: linkRect.top - listRect.top + list.scrollTop,
+      height: linkRect.height,
+      left: leftByDepth[depth] ?? 0,
+    });
+  }, [listRef, activeId]);
+
+  React.useEffect(() => {
+    measure();
+    const list = listRef.current;
+    if (!list) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(list);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, listRef]);
+
+  return rect;
+}
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
@@ -62,7 +111,7 @@ function useActiveItem(itemIds: string[]) {
         }
         if (bestId) setActiveId(bestId);
       },
-      { rootMargin: "0px 0px -65% 0px" }
+      { rootMargin: "0px 0px -65% 0px" },
     );
 
     const observed: HTMLElement[] = [];
@@ -87,7 +136,9 @@ function scrollToHeading(id: string) {
   if (typeof window === "undefined") return;
   const el = document.getElementById(id);
   if (!el) return;
-  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reduce = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   window.history.replaceState(null, "", `#${id}`);
 }
@@ -108,8 +159,13 @@ export function DocsTableOfContents({
   hideLabel?: boolean;
 }) {
   const [open, setOpen] = React.useState(false);
-  const itemIds = React.useMemo(() => toc.map((item) => item.url.replace("#", "")), [toc]);
+  const listRef = React.useRef<HTMLDivElement>(null);
+  const itemIds = React.useMemo(
+    () => toc.map((item) => item.url.replace("#", "")),
+    [toc],
+  );
   const activeHeading = useActiveItem(itemIds);
+  const indicatorRect = useTocIndicator(listRef, activeHeading);
 
   if (!toc?.length) {
     return null;
@@ -119,7 +175,11 @@ export function DocsTableOfContents({
     return (
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger>
-          <Button variant="outline" size="sm" className={cn("h-8 md:h-7", className)}>
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn("h-8 md:h-7", className)}
+          >
             <MenuIcon /> On This Page
           </Button>
         </DropdownMenuTrigger>
@@ -160,7 +220,7 @@ export function DocsTableOfContents({
       initial="hidden"
       animate="visible"
       variants={listContainerVariants}
-      className={cn("flex flex-col gap-2 p-4 pt-0 text-sm", className)}
+      className={cn("relative flex flex-col gap-2 p-4 pt-0 text-sm", className)}
     >
       {!hideLabel && (
         <motion.p
@@ -170,34 +230,43 @@ export function DocsTableOfContents({
           On This Page
         </motion.p>
       )}
-      {toc.map((item) => {
-        const id = item.url.replace("#", "");
-        const isActive = id === activeHeading;
-        return (
-          <motion.a
-            key={item.url}
-            href={item.url}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToHeading(id);
+      <div ref={listRef} className="relative flex flex-col gap-2">
+        {indicatorRect && (
+          <motion.span
+            aria-hidden
+            className="pointer-events-none absolute z-10 w-px rounded-full bg-foreground"
+            initial={false}
+            animate={{
+              top: indicatorRect.top,
+              height: indicatorRect.height,
+              left: indicatorRect.left,
             }}
-            variants={listItemVariants}
-            aria-current={isActive ? "location" : undefined}
-            className="relative text-[0.8rem] text-muted-foreground/50 no-underline transition-colors hover:text-muted-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active={isActive}
-            data-depth={item.depth}
-          >
-            {isActive && (
-              <motion.span
-                layoutId="docs-toc-active-indicator"
-                className="absolute -left-2 top-1/2 -translate-y-1/2 h-3.5 w-0.5 rounded-full bg-foreground"
-                transition={{ type: "spring", stiffness: 500, damping: 38 }}
-              />
-            )}
-            {item.title}
-          </motion.a>
-        );
-      })}
+            transition={INDICATOR_SPRING}
+          />
+        )}
+        {toc.map((item) => {
+          const id = item.url.replace("#", "");
+          const isActive = id === activeHeading;
+          return (
+            <motion.a
+              key={item.url}
+              href={item.url}
+              data-slug={id}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToHeading(id);
+              }}
+              variants={listItemVariants}
+              aria-current={isActive ? "location" : undefined}
+              className="block text-[0.8rem] text-muted-foreground/50 no-underline transition-colors hover:text-muted-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+              data-active={isActive}
+              data-depth={item.depth}
+            >
+              {item.title}
+            </motion.a>
+          );
+        })}
+      </div>
     </motion.div>
   );
 }

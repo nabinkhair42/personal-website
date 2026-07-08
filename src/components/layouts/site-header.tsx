@@ -5,16 +5,12 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Kbd } from "@/components/ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { DeveloperDetails } from "@/dev-constants/details";
 import { GithubIcon } from "@/icons/social";
 import { cn } from "@/lib/utils";
-
-const githubUrl =
-  DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.url ??
-  "https://github.com/nabinkhair42";
+import { githubUrl } from "@/lib/site";
 
 const SPRING = {
   type: "spring" as const,
@@ -30,6 +26,21 @@ const SiteHeader = () => {
   const isBlog = pathname?.startsWith("/blog");
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [skipLayoutTransition, setSkipLayoutTransition] = useState(false);
+  const pathnameRef = useRef(pathname);
+
+  useLayoutEffect(() => {
+    const routeChanged = pathnameRef.current !== pathname;
+    pathnameRef.current = pathname;
+
+    setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+
+    if (!routeChanged) return;
+
+    setSkipLayoutTransition(true);
+    const frame = requestAnimationFrame(() => setSkipLayoutTransition(false));
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > SCROLL_THRESHOLD);
@@ -38,16 +49,19 @@ const SiteHeader = () => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 flex justify-center transition-colors duration-200",
+        "sticky top-0 z-50 flex justify-center",
+        !skipLayoutTransition && "transition-colors duration-200",
         isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md"
       )}
     >
       <motion.div
-        layout
-        transition={SPRING}
+        layout={!skipLayoutTransition}
+        transition={skipLayoutTransition ? { duration: 0 } : SPRING}
         animate={{ borderRadius: isScrolled ? 999 : 0 }}
         className={cn(
-          "flex items-center transition-[background-color,border-color,box-shadow,height] duration-200",
+          "flex items-center",
+          !skipLayoutTransition &&
+            "transition-[background-color,border-color,box-shadow,height] duration-200",
           isScrolled
             ? "mt-3 h-11 gap-2.5 w-76 justify-between border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
             : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"

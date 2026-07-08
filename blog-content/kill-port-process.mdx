@@ -32,13 +32,13 @@ The duration is not what most people think. The RFC says `2 × MSL` (Maximum Seg
 
 - **Linux**: 60 seconds. Hardcoded in `include/net/tcp.h` as `TCP_TIMEWAIT_LEN (60*HZ)`. There is no sysctl to tune it — you would have to recompile the kernel.
 - **macOS / BSD**: about 30 seconds. The MSL constant is 15 seconds (`TCPTV_MSL` in Darwin's `bsd/netinet/tcp_timer.h`); confirmable at runtime with `sysctl net.inet.tcp.msl`.
-- **Windows**: 120 seconds by default. Tunable via the registry value `HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpTimedWaitDelay`, range 2-300.
+- **Windows**: typically 120 seconds on modern Windows (varies by version and stack). Tunable via the registry value `HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpTimedWaitDelay`, range 2-300.
 
-If you stop a server, restart it immediately, and see "address already in use" for a minute or two even though `lsof` shows nothing — that is `TIME_WAIT`. The fix is not to kill anything. The fix is `SO_REUSEADDR`, which we will get to.
+If you stop a server, restart it immediately, and see "address already in use" even though `lsof` shows no listener — first rerun with `sudo` and `-sTCP:LISTEN` to rule out a process you cannot see. If there is still no listener, `TIME_WAIT` on old connection sockets is a likely cause. The fix is not to kill anything. The fix is `SO_REUSEADDR` on the listening socket before `bind()`, which we will get to.
 
-There is one nuance worth flagging: `TIME_WAIT` lands on whichever side called `close()` first. If your *server* initiated the close, the listening socket gets stuck. If a *client* closed first (a browser tab, a curl exit), `TIME_WAIT` is on the client end and your server's listen port is unaffected. This is why `TIME_WAIT` blocks restarts after a crash or `Ctrl+C` but not during normal operation.
+There is one nuance worth flagging: `TIME_WAIT` lands on whichever side called `close()` first on a *connection* socket — not on the listening socket itself. When your dev server shuts down, the listen socket is closed and the port is released unless another process (or a child worker) still holds it. What blocks an immediate restart is usually old *connection* sockets sitting in `TIME_WAIT` on the same local address and port tuple. Without `SO_REUSEADDR`, the kernel may refuse a new `bind()` until those entries expire. If a *client* closed first (a browser tab, a `curl` exit), `TIME_WAIT` sits on the client side and your server's listen port is unaffected. This is why `TIME_WAIT` can block restarts after a crash or `Ctrl+C` but often does not matter during normal steady-state operation.
 
-**CLOSE_WAIT** is the most interesting state, because it almost always means *your app has a bug*. RFC 9293 describes it as "waiting for a connection termination request from the local user." The remote side has sent `FIN`, the kernel has acknowledged it, and it is now waiting for *your application* to call `close()`. There is no kernel timeout for `CLOSE_WAIT`. The socket — and the port — stay there until your app exits or finally closes the file descriptor.
+**CLOSE_WAIT** is the most interesting state, because it almost always means *your app has a bug*. RFC 9293 describes it as "waiting for a connection termination request from the local user." The remote side has sent `FIN`, the kernel has acknowledged it, and it is now waiting for *your application* to call `close()`. There is no kernel timeout for `CLOSE_WAIT`. The connection socket stays open — consuming a file descriptor — until your app exits or finally calls `close()`. It does not usually block your listen port from accepting new connections, but a pile of `CLOSE_WAIT` sockets is a leak you need to fix.
 
 If you see many `CLOSE_WAIT` entries piling up in `ss -tan state close-wait`, it means somewhere in your code there is a code path — usually an unhandled exception, a missing `try/finally`, or a forgotten `close()` in a long-running worker — that opens connections and never tears them down properly. Restarting the process clears it. Fixing the bug is the real solution.
 
@@ -49,10 +49,16 @@ Before you kill anything, find out what owns the port. Killing blind is how you 
 On **Linux**, the modern tool is `ss`, not `netstat`. `ss` reads from the kernel's `NETLINK_INET_DIAG` socket-diagnostic interface, while `netstat` parses `/proc/net/tcp` line by line — `ss` is faster and has better state filtering.
 
 ```bash
-ss -tlnp | grep :3000
+sudo ss -tlnp sport = :3000
 ```
 
-The flags: `-t` for TCP, `-l` for listening sockets only, `-n` for numeric output (skip DNS and `/etc/services` lookups), `-p` to show the owning process. You will get output like `users:(("node",pid=12345,fd=20))`.
+The flags: `-t` for TCP, `-l` for listening sockets only, `-n` for numeric output (skip DNS and `/etc/services` lookups), `-p` to show the owning process (requires `sudo` when the listener is owned by another user). `sport = :3000` filters to local port 3000 without the false positives you get from `grep :3000` matching `:30000`. You will get output like `users:(("node",pid=12345,fd=20))`.
+
+`lsof` works on Linux too, but it is often not pre-installed (`apt install lsof`, `dnf install lsof`). When you have it:
+
+```bash
+sudo lsof -nP -iTCP:3000 -sTCP:LISTEN
+```
 
 On **macOS**, there is no `ss`. Use `lsof`:
 
@@ -71,9 +77,11 @@ sudo lsof -nP -iTCP:3000 -sTCP:LISTEN
 On **Windows**, the PowerShell-native form is cleaner than `netstat`:
 
 ```powershell
-Get-NetTCPConnection -LocalPort 3000 | Select-Object OwningProcess, State
-Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess
+Get-NetTCPConnection -LocalPort 3000 -State Listen | Select-Object OwningProcess, State
+Get-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess
 ```
+
+Filter with `-State Listen` so you do not pick up outbound client connections that happen to use the same local port. If nothing is listening, the second command will error — that is your answer.
 
 The classic `netstat -ano | findstr :3000` still works. Add `-b` to see executable names, but that requires Administrator privileges.
 
@@ -100,38 +108,40 @@ I keep this as a small shell function:
 ```bash
 killport() {
   local port="$1"
-  local pid=$(lsof -ti :"$port")
-  if [ -z "$pid" ]; then
-    echo "Nothing on port $port"
+  local pids
+  pids=$(lsof -nP -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null)
+  if [ -z "$pids" ]; then
+    echo "Nothing listening on port $port"
     return
   fi
-  kill "$pid" 2>/dev/null
+  kill $pids 2>/dev/null
   for i in 1 2 3 4 5; do
     sleep 1
-    kill -0 "$pid" 2>/dev/null || { echo "Port $port freed"; return; }
+    pids=$(lsof -nP -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null)
+    [ -z "$pids" ] && { echo "Port $port freed"; return; }
   done
-  echo "Process $pid did not respond to SIGTERM, sending SIGKILL"
-  kill -9 "$pid"
+  echo "Process(es) $pids did not respond to SIGTERM, sending SIGKILL"
+  kill -9 $pids 2>/dev/null
 }
 ```
 
 This is the version I wish more dotfiles repos shipped. It tries the right thing first, gives the process a few seconds to clean up, and only escalates when it has to.
 
-On Linux, `fuser -k 3000/tcp` is a one-shot equivalent. The default signal it sends is `SIGKILL`, so for the same reason as above, prefer `fuser -TERM -k 3000/tcp` first if you care about clean shutdown.
+On Linux, `fuser -k 3000/tcp` is a one-shot equivalent. This is the `fuser` from the `psmisc` package — it is not the same as the minimal POSIX `fuser` on macOS, which does not support the `PORT/tcp` syntax. The default signal `fuser -k` sends is `SIGKILL`, so for the same reason as above, prefer `fuser -k -TERM 3000/tcp` first if you care about clean shutdown.
 
 ## When the holder is not your dev server
 
 Half the time I have spent fighting "port already in use" was not because of a stuck Node process. It was something less obvious. These are the modern causes worth knowing.
 
-**Docker.** When you `docker run -p 3000:3000`, two things happen on Linux. The Docker daemon adds an iptables `DNAT` rule that rewrites incoming packets, and it spawns a userland helper called `docker-proxy` that binds to the host port and forwards bytes to the container. The reason for both is that Linux netfilter does not apply NAT to loopback traffic, so without the userland proxy, `curl localhost:3000` from the host would not reach the container. The practical consequence: `lsof -i :3000` shows `docker-proxy` as the listener, not your app. On Docker Desktop (macOS, Windows), the listener will appear as `com.docker.backend` or `vpnkit`. If `docker ps` shows a running container with the port mapped, that is your culprit. Stop the container with `docker stop`, not `kill`. Stopped containers (visible only in `docker ps -a`) do *not* hold the port.
+**Docker.** When you `docker run -p 3000:3000`, Docker adds iptables `DNAT` rules in the `DOCKER` chain and, by default, spawns a userland helper called `docker-proxy` that binds to the host port. The proxy exists mainly to handle loopback (`127.0.0.1`) hairpin routing — without it, `curl localhost:3000` from the host may not reach the container depending on your setup. You can disable it with `"userland-proxy": false` in `/etc/docker/daemon.json`, in which case only iptables handles forwarding. The practical consequence: `lsof -nP -iTCP:3000 -sTCP:LISTEN` usually shows `docker-proxy` as the listener on Linux, not your app. On Docker Desktop (macOS, Windows), the listener appears as `com.docker.backend` or a similar Desktop process. If `docker ps` shows a running container with the port mapped, that is your culprit. Stop the container with `docker stop`, not `kill`. Stopped containers (visible only in `docker ps -a`) do *not* hold the port.
 
-**SSH local port forwarding.** `ssh -L 3000:localhost:3000 user@host` opens a local listener on port 3000 that tunnels to the remote host. If you backgrounded the SSH session with `-f`, ran it inside a tmux pane, or just forgot about a terminal, the local port stays bound until the SSH client exits. `lsof -i :3000` will show `COMMAND` as `ssh` — if that ever surprises you, this is why.
+**SSH local port forwarding.** `ssh -L 3000:localhost:3000 user@host` opens a local listener on port 3000 that tunnels to the remote host. If you backgrounded the SSH session with `-f`, ran it inside a tmux pane, or just forgot about a terminal, the local port stays bound until the SSH client exits. `lsof -nP -iTCP:3000 -sTCP:LISTEN` will show `COMMAND` as `ssh` — if that ever surprises you, this is why.
 
-**macOS background services.** Since macOS Monterey (12), AirPlay Receiver listens on **port 5000** and **port 7000** by default. This collides with anything trying to use 5000 — Flask's default, plenty of dev servers. The fix is one toggle: System Settings → General → AirDrop & Handoff → "AirPlay Receiver" off. The owning process is `ControlCenter` or `rapportd`. You will not be able to kill these and have them stay dead — `launchd` will respawn them. Toggle the setting instead.
+**macOS background services.** Since macOS Monterey (12), AirPlay Receiver listens on **port 5000** and **port 7000** by default. This collides with anything trying to use 5000 — Flask's default, plenty of dev servers. The fix is one toggle: on Ventura and later, System Settings → General → AirDrop & Handoff → turn off "AirPlay Receiver"; on Monterey, System Preferences → Sharing → uncheck "AirPlay Receiver". The owning process is usually `ControlCenter`. You will not be able to kill it and have it stay dead — `launchd` will respawn it. Toggle the setting instead.
 
-**`launchd` auto-respawn.** macOS's PID 1 is `launchd`, and any service with `KeepAlive=true` in its plist gets restarted within seconds of being killed. If you `kill` something and the port reappears within ten seconds, look in `launchctl list` and `launchctl print` for the offender. Use `launchctl unload <plist>` or `launchctl bootout` rather than `kill`.
+**`launchd` auto-respawn.** macOS's PID 1 is `launchd`, and any service with `KeepAlive=true` in its plist gets restarted within seconds of being killed. If you `kill` something and the port reappears within ten seconds, look in `launchctl list` and `launchctl print` for the offender. On modern macOS, use `launchctl bootout gui/$(id -u)/<service-label>` rather than the deprecated `launchctl unload`.
 
-**Privileged ports.** Ports below 1024 require root on Unix. This is enforced by the kernel — Linux's `ip(7)` man page: *"a privileged process (on Linux: a process that has the **CAP_NET_BIND_SERVICE** capability in the user namespace governing its network namespace) may bind(2) to these sockets."* If your app is trying to bind port 80 or 443 and getting `EACCES`, you are not the owner of port — there is no owner — you just lack the capability. The two clean fixes are running behind a reverse proxy (nginx, Caddy) that has the capability and forwarding to a high port your app owns, or granting the capability to the binary directly:
+**Privileged ports.** Ports below 1024 require root on Unix. This is enforced by the kernel — Linux's `ip(7)` man page: *"a privileged process (on Linux: a process that has the **CAP_NET_BIND_SERVICE** capability in the user namespace governing its network namespace) may bind(2) to these sockets."* If your app is trying to bind port 80 or 443 and getting `EACCES`, the port is probably not in use — you just lack the capability to bind below 1024. The two clean fixes are running behind a reverse proxy (nginx, Caddy) that has the capability and forwarding to a high port your app owns, or granting the capability to the binary directly:
 
 ```bash
 sudo setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
@@ -146,13 +156,15 @@ The `setcap` approach has caveats — you have to reapply it after every binary 
 networkingMode=mirrored
 ```
 
+After editing `.wslconfig`, run `wsl --shutdown` from PowerShell and restart your distro — WSL only reads the file on startup.
+
 In the older NAT mode, ports bound inside WSL2 are not automatically reachable from Windows; people end up with stale `netsh interface portproxy` rules they forgot they added. If a port behaves strangely on WSL2, check `netsh interface portproxy show all` from an Administrator PowerShell.
 
 ## The fix when you control the server: SO_REUSEADDR
 
 If you are restarting your own server and `TIME_WAIT` is what is blocking the rebind, the right fix is not killing anything — it is setting `SO_REUSEADDR` on the listening socket before `bind()`. From `socket(7)`: *"SO_REUSEADDR indicates that the rules used in validating addresses supplied in a `bind(2)` call should allow reuse of local addresses."* Specifically on Linux, it allows binding when a previous socket for the same `(addr, port)` tuple is in `TIME_WAIT`. It does *not* let you steal a port from a process that is still actively listening — that protection stays in place.
 
-In Node's `http` server this is on by default (`exclusive: false`). In Python's standard library, you have to set it explicitly:
+In Node.js, every `net.Socket` gets `SO_REUSEADDR` unconditionally — you cannot turn it off from JavaScript. That is separate from the `exclusive` listen option, which only controls whether cluster workers share the same underlying socket handle. In Python's standard library, you have to set it explicitly:
 
 ```python
 import socket
@@ -161,7 +173,7 @@ s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(('0.0.0.0', 3000))
 ```
 
-If you find yourself running "kill the port" between every restart of a server you wrote, this is usually the line you are missing.
+If you find yourself running "kill the port" between every restart of a Python (or other non-Node) server you wrote, the `SO_REUSEADDR` line above is usually what you are missing. Node.js already sets it for you.
 
 A separate option, `SO_REUSEPORT` (Linux 3.9+), permits multiple sockets to bind to the same address and port simultaneously, with the kernel load-balancing across them. That is for production multi-process servers, not for fixing dev-loop annoyances.
 
@@ -171,7 +183,7 @@ A few small utilities are worth installing for moments when the OS native ones f
 
 `npx kill-port 3000` is convenient if you live inside a Node toolchain and do not want to remember which platform-specific command to use. It shells out to `lsof`/`netstat` under the hood and sends `SIGKILL`, so know what it is doing before you run it on something stateful.
 
-`fuser -k 3000/tcp` on Linux is the cleanest one-liner for the simple case.
+`fuser -k 3000/tcp` on Linux is the cleanest one-liner for the simple case (sends `SIGKILL` by default).
 
 `htop` and `procs` are nicer for seeing the process tree (parent/child relationships matter when an orphan worker is holding a socket).
 
@@ -181,12 +193,13 @@ For Windows, `Process Explorer` from Sysinternals shows handles and can find whi
 
 | Goal | Linux | macOS | Windows |
 |---|---|---|---|
-| Find listener on a port | `ss -tlnp \| grep :PORT` | `lsof -nP -iTCP:PORT -sTCP:LISTEN` | `Get-NetTCPConnection -LocalPort PORT` |
-| Find any process touching a port | `lsof -i :PORT` | `lsof -i :PORT` | `netstat -ano \| findstr :PORT` |
+| Find listener on a port | `sudo ss -tlnp sport = :PORT` | `lsof -nP -iTCP:PORT -sTCP:LISTEN` | `Get-NetTCPConnection -LocalPort PORT -State Listen` |
+| Find any process touching a port | `sudo ss -tnp sport = :PORT` | `lsof -nP -i :PORT` | `netstat -ano \| findstr :PORT` |
 | Polite kill (SIGTERM) | `kill PID` | `kill PID` | `Stop-Process -Id PID` |
 | Force kill (SIGKILL) | `kill -9 PID` | `kill -9 PID` | `Stop-Process -Id PID -Force` |
-| One-shot port kill | `fuser -k PORT/tcp` | `kill $(lsof -ti :PORT)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT).OwningProcess -Force` |
-| See TCP states | `ss -tan` | `netstat -anv -p tcp` | `Get-NetTCPConnection` |
+| One-shot port kill (SIGKILL) | `fuser -k PORT/tcp` | `kill -9 $(lsof -tiTCP:PORT -sTCP:LISTEN)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT -State Listen).OwningProcess -Force` |
+| Polite one-shot port kill | `fuser -k -TERM PORT/tcp` | `kill $(lsof -tiTCP:PORT -sTCP:LISTEN)` | `Stop-Process -Id (Get-NetTCPConnection -LocalPort PORT -State Listen).OwningProcess` |
+| See TCP states | `ss -tan` | `netstat -anvp tcp` (states only; use `lsof` for PIDs) | `Get-NetTCPConnection` |
 | Check what Docker holds | `docker ps` | `docker ps` | `docker ps` |
 | Cross-platform shortcut | `npx kill-port PORT` | `npx kill-port PORT` | `npx kill-port PORT` |
 

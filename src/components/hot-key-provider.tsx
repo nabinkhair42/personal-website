@@ -3,38 +3,41 @@
 import { useHotkey, useHotkeySequence } from "@tanstack/react-hotkeys";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { DeveloperDetails } from "@/dev-constants/details";
+import { isTypingInField } from "@/lib/hotkeys";
+import { githubUrl } from "@/lib/site";
+
 export const HotKeyProvider = ({ children }: { children: React.ReactNode }) => {
   const { setTheme, resolvedTheme } = useTheme();
-
   const router = useRouter();
 
-  // navigate to /blog
   useHotkey("B", () => {
+    if (isTypingInField()) return;
     router.push("/blog");
   });
 
-  // navigate to home
   useHotkey("H", () => {
+    if (isTypingInField()) return;
     router.push("/");
   });
 
-  // navigate to github profile
   useHotkeySequence(["G", "H"], () => {
-    window.open("https://github.com/nabinkhair42", "_blank");
+    if (isTypingInField()) return;
+    window.open(githubUrl, "_blank", "noopener,noreferrer");
   });
 
-  // email
   useHotkey("E", () => {
-    window.location.href = "mailto:nabinkhair12@gmail.com";
+    if (isTypingInField()) return;
+    window.location.href = `mailto:${DeveloperDetails.email}`;
   });
 
-  // resume
   useHotkey("R", () => {
-    window.open("https://nabinkhair.com.np/nabin_khair.pdf", "_blank");
+    if (isTypingInField()) return;
+    window.open(DeveloperDetails.resume, "_blank", "noopener,noreferrer");
   });
 
-  // toggle theme
   useHotkey("D", () => {
+    if (isTypingInField()) return;
     setTheme(resolvedTheme === "light" ? "dark" : "light");
   });
 

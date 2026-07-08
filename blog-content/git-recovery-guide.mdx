@@ -22,9 +22,9 @@ You can now return to the main branch and continue the rescue with a backup read
 
 ## Scenario 1: Uncommitted Work Vanished
 
-Sometimes files disappear after a checkout or reset. Git almost always remembers them.
+Sometimes files disappear after a checkout or reset. Recovery depends on whether the work was ever committed.
 
-Check the stash list first:
+Check the stash list first — stashes preserve uncommitted changes:
 
 ```bash
 git stash list
@@ -37,16 +37,16 @@ If the change is there, apply it and drop the entry once verified.
 git stash apply stash@{0}
 ```
 
-If the stash is empty, inspect the reflog. It records every move your HEAD made.
+If the work was **committed** before it vanished, inspect the reflog. It records every move your HEAD made.
 
 ```bash
 git reflog
 ```
 
-Find the commit before the loss and restore it.
+Find the commit before the loss and check it out temporarily.
 
 ```bash
-git checkout <hash>
+git switch --detach <hash>
 ```
 
 Copy the necessary files back into your working tree, then return to your branch.
@@ -54,6 +54,14 @@ Copy the necessary files back into your working tree, then return to your branch
 ```bash
 git switch main
 ```
+
+If the work was **never committed or stashed**, Git may not have it. Check your editor's local history, any backup, or as a last resort:
+
+```bash
+git fsck --lost-found
+```
+
+That can surface dangling blobs from orphaned objects — not a guarantee, but worth trying before you rewrite anything.
 
 ## Scenario 2: Wrong Commit on Main
 
@@ -109,17 +117,17 @@ git worktree remove ../feature-login
 
 ## Scenario 5: Merge Conflicts That Keep Returning
 
-Large conflicts can reappear whenever you rebase or merge. Teach Git to remember your resolutions. Enable `rerere` once and Git stores future conflict fixes automatically.
+Large conflicts can reappear whenever you rebase or merge. Teach Git to remember your resolutions. Enable `rerere` once and Git can replay a resolution when the **same conflict hunk** shows up again.
 
 ```bash
 git config --global rerere.enabled true
 ```
 
-When a conflict shows up again, Git applies the previous resolution instantly. Always verify the result before committing.
+When a matching conflict appears again, Git applies the previous resolution automatically. Always verify the result before committing.
 
 ## Useful Commands That Often Rescue Me
 
-`git restore --staged <file>` returns a file from the index back to the working tree when you added it too early.
+`git restore --staged <file>` unstages a file — it removes it from the index while keeping your edits in the working tree. Use it when you `git add`ed too early.
 
 `git reset --patch` lets you unstage portions of a file. It is ideal when you accidentally bundled multiple changes into one commit.
 
@@ -131,7 +139,8 @@ When a conflict shows up again, Git applies the previous resolution instantly. A
 
 | Situation | Command to Reach For |
 | --- | --- |
-| Lost uncommitted work | `git stash list`, `git reflog` |
+| Lost uncommitted work | `git stash list`, editor local history, `git fsck --lost-found` |
+| Recover lost commit | `git reflog`, `git switch --detach <hash>` |
 | Undo local commit | `git reset --soft HEAD~1` |
 | Undo shared commit | `git revert <hash>` |
 | Trace a regression | `git bisect` |
@@ -141,7 +150,7 @@ When a conflict shows up again, Git applies the previous resolution instantly. A
 ## Final Checklist
 
 1. Snapshot the repository before changing history.
-2. Recover lost edits from stash or reflog before editing new files.
+2. Recover lost edits from stash, local history, or reflog (for commits) before editing new files.
 3. Choose reset or revert based on whether the commit is public.
 4. Use bisect for fast regression hunts.
 5. Lean on worktrees and rerere to keep multi-branch work smooth.

@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { TechStacksList } from "@/dev-constants/stack";
 import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
@@ -15,16 +16,13 @@ const DeveloperStack = () => {
         variants={sectionVariants}
         className="space-y-3 p-2"
       >
-        <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm text-muted-foreground">My Skills</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            The tools I reach for every day
-          </h2>
-          <p className="text-muted-foreground">
-            A curated mix of frameworks, runtimes, and services that help me craft reliable,
-            performant user experiences across the stack.
-          </p>
-        </motion.header>
+        <motion.div variants={itemVariants}>
+          <SectionHeader
+            label="My Skills"
+            title="The tools I reach for every day"
+            description="A curated mix of frameworks, runtimes, and services that help me craft reliable, performant user experiences across the stack."
+          />
+        </motion.div>
 
         <motion.div
           variants={tightStaggerVariants}

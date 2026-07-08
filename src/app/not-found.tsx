@@ -31,7 +31,7 @@ export default function NotFound() {
 
       <ShellWrapper>
         <div className="flex flex-wrap items-center gap-2 p-2">
-          <Button size="sm" render={<span>Return home</span>} />
+          <Button size="sm" render={<Link href="/">Return home</Link>} />
           <Button size="sm" variant="outline" render={<Link href="/blog">Read the blog</Link>} />
         </div>
       </ShellWrapper>

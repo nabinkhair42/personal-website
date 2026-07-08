@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { Button } from "@/components/ui/button";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { TEMPLATES } from "@/dev-constants/templates";
@@ -27,16 +28,13 @@ const DeveloperTemplates = () => {
         variants={sectionVariants}
         className="space-y-3 p-2"
       >
-        <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm text-muted-foreground">Templates</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            Structural Grid Templates
-          </h2>
-          <p className="text-muted-foreground">
-            Production-ready templates built on the Structural Grid design system — the exposed grid
-            aesthetic used by Linear, Vercel, and Resend.
-          </p>
-        </motion.header>
+        <motion.div variants={itemVariants}>
+          <SectionHeader
+            label="Templates"
+            title="Structural Grid Templates"
+            description="Production-ready templates built on the Structural Grid design system — the exposed grid aesthetic used by Linear, Vercel, and Resend."
+          />
+        </motion.div>
 
         <div className="grid gap-4 sm:grid-cols-2 sm:auto-rows-fr">
           {TEMPLATES.map((template) => (
@@ -83,7 +81,7 @@ const DeveloperTemplates = () => {
                     nativeButton={false}
                     variant="link"
                     render={
-                      <Link href={template.link} target="_blank">
+                      <Link href={template.link} target="_blank" rel="noopener noreferrer">
                         Live Demo
                         <ArrowUpRight className="size-4 text-muted-foreground" />
                       </Link>

@@ -67,7 +67,7 @@ These campaigns allegedly used fraudulent accounts, proxy services, and coordina
 
 ## Why Distillation Attacks Are Dangerous
 
-Distilled models created through attacks usually lack the safety guardrails of the original model. This creates serious risks:
+Distilled models created through attacks often bypass or weaken the safety investments in the original model — either because alignment was not transferred, or because the attacker retrains without the same filters. This creates serious risks:
 
 - **No safety alignment:** Stolen models skip the careful alignment work done by the original developers
 - **Authoritarian misuse:** Governments can deploy unfiltered AI for surveillance, disinformation, and cyber operations
@@ -80,7 +80,7 @@ AI companies are building multiple layers of defense against distillation attack
 
 - **Detection classifiers** that spot distillation patterns in API usage like repetitive, patterned prompts targeting specific capabilities
 - **Account verification** with stronger identity checks to prevent coordinated fake accounts
-- **Output watermarking** to trace stolen outputs back to their source
+- **Output watermarking** (still largely experimental) to trace stolen outputs back to their source
 - **Model-level countermeasures** that reduce the usefulness of outputs for training purposes while keeping the normal user experience intact
 - **Industry intelligence sharing** between AI companies to identify and respond to coordinated campaigns
 

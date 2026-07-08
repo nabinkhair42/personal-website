@@ -117,24 +117,74 @@ function useActiveHeading(slugs: string[]) {
 }
 
 const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
-// Tuned for the Dynamic Island morph: snappy attack, light overshoot, settles fast.
-const ISLAND_SPRING = { type: "spring" as const, stiffness: 360, damping: 30, mass: 0.85 };
+const ISLAND_SPRING = { type: "spring" as const, stiffness: 380, damping: 32, mass: 0.8 };
+const EXPAND_EASE = { duration: 0.34, ease: APPLE_EASE };
+const COLLAPSE_EASE = { duration: 0.22, ease: APPLE_EASE };
+const INDICATOR_SPRING = { type: "spring" as const, stiffness: 520, damping: 44 };
 const ITEM_SPRING = { type: "spring" as const, stiffness: 480, damping: 36 };
 
 const listVariants = {
-  hidden: { transition: { staggerChildren: 0.005, staggerDirection: -1 } },
-  visible: { transition: { staggerChildren: 0.022, delayChildren: 0.1 } },
+  hidden: { transition: { staggerChildren: 0.004, staggerDirection: -1 } },
+  visible: { transition: { staggerChildren: 0.018, delayChildren: 0.06 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -6, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 5 },
   visible: {
     opacity: 1,
-    x: 0,
-    filter: "blur(0px)",
-    transition: ITEM_SPRING,
+    y: 0,
+    transition: { duration: 0.22, ease: APPLE_EASE },
   },
 };
+
+type IndicatorRect = { top: number; height: number; left: number };
+
+function useIndicatorPosition(
+  listRef: React.RefObject<HTMLOListElement | null>,
+  activeSlug: string | null,
+  isOpen: boolean,
+) {
+  const [rect, setRect] = useState<IndicatorRect | null>(null);
+
+  const measure = useCallback(() => {
+    const list = listRef.current;
+    if (!list || !activeSlug) {
+      setRect(null);
+      return;
+    }
+    const link = list.querySelector<HTMLElement>(`a[data-slug="${activeSlug}"]`);
+    if (!link) {
+      setRect(null);
+      return;
+    }
+    const nested = link.dataset.nested === "true";
+    const listRect = list.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    setRect({
+      top: linkRect.top - listRect.top + list.scrollTop,
+      height: linkRect.height,
+      left: nested ? 12 : 8,
+    });
+  }, [listRef, activeSlug]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    measure();
+    const list = listRef.current;
+    if (!list) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(list);
+    list.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      list.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+    };
+  }, [isOpen, activeSlug, measure, listRef]);
+
+  return rect;
+}
 
 interface TableOfContentsProps {
   content: string;
@@ -160,8 +210,10 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pct, setPct] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLOListElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const indicatorRect = useIndicatorPosition(listRef, activeSlug, isOpen);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
@@ -287,7 +339,8 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
         <motion.div
           ref={containerRef}
           layout
-          animate={{ borderRadius: isOpen ? 24 : 999 }}
+          transition={ISLAND_SPRING}
+          animate={{ borderRadius: isOpen ? 20 : 999 }}
           className={cn(
             "pointer-events-auto relative overflow-hidden",
             "border border-border bg-background/95 backdrop-blur-xl",
@@ -299,20 +352,27 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
             {isOpen ? (
               <motion.div
                 key="expanded"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.94, y: 6 }}
                 animate={{
                   opacity: 1,
-                  transition: { delay: 0.06, duration: 0.18, ease: APPLE_EASE },
+                  scale: 1,
+                  y: 0,
+                  transition: EXPAND_EASE,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.1, ease: APPLE_EASE } }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.96,
+                  y: 4,
+                  transition: COLLAPSE_EASE,
+                }}
                 role="region"
                 aria-labelledby="toc-heading"
-                className="flex w-[min(86vw,20rem)] flex-col"
+                className="flex w-[min(86vw,20rem)] origin-bottom-right flex-col"
               >
                 <motion.header
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0, transition: { delay: 0.08, ...ITEM_SPRING } }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0, transition: { delay: 0.05, ...EXPAND_EASE } }}
+                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
                   className="flex items-center justify-between px-4 pt-3 pb-2"
                 >
                   <span
@@ -331,7 +391,20 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   variants={listVariants}
                   className="max-h-[60vh] overflow-y-auto px-2 pb-2"
                 >
-                  <ol className="flex flex-col gap-0.5">
+                  <ol ref={listRef} className="relative flex flex-col gap-0.5">
+                    {indicatorRect && (
+                      <motion.span
+                        aria-hidden
+                        className="pointer-events-none absolute z-10 w-px rounded-full bg-foreground"
+                        initial={false}
+                        animate={{
+                          top: indicatorRect.top,
+                          height: indicatorRect.height,
+                          left: indicatorRect.left,
+                        }}
+                        transition={INDICATOR_SPRING}
+                      />
+                    )}
                     {sections.map((section, sIdx) => (
                       <SectionItem
                         key={section.slug}
@@ -352,9 +425,9 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                 onClick={() => setIsOpen(true)}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.92 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.04 } }}
-                exit={{ opacity: 0, transition: { duration: 0.08 } }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1, transition: { delay: 0.04, ...EXPAND_EASE } }}
+                exit={{ opacity: 0, scale: 0.9, transition: COLLAPSE_EASE }}
                 aria-expanded={false}
                 aria-label={`Open table of contents — ${pct}% read`}
                 className={cn(
@@ -394,7 +467,7 @@ function SectionItem({
         linkRef={firstLinkRef}
       />
       {section.children.length > 0 && (
-        <ol className="ml-3 flex flex-col gap-0.5 shadow-[inset_1px_0_0_0_var(--color-border)]">
+        <NestedList>
           {section.children.map((child) => (
             <motion.li key={child.slug} variants={itemVariants}>
               <TocLink
@@ -406,9 +479,51 @@ function SectionItem({
               />
             </motion.li>
           ))}
-        </ol>
+        </NestedList>
       )}
     </motion.li>
+  );
+}
+
+function NestedList({ children }: { children: React.ReactNode }) {
+  const listRef = useRef<HTMLOListElement>(null);
+  const [guide, setGuide] = useState<{ top: number; height: number } | null>(null);
+
+  const measure = useCallback(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const items = list.querySelectorAll<HTMLElement>(":scope > li");
+    if (items.length === 0) return;
+    const listRect = list.getBoundingClientRect();
+    const first = items[0].getBoundingClientRect();
+    const last = items[items.length - 1].getBoundingClientRect();
+    setGuide({
+      top: first.top - listRect.top + list.scrollTop + 6,
+      height: last.bottom - first.top - 12,
+    });
+  }, []);
+
+  useEffect(() => {
+    measure();
+    const list = listRef.current;
+    if (!list) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(list);
+    for (const li of list.querySelectorAll("li")) ro.observe(li);
+    return () => ro.disconnect();
+  }, [measure, children]);
+
+  return (
+    <ol ref={listRef} className="relative ml-3 flex flex-col gap-0.5">
+      {guide && guide.height > 0 && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-0 w-px bg-border/70"
+          style={{ top: guide.top, height: guide.height }}
+        />
+      )}
+      {children}
+    </ol>
   );
 }
 
@@ -432,6 +547,7 @@ function TocLink({
       ref={linkRef}
       href={`#${slug}`}
       data-slug={slug}
+      data-nested={nested || undefined}
       data-active={isActive || undefined}
       aria-current={isActive ? "location" : undefined}
       onClick={(e) => {
@@ -439,19 +555,12 @@ function TocLink({
         onNavigate(slug);
       }}
       className={cn(
-        "relative block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
+        "block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
         "focus-visible:bg-accent/40",
-        nested ? "pl-4" : "pl-3",
+        nested ? "pl-5" : "pl-4",
         isActive ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
       )}
     >
-      {isActive && (
-        <motion.span
-          layoutId="toc-active-indicator"
-          className="absolute bottom-1.5 left-0 top-1.5 w-0.5 rounded-full bg-primary"
-          transition={{ type: "spring", stiffness: 500, damping: 40 }}
-        />
-      )}
       {text}
     </a>
   );

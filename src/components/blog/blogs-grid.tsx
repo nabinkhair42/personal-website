@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { BlogCard } from "@/components/blog/blogs-card";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { itemVariants, VIEWPORT } from "@/components/motion";
 import type { BlogPost } from "@/lib/markdown/mdx";
 
@@ -20,16 +21,9 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
   return (
     <ShellWrapper>
       <div className="space-y-3 p-2">
-        <motion.header
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-          variants={itemVariants}
-          className="space-y-1"
-        >
-          <p className="text-sm  text-muted-foreground">From the blog</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Latest Posts</h2>
-        </motion.header>
+        <motion.div initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={itemVariants}>
+          <SectionHeader label="From the blog" title="Latest Posts" className="space-y-1" />
+        </motion.div>
 
         {posts.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 sm:auto-rows-fr">

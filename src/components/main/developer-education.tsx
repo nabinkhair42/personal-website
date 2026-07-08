@@ -4,6 +4,7 @@ import { GraduationCap } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
@@ -19,13 +20,13 @@ const DeveloperEducation = () => {
         variants={sectionVariants}
         className="space-y-3 p-2"
       >
-        <motion.header variants={itemVariants} className="space-y-2">
-          <p className="text-sm text-muted-foreground">Education</p>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Academic Background</h2>
-          <p className="text-muted-foreground">
-            My educational journey that shaped my foundation in technology and problem-solving.
-          </p>
-        </motion.header>
+        <motion.div variants={itemVariants}>
+          <SectionHeader
+            label="Education"
+            title="Academic Background"
+            description="My educational journey that shaped my foundation in technology and problem-solving."
+          />
+        </motion.div>
 
         <div className="flex flex-col gap-8">
           {educationData.map((education, index) => {

@@ -2,8 +2,9 @@
 
 import { format, parseISO } from "date-fns";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { Button } from "@/components/ui/button";
 import {
   type Activity,
   ContributionGraph,
@@ -48,30 +49,34 @@ const DeveloperGitContribution = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    let active = true;
-    fetchContributions()
-      .then(({ data, total }) => {
-        if (!active) return;
-        setActivities(data);
-        setTotalCount(total);
-      })
-      .catch((err) => {
-        console.error("Error fetching GitHub contributions", err);
-        if (active) setHasError(true);
-      })
-      .finally(() => {
-        if (active) setIsLoading(false);
-      });
-    return () => {
-      active = false;
-    };
+  const loadContributions = useCallback(async () => {
+    setIsLoading(true);
+    setHasError(false);
+
+    try {
+      const { data, total } = await fetchContributions();
+      setActivities(data);
+      setTotalCount(total);
+    } catch (err) {
+      console.error("Error fetching GitHub contributions", err);
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadContributions();
+  }, [loadContributions]);
 
   if (isLoading) {
     return (
       <ShellWrapper>
-        <div className="h-[11.9rem] border bg-muted" />
+        <div
+          aria-busy="true"
+          aria-label="Loading GitHub contribution graph"
+          className="h-[11.9rem] animate-pulse border bg-muted"
+        />
       </ShellWrapper>
     );
   }
@@ -79,7 +84,16 @@ const DeveloperGitContribution = () => {
   if (hasError || activities.length === 0) {
     return (
       <ShellWrapper>
-        <div className="h-12 border border-destructive bg-[repeating-linear-gradient(-45deg,var(--color-destructive),var(--color-destructive)_1px,transparent_1px,transparent_6px)]" />
+        <div className="flex flex-col items-start gap-3 border border-dashed p-4">
+          <p className="text-sm text-muted-foreground">
+            {hasError
+              ? "Could not load GitHub contributions right now."
+              : "No contribution data available yet."}
+          </p>
+          <Button size="sm" variant="outline" onClick={loadContributions}>
+            Try again
+          </Button>
+        </div>
       </ShellWrapper>
     );
   }

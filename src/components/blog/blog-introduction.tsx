@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { SectionHeader } from "@/components/layouts/section-header";
 import { itemVariants } from "@/components/motion";
 import { DeveloperDetails } from "@/dev-constants/details";
 
@@ -16,14 +17,12 @@ export function BlogIntroduction() {
         variants={itemVariants}
         className="space-y-2 p-2 py-6"
       >
-        <p className="text-sm text-muted-foreground">Blog</p>
-        <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
-          Something worth reading.
-        </h1>
-        <p className="text-muted-foreground">
-          Notes I&apos;ve written by hand — not generated. Web development, design, the messy middle
-          of building things, and what I&apos;m learning as a {designation}. Written by {name}.
-        </p>
+        <SectionHeader
+          label="Blog"
+          title="Something worth reading."
+          headingLevel="h1"
+          description={`Notes I've written by hand — not generated. Web development, design, the messy middle of building things, and what I'm learning as a ${designation}. Written by ${name}.`}
+        />
       </motion.section>
     </ShellWrapper>
   );

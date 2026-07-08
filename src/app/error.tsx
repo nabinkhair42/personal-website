@@ -48,7 +48,6 @@ export default function ErrorPage({
       <ShellWrapper>
         <div className="flex flex-wrap items-center gap-2 p-2">
           <Button size="sm" onClick={reset} render={<span>Try again</span>} />
-          Try again
           <Button size="sm" variant="outline" render={<Link href="/">Return home</Link>} />
         </div>
       </ShellWrapper>

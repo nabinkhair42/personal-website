@@ -53,7 +53,7 @@ If your repo was previously connected to Vercel, go to **Vercel dashboard > Proj
 
 ## Part 2: Git Setup
 
-Vercel identifies the deployer by a single thing: **the email on the git commit**. Not the token, not the repo permissions. Just the email from `git config user.email`.
+CLI deploys require **both** a valid `VERCEL_TOKEN` and a git commit whose author email is linked to the Vercel team. Since Vercel CLI v44+, the git-author check is enforced even in CI — the token alone is not enough.
 
 If you are working with collaborators, the person pushing might not have Vercel team access. The fix is simple: override the git author in CI so the commit appears to come from an authorized email.
 
@@ -107,6 +107,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -180,7 +183,7 @@ jobs:
             }
 ```
 
-This gives you production deploys on push to `main`, preview URLs on pull requests, and a manual trigger from the Actions tab.
+This gives you production deploys on push to `main`, preview URLs on pull requests from the **same repository**, and a manual trigger from the Actions tab. PRs from forks cannot access repository secrets by default — preview deploys will not work for external contributors unless you use a different workflow pattern.
 
 ## Monorepo?
 
@@ -202,12 +205,12 @@ Run the Vercel commands from the repo root. Vercel handles the subdirectory auto
 
 - **`vercel pull`** downloads project settings and env vars into a local `.vercel` directory
 - **`vercel build`** builds the project locally, producing a `.vercel/output` folder
-- **`vercel deploy --prebuilt`** uploads only the build artifacts, Vercel never sees your source code
+- **`vercel deploy --prebuilt`** uploads only the build artifacts — Vercel does not run your build or receive your git source tree, though the build still happens in CI where your code is checked out
 - **Environment variables** are pulled from the Vercel dashboard automatically, no need to duplicate them in GitHub Secrets
 - **Build times** count against GitHub Actions free tier (2,000 min/month for private repos, a Next.js build typically takes 1-3 minutes)
 
 ## Wrapping Up
 
-Four GitHub Secrets, one workflow file, one `git config` trick. No paid plans, no hacks that break on the next Vercel update, just the official CLI doing what it was designed to do.
+Four GitHub Secrets, one workflow file, one `git config` trick. No paid plans, and no dependency on Vercel's native Git integration for org repos — just the official CLI doing what it was designed to do. Vercel may tighten CLI checks over time, so treat this as a documented workaround rather than a forever guarantee.
 
 If this saved you $20 a month, share it with someone who might need it too.

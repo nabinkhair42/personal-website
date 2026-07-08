@@ -1,19 +1,14 @@
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { formatDate } from "@/lib/format";
 import type { BlogPost } from "@/lib/markdown/mdx";
+import { DEFAULT_OG_IMAGE } from "@/lib/site";
 
 interface BlogCardProps {
   post: BlogPost;
   priority?: boolean;
 }
-
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
 
 export const BlogCard = ({ post, priority }: BlogCardProps) => {
   const { slug, frontmatter, readingTime } = post;
@@ -24,7 +19,7 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
     >
       <div className="relative aspect-video shrink-0 overflow-hidden border-b">
         <Image
-          src={frontmatter.image || "/image.png"}
+          src={frontmatter.image || DEFAULT_OG_IMAGE}
           alt={frontmatter.title}
           fill
           priority={priority}
@@ -37,13 +32,13 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
           {frontmatter.title}
         </h3>
         <p className="line-clamp-2 flex-1 text-muted-foreground">{frontmatter.description}</p>
-        <p className="flex items-center gap-3 pt-1  text-muted-foreground">
+        <p className="flex items-center gap-3 pt-1 text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
-            <Calendar className="size-4" />
-            {formatDate(frontmatter.date)}
+            <Calendar className="size-4" aria-hidden />
+            <time dateTime={frontmatter.date}>{formatDate(frontmatter.date)}</time>
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Clock className="size-4" />
+            <Clock className="size-4" aria-hidden />
             {readingTime}
           </span>
         </p>

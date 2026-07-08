@@ -1,10 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { DeveloperDetails } from "@/dev-constants/details";
-
-const githubUrl =
-  DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.url ??
-  "https://github.com/nabinkhair42";
+import { githubUrl } from "@/lib/site";
 
 const SiteFooter = () => {
   return (
@@ -14,6 +10,8 @@ const SiteFooter = () => {
         Built by{" "}
         <Link
           href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="transition-colors hover:text-primary hover:underline underline-offset-2"
           title="Developer GitHub account"
         >

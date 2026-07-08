@@ -1,6 +1,6 @@
 ---
 title: "Understanding AI Harness Engineering"
-description: "An agent is a model plus a harness. The model has stayed roughly the same for months. The harness is the part you actually build."
+description: "An agent is a model plus a harness. The model does the thinking. The harness is the part you actually build."
 developer: "Nabin Khair"
 date: "2026-05-26"
 published: true
@@ -62,13 +62,13 @@ It is worth tracing one turn of the loop, because the diagram only makes sense o
 5. The tool acts on the **external world** — a file gets written, a shell command runs, an API gets called.
 6. The result comes back, becomes the next observation, and the loop runs again.
 
-Wrapping all of this, **tracing & observability** logs every model and tool call — that is what lets you debug why the agent did what it did three days later. And the dotted side-rail in the diagram is the most important arrow: each turn's result flows back into the next turn's context. The agent learns from what it did a moment ago. That feedback loop is the difference between a chatbot and an agent.
+Wrapping all of this, **tracing & observability** logs every model and tool call — that is what lets you debug why the agent did what it did three days later. And the dotted side-rail in the diagram is the most important arrow: each turn's result flows back into the next turn's context. The agent does not "learn" in the ML sense — it re-reads prior observations on the next turn. That feedback loop is the difference between a chatbot and an agent.
 
 ## Why the harness matters more than the model
 
 People assume a better model means a better agent. Often, that's not true.
 
-Two teams using the *same* model can ship products with very different quality. Claude Code, Cursor, Cline, and Windsurf all run on the same underlying model APIs everyone else has access to. What sets them apart is not the weights. It is the harness around the weights.
+Two teams using the *same* base model can ship products with very different quality. Claude Code, Cursor, Cline, and Windsurf often call overlapping vendor models, but they also differ in proprietary models, routing, context management, and guardrails. What sets them apart is not the weights alone. It is the harness around the weights.
 
 [Addy Osmani](https://addyosmani.com/blog/agent-harness-engineering/) puts it bluntly: the gap between what models *can* do and what agents *actually do* in production is a harness gap. A strong model with a weak harness loses, every time, to a weaker model with a thoughtful harness.
 
@@ -103,7 +103,7 @@ Rule: any shell the model touches should be disposable.
 
 The model is unpredictable. Some things should not be.
 
-- A pre-commit hook blocks a push if tests fail.
+- A **pre-push** hook (or CI) blocks a push if tests fail.
 - A lint check runs after every edit.
 - An approval gate stops the agent before any destructive action.
 
@@ -164,6 +164,6 @@ If you strip out the philosophy, the day-to-day questions look like this:
 
 None of those are about the model. All of them shape what the model does.
 
-The model has been roughly the same for months. The harness is the part that ships.
+The harness is the part that ships fastest. Model releases matter, but most week-to-week agent improvements come from tooling, context, and guardrails — not from waiting for the next weight update.
 
 > The model is the engine. The harness is the car. Building agents, in 2026, is mostly about building the car.
