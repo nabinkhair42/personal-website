@@ -67,7 +67,7 @@ const SiteHeader = () => {
             : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
         )}
       >
-        <motion.div layout="position" className="shrink-0">
+        <motion.div className="shrink-0">
           <Tooltip>
             <TooltipTrigger>
               <Link

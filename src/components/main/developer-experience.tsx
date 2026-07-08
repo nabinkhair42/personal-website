@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import {
@@ -39,7 +39,7 @@ const DeveloperExperience = () => {
             </ExpandableSectionHeader>
           </motion.div>
 
-          <ExpandableSectionList className="space-y-8">
+          <ExpandableSectionList className="space-y-6 sm:space-y-8">
             {ExperienceData.map((experience, index) => {
               const hasNext = index < ExperienceData.length - 1;
               return (
@@ -55,37 +55,39 @@ const DeveloperExperience = () => {
                         ease: APPLE_EASE,
                       }}
                       style={{ originY: 0 }}
-                      className="absolute left-5 top-10 -bottom-12 w-px bg-muted-foreground/30"
+                      className="absolute left-5 top-10 -bottom-10 w-px bg-muted-foreground/30 sm:-bottom-12"
                     />
                   )}
                   <ExpandableSectionItem>
-                    <ExpandableSectionTrigger className="flex w-full justify-between">
-                      <div className="flex items-start gap-3">
-                        <Image
-                          src={experience.logo}
-                          alt={`${experience.company} logo`}
-                          width={40}
-                          height={40}
-                          className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
-                        />
-                        <div className="space-y-1 text-left">
-                          <h3 className="flex items-center gap-2 text-lg font-medium md:text-xl">
+                    <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
+                      <Image
+                        src={experience.logo}
+                        alt={`${experience.company} logo`}
+                        width={40}
+                        height={40}
+                        className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
+                      />
+                      <div className="min-w-0 flex-1 space-y-1">
+                        <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+                          <h3 className="flex min-w-0 flex-wrap items-center gap-2 text-base font-medium sm:text-lg md:text-xl">
                             {experience.company}
                             {experience.isCurrent && <CurrentBadge />}
                           </h3>
-                          <div className="text-muted-foreground">
-                            {experience.designation} - {experience.type}
-                          </div>
+                          <p className="shrink-0 text-sm text-muted-foreground tabular-nums">
+                            {experience.startDate} – {experience.endDate}
+                          </p>
                         </div>
+                        <p className="text-sm text-muted-foreground sm:text-base">
+                          {experience.designation}
+                          <span className="text-muted-foreground/60"> · </span>
+                          {experience.type}
+                        </p>
                       </div>
-                      <p className="whitespace-nowrap text-muted-foreground">
-                        {experience.startDate} – {experience.endDate}
-                      </p>
                     </ExpandableSectionTrigger>
 
                     <ExpandableSectionContent>
                       {experience.description.length > 0 && (
-                        <ul className="space-y-2 text-muted-foreground">
+                        <ul className="space-y-2 text-sm text-muted-foreground sm:text-base">
                           {experience.description.map((line) => (
                             <li key={line}>{line}</li>
                           ))}
@@ -111,18 +113,26 @@ const DeveloperExperience = () => {
 };
 
 function CurrentBadge() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <span className="relative inline-flex size-2.5 items-center justify-center">
-      <motion.span
-        className="absolute size-full rounded-full bg-lime-500"
-        animate={{ scale: [1, 1.8, 1.8], opacity: [0.7, 0, 0] }}
-        transition={{
-          duration: 1.5,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeOut",
-        }}
-      />
-      <span className="relative size-2 rounded-full bg-lime-500" />
+    <span
+      className="relative inline-flex size-2.5 items-center justify-center"
+      title="Current role"
+    >
+      <span className="sr-only">Current</span>
+      {!shouldReduceMotion && (
+        <motion.span
+          className="absolute size-full rounded-full bg-lime-500"
+          animate={{ scale: [1, 1.8, 1.8], opacity: [0.7, 0, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeOut",
+          }}
+        />
+      )}
+      <span className="relative size-2 rounded-full bg-lime-500" aria-hidden />
     </span>
   );
 }

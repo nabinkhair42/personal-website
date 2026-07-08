@@ -239,7 +239,11 @@ const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSect
               }
               style={{ transformOrigin: "top" }}
             >
-              <div ref={ref} className={cn("space-y-3 mt-3 pl-11", className)} {...props}>
+              <div
+                ref={ref}
+                className={cn("mt-3 space-y-3 pl-0 sm:pl-[3.25rem]", className)}
+                {...props}
+              >
                 {children}
               </div>
             </motion.div>

@@ -28,14 +28,14 @@ const DeveloperEducation = () => {
           />
         </motion.div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6 sm:gap-8">
           {educationData.map((education, index) => {
             const hasNext = index < educationData.length - 1;
             return (
               <motion.div
                 key={education.institution}
                 variants={itemVariants}
-                className="relative flex items-start justify-between gap-3"
+                className="relative flex items-start gap-3"
               >
                 {hasNext && (
                   <motion.span
@@ -44,33 +44,37 @@ const DeveloperEducation = () => {
                     viewport={VIEWPORT}
                     transition={{ duration: 0.6, delay: 0.2, ease: APPLE_EASE }}
                     style={{ originY: 0 }}
-                    className="absolute left-5 top-10 -bottom-12 w-px bg-muted-foreground/30"
+                    className="absolute left-5 top-10 -bottom-10 w-px bg-muted-foreground/30 sm:-bottom-12"
                   />
                 )}
-                <div className="flex items-start gap-3">
-                  {education.logo ? (
-                    <Image
-                      src={education.logo}
-                      alt={`${education.institution} logo`}
-                      width={40}
-                      height={40}
-                      className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
-                    />
-                  ) : (
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-muted">
-                      <GraduationCap className="size-5 text-muted-foreground" />
-                    </div>
-                  )}
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-medium md:text-xl">{education.institution}</h3>
-                    <div className="flex items-center text-muted-foreground">
-                      {education.degree} - {education.location}
-                    </div>
+                {education.logo ? (
+                  <Image
+                    src={education.logo}
+                    alt={`${education.institution} logo`}
+                    width={40}
+                    height={40}
+                    className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
+                  />
+                ) : (
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-muted">
+                    <GraduationCap className="size-5 text-muted-foreground" aria-hidden />
                   </div>
+                )}
+                <div className="min-w-0 flex-1 space-y-1">
+                  <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+                    <h3 className="text-base font-medium sm:text-lg md:text-xl">
+                      {education.institution}
+                    </h3>
+                    <p className="shrink-0 text-sm text-muted-foreground tabular-nums">
+                      {education.startDate} – {education.endDate}
+                    </p>
+                  </div>
+                  <p className="text-sm text-muted-foreground sm:text-base">
+                    {education.degree}
+                    <span className="text-muted-foreground/60"> · </span>
+                    {education.location}
+                  </p>
                 </div>
-                <p className="shrink-0 whitespace-nowrap text-muted-foreground">
-                  {education.startDate} – {education.endDate}
-                </p>
               </motion.div>
             );
           })}

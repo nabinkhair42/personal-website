@@ -39,24 +39,28 @@ const DeveloperProjects = () => {
             {ProjectsData.map((project) => (
               <motion.div key={project.title} variants={itemVariants}>
                 <ExpandableSectionItem>
-                  <ExpandableSectionTrigger className="flex w-full justify-between">
-                    <div className="flex items-start gap-3">
-                      <Image
-                        src={project.icon}
-                        alt={`${project.title} project icon`}
-                        width={40}
-                        height={40}
-                        className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
-                      />
-                      <div className="space-y-1 text-left">
-                        <h3 className="text-lg font-medium md:text-xl">{project.title}</h3>
-                        <p className="text-muted-foreground">{project.tagline}</p>
-                      </div>
+                  <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
+                    <Image
+                      src={project.icon}
+                      alt={`${project.title} project icon`}
+                      width={40}
+                      height={40}
+                      className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
+                    />
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <h3 className="text-base font-medium sm:text-lg md:text-xl">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground sm:text-base">
+                        {project.tagline}
+                      </p>
                     </div>
                   </ExpandableSectionTrigger>
 
                   <ExpandableSectionContent>
-                    <p className="text-muted-foreground">{project.description}</p>
+                    <p className="text-sm text-muted-foreground sm:text-base">
+                      {project.description}
+                    </p>
                     {project.techStack && (
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
