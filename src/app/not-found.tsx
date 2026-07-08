@@ -30,7 +30,12 @@ export default function NotFound() {
       <ShellWrapper>
         <div className="flex flex-wrap items-center gap-2 p-2">
           <Button size="sm" nativeButton={false} render={<Link href="/">Return home</Link>} />
-          <Button size="sm" variant="outline" nativeButton={false} render={<Link href="/blog">Read the blog</Link>} />
+          <Button
+            size="sm"
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/blog">Read the blog</Link>}
+          />
         </div>
       </ShellWrapper>
     </PageShellWrapper>

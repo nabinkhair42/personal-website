@@ -9,11 +9,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { GithubIcon } from "@/icons/social";
 import { githubUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -57,7 +53,7 @@ const SiteHeader = () => {
       className={cn(
         "sticky top-0 z-50 flex justify-center",
         !skipLayoutTransition && "transition-colors duration-200",
-        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md",
+        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md"
       )}
     >
       <motion.div
@@ -70,7 +66,7 @@ const SiteHeader = () => {
             "transition-[background-color,border-color,box-shadow,height] duration-200",
           isScrolled
             ? "mt-3 h-11 gap-2.5 w-76 justify-between border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
-            : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4",
+            : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
         )}
       >
         <motion.div className="shrink-0">
@@ -93,11 +89,7 @@ const SiteHeader = () => {
           </Tooltip>
         </motion.div>
 
-        <motion.nav
-          layout="position"
-          aria-label="Main navigation"
-          className="shrink-0"
-        >
+        <motion.nav layout="position" aria-label="Main navigation" className="shrink-0">
           <ButtonGroup>
             <Tooltip>
               <TooltipTrigger
@@ -157,9 +149,7 @@ const SiteHeader = () => {
                   <Button
                     variant="outline"
                     size="icon-sm"
-                    onClick={() =>
-                      setTheme(resolvedTheme === "light" ? "dark" : "light")
-                    }
+                    onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
                     aria-label="Toggle theme (D)"
                   >
                     <Sun className="dark:hidden" />
