@@ -2,10 +2,9 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
+import { APPLE_EASE } from "@/components/motion";
 import { cn } from "@/lib/utils";
-import { APPLE_EASE } from "../../motion";
 
-// Root component
 interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
@@ -21,76 +20,6 @@ const ExpandableSection = React.forwardRef<HTMLDivElement, ExpandableSectionProp
 );
 ExpandableSection.displayName = "ExpandableSection";
 
-// Header component
-interface ExpandableSectionHeaderProps extends React.HTMLAttributes<HTMLElement> {
-  children: React.ReactNode;
-}
-
-const ExpandableSectionHeader = React.forwardRef<HTMLElement, ExpandableSectionHeaderProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <header ref={ref} className={cn("space-y-2", className)} {...props}>
-        {children}
-      </header>
-    );
-  }
-);
-ExpandableSectionHeader.displayName = "ExpandableSectionHeader";
-
-// Label component
-interface ExpandableSectionLabelProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  children: React.ReactNode;
-}
-
-const ExpandableSectionLabel = React.forwardRef<HTMLParagraphElement, ExpandableSectionLabelProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props}>
-        {children}
-      </p>
-    );
-  }
-);
-ExpandableSectionLabel.displayName = "ExpandableSectionLabel";
-
-// Title component
-interface ExpandableSectionTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  children: React.ReactNode;
-}
-
-const ExpandableSectionTitle = React.forwardRef<HTMLHeadingElement, ExpandableSectionTitleProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <h2
-        ref={ref}
-        className={cn("text-3xl font-medium tracking-tight text-foreground md:text-4xl", className)}
-        {...props}
-      >
-        {children}
-      </h2>
-    );
-  }
-);
-ExpandableSectionTitle.displayName = "ExpandableSectionTitle";
-
-// Description component
-interface ExpandableSectionDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  children: React.ReactNode;
-}
-
-const ExpandableSectionDescription = React.forwardRef<
-  HTMLParagraphElement,
-  ExpandableSectionDescriptionProps
->(({ className, children, ...props }, ref) => {
-  return (
-    <p ref={ref} className={cn("text-muted-foreground", className)} {...props}>
-      {children}
-    </p>
-  );
-});
-ExpandableSectionDescription.displayName = "ExpandableSectionDescription";
-
-// List component
 interface ExpandableSectionListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
@@ -106,7 +35,6 @@ const ExpandableSectionList = React.forwardRef<HTMLDivElement, ExpandableSection
 );
 ExpandableSectionList.displayName = "ExpandableSectionList";
 
-// Item component - now controlled with React state
 interface ExpandableSectionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   defaultOpen?: boolean;
@@ -155,7 +83,6 @@ const ExpandableSectionItem = React.forwardRef<HTMLDivElement, ExpandableSection
 );
 ExpandableSectionItem.displayName = "ExpandableSectionItem";
 
-// Trigger component
 interface ExpandableSectionTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
@@ -185,7 +112,6 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
 );
 ExpandableSectionTrigger.displayName = "ExpandableSectionTrigger";
 
-// Content component with Motion animations
 interface ExpandableSectionContentProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
@@ -258,11 +184,7 @@ ExpandableSectionContent.displayName = "ExpandableSectionContent";
 export {
   ExpandableSection,
   ExpandableSectionContent,
-  ExpandableSectionDescription,
-  ExpandableSectionHeader,
   ExpandableSectionItem,
-  ExpandableSectionLabel,
   ExpandableSectionList,
-  ExpandableSectionTitle,
   ExpandableSectionTrigger,
 };

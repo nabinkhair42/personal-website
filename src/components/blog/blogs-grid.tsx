@@ -2,11 +2,11 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
-import Link from "next/link";
 import { BlogCard } from "@/components/blog/blogs-card";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { itemVariants, VIEWPORT } from "@/components/motion";
+import { SoftLink } from "@/components/ui/extended/soft-link";
 import type { BlogPost } from "@/lib/markdown/mdx";
 
 interface BlogsGridProps {
@@ -37,20 +37,15 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
             ))}
           </div>
         ) : (
-          <p className="py-16 text-center text-sm text-muted-foreground">
-            No posts yet — check back soon.
-          </p>
+          <p className="py-16 text-center typography-label">No posts yet — check back soon.</p>
         )}
 
         {hasMore && (
           <div className="pt-1">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
+            <SoftLink href="/blog">
               View all posts
               <ArrowUpRight className="size-3" />
-            </Link>
+            </SoftLink>
           </div>
         )}
       </div>

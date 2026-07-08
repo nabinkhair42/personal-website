@@ -3,8 +3,8 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { TechStacksList } from "@/dev-constants/stack";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
 const DeveloperStack = () => {
   return (

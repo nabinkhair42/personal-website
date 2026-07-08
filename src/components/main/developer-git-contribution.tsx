@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { sectionVariants, VIEWPORT } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import {
   type Activity,
@@ -16,7 +17,6 @@ import {
 } from "@/components/ui/extended/contribution-graph";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { sectionVariants, VIEWPORT } from "../motion";
 
 const LEVEL_FILLS = [
   'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',

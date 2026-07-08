@@ -1,22 +1,19 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import Image from "next/image";
+import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "@/components/motion";
 import {
   ExpandableSection,
   ExpandableSectionContent,
-  ExpandableSectionDescription,
-  ExpandableSectionHeader,
   ExpandableSectionItem,
-  ExpandableSectionLabel,
   ExpandableSectionList,
-  ExpandableSectionTitle,
   ExpandableSectionTrigger,
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
+import { TimelineLogo } from "@/components/ui/extended/timeline-logo";
 import { ExperienceData } from "@/dev-constants/experience";
-import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const DeveloperExperience = () => {
   return (
@@ -29,14 +26,11 @@ const DeveloperExperience = () => {
       >
         <ExpandableSection>
           <motion.div variants={itemVariants}>
-            <ExpandableSectionHeader>
-              <ExpandableSectionLabel>My Journey</ExpandableSectionLabel>
-              <ExpandableSectionTitle>Professional Experience</ExpandableSectionTitle>
-              <ExpandableSectionDescription>
-                A timeline of my career path, showcasing the roles and technologies I&apos;ve worked
-                with in various projects and companies.
-              </ExpandableSectionDescription>
-            </ExpandableSectionHeader>
+            <SectionHeader
+              label="My Journey"
+              title="Professional Experience"
+              description="A timeline of my career path, showcasing the roles and technologies I've worked with in various projects and companies."
+            />
           </motion.div>
 
           <ExpandableSectionList className="space-y-6 sm:space-y-8">
@@ -60,24 +54,18 @@ const DeveloperExperience = () => {
                   )}
                   <ExpandableSectionItem>
                     <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
-                      <Image
-                        src={experience.logo}
-                        alt={`${experience.company} logo`}
-                        width={40}
-                        height={40}
-                        className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
-                      />
+                      <TimelineLogo src={experience.logo} alt={`${experience.company} logo`} />
                       <div className="min-w-0 flex-1 space-y-1">
                         <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
-                          <h3 className="flex min-w-0 flex-wrap items-center gap-2 text-base font-medium sm:text-lg md:text-xl">
+                          <h3 className="typography-item-title flex min-w-0 flex-wrap items-center gap-2">
                             {experience.company}
                             {experience.isCurrent && <CurrentBadge />}
                           </h3>
-                          <p className="shrink-0 text-sm text-muted-foreground tabular-nums">
+                          <p className="typography-label shrink-0 tabular-nums">
                             {experience.startDate} – {experience.endDate}
                           </p>
                         </div>
-                        <p className="text-sm text-muted-foreground sm:text-base">
+                        <p className="typography-muted">
                           {experience.designation}
                           <span className="text-muted-foreground/60"> · </span>
                           {experience.type}
@@ -87,7 +75,7 @@ const DeveloperExperience = () => {
 
                     <ExpandableSectionContent>
                       {experience.description.length > 0 && (
-                        <ul className="space-y-2 text-sm text-muted-foreground sm:text-base">
+                        <ul className="typography-muted space-y-2">
                           {experience.description.map((line) => (
                             <li key={line}>{line}</li>
                           ))}

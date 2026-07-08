@@ -6,8 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useLayoutEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { GithubIcon } from "@/icons/social";
 import { githubUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -51,7 +57,7 @@ const SiteHeader = () => {
       className={cn(
         "sticky top-0 z-50 flex justify-center",
         !skipLayoutTransition && "transition-colors duration-200",
-        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md"
+        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md",
       )}
     >
       <motion.div
@@ -64,20 +70,22 @@ const SiteHeader = () => {
             "transition-[background-color,border-color,box-shadow,height] duration-200",
           isScrolled
             ? "mt-3 h-11 gap-2.5 w-76 justify-between border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
-            : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
+            : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4",
         )}
       >
         <motion.div className="shrink-0">
           <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="/"
-                aria-label="Home (H)"
-                className="flex items-center px-1 font-medium tracking-tight"
-              >
-                devn.
-              </Link>
-            </TooltipTrigger>
+            <TooltipTrigger
+              render={
+                <Link
+                  href="/"
+                  aria-label="Home (H)"
+                  className="flex items-center px-1 font-medium tracking-tight"
+                >
+                  devn.
+                </Link>
+              }
+            />
             <TooltipContent className="flex items-center gap-2">
               Home
               <Kbd>H</Kbd>
@@ -88,69 +96,83 @@ const SiteHeader = () => {
         <motion.nav
           layout="position"
           aria-label="Main navigation"
-          className="flex shrink-0 items-center gap-0.5"
+          className="shrink-0"
         >
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Link
-                  href="/blog"
-                  aria-current={isBlog ? "page" : undefined}
-                  aria-label="Blog (B)"
-                  className={cn(
-                    "flex h-8 items-center rounded-full px-3 text-sm transition-colors",
-                    isBlog ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  blog
-                </Link>
-              }
-            />
-            <TooltipContent className="flex items-center gap-2">
-              Blog
-              <Kbd>B</Kbd>
-            </TooltipContent>
-          </Tooltip>
+          <ButtonGroup>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    nativeButton={false}
+                    variant="outline"
+                    size="sm"
+                    className={cn(isBlog && "bg-muted text-foreground")}
+                    render={
+                      <Link
+                        href="/blog"
+                        aria-current={isBlog ? "page" : undefined}
+                        aria-label="Blog (B)"
+                      >
+                        blog
+                      </Link>
+                    }
+                  />
+                }
+              />
+              <TooltipContent className="flex items-center gap-2">
+                Blog
+                <Kbd>B</Kbd>
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Link
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  aria-label="View GitHub profile"
-                  className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <GithubIcon className="size-4" />
-                </Link>
-              }
-            />
-            <TooltipContent className="flex items-center gap-2">
-              GitHub
-              <Kbd>G + H</Kbd>
-            </TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    nativeButton={false}
+                    variant="outline"
+                    size="icon-sm"
+                    render={
+                      <Link
+                        href={githubUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        aria-label="View GitHub profile"
+                      >
+                        <GithubIcon />
+                      </Link>
+                    }
+                  />
+                }
+              />
+              <TooltipContent className="flex items-center gap-2">
+                GitHub
+                <Kbd>G + H</Kbd>
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <button
-                  type="button"
-                  onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
-                  aria-label="Toggle theme (D)"
-                  className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <Sun className="size-4 dark:hidden" />
-                  <Moon className="hidden size-4 dark:block" />
-                </button>
-              }
-            />
-            <TooltipContent className="flex items-center gap-2">
-              Toggle theme
-              <Kbd>D</Kbd>
-            </TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() =>
+                      setTheme(resolvedTheme === "light" ? "dark" : "light")
+                    }
+                    aria-label="Toggle theme (D)"
+                  >
+                    <Sun className="dark:hidden" />
+                    <Moon className="hidden dark:block" />
+                  </Button>
+                }
+              />
+              <TooltipContent className="flex items-center gap-2">
+                Toggle theme
+                <Kbd>D</Kbd>
+              </TooltipContent>
+            </Tooltip>
+          </ButtonGroup>
         </motion.nav>
       </motion.div>
     </header>

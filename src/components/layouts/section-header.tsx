@@ -18,8 +18,8 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <header className={cn("space-y-2", className)} {...props}>
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <Heading className="text-3xl font-medium tracking-tight md:text-4xl">{title}</Heading>
+      <p className="typography-label">{label}</p>
+      <Heading className="typography-title">{title}</Heading>
       {description ? <p className="text-muted-foreground">{description}</p> : null}
     </header>
   );

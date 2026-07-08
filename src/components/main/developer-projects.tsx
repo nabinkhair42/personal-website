@@ -2,65 +2,51 @@
 
 import { SquareMousePointer } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
+import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { itemVariants } from "@/components/motion";
 import {
   ExpandableSection,
   ExpandableSectionContent,
-  ExpandableSectionDescription,
-  ExpandableSectionHeader,
   ExpandableSectionItem,
-  ExpandableSectionLabel,
   ExpandableSectionList,
-  ExpandableSectionTitle,
   ExpandableSectionTrigger,
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
+import { TimelineLogo } from "@/components/ui/extended/timeline-logo";
 import { ProjectsData } from "@/dev-constants/projects";
 import { GithubIcon } from "@/icons/tech";
-import { itemVariants } from "../motion";
 
 const DeveloperProjects = () => {
   return (
     <ShellWrapper>
       <motion.div initial="hidden" whileInView="visible" variants={itemVariants}>
         <ExpandableSection>
-          <ExpandableSectionHeader>
-            <ExpandableSectionLabel>My Work</ExpandableSectionLabel>
-            <ExpandableSectionTitle>Projects I&apos;m proud of</ExpandableSectionTitle>
-            <ExpandableSectionDescription>
-              A snapshot of product-focused experiments and client work where I handled everything
-              from UX flow to production deployment.
-            </ExpandableSectionDescription>
-          </ExpandableSectionHeader>
+          <SectionHeader
+            label="My Work"
+            title="Projects I'm proud of"
+            description="A snapshot of product-focused experiments and client work where I handled everything from UX flow to production deployment."
+          />
 
           <ExpandableSectionList className="space-y-6">
             {ProjectsData.map((project) => (
               <motion.div key={project.title} variants={itemVariants}>
                 <ExpandableSectionItem>
                   <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
-                    <Image
+                    <TimelineLogo
                       src={project.icon}
                       alt={`${project.title} project icon`}
-                      width={40}
-                      height={40}
-                      className="size-10 shrink-0 rounded-md border bg-muted object-cover p-px"
+                      objectFit="cover"
                     />
                     <div className="min-w-0 flex-1 space-y-1">
-                      <h3 className="text-base font-medium sm:text-lg md:text-xl">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground sm:text-base">
-                        {project.tagline}
-                      </p>
+                      <h3 className="typography-item-title">{project.title}</h3>
+                      <p className="typography-muted">{project.tagline}</p>
                     </div>
                   </ExpandableSectionTrigger>
 
                   <ExpandableSectionContent>
-                    <p className="text-sm text-muted-foreground sm:text-base">
-                      {project.description}
-                    </p>
+                    <p className="typography-muted">{project.description}</p>
                     {project.techStack && (
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (

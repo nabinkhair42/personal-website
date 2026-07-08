@@ -19,10 +19,8 @@ export default function NotFound() {
 
       <ShellWrapper>
         <header className="space-y-3 p-2">
-          <p className="text-sm  text-muted-foreground">Page missing</p>
-          <h1 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-            This page took a different route
-          </h1>
+          <p className="typography-label">Page missing</p>
+          <h1 className="typography-title">This page took a different route</h1>
           <p className="text-base leading-relaxed text-muted-foreground">
             The link you followed is no longer available.
           </p>
@@ -31,8 +29,8 @@ export default function NotFound() {
 
       <ShellWrapper>
         <div className="flex flex-wrap items-center gap-2 p-2">
-          <Button size="sm" render={<Link href="/">Return home</Link>} />
-          <Button size="sm" variant="outline" render={<Link href="/blog">Read the blog</Link>} />
+          <Button size="sm" nativeButton={false} render={<Link href="/">Return home</Link>} />
+          <Button size="sm" variant="outline" nativeButton={false} render={<Link href="/blog">Read the blog</Link>} />
         </div>
       </ShellWrapper>
     </PageShellWrapper>

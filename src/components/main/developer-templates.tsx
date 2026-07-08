@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { itemVariants, sectionVariants, VIEWPORT } from "@/components/motion";
 import { Button } from "@/components/ui/button";
+import { SoftLink } from "@/components/ui/extended/soft-link";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { TEMPLATES } from "@/dev-constants/templates";
-import { itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const buildMail = (name: string) =>
   `mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(
@@ -94,24 +95,24 @@ const DeveloperTemplates = () => {
         </div>
 
         <motion.div variants={itemVariants} className="flex items-center gap-3 pt-1">
-          <Link
+          <SoftLink
             href="https://github.com/nabinkhair42/structural-grid-skill"
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-1 underline underline-offset-4 text-muted-foreground transition-colors hover:text-foreground"
+            underline
           >
             View Design System
             <ArrowUpRight className="size-3" />
-          </Link>
-          <Link
+          </SoftLink>
+          <SoftLink
             href="https://skills.nabinkhair.com.np"
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-1 underline underline-offset-4 text-muted-foreground transition-colors hover:text-foreground"
+            underline
           >
             skills
             <ArrowUpRight className="size-3" />
-          </Link>
+          </SoftLink>
         </motion.div>
       </motion.section>
     </ShellWrapper>

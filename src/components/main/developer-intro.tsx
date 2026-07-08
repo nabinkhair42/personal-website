@@ -5,10 +5,10 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { itemVariants, sectionVariants } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { itemVariants, sectionVariants } from "../motion";
 
 const DeveloperIntro = () => {
   const { name, designation, bio, avatar, email, resume } = DeveloperDetails;
@@ -37,7 +37,7 @@ const DeveloperIntro = () => {
 
         <div className="space-y-2">
           <motion.div variants={itemVariants} className="space-y-1">
-            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
+            <h1 className="typography-title">{name}</h1>
             <p className="text-muted-foreground">{designation}</p>
           </motion.div>
 

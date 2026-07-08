@@ -5,8 +5,8 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "../motion";
 
 const DeveloperConnect = () => {
   const links = Object.entries(DeveloperDetails.socialLinks);

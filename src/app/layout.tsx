@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { HotKeyProvider } from "@/components/hot-key-provider";
+import { JsonLd } from "@/components/json-ld";
 import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -132,6 +133,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <JsonLd data={structuredDataJsonLd} />
+      </head>
       <body className={sans.className} suppressHydrationWarning>
         <a
           href="#main-content"
@@ -139,10 +143,6 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredDataJsonLd) }}
-        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -152,7 +152,7 @@ export default function RootLayout({
           <TooltipProvider>
             <HotKeyProvider>
               <div className="relative grid min-h-screen w-full grid-cols-[1fr_min(50rem,calc(100%-3rem))_1fr]">
-                <div className="col-start-2 flex min-h-screen w-full flex-col">
+                <div className="col-start-2 flex min-h-screen w-full flex-col bg-background">
                   <SiteHeader />
                   <main id="main-content" className="flex flex-1 flex-col">
                     {children}

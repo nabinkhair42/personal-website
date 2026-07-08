@@ -131,17 +131,33 @@
   background-size: 10px 10px;
 }
 
+@utility typography-label {
+  @apply text-sm text-muted-foreground;
+}
+
+@utility typography-title {
+  @apply text-3xl font-medium tracking-tight md:text-4xl;
+}
+
+@utility typography-muted {
+  @apply text-sm text-muted-foreground sm:text-base;
+}
+
+@utility typography-item-title {
+  @apply text-base font-medium sm:text-lg md:text-xl;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    @apply min-h-full bg-background font-sans pattern-hatch;
   }
 
-  html {
-    @apply font-sans;
+  body {
+    @apply min-h-full bg-background text-foreground pattern-hatch;
   }
 
   @media (prefers-reduced-motion: reduce) {

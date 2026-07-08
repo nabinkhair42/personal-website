@@ -2,11 +2,11 @@
 
 import { GraduationCap } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
+import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "@/components/motion";
+import { TimelineLogo } from "@/components/ui/extended/timeline-logo";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { APPLE_EASE, itemVariants, sectionVariants, VIEWPORT } from "../motion";
 
 const DeveloperEducation = () => {
   const educationData = DeveloperDetails.education;
@@ -47,29 +47,19 @@ const DeveloperEducation = () => {
                     className="absolute left-5 top-10 -bottom-10 w-px bg-muted-foreground/30 sm:-bottom-12"
                   />
                 )}
-                {education.logo ? (
-                  <Image
-                    src={education.logo}
-                    alt={`${education.institution} logo`}
-                    width={40}
-                    height={40}
-                    className="size-10 shrink-0 rounded-md border bg-muted object-contain p-px"
-                  />
-                ) : (
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-muted">
-                    <GraduationCap className="size-5 text-muted-foreground" aria-hidden />
-                  </div>
-                )}
+                <TimelineLogo
+                  src={education.logo}
+                  alt={`${education.institution} logo`}
+                  fallback={<GraduationCap className="size-5 text-muted-foreground" />}
+                />
                 <div className="min-w-0 flex-1 space-y-1">
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
-                    <h3 className="text-base font-medium sm:text-lg md:text-xl">
-                      {education.institution}
-                    </h3>
-                    <p className="shrink-0 text-sm text-muted-foreground tabular-nums">
+                    <h3 className="typography-item-title">{education.institution}</h3>
+                    <p className="typography-label shrink-0 tabular-nums">
                       {education.startDate} – {education.endDate}
                     </p>
                   </div>
-                  <p className="text-sm text-muted-foreground sm:text-base">
+                  <p className="typography-muted">
                     {education.degree}
                     <span className="text-muted-foreground/60"> · </span>
                     {education.location}
