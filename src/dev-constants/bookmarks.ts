@@ -1,35 +1,23 @@
 import type { Bookmark, BookmarkCategory } from "@/types";
 
-export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> =
-  {
-    tools: { label: "Tools" },
-    articles: { label: "Articles" },
-    engineering: { label: "Engineering" },
-    design: { label: "Design" },
-    products: { label: "Products" },
-  };
+export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
+  tools: { label: "Tools" },
+  articles: { label: "Articles" },
+  engineering: { label: "Engineering" },
+  design: { label: "Design" },
+  products: { label: "Products" },
+};
 
 export const BOOKMARKS: Bookmark[] = [
+  // Articles
   {
-    title: "Vercel",
-    url: "https://vercel.com",
-    category: "tools",
-  },
-  {
-    title: "Excalidraw",
-    url: "https://excalidraw.com",
-    category: "tools",
-  },
-  { title: "FumaDocs", url: "https://www.fumadocs.dev", category: "tools" },
-  { title: "svgl", url: "https://svgl.app/", category: "tools" },
-  {
-    title: "How To Be Successful",
-    url: "https://blog.samaltman.com/how-to-be-successful",
+    title: "Simon Willison's Blog",
+    url: "https://simonwillison.net",
     category: "articles",
   },
   {
-    title: "Developer Marketing",
-    url: "https://leerob.com/developer-marketing",
+    title: "Subtraction",
+    url: "https://www.subtraction.com",
     category: "articles",
   },
   {
@@ -38,20 +26,13 @@ export const BOOKMARKS: Bookmark[] = [
     category: "articles",
   },
   {
-    title: "On Being A Senior Engineer",
-    url: "https://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/",
-    category: "engineering",
+    title: "Your AI Product Needs Evals",
+    url: "https://hamel.dev/blog/posts/evals/",
+    category: "articles",
   },
-  {
-    title: "Skills",
-    url: "https://skills.sh",
-    category: "engineering",
-  },
-  {
-    title: "shadcn/ui",
-    url: "https://ui.shadcn.com",
-    category: "design",
-  },
+
+  // Design
+  { title: "Are.na", url: "https://www.are.na", category: "design" },
   {
     title: "Evil Charts",
     url: "https://evilcharts.com/",
@@ -62,10 +43,88 @@ export const BOOKMARKS: Bookmark[] = [
     url: "https://fancycomponents.dev",
     category: "design",
   },
+  { title: "Land-book", url: "https://land-book.com", category: "design" },
+  { title: "Mobbin", url: "https://mobbin.com", category: "design" },
+  {
+    title: "shadcn/ui",
+    url: "https://ui.shadcn.com",
+    category: "design",
+  },
+
+  // Engineering
+  {
+    title: "Ahead of AI",
+    url: "https://magazine.sebastianraschka.com",
+    category: "engineering",
+  },
+  {
+    title: "Awesome GEO",
+    url: "https://github.com/amplifying-ai/awesome-generative-engine-optimization",
+    category: "engineering",
+  },
+  {
+    title: "Building Effective Agents",
+    url: "https://www.anthropic.com/engineering/building-effective-agents",
+    category: "engineering",
+  },
+  {
+    title: "GEO: Generative Engine Optimization",
+    url: "https://arxiv.org/abs/2311.09735",
+    category: "engineering",
+  },
+  {
+    title: "Letta (MemGPT)",
+    url: "https://www.letta.com",
+    category: "engineering",
+  },
+  {
+    title: "Lilian Weng's Blog",
+    url: "https://lilianweng.github.io",
+    category: "engineering",
+  },
+
+  // Products
+  {
+    title: "Langfuse",
+    url: "https://langfuse.com",
+    category: "products",
+  },
+  {
+    title: "Peerlist",
+    url: "https://peerlist.io",
+    category: "products",
+  },
   {
     title: "VS Code",
     url: "https://code.visualstudio.com",
     category: "products",
+  },
+
+  // Tools
+  {
+    title: "Excalidraw",
+    url: "https://excalidraw.com",
+    category: "tools",
+  },
+  {
+    title: "FumaDocs",
+    url: "https://www.fumadocs.dev",
+    category: "tools",
+  },
+  {
+    title: "svgl",
+    url: "https://svgl.app/",
+    category: "tools",
+  },
+  {
+    title: "UnJS",
+    url: "https://unjs.io",
+    category: "tools",
+  },
+  {
+    title: "Vercel",
+    url: "https://vercel.com",
+    category: "tools",
   },
 ];
 

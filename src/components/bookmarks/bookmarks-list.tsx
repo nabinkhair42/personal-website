@@ -1,16 +1,11 @@
 "use client";
 
-import {
-  itemVariants,
-  sectionVariants,
-  tightStaggerVariants,
-  VIEWPORT,
-} from "@/components/motion";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { getBookmarkGroups } from "@/dev-constants/bookmarks";
 import { getFaviconUrl } from "@/lib/bookmarks";
 import type { Bookmark } from "@/types";
-import { motion } from "motion/react";
-import Link from "next/link";
 
 function BookmarkGroupDivider({ label }: { label: string }) {
   return (
@@ -58,10 +53,7 @@ export function BookmarksList() {
       {groups.map((group) => (
         <section key={group.category} className="space-y-4">
           <BookmarkGroupDivider label={group.label} />
-          <motion.ul
-            variants={tightStaggerVariants}
-            className="flex flex-col gap-2"
-          >
+          <motion.ul variants={tightStaggerVariants} className="flex flex-col gap-2">
             {group.items.map((bookmark) => (
               <BookmarkItem key={bookmark.url} bookmark={bookmark} />
             ))}

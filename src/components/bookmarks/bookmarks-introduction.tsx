@@ -13,7 +13,7 @@ export function BookmarksIntroduction() {
       className="space-y-2 p-2 py-6"
     >
       <SectionHeader
-        label="More adding soon"
+        label="Bookmarks"
         title="Links worth keeping."
         headingLevel="h1"
         description="A collection of interesting links, articles, tools, and resources I've saved and keep coming back to."
