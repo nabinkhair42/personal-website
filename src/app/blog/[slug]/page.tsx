@@ -153,8 +153,12 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
         <TableOfContents content={post.content} />
         <ShellWrapper>
-          <article className="p-2">
-            <MDXRemote source={post.content} components={components} options={mdxOptions} />
+          <article className="typeset p-2">
+            <MDXRemote
+              source={post.content}
+              components={components}
+              options={mdxOptions as Parameters<typeof MDXRemote>[0]["options"]}
+            />
           </article>
         </ShellWrapper>
       </PageShellWrapper>

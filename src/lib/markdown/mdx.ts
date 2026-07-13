@@ -2,7 +2,10 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 import readingTime from "reading-time";
+import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
+import { transformers } from "@/lib/markdown/highlight-code";
+import { remarkMermaid } from "@/lib/markdown/remark-mermaid";
 
 const contentDirectory = path.join(process.cwd(), "/blog-content");
 
@@ -24,18 +27,25 @@ export interface BlogPost {
   readingTime: string;
 }
 
-/**
- * MDX options with remark-gfm for table support
- */
 export const mdxOptions = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkMermaid],
+    rehypePlugins: [
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            dark: "github-dark-default",
+            light: "github-light-default",
+          },
+          keepBackground: false,
+          transformers,
+        },
+      ],
+    ],
   },
 };
 
-/**
- * Get all blog post slugs
- */
 export function getAllBlogSlugs(): string[] {
   if (!fs.existsSync(contentDirectory)) {
     return [];
@@ -45,9 +55,6 @@ export function getAllBlogSlugs(): string[] {
   return files.filter((file) => file.endsWith(".mdx")).map((file) => file.replace(/\.mdx$/, ""));
 }
 
-/**
- * Get blog post by slug
- */
 export function getBlogPostBySlug(slug: string): BlogPost | null {
   try {
     const filePath = path.join(contentDirectory, `${slug}.mdx`);
@@ -73,9 +80,6 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
   }
 }
 
-/**
- * Get all blog posts
- */
 export function getAllBlogPosts(): BlogPost[] {
   const slugs = getAllBlogSlugs();
   const posts = slugs
@@ -85,7 +89,7 @@ export function getAllBlogPosts(): BlogPost[] {
     .sort((a, b) => {
       const dateA = new Date(a.frontmatter.date).getTime();
       const dateB = new Date(b.frontmatter.date).getTime();
-      return dateB - dateA; // Sort by date descending
+      return dateB - dateA;
     });
 
   return posts;

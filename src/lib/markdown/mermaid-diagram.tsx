@@ -4,6 +4,7 @@ import { Workflow } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CopyButton } from "@/lib/markdown/copy-button";
+import { cn } from "@/lib/utils";
 
 interface MermaidDiagramProps {
   code: string;
@@ -37,7 +38,6 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
         fontFamily: "inherit",
       });
 
-      // mermaid.render needs a valid DOM id (no colons from useId)
       const safeId = `mermaid-${id.replace(/:/g, "")}`;
       const { svg: rendered } = await mermaid.render(safeId, code.trim());
       setSvg(rendered);
@@ -54,24 +54,27 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
 
   return (
     <figure
-      className="not-prose my-6 overflow-hidden rounded-lg border border-border/70 shadow-[0_1px_2px_-0.5px_rgb(0_0_0/0.04),0_2px_6px_-3px_rgb(0_0_0/0.04)] transition-[box-shadow,border-color] duration-200 hover:border-border hover:shadow-[0_2px_4px_-0.5px_rgb(0_0_0/0.06),0_8px_20px_-4px_rgb(0_0_0/0.06)]"
+      data-not-typeset
+      className={cn(
+        "relative my-6 overflow-hidden rounded-xl border border-border bg-code text-code-foreground"
+      )}
       role="img"
       aria-label={title ?? "Mermaid diagram"}
     >
-      <figcaption className="flex items-center justify-between gap-3 border-b border-border/60 bg-linear-to-b from-muted/45 to-muted/15 px-3.5 py-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <Workflow className="size-3.5 shrink-0 text-muted-foreground/70" aria-hidden />
-          <span className="truncate font-mono text-[12px] text-foreground/85">{displayLabel}</span>
+      <figcaption className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5">
+        <div className="flex min-w-0 items-center gap-2 text-sm">
+          <Workflow className="size-4 shrink-0 opacity-70" aria-hidden />
+          <span className="truncate">{displayLabel}</span>
         </div>
-        <CopyButton value={code.trim()} />
       </figcaption>
+      <CopyButton value={code.trim()} className="top-2.5" />
 
       {error ? (
         <div className="p-4 font-mono text-sm text-destructive">{error}</div>
       ) : svg ? (
         <div
           ref={containerRef}
-          className="flex items-center justify-center overflow-x-auto p-6 [&>svg]:max-w-full [&>svg]:h-auto"
+          className="flex items-center justify-center overflow-x-auto p-6 [&>svg]:h-auto [&>svg]:max-w-full"
           dangerouslySetInnerHTML={{ __html: svg }}
         />
       ) : (
