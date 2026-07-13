@@ -11,7 +11,7 @@ const SITE_LAUNCH_DATE = "2024-01-01";
 export const generateSitemap = (): MetadataRoute.Sitemap => {
   const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
 
-  const staticRoutes = ["/", "/blog"];
+  const staticRoutes = ["/", "/blog", "/bookmarks"];
   const posts = getAllBlogPosts();
 
   const mostRecentPostDate = posts[0]?.frontmatter.date
@@ -107,6 +107,52 @@ export const blogMetadata = () => {
       types: {
         "application/rss+xml": `${siteUrl}/feed.xml`,
       },
+    },
+  };
+};
+
+export const bookmarksMetadata = () => {
+  const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
+  const ogImage = `${siteUrl}/og-image.png`;
+
+  return {
+    title: "Bookmarks",
+    description:
+      "A curated registry of links, articles, tools, and resources saved by Nabin Khair — pages worth returning to.",
+    keywords: [
+      "Nabin Khair Bookmarks",
+      "Developer Bookmarks",
+      "Curated Links",
+      "Web Development Resources",
+      "Programming Articles",
+      "Design Resources",
+      "Tools",
+    ],
+    openGraph: {
+      title: "Bookmarks | Nabin Khair",
+      description:
+        "A curated registry of links, articles, tools, and resources saved by Nabin Khair.",
+      url: `${siteUrl}/bookmarks`,
+      siteName: DeveloperDetails.name,
+      type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Bookmarks | Nabin Khair",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: "Bookmarks | Nabin Khair",
+      description:
+        "A curated registry of links, articles, tools, and resources saved by Nabin Khair.",
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: `${siteUrl}/bookmarks`,
     },
   };
 };

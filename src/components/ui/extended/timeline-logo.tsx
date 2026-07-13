@@ -20,15 +20,26 @@ export function TimelineLogo({
   const frameClass = cn(
     "size-10 shrink-0 rounded-md border bg-muted",
     objectFit === "cover" ? "object-cover p-px" : "object-contain p-px",
-    className
+    className,
   );
 
   if (src) {
-    return <Image src={src} alt={alt} width={40} height={40} className={frameClass} />;
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={40}
+        height={40}
+        className={frameClass}
+      />
+    );
   }
 
   return (
-    <div className={cn("flex items-center justify-center", frameClass)} aria-hidden={!fallback}>
+    <div
+      className={cn("flex items-center justify-center", frameClass)}
+      aria-hidden={!fallback}
+    >
       {fallback}
     </div>
   );

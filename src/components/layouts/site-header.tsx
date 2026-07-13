@@ -26,6 +26,7 @@ const SiteHeader = () => {
   const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
   const isBlog = pathname?.startsWith("/blog");
+  const isBookmarks = pathname?.startsWith("/bookmarks");
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [skipLayoutTransition, setSkipLayoutTransition] = useState(false);
@@ -114,6 +115,32 @@ const SiteHeader = () => {
               <TooltipContent className="flex items-center gap-2">
                 Blog
                 <Kbd>B</Kbd>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    nativeButton={false}
+                    variant="outline"
+                    size="sm"
+                    className={cn(isBookmarks && "bg-muted text-foreground")}
+                    render={
+                      <Link
+                        href="/bookmarks"
+                        aria-current={isBookmarks ? "page" : undefined}
+                        aria-label="Bookmarks (K)"
+                      >
+                        links
+                      </Link>
+                    }
+                  />
+                }
+              />
+              <TooltipContent className="flex items-center gap-2">
+                Bookmarks
+                <Kbd>K</Kbd>
               </TooltipContent>
             </Tooltip>
 

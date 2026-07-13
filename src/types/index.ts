@@ -54,6 +54,20 @@ export interface TechStack {
   icon: IconComponent;
   link?: string;
 }
+export type BookmarkCategory =
+  | "tools"
+  | "articles"
+  | "engineering"
+  | "design"
+  | "products";
+
+export interface Bookmark {
+  title: string;
+  url: string;
+  description?: string;
+  category: BookmarkCategory;
+}
+
 export interface Experience {
   company: string;
   logo: string;

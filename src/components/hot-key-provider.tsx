@@ -16,6 +16,11 @@ export const HotKeyProvider = ({ children }: { children: React.ReactNode }) => {
     router.push("/blog");
   });
 
+  useHotkey("K", () => {
+    if (isTypingInField()) return;
+    router.push("/bookmarks");
+  });
+
   useHotkey("H", () => {
     if (isTypingInField()) return;
     router.push("/");
