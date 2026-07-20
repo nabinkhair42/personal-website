@@ -103,14 +103,14 @@ const DeveloperProjects = () => {
             </ExpandableSectionItem>
           ))}
         </ExpandableSectionList>
-
-        {hasMore ? (
-          <div className="flex items-center gap-0 pt-1">
-            <Separator className="flex-1 bg-(--pattern-fg)" />
+      </ExpandableSection>
+      {hasMore ? (
+        <div>
+          <Separator className="flex-1" />
+          <div className="flex items-center justify-center">
             <Button
               type="button"
-              variant="outline"
-              size="sm"
+              variant="secondary"
               aria-expanded={expanded}
               onClick={() => setExpanded((value) => !value)}
             >
@@ -120,10 +120,9 @@ const DeveloperProjects = () => {
                 className={expanded ? "rotate-180" : undefined}
               />
             </Button>
-            <Separator className="flex-1 bg-(--pattern-fg)" />
           </div>
-        ) : null}
-      </ExpandableSection>
+        </div>
+      ) : null}
     </ShellWrapper>
   );
 };

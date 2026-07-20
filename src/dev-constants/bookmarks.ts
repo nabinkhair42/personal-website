@@ -1,12 +1,13 @@
 import type { Bookmark, BookmarkCategory } from "@/types";
 
-export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
-  tools: { label: "Tools" },
-  articles: { label: "Articles" },
-  engineering: { label: "Engineering" },
-  design: { label: "Design" },
-  products: { label: "Products" },
-};
+export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> =
+  {
+    tools: { label: "Tools" },
+    articles: { label: "Articles" },
+    engineering: { label: "Engineering" },
+    design: { label: "Design" },
+    products: { label: "Products" },
+  };
 
 export const BOOKMARKS: Bookmark[] = [
   // Articles
@@ -32,7 +33,6 @@ export const BOOKMARKS: Bookmark[] = [
   },
 
   // Design
-  { title: "Are.na", url: "https://www.are.na", category: "design" },
   {
     title: "Evil Charts",
     url: "https://evilcharts.com/",
@@ -43,8 +43,6 @@ export const BOOKMARKS: Bookmark[] = [
     url: "https://fancycomponents.dev",
     category: "design",
   },
-  { title: "Land-book", url: "https://land-book.com", category: "design" },
-  { title: "Mobbin", url: "https://mobbin.com", category: "design" },
   {
     title: "React NumberFlow",
     url: "https://number-flow.barvian.me/",
