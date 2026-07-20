@@ -18,9 +18,11 @@ export default function NotFound() {
       </ShellWrapper>
 
       <ShellWrapper>
-        <header className="space-y-3 p-2">
-          <p className="typography-label">Page missing</p>
-          <h1 className="typography-title">This page took a different route</h1>
+        <header className="flex flex-col gap-3 p-2">
+          <p className="text-sm text-muted-foreground">Page missing</p>
+          <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+            This page took a different route
+          </h1>
           <p className="text-base leading-relaxed text-muted-foreground">
             The link you followed is no longer available.
           </p>

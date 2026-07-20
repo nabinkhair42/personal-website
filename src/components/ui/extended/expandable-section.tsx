@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
-import { APPLE_EASE } from "@/components/motion";
 import { cn } from "@/lib/utils";
+
+const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
 
 interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
 const ExpandableSection = React.forwardRef<HTMLDivElement, ExpandableSectionProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("space-y-3 p-2", className)} {...props}>
+      <div ref={ref} className={cn("flex flex-col gap-3 p-2", className)} {...props}>
         {children}
       </div>
     );
@@ -27,7 +28,7 @@ interface ExpandableSectionListProps extends React.HTMLAttributes<HTMLDivElement
 const ExpandableSectionList = React.forwardRef<HTMLDivElement, ExpandableSectionListProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("flex flex-col space-y-3", className)} {...props}>
+      <div ref={ref} className={cn("flex flex-col gap-3", className)} {...props}>
         {children}
       </div>
     );
@@ -96,12 +97,7 @@ const ExpandableSectionTrigger = React.forwardRef<HTMLButtonElement, ExpandableS
         ref={ref}
         type="button"
         onClick={toggle}
-        className={cn(
-          "group/trigger cursor-pointer",
-          "transition-[opacity,transform] duration-150 ease-out",
-          "active:scale-[0.995] active:opacity-80",
-          className
-        )}
+        className={cn("group/trigger cursor-pointer", className)}
         aria-expanded={isOpen}
         {...props}
       >
@@ -125,49 +121,49 @@ const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSect
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={shouldReduceMotion ? false : { height: 0 }}
+            initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
             animate={{
               height: "auto",
+              opacity: 1,
               transition: shouldReduceMotion
                 ? { duration: 0 }
-                : { duration: 0.42, ease: APPLE_EASE },
+                : {
+                    height: { duration: 0.38, ease: APPLE_EASE },
+                    opacity: { duration: 0.28, ease: APPLE_EASE },
+                  },
             }}
             exit={
               shouldReduceMotion
-                ? { height: 0, transition: { duration: 0 } }
-                : { height: 0, transition: { duration: 0.32, ease: APPLE_EASE } }
+                ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                : {
+                    height: 0,
+                    opacity: 0,
+                    transition: {
+                      height: { duration: 0.3, ease: APPLE_EASE },
+                      opacity: { duration: 0.18, ease: "easeIn" },
+                    },
+                  }
             }
             className="overflow-hidden"
           >
             <motion.div
-              initial={
-                shouldReduceMotion ? false : { opacity: 0, y: -8, filter: "blur(4px)", scale: 0.97 }
-              }
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
               animate={{
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
-                scale: 1,
                 transition: shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.45, ease: APPLE_EASE, delay: 0.06 },
+                  : { duration: 0.32, ease: APPLE_EASE, delay: 0.04 },
               }}
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
-                  : {
-                      opacity: 0,
-                      y: -4,
-                      filter: "blur(2px)",
-                      scale: 0.98,
-                      transition: { duration: 0.2, ease: "easeIn" },
-                    }
+                  : { opacity: 0, y: -4, transition: { duration: 0.16, ease: "easeIn" } }
               }
-              style={{ transformOrigin: "top" }}
             >
               <div
                 ref={ref}
-                className={cn("mt-3 space-y-3 pl-0 sm:pl-[3.25rem]", className)}
+                className={cn("mt-3 flex flex-col gap-3 pl-[3.25rem]", className)}
                 {...props}
               >
                 {children}

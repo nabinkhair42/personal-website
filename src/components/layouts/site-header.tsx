@@ -1,11 +1,10 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
@@ -14,12 +13,6 @@ import { GithubIcon } from "@/icons/social";
 import { githubUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const SPRING = {
-  type: "spring" as const,
-  stiffness: 360,
-  damping: 32,
-  mass: 0.85,
-};
 const SCROLL_THRESHOLD = 32;
 
 const SiteHeader = () => {
@@ -27,50 +20,31 @@ const SiteHeader = () => {
   const { setTheme, resolvedTheme } = useTheme();
   const isBlog = pathname?.startsWith("/blog");
   const isBookmarks = pathname?.startsWith("/bookmarks");
-  const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [skipLayoutTransition, setSkipLayoutTransition] = useState(false);
-  const pathnameRef = useRef(pathname);
 
-  useLayoutEffect(() => {
-    const routeChanged = pathnameRef.current !== pathname;
-    pathnameRef.current = pathname;
-
-    setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
-
-    if (!routeChanged) return;
-
-    setSkipLayoutTransition(true);
-    const frame = requestAnimationFrame(() => setSkipLayoutTransition(false));
-    return () => cancelAnimationFrame(frame);
-  }, [pathname]);
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > SCROLL_THRESHOLD);
-  });
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
       className={cn(
         "sticky top-0 z-50 flex justify-center",
-        !skipLayoutTransition && "transition-colors duration-200",
         isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md"
       )}
     >
-      <motion.div
-        layout={!skipLayoutTransition}
-        transition={skipLayoutTransition ? { duration: 0 } : SPRING}
-        animate={{ borderRadius: isScrolled ? 999 : 0 }}
+      <div
         className={cn(
           "flex items-center",
-          !skipLayoutTransition &&
-            "transition-[background-color,border-color,box-shadow,height] duration-200",
           isScrolled
-            ? "mt-3 h-11 gap-2.5 w-76 justify-between border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
+            ? "mt-3 h-11 w-76 justify-between gap-2.5 rounded-full border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
             : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
         )}
       >
-        <motion.div className="shrink-0">
+        <div className="shrink-0">
           <Tooltip>
             <TooltipTrigger
               render={
@@ -88,16 +62,16 @@ const SiteHeader = () => {
               <Kbd>H</Kbd>
             </TooltipContent>
           </Tooltip>
-        </motion.div>
+        </div>
 
-        <motion.nav layout="position" aria-label="Main navigation" className="shrink-0">
+        <nav aria-label="Main navigation" className="shrink-0">
           <ButtonGroup>
             <Tooltip>
               <TooltipTrigger
                 render={
                   <Button
                     nativeButton={false}
-                    variant="outline"
+                    variant={isScrolled ? "outline" : "ghost"}
                     size="sm"
                     className={cn(isBlog && "bg-muted text-foreground")}
                     render={
@@ -123,7 +97,7 @@ const SiteHeader = () => {
                 render={
                   <Button
                     nativeButton={false}
-                    variant="outline"
+                    variant={isScrolled ? "outline" : "ghost"}
                     size="sm"
                     className={cn(isBookmarks && "bg-muted text-foreground")}
                     render={
@@ -149,7 +123,7 @@ const SiteHeader = () => {
                 render={
                   <Button
                     nativeButton={false}
-                    variant="outline"
+                    variant={isScrolled ? "outline" : "ghost"}
                     size="icon-sm"
                     render={
                       <Link
@@ -174,7 +148,7 @@ const SiteHeader = () => {
               <TooltipTrigger
                 render={
                   <Button
-                    variant="outline"
+                    variant={isScrolled ? "outline" : "ghost"}
                     size="icon-sm"
                     onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
                     aria-label="Toggle theme (D)"
@@ -190,8 +164,8 @@ const SiteHeader = () => {
               </TooltipContent>
             </Tooltip>
           </ButtonGroup>
-        </motion.nav>
-      </motion.div>
+        </nav>
+      </div>
     </header>
   );
 };

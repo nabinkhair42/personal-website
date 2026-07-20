@@ -1,10 +1,8 @@
 "use client";
 
 import { format, parseISO } from "date-fns";
-import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { sectionVariants, VIEWPORT } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import {
   type Activity,
@@ -76,7 +74,7 @@ const DeveloperGitContribution = () => {
           role="status"
           aria-busy="true"
           aria-label="Loading GitHub contribution graph"
-          className="h-[11.9rem] animate-pulse border bg-muted"
+          className="h-[11.9rem] border bg-muted"
         />
       </ShellWrapper>
     );
@@ -101,52 +99,45 @@ const DeveloperGitContribution = () => {
 
   return (
     <ShellWrapper>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={VIEWPORT}
-        variants={sectionVariants}
+      <ContributionGraph
+        data={activities}
+        totalCount={totalCount}
+        className="p-2"
+        labels={{ totalCount: "{{count}} activities in past 12 months" }}
       >
-        <ContributionGraph
-          data={activities}
-          totalCount={totalCount}
-          className="p-2"
-          labels={{ totalCount: "{{count}} activities in past 12 months" }}
-        >
-          <ContributionGraphCalendar scrollToEnd>
-            {({ activity, dayIndex, weekIndex }) => (
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <ContributionGraphBlock
-                      activity={activity}
-                      className={cn("cursor-pointer", LEVEL_FILLS)}
-                      dayIndex={dayIndex}
-                      weekIndex={weekIndex}
-                    />
-                  }
-                />
-                <TooltipContent>
-                  {activity.count} contributions on {format(parseISO(activity.date), "MMM d, yyyy")}
-                </TooltipContent>
-              </Tooltip>
+        <ContributionGraphCalendar scrollToEnd>
+          {({ activity, dayIndex, weekIndex }) => (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <ContributionGraphBlock
+                    activity={activity}
+                    className={cn("cursor-pointer", LEVEL_FILLS)}
+                    dayIndex={dayIndex}
+                    weekIndex={weekIndex}
+                  />
+                }
+              />
+              <TooltipContent>
+                {activity.count} contributions on {format(parseISO(activity.date), "MMM d, yyyy")}
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </ContributionGraphCalendar>
+        <ContributionGraphFooter>
+          <ContributionGraphTotalCount />
+          <ContributionGraphLegend>
+            {({ level }) => (
+              <div
+                className={cn(
+                  "h-3 w-3 rounded border border-border",
+                  LEGEND_BG[level] ?? LEGEND_BG[0]
+                )}
+              />
             )}
-          </ContributionGraphCalendar>
-          <ContributionGraphFooter>
-            <ContributionGraphTotalCount />
-            <ContributionGraphLegend>
-              {({ level }) => (
-                <div
-                  className={cn(
-                    "h-3 w-3 rounded border border-border",
-                    LEGEND_BG[level] ?? LEGEND_BG[0]
-                  )}
-                />
-              )}
-            </ContributionGraphLegend>
-          </ContributionGraphFooter>
-        </ContributionGraph>
-      </motion.div>
+          </ContributionGraphLegend>
+        </ContributionGraphFooter>
+      </ContributionGraph>
     </ShellWrapper>
   );
 };

@@ -46,11 +46,20 @@ export const BOOKMARKS: Bookmark[] = [
   { title: "Land-book", url: "https://land-book.com", category: "design" },
   { title: "Mobbin", url: "https://mobbin.com", category: "design" },
   {
+    title: "React NumberFlow",
+    url: "https://number-flow.barvian.me/",
+    category: "design",
+  },
+  {
     title: "shadcn/ui",
     url: "https://ui.shadcn.com",
     category: "design",
   },
-
+  {
+    title: "Vengeance UI",
+    url: "https://www.vengenceui.com/",
+    category: "design",
+  },
   // Engineering
   {
     title: "Ahead of AI",

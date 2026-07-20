@@ -79,7 +79,7 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
         />
       ) : (
         <div className="flex items-center justify-center p-6">
-          <div className="h-48 w-full animate-pulse rounded-md bg-muted/50" />
+          <div className="h-48 w-full rounded-md bg-muted/50" />
         </div>
       )}
     </figure>

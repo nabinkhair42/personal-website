@@ -1,46 +1,32 @@
-"use client";
-
-import { motion } from "motion/react";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { TechStacksList } from "@/dev-constants/stack";
 
 const DeveloperStack = () => {
   return (
     <ShellWrapper>
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={VIEWPORT}
-        variants={sectionVariants}
-        className="space-y-3 p-2"
-      >
-        <motion.div variants={itemVariants}>
-          <SectionHeader
-            label="My Skills"
-            title="The tools I reach for every day"
-            description="A curated mix of frameworks, runtimes, and services that help me craft reliable, performant user experiences across the stack."
-          />
-        </motion.div>
+      <section className="space-y-3 p-2">
+        <SectionHeader
+          label="My Skills"
+          title="The tools I reach for every day"
+          description="A curated mix of frameworks, runtimes, and services that help me craft reliable, performant user experiences across the stack."
+        />
 
-        <motion.div
-          variants={tightStaggerVariants}
+        <div
           className="grid border-l border-t"
           style={{ gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))" }}
         >
           {TechStacksList.map(({ name, icon: Icon }) => (
-            <motion.div
+            <div
               key={name}
-              variants={itemVariants}
               className="group flex aspect-square flex-col items-center justify-center gap-2 border-r border-b p-2"
             >
               <Icon className="size-6" />
               <p className="w-full truncate text-center text-sm">{name}</p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
     </ShellWrapper>
   );
 };

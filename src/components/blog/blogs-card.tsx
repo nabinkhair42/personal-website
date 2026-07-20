@@ -24,7 +24,7 @@ export const BlogCard = ({ post, priority }: BlogCardProps) => {
           fill
           priority={priority}
           sizes="(max-width: 640px) 100vw, 400px"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">

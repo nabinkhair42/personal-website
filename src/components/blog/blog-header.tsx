@@ -1,10 +1,6 @@
-"use client";
-
 import { Calendar, Clock } from "lucide-react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants } from "@/components/motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { formatDate } from "@/lib/format";
@@ -18,12 +14,7 @@ interface BlogHeaderProps {
 export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
   return (
     <ShellWrapper>
-      <motion.header
-        initial="hidden"
-        animate="visible"
-        variants={itemVariants}
-        className="space-y-4 p-2 py-6"
-      >
+      <header className="space-y-4 p-2 py-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-medium md:text-4xl">{frontmatter.title}</h1>
           <p className="text-muted-foreground">{frontmatter.description}</p>
@@ -60,7 +51,7 @@ export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
             />
           </div>
         )}
-      </motion.header>
+      </header>
     </ShellWrapper>
   );
 }

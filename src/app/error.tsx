@@ -31,9 +31,11 @@ export default function ErrorPage({
       </ShellWrapper>
 
       <ShellWrapper>
-        <header className="space-y-3 p-2">
-          <p className="typography-label">Something went wrong</p>
-          <h1 className="typography-title">An unexpected error occurred</h1>
+        <header className="flex flex-col gap-3 p-2">
+          <p className="text-sm text-muted-foreground">Something went wrong</p>
+          <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+            An unexpected error occurred
+          </h1>
           <p className="text-base leading-relaxed text-muted-foreground">
             Don&apos;t worry, these things happen. Try again, or head back home to keep exploring.
           </p>

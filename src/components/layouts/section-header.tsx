@@ -17,9 +17,9 @@ export function SectionHeader({
   ...props
 }: SectionHeaderProps) {
   return (
-    <header className={cn("space-y-2", className)} {...props}>
-      <p className="typography-label">{label}</p>
-      <Heading className="typography-title">{title}</Heading>
+    <header className={cn("flex flex-col gap-2", className)} {...props}>
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <Heading className="text-3xl font-medium tracking-tight md:text-4xl">{title}</Heading>
       {description ? <p className="text-muted-foreground">{description}</p> : null}
     </header>
   );

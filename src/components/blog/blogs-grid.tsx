@@ -1,11 +1,7 @@
-"use client";
-
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "motion/react";
 import { BlogCard } from "@/components/blog/blogs-card";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants, VIEWPORT } from "@/components/motion";
 import { SoftLink } from "@/components/ui/extended/soft-link";
 import type { BlogPost } from "@/lib/markdown/mdx";
 
@@ -21,14 +17,7 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
   return (
     <ShellWrapper>
       <div className="space-y-3 p-2">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-          variants={itemVariants}
-        >
-          <SectionHeader label="From the blog" title="Latest Posts" className="space-y-1" />
-        </motion.div>
+        <SectionHeader label="From the blog" title="Latest Posts" className="space-y-1" />
 
         {posts.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 sm:auto-rows-fr">
@@ -37,7 +26,9 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
             ))}
           </div>
         ) : (
-          <p className="py-16 text-center typography-label">No posts yet — check back soon.</p>
+          <p className="py-16 text-center text-sm text-muted-foreground">
+            No posts yet — check back soon.
+          </p>
         )}
 
         {hasMore && (

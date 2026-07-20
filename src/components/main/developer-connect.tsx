@@ -1,11 +1,7 @@
-"use client";
-
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { DeveloperDetails } from "@/dev-constants/details";
 
 const DeveloperConnect = () => {
@@ -13,29 +9,18 @@ const DeveloperConnect = () => {
 
   return (
     <ShellWrapper>
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={VIEWPORT}
-        variants={sectionVariants}
-        className="space-y-3 p-2"
-      >
-        <motion.div variants={itemVariants}>
-          <SectionHeader
-            label="Connect"
-            title="Let's build together"
-            description="Pick the channel that fits best — every link here stays in sync with my latest work."
-          />
-        </motion.div>
+      <section className="space-y-3 p-2">
+        <SectionHeader
+          label="Connect"
+          title="Let's build together"
+          description="Pick the channel that fits best — every link here stays in sync with my latest work."
+        />
 
-        <motion.div
-          variants={tightStaggerVariants}
-          className="grid grid-cols-2 border *:border-r *:border-b [&>*:nth-child(2n)]:border-r-0 [&>*:nth-last-child(-n+2)]:border-b-0"
-        >
+        <div className="grid grid-cols-2 border *:border-r *:border-b [&>*:nth-child(2n)]:border-r-0 [&>*:nth-last-child(-n+2)]:border-b-0">
           {links.map(([key, link]) => {
             const Icon = link.icon;
             return (
-              <motion.div key={key} variants={itemVariants}>
+              <div key={key}>
                 <Link
                   href={link.url}
                   target="_blank"
@@ -52,11 +37,11 @@ const DeveloperConnect = () => {
                   </span>
                   <ArrowUpRight className="inline-flex items-center gap-1 text-muted-foreground underline underline-offset-4 transition-colors group-hover:text-foreground" />
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
     </ShellWrapper>
   );
 };

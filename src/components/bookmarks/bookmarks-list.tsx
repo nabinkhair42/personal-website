@@ -1,24 +1,20 @@
-"use client";
-
-import { motion } from "motion/react";
 import Link from "next/link";
-import { itemVariants, sectionVariants, tightStaggerVariants, VIEWPORT } from "@/components/motion";
 import { getBookmarkGroups } from "@/dev-constants/bookmarks";
 import { getFaviconUrl } from "@/lib/bookmarks";
 import type { Bookmark } from "@/types";
 
 function BookmarkGroupDivider({ label }: { label: string }) {
   return (
-    <motion.div variants={itemVariants} className="flex items-center gap-3">
-      <span className="typography-label">{label}</span>
+    <div className="flex items-center gap-3">
+      <span className="text-sm text-muted-foreground">{label}</span>
       <div className="h-px flex-1 bg-linear-to-r from-(--pattern-fg) to-transparent" />
-    </motion.div>
+    </div>
   );
 }
 
 function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
   return (
-    <motion.li variants={itemVariants}>
+    <li>
       <Link
         href={bookmark.url}
         target="_blank"
@@ -35,7 +31,7 @@ function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
           {bookmark.title}
         </h3>
       </Link>
-    </motion.li>
+    </li>
   );
 }
 
@@ -43,23 +39,17 @@ export function BookmarksList() {
   const groups = getBookmarkGroups();
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={VIEWPORT}
-      variants={sectionVariants}
-      className="flex flex-col gap-12 p-2"
-    >
+    <div className="flex flex-col gap-12 p-2">
       {groups.map((group) => (
         <section key={group.category} className="space-y-4">
           <BookmarkGroupDivider label={group.label} />
-          <motion.ul variants={tightStaggerVariants} className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2">
             {group.items.map((bookmark) => (
               <BookmarkItem key={bookmark.url} bookmark={bookmark} />
             ))}
-          </motion.ul>
+          </ul>
         </section>
       ))}
-    </motion.div>
+    </div>
   );
 }
