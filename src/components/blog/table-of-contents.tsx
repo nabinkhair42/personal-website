@@ -312,7 +312,6 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                 "outline-none focus-visible:ring-2 focus-visible:ring-primary"
               )}
             >
-              <span className="size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
               <span className="relative block min-w-0 overflow-hidden">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span

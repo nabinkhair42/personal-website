@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { ButtonGroup } from "@/components/ui/button-group";
 
 const DeveloperIntro = () => {
   const { name, designation, bio, avatar, email, resume } = DeveloperDetails;
@@ -26,9 +26,7 @@ const DeveloperIntro = () => {
 
         <div className="space-y-2">
           <div className="space-y-1">
-            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
-              {name}
-            </h1>
+            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
             <p className="text-muted-foreground">{designation}</p>
           </div>
 

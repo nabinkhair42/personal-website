@@ -12,6 +12,17 @@
     --typeset-leading: 1.75;
     --typeset-flow: 1.25em;
   }
+
+  /* Long-form reading preset (blog articles). */
+  .typeset-article {
+    --typeset-size: 1.0625rem;
+    --typeset-leading: 1.7;
+    --typeset-flow: 1.4em;
+  }
+
+  .dark .typeset-article {
+    --typeset-leading: 1.85;
+  }
 }
 
 @layer components {
@@ -39,6 +50,7 @@
     &:where(p) {
       margin-block-start: var(--typeset-flow);
       margin-block-end: 0;
+      text-wrap: pretty;
     }
 
     /* Headings. */
@@ -47,20 +59,23 @@
       font-family: var(--typeset-font-heading);
       font-weight: 600;
       margin-block-end: 0;
+      text-wrap: balance;
     }
     &:where(h1) {
       font-size: 1.75em;
-      line-height: 1.3;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
       margin-block-start: var(--typeset-flow);
     }
     &:where(h2) {
       font-size: 1.25em;
-      line-height: 1.4;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
       margin-block-start: calc(var(--typeset-flow) * 1.4);
     }
     &:where(h3) {
       font-size: 1.125em;
-      line-height: 1.45;
+      line-height: 1.35;
       margin-block-start: var(--typeset-flow);
     }
     &:where(h4) {
@@ -99,10 +114,15 @@
 
     /* Links. */
     &:where(a) {
-      color: inherit;
+      color: var(--color-foreground, currentColor);
       font-weight: 500;
       text-decoration-line: underline;
-      text-decoration-color: color-mix(in oklab, currentColor 30%, transparent);
+      text-decoration-thickness: from-font;
+      text-underline-position: from-font;
+      text-underline-offset: 0.12em;
+      text-decoration-skip-ink: auto;
+      text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
+      transition: text-decoration-color 150ms ease-out;
     }
     &:where(a:hover) {
       text-decoration-color: currentColor;

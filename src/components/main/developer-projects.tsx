@@ -25,9 +25,7 @@ const DeveloperProjects = () => {
   const [expanded, setExpanded] = useState(false);
   const hasMore = ProjectsData.length > INITIAL_VISIBLE;
   const visibleProjects =
-    expanded || !hasMore
-      ? ProjectsData
-      : ProjectsData.slice(0, INITIAL_VISIBLE);
+    expanded || !hasMore ? ProjectsData : ProjectsData.slice(0, INITIAL_VISIBLE);
   const hiddenCount = ProjectsData.length - INITIAL_VISIBLE;
 
   return (
@@ -49,27 +47,17 @@ const DeveloperProjects = () => {
                   objectFit="cover"
                 />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <h3 className="text-base font-medium sm:text-lg md:text-xl">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground sm:text-base">
-                    {project.tagline}
-                  </p>
+                  <h3 className="text-base font-medium sm:text-lg md:text-xl">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground sm:text-base">{project.tagline}</p>
                 </div>
               </ExpandableSectionTrigger>
 
               <ExpandableSectionContent>
-                <p className="text-sm text-muted-foreground sm:text-base">
-                  {project.description}
-                </p>
+                <p className="text-sm text-muted-foreground sm:text-base">{project.description}</p>
                 {project.techStack && (
                   <div className="flex flex-wrap gap-2">
                     {project.techStack.map((tech) => (
-                      <StackBadge
-                        key={tech.name}
-                        name={tech.name}
-                        icon={tech.icon}
-                      />
+                      <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
                     ))}
                   </div>
                 )}
@@ -115,10 +103,7 @@ const DeveloperProjects = () => {
               onClick={() => setExpanded((value) => !value)}
             >
               {expanded ? "Show less" : `Show ${hiddenCount} more`}
-              <ChevronDown
-                data-icon="inline-end"
-                className={expanded ? "rotate-180" : undefined}
-              />
+              <ChevronDown data-icon="inline-end" className={expanded ? "rotate-180" : undefined} />
             </Button>
           </div>
         </div>

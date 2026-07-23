@@ -24,7 +24,7 @@ export function BlogCard({ post, priority, className }: BlogCardProps) {
       aria-label={title}
       className={cn(
         "group flex items-center justify-center overflow-hidden rounded-2xl border border-border p-1 shadow-sm transition-[box-shadow,border-color] duration-200 ease-out hover:shadow-md hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        className,
+        className
       )}
     >
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-xl border border-border bg-background transition-colors duration-200 ease-out group-hover:border-foreground/30">

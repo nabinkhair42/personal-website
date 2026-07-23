@@ -1,0 +1,71 @@
+---
+title: "The Real Recipe for Building Apps With AI in 2026"
+description: "A practical recipe for building real apps with AI in 2026: specs, harnesses, and the security checks most guides skip. Written for coders and non-coders alike."
+developer: "Nabin Khair"
+date: "2026-07-23"
+published: true
+image: "/blog/recepie-of-bulding-apps-in-2026.webp"
+tags: ["AI", "Apps", "2026"]
+---
+
+Everyone has already written this post. Type "how to build an app with AI" into Google and you'll find fifty guides from the last six months, most of them a screenshot tour of Lovable or Bolt.new ending in "step 5: launch." I read a dozen of them while researching this one. They're not wrong, exactly. They're just incomplete.
+
+Here's what actually changed. Two years ago, building an app with AI meant writing a good prompt and hoping. In 2026, it means managing a very fast, very confident junior engineer who will happily build the wrong thing perfectly if you let it. The tools got better. The failure mode just got quieter.
+
+I build software for a living. Right now that's an [uptime monitor](http://tallwatch.com/), a [GitHub agent](https://git.nabinkhair.com.np), and a cloud [storage system](https://assets-man.nabinkhair.com.np). All three were built this way, AI doing most of the typing, me doing most of the thinking. This is that process, written so it works whether you've never opened a terminal or you live in one.
+
+## Forget vibe coding. Start with the spec.
+
+In early 2025, Andrej Karpathy coined the term "[vibe coding](/blog/what-is-vibe-coding)": describe what you want, let the AI write it, don't look too closely at the code. It was meant for weekend throwaway projects, and it's genuinely great for that. Type a sentence, get a working prototype in ten minutes. That part hasn't changed and it's still a little bit magic.
+
+The problem shows up the moment you want to keep what you built. Vibe coding optimizes for the next five minutes, not the next five months. You end up with an app that works exactly once, in exactly the way you first pictured it, and falls apart the moment a real user does something you didn't imagine.
+
+What's taken over in 2026 is spec-driven development, and it sounds more intimidating than it is. Before you open any AI tool, write down four things: what problem this solves, who it's for, the actual must-have features (not the nice-to-haves), and roughly what data the app needs to remember. That's it. That's the spec.
+
+This isn't a developer-only step. If you're non-technical, it's just product thinking, the same thing you'd do before briefing a contractor. If you're technical, it's the design doc you already know you should write before a sprint. It matters more now because AI is exceptional at executing a clear plan and genuinely bad at guessing what you meant. Every hour spent here saves you five later.
+
+## Pick your tool based on what you need, not what's trending
+
+Once you know what you're building, the tool choice gets easy. There are really only two lanes.
+
+If you never want to touch code, you want an AI app builder: Lovable, Bolt.new, v0, Replit Agent, Base44. Describe the app in plain English and the tool handles the frontend, the database, the auth, and the hosting. Lovable is the safest default for a non-technical founder building a real product, mostly because it keeps your code in an actual GitHub repo, so if you ever need a developer later, they have something real to pick up. Bolt is faster and cheaper for something you'll throw away. Replit gives you more control if you're willing to get slightly technical.
+
+If you want to own the code, or you already write it for a living, you want a [coding agent](/blog/ai-coding-agents-future): Claude Code, [Cursor](/blog/exploring-ai-powered-ides), Codex, GitHub Copilot. These live in your terminal or editor, work inside your actual repository, and plan, edit, test, and commit across a whole codebase instead of one file at a time. The honest reason to pick one over another usually comes down to whether you like a terminal-first workflow or an editor-first one, not some huge gap in what they can do.
+
+Neither lane is the "real" way to build software. They're built for different people carrying different stakes.
+
+## Give the AI a memory, not just a prompt
+
+This is the part almost nobody explains well, and it's the biggest quality gap between someone who used AI for a weekend and someone who's shipped four products with it.
+
+Every serious AI coding tool now supports a persistent project file, usually called CLAUDE.md or AGENTS.md. Think of it as a living brief the AI reads every single time it touches your project. Your conventions, your tech choices, what "done" means here, what it should never do without asking first. Without this file, you re-explain your project from scratch every conversation. With it, the AI starts to feel like a teammate who's actually worked here for months. That work of deciding what the agent sees on every turn is [context engineering](/blog/context-engineering-for-agents).
+
+The mistake people make is stuffing this file with everything they can think of. Don't. Practitioners have converged on a rough number this year: somewhere around 150 to 200 standing instructions before a model starts quietly ignoring some of them. Keep the file to what's always true. If something only matters in one specific situation, it belongs somewhere else, not in the file the AI reads on every task.
+
+## Let it delegate. Just don't let it wander.
+
+The best coding agents in 2026 don't work in one straight line anymore. They fork off separate mini-agents for side-quests, research a library, run a big test suite, review a diff, then report back a short summary without cluttering the main conversation. In Claude Code these are called subagents, and they're genuinely useful once a project gets big enough that the AI starts losing track of its own earlier decisions.
+
+The other piece matters more than it sounds. A hook, in that same tool's language, is a small script that runs automatically and can flatly block an action: don't touch this folder, don't run this command, don't say you're done until the tests actually pass. The difference between a hook and an instruction is that a hook can't be talked out of anything. It's not asking the model to behave well. It's removing the option to misbehave at all. Subagents, hooks, memory files, and guardrails are the [agent harness](/blog/ai-harness-engineering) — the scaffolding around the model that actually decides what ships safely.
+
+You don't need to set any of this up on day one. A weekend project needs none of it. A product with real users needs all of it, eventually.
+
+## Trust nothing it hands you, even when it looks perfect
+
+Here's the part every breathless "build an app in an afternoon" post leaves out, and it's the part that actually costs people money.
+
+Escape.tech scanned over 1,400 apps built with popular AI tools like Lovable, Bolt, and Base44 and found 65 percent had security issues, including more than 400 exposed API keys and 175 cases of exposed personal data, some of it actual bank account details. Separately, a Stanford and MIT study of over two million code snippets found AI-generated code carries security vulnerabilities at nearly one and a half times the rate of human-written code, 14.3 percent against 9.1 percent. This isn't a knock on any one tool. It's what happens when something optimizes for "this looks like it works" instead of "this is actually safe."
+
+There's a newer, sneakier version of this problem too. Researchers recently described a pattern they call building to the test: an agent given a test to pass will genuinely, honestly pass it, and still ship something quietly broken or missing entirely, because passing the test was never the same thing as building what you actually wanted. It isn't cheating. It's a reminder that a green checkmark only proves one specific thing worked, not that everything did.
+
+None of this means don't use AI to build your app. It means read what it hands you before you trust it, especially anything touching passwords, payments, or personal data. Ask it to walk you through code you don't understand. Run one more pass specifically hunting for security issues before real users ever see it. The ten minutes this costs is nothing against the alternative.
+
+## The spec doesn't end when the code ships
+
+One more habit worth keeping: don't let your original spec turn into a museum piece. Requirements change, users surprise you, and the entire point of writing the spec first is that it's the thing you keep updating, not the thing you archive on day one. When something changes, edit the spec, then rebuild whichever piece is now out of date. The code lives downstream of the spec. Keep it that way and your project stays coherent six months in, long after you've forgotten why you made half your original decisions. At scale, that living feedback cycle is closer to [loop engineering](/blog/introduction-to-loop-engineering) than to a one-shot prompt.
+
+## What this actually looks like, start to finish
+
+Write down the problem, the audience, and the must-haves before you touch any AI tool. Pick your lane, no-code builder or coding agent, based on whether you need to own the code. Give whatever you choose a persistent brief of your project instead of re-explaining it every session. Let it delegate side-quests, but wire in hard rules for anything you can't afford it getting wrong. Review everything it hands you the way you'd review a stranger's pull request, because that's exactly what it is. And keep the spec alive instead of letting the code quietly drift away from why you built this in the first place.
+
+That's the recipe. It works whether you've never written a line of code or you've been doing this for ten years, because it was never really about the code. It's about being clear on what you want before you hand the keys to something that will build exactly what you asked for, whether or not that's what you meant.

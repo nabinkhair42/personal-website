@@ -1,13 +1,12 @@
 import type { Bookmark, BookmarkCategory } from "@/types";
 
-export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> =
-  {
-    tools: { label: "Tools" },
-    articles: { label: "Articles" },
-    engineering: { label: "Engineering" },
-    design: { label: "Design" },
-    products: { label: "Products" },
-  };
+export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
+  tools: { label: "Tools" },
+  articles: { label: "Articles" },
+  engineering: { label: "Engineering" },
+  design: { label: "Design" },
+  products: { label: "Products" },
+};
 
 export const BOOKMARKS: Bookmark[] = [
   // Articles
@@ -81,7 +80,7 @@ export const BOOKMARKS: Bookmark[] = [
   },
   {
     title: "Letta (MemGPT)",
-    url: "https://www.letta.com",
+    url: "https://www.letta.com/research/",
     category: "engineering",
   },
   {

@@ -153,7 +153,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
         <TableOfContents content={post.content} />
         <ShellWrapper>
-          <article className="typeset p-2">
+          <article className="typeset typeset-article p-2">
             <MDXRemote
               source={post.content}
               components={components}
