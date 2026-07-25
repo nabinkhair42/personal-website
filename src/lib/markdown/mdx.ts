@@ -6,7 +6,6 @@ import readingTime from "reading-time";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import { transformers } from "@/lib/markdown/highlight-code";
-import { remarkMermaid } from "@/lib/markdown/remark-mermaid";
 
 const contentDirectory = path.join(process.cwd(), "/blog-content");
 
@@ -30,7 +29,7 @@ export interface BlogPost {
 
 export const mdxOptions = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm, remarkMermaid],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       [
         rehypePrettyCode,

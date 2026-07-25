@@ -12,7 +12,7 @@ export function SoftLink({ className, underline = false, children, ...props }: S
       className={cn(
         "inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground",
         underline &&
-          "underline decoration-from-font underline-offset-4 [text-underline-position:from-font] [text-decoration-skip-ink:auto]",
+          "underline decoration-from-font underline-offset-4 [text-underline-position:from-font]",
         className
       )}
       {...props}

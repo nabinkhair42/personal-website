@@ -23,7 +23,7 @@ export function SectionHeader({
         {title}
       </Heading>
       {description ? (
-        <p className="max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground md:text-[0.9375rem]">
+        <p className="max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
       ) : null}

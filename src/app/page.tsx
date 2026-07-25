@@ -136,12 +136,12 @@ const Page = () => {
         <DeveloperIntro />
         <DeveloperExperience />
         <DeveloperProjects />
-        <BlogsGrid maxPosts={4} posts={recentPosts} />
+        <DeveloperEducation />
         <DeveloperStack />
         <DeveloperGitContribution />
-        <DeveloperEducation />
-        <DeveloperConnect />
         <DeveloperTemplates />
+        <DeveloperConnect />
+        <BlogsGrid maxPosts={4} posts={recentPosts} showHeader />
       </PageShellWrapper>
     </>
   );

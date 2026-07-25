@@ -7,14 +7,12 @@ export function BlogIntroduction() {
 
   return (
     <ShellWrapper>
-      <section className="space-y-2 p-2 py-6">
-        <SectionHeader
-          label="Blog"
-          title="Something worth reading."
-          headingLevel="h1"
-          description={`Notes I've written by hand — not generated. Web development, design, the messy middle of building things, and what I'm learning as a ${designation}. Written by ${name}.`}
-        />
-      </section>
+      <SectionHeader
+        label="Blog"
+        title="Something worth reading."
+        headingLevel="h1"
+        description={`Notes I've written by hand — not generated. Web development, design, the messy middle of building things, and what I'm learning as a ${designation}. Written by ${name}.`}
+      />
     </ShellWrapper>
   );
 }

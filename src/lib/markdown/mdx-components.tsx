@@ -4,7 +4,6 @@ import Link from "next/link";
 import * as React from "react";
 import { CopyButton } from "@/lib/markdown/copy-button";
 import { getIconForLanguageExtension } from "@/lib/markdown/language-icons";
-import { MermaidDiagram } from "@/lib/markdown/mermaid-diagram";
 import { cn } from "@/lib/utils";
 
 function getNodeText(node: React.ReactNode): string {
@@ -148,11 +147,9 @@ const baseMDXComponents = {
   code: ({
     className,
     __raw__,
-    __src__,
     ...props
   }: React.ComponentProps<"code"> & {
     __raw__?: string;
-    __src__?: string;
   }) => {
     if (typeof props.children === "string") {
       return <code className={className} {...props} />;
@@ -160,7 +157,7 @@ const baseMDXComponents = {
 
     return (
       <>
-        {__raw__ ? <CopyButton value={__raw__} src={__src__} /> : null}
+        {__raw__ ? <CopyButton value={__raw__} /> : null}
         <code {...props} />
       </>
     );
@@ -176,7 +173,6 @@ const baseMDXComponents = {
     />
   ),
   Link,
-  MermaidDiagram,
 } satisfies MDXComponents;
 
 function makeMDXComponents(components: MDXComponents): MDXComponents {

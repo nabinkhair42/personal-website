@@ -65,10 +65,7 @@ const DeveloperExperience = () => {
 
 function CurrentBadge() {
   return (
-    <span
-      className="relative inline-flex size-2.5 items-center justify-center"
-      title="Current role"
-    >
+    <span className="inline-flex" title="Current role">
       <span className="sr-only">Current</span>
       <span className="size-2 rounded-full bg-primary" aria-hidden />
     </span>

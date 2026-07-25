@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
 import { BookmarksIntroduction, BookmarksList } from "@/components/bookmarks";
 import PageShellWrapper from "@/components/layouts/page-shell";
-import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { BOOKMARKS } from "@/dev-constants/bookmarks";
 import { DeveloperDetails } from "@/dev-constants/details";
 import { bookmarksMetadata } from "@/lib/seo-utils";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = bookmarksMetadata();
 
@@ -62,13 +61,13 @@ const BookmarksPage = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(collectionPageJsonLd),
+        }}
       />
       <PageShellWrapper>
-        <ShellWrapper>
-          <BookmarksIntroduction />
-          <BookmarksList />
-        </ShellWrapper>
+        <BookmarksIntroduction />
+        <BookmarksList />
       </PageShellWrapper>
     </>
   );

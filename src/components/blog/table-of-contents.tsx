@@ -1,20 +1,23 @@
 "use client";
 
-import { List } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   AnimatePresence,
   MotionConfig,
-  type MotionValue,
   motion,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
 } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 
 function slugify(text: string): string {
-  return text.trim().replace(/\s+/g, "-").replace(/'/g, "").replace(/\?/g, "").toLowerCase();
+  return text
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/'/g, "")
+    .replace(/\?/g, "")
+    .toLowerCase();
 }
 
 type Heading = { text: string; slug: string };
@@ -59,7 +62,8 @@ function useActiveHeading(slugs: string[]) {
     const update = () => {
       // Trailing sections may never cross 25vh when the page can't scroll further.
       const docEl = document.documentElement;
-      const atBottom = window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
+      const atBottom =
+        window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
       if (atBottom) {
         setActive(elements[elements.length - 1].id);
         return;
@@ -108,24 +112,40 @@ function useActiveHeading(slugs: string[]) {
   return active;
 }
 
-const APPLE_EASE = [0.32, 0.72, 0, 1] as const;
-const ISLAND_SPRING = { type: "spring" as const, stiffness: 380, damping: 32, mass: 0.8 };
-const EXPAND_EASE = { duration: 0.34, ease: APPLE_EASE };
-const COLLAPSE_EASE = { duration: 0.22, ease: APPLE_EASE };
-const INDICATOR_SPRING = { type: "spring" as const, stiffness: 520, damping: 44 };
-const ITEM_SPRING = { type: "spring" as const, stiffness: 480, damping: 36 };
+/** Shared spring family — slightly underdamped for a physical settle. */
+const SPRING = {
+  /** Shell morph between pill ↔ panel */
+  island: { type: "spring" as const, stiffness: 340, damping: 32, mass: 0.85 },
+  /** Content fade/scale following the shell */
+  content: { type: "spring" as const, stiffness: 380, damping: 34, mass: 0.7 },
+  /** Active-row indicator track */
+  indicator: {
+    type: "spring" as const,
+    stiffness: 520,
+    damping: 42,
+    mass: 0.55,
+  },
+  /** Title crossfade in the reading pill */
+  title: { type: "spring" as const, stiffness: 440, damping: 36, mass: 0.6 },
+  /** Press feedback */
+  tap: { type: "spring" as const, stiffness: 520, damping: 28 },
+};
 
 const listVariants = {
-  hidden: { transition: { staggerChildren: 0.004, staggerDirection: -1 } },
-  visible: { transition: { staggerChildren: 0.018, delayChildren: 0.06 } },
+  hidden: {
+    transition: { staggerChildren: 0.012, staggerDirection: -1 },
+  },
+  visible: {
+    transition: { staggerChildren: 0.028, delayChildren: 0.04 },
+  },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 5 },
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.22, ease: APPLE_EASE },
+    transition: SPRING.content,
   },
 };
 
@@ -134,7 +154,7 @@ type IndicatorRect = { top: number; height: number; left: number };
 function useIndicatorPosition(
   listRef: React.RefObject<HTMLOListElement | null>,
   activeSlug: string | null,
-  isOpen: boolean
+  isOpen: boolean,
 ) {
   const [rect, setRect] = useState<IndicatorRect | null>(null);
 
@@ -144,7 +164,9 @@ function useIndicatorPosition(
       setRect(null);
       return;
     }
-    const link = list.querySelector<HTMLElement>(`a[data-slug="${activeSlug}"]`);
+    const link = list.querySelector<HTMLElement>(
+      `a[data-slug="${activeSlug}"]`,
+    );
     if (!link) {
       setRect(null);
       return;
@@ -186,7 +208,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const sections = useMemo(() => extractSections(content), [content]);
   const allSlugs = useMemo(
     () => sections.flatMap((s) => [s.slug, ...s.children.map((c) => c.slug)]),
-    [sections]
+    [sections],
   );
   const activeSlug = useActiveHeading(allSlugs);
   const activeTitle = useMemo(() => {
@@ -220,7 +242,10 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   useEffect(() => {
     if (!isOpen) return;
     const onClick = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -238,18 +263,22 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     };
   }, [isOpen]);
 
-  // Focus after expand animation.
+  // Focus after the island spring settles.
   useEffect(() => {
     if (!isOpen) return;
-    const t = setTimeout(() => {
-      const target = activeSlug
-        ? (containerRef.current?.querySelector<HTMLAnchorElement>(`a[data-slug="${activeSlug}"]`) ??
-          firstLinkRef.current)
-        : firstLinkRef.current;
-      target?.focus({ preventScroll: true });
-    }, 220);
+    const t = setTimeout(
+      () => {
+        const target = activeSlug
+          ? (containerRef.current?.querySelector<HTMLAnchorElement>(
+              `a[data-slug="${activeSlug}"]`,
+            ) ?? firstLinkRef.current)
+          : firstLinkRef.current;
+        target?.focus({ preventScroll: true });
+      },
+      reduceMotion ? 0 : 280,
+    );
     return () => clearTimeout(t);
-  }, [isOpen, activeSlug]);
+  }, [isOpen, activeSlug, reduceMotion]);
 
   const handleNavigate = useCallback(
     (slug: string) => {
@@ -262,19 +291,19 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
       window.history.replaceState(null, "", `#${slug}`);
       setIsOpen(false);
     },
-    [reduceMotion]
+    [reduceMotion],
   );
 
   if (allSlugs.length < 2) return null;
 
   return (
-    <MotionConfig transition={ISLAND_SPRING}>
+    <MotionConfig reducedMotion="user" transition={SPRING.island}>
       <nav
         aria-label="Table of contents"
         className={cn(
           "fixed z-50 flex items-end gap-2 pointer-events-none",
           "right-[max(1rem,env(safe-area-inset-right))]",
-          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
+          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]",
         )}
       >
         <AnimatePresence>
@@ -284,38 +313,37 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
               type="button"
               layout
               onClick={() => setIsOpen(true)}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: 24, scale: 0.85, filter: "blur(6px)" }}
+              whileTap={{ scale: 0.96 }}
+              transition={SPRING.tap}
+              initial={{ opacity: 0, x: 16, scale: 0.92 }}
               animate={{
                 opacity: 1,
                 x: 0,
                 scale: 1,
-                filter: "blur(0px)",
-                transition: { delay: 0.18, ...ISLAND_SPRING },
+                transition: { ...SPRING.island, delay: 0.08 },
               }}
               exit={{
                 opacity: 0,
-                x: 24,
-                scale: 0.85,
-                filter: "blur(6px)",
-                transition: { duration: 0.16, ease: APPLE_EASE },
+                x: 12,
+                scale: 0.94,
+                transition: SPRING.content,
               }}
               aria-label={`Currently reading: ${activeTitle}. Open table of contents.`}
               className={cn(
                 "pointer-events-auto inline-flex h-11 max-w-[min(50vw,18rem)] items-center gap-2",
-                "rounded-full border border-border bg-background/95 px-4 backdrop-blur-xl",
-                "shadow-2xl shadow-black/30 cursor-pointer transition-colors hover:bg-accent/40",
-                "outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                "rounded-full border bg-background/95 px-4 shadow-lg backdrop-blur-xl",
+                "cursor-pointer transition-colors hover:bg-accent",
+                "outline-none focus-visible:ring-2 focus-visible:ring-ring",
               )}
             >
               <span className="relative block min-w-0 overflow-hidden">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span
                     key={activeTitle}
-                    initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-                    transition={ITEM_SPRING}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={SPRING.title}
                     className="block truncate text-sm font-medium text-foreground"
                   >
                     {activeTitle}
@@ -329,12 +357,11 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
         <motion.div
           ref={containerRef}
           layout
-          transition={ISLAND_SPRING}
+          transition={SPRING.island}
           animate={{ borderRadius: isOpen ? 20 : 999 }}
           className={cn(
             "pointer-events-auto relative overflow-hidden",
-            "border border-border bg-background/95 backdrop-blur-xl",
-            "shadow-2xl shadow-black/30"
+            "border bg-background/95 shadow-lg backdrop-blur-xl",
           )}
           style={{ originX: 1, originY: 1 }}
         >
@@ -342,26 +369,30 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
             {isOpen ? (
               <motion.div
                 key="expanded"
-                initial={{ opacity: 0, scale: 0.94, y: 6 }}
+                initial={{ opacity: 0, scale: 0.96, y: 8 }}
                 animate={{
                   opacity: 1,
                   scale: 1,
                   y: 0,
-                  transition: EXPAND_EASE,
+                  transition: SPRING.content,
                 }}
                 exit={{
                   opacity: 0,
-                  scale: 0.96,
-                  y: 4,
-                  transition: COLLAPSE_EASE,
+                  scale: 0.97,
+                  y: 6,
+                  transition: SPRING.content,
                 }}
                 role="region"
                 aria-labelledby="toc-heading"
                 className="flex w-[min(86vw,20rem)] origin-bottom-right flex-col"
               >
                 <motion.header
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0, transition: { delay: 0.05, ...EXPAND_EASE } }}
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { ...SPRING.content, delay: 0.03 },
+                  }}
                   exit={{ opacity: 0, transition: { duration: 0.12 } }}
                   className="flex items-center justify-between px-4 pt-3 pb-2"
                 >
@@ -371,7 +402,9 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   >
                     On this page
                   </span>
-                  <span className="text-[11px] text-muted-foreground/70">{pct}%</span>
+                  <span className="text-[11px] text-muted-foreground/70">
+                    {pct}%
+                  </span>
                 </motion.header>
 
                 <motion.div
@@ -392,7 +425,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                           height: indicatorRect.height,
                           left: indicatorRect.left,
                         }}
-                        transition={INDICATOR_SPRING}
+                        transition={SPRING.indicator}
                       />
                     )}
                     {sections.map((section, sIdx) => (
@@ -408,26 +441,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                 </motion.div>
               </motion.div>
             ) : (
-              <motion.button
-                key="collapsed"
-                ref={triggerRef}
-                type="button"
-                onClick={() => setIsOpen(true)}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.92 }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, transition: { delay: 0.04, ...EXPAND_EASE } }}
-                exit={{ opacity: 0, scale: 0.9, transition: COLLAPSE_EASE }}
-                aria-expanded={false}
-                aria-label={`Open table of contents — ${pct}% read`}
-                className={cn(
-                  "relative grid size-11 place-items-center cursor-pointer",
-                  "transition-colors hover:bg-accent/40"
-                )}
-              >
-                <ProgressRing progress={scrollYProgress} />
-                <List className="relative size-3.5" strokeWidth={2.25} />
-              </motion.button>
+              <></>
             )}
           </AnimatePresence>
         </motion.div>
@@ -477,7 +491,9 @@ function SectionItem({
 
 function NestedList({ children }: { children: React.ReactNode }) {
   const listRef = useRef<HTMLOListElement>(null);
-  const [guide, setGuide] = useState<{ top: number; height: number } | null>(null);
+  const [guide, setGuide] = useState<{ top: number; height: number } | null>(
+    null,
+  );
 
   const measure = useCallback(() => {
     const list = listRef.current;
@@ -508,7 +524,7 @@ function NestedList({ children }: { children: React.ReactNode }) {
       {guide && guide.height > 0 && (
         <span
           aria-hidden
-          className="pointer-events-none absolute left-0 w-px bg-border/70"
+          className="pointer-events-none absolute left-0 w-px bg-border"
           style={{ top: guide.top, height: guide.height }}
         />
       )}
@@ -546,33 +562,14 @@ function TocLink({
       }}
       className={cn(
         "block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
-        "focus-visible:bg-accent/40",
+        "focus-visible:bg-accent",
         nested ? "pl-5" : "pl-4",
-        isActive ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
+        isActive
+          ? "font-medium text-foreground"
+          : "text-muted-foreground hover:text-foreground",
       )}
     >
       {text}
     </a>
-  );
-}
-
-function ProgressRing({ progress }: { progress: MotionValue<number> }) {
-  return (
-    <svg
-      viewBox="0 0 44 44"
-      className="pointer-events-none absolute inset-0 size-full -rotate-90"
-      aria-hidden="true"
-    >
-      <motion.circle
-        cx="22"
-        cy="22"
-        r="20"
-        fill="none"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        className="stroke-foreground/80"
-        style={{ pathLength: progress }}
-      />
-    </svg>
   );
 }

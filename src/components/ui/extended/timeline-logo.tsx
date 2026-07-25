@@ -18,13 +18,24 @@ export function TimelineLogo({
   fallback,
 }: TimelineLogoProps) {
   const frameClass = cn(
-    "size-10 shrink-0 rounded-md border bg-muted outline outline-1 outline-black/10 dark:outline-white/10",
-    objectFit === "cover" ? "object-cover p-px" : "object-contain p-px",
+    "size-10 shrink-0 rounded-md border bg-muted outline-1 outline-foreground/10",
     className
   );
 
   if (src) {
-    return <Image src={src} alt={alt} width={40} height={40} className={frameClass} />;
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={40}
+        height={40}
+        className={cn(
+          frameClass,
+          "p-px",
+          objectFit === "cover" ? "object-cover" : "object-contain"
+        )}
+      />
+    );
   }
 
   return (

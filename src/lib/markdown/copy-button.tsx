@@ -51,7 +51,6 @@ export function CopyButton({
   ...props
 }: React.ComponentProps<typeof Button> & {
   value: string;
-  src?: string;
 }) {
   const [hasCopied, setHasCopied] = React.useState(false);
 

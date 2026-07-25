@@ -39,7 +39,7 @@ export function BookmarksList() {
   const groups = getBookmarkGroups();
 
   return (
-    <div className="flex flex-col gap-12 p-2">
+    <div className="flex flex-col gap-12">
       {groups.map((group) => (
         <section key={group.category} className="space-y-4">
           <BookmarkGroupDivider label={group.label} />

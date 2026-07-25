@@ -110,8 +110,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#121212" },
+    // Matches --background stone tokens (light ≈ #f2f1ed, dark ≈ #2c2b26)
+    { media: "(prefers-color-scheme: light)", color: "#f2f1ed" },
+    { media: "(prefers-color-scheme: dark)", color: "#2c2b26" },
   ],
 };
 
@@ -131,7 +132,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sans.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <JsonLd data={structuredDataJsonLd} />
       </head>
@@ -144,7 +149,7 @@ export default function RootLayout({
         </a>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

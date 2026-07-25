@@ -8,7 +8,6 @@ export interface DeveloperConfig {
   designation: string;
   portfolio: string;
   email: string;
-  phone?: string;
   bio: string;
   avatar: string;
   resume: string;
@@ -27,7 +26,6 @@ export interface DeveloperConfig {
     title: string;
     description: string;
     keywords: string[];
-    ogImage?: string;
   };
 
   education: Array<{
@@ -52,7 +50,6 @@ export interface Projects {
 export interface TechStack {
   name: string;
   icon: IconComponent;
-  link?: string;
 }
 export type BookmarkCategory = "tools" | "articles" | "engineering" | "design" | "products";
 

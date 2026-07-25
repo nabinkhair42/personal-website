@@ -40,39 +40,26 @@
 }
 
 :root {
-  /* Cursor-like stone neutrals — warm H ≈ 98, low C%, L-driven contrast
-     Inspired by cursor.com cream (#f2f1ed) + ink (#26251e) */
   --neutral-hue: 98;
   --radius: 0.5rem;
-
   --background: oklch(0.958 0.005 var(--neutral-hue));
   --foreground: oklch(0.263 0.013 var(--neutral-hue));
-
   --card: oklch(0.985 0.003 var(--neutral-hue));
   --card-foreground: oklch(0.263 0.013 var(--neutral-hue));
-
   --popover: oklch(0.985 0.003 var(--neutral-hue));
   --popover-foreground: oklch(0.263 0.013 var(--neutral-hue));
-
   --primary: oklch(0.263 0.013 var(--neutral-hue));
   --primary-foreground: oklch(0.985 0.003 var(--neutral-hue));
-
   --secondary: oklch(0.921 0.007 var(--neutral-hue));
   --secondary-foreground: oklch(0.263 0.013 var(--neutral-hue));
-
   --muted: oklch(0.936 0.007 var(--neutral-hue));
   --muted-foreground: oklch(0.5 0.012 var(--neutral-hue));
-
   --accent: oklch(0.936 0.007 var(--neutral-hue));
   --accent-foreground: oklch(0.263 0.013 var(--neutral-hue));
-
-  /* Warm crimson, C clamped for sRGB */
   --destructive: oklch(0.55 0.18 12);
-
   --border: oklch(0.263 0.013 var(--neutral-hue) / 0.12);
   --input: oklch(0.263 0.013 var(--neutral-hue) / 0.14);
   --ring: oklch(0.45 0.02 var(--neutral-hue));
-
   --code: var(--card);
   --code-foreground: var(--card-foreground);
   --code-highlight: oklch(0.94 0.006 var(--neutral-hue));
@@ -80,34 +67,24 @@
 }
 
 .dark {
-  /* L-reversed stone mapping — warm near-black canvas */
   --background: oklch(0.18 0.01 var(--neutral-hue));
   --foreground: oklch(0.94 0.006 var(--neutral-hue));
-
   --card: oklch(0.22 0.012 var(--neutral-hue));
   --card-foreground: oklch(0.94 0.006 var(--neutral-hue));
-
   --popover: oklch(0.22 0.012 var(--neutral-hue));
   --popover-foreground: oklch(0.94 0.006 var(--neutral-hue));
-
   --primary: oklch(0.94 0.006 var(--neutral-hue));
   --primary-foreground: oklch(0.22 0.012 var(--neutral-hue));
-
   --secondary: oklch(0.28 0.012 var(--neutral-hue));
   --secondary-foreground: oklch(0.94 0.006 var(--neutral-hue));
-
   --muted: oklch(0.28 0.012 var(--neutral-hue));
   --muted-foreground: oklch(0.72 0.01 var(--neutral-hue));
-
   --accent: oklch(0.28 0.012 var(--neutral-hue));
   --accent-foreground: oklch(0.94 0.006 var(--neutral-hue));
-
   --destructive: oklch(0.68 0.16 12);
-
   --border: oklch(0.94 0.006 var(--neutral-hue) / 0.12);
   --input: oklch(0.94 0.006 var(--neutral-hue) / 0.15);
   --ring: oklch(0.65 0.015 var(--neutral-hue));
-
   --code: var(--card);
   --code-foreground: var(--card-foreground);
   --code-highlight: oklch(0.26 0.012 var(--neutral-hue));
@@ -162,6 +139,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {

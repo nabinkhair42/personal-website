@@ -13,7 +13,7 @@ interface ExpandableSectionProps extends React.HTMLAttributes<HTMLDivElement> {
 const ExpandableSection = React.forwardRef<HTMLDivElement, ExpandableSectionProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("flex flex-col gap-3 p-2", className)} {...props}>
+      <div ref={ref} className={cn("flex flex-col gap-3", className)} {...props}>
         {children}
       </div>
     );

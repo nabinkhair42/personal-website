@@ -4,7 +4,7 @@ import { githubUrl } from "@/lib/site";
 
 const SiteFooter = () => {
   return (
-    <footer className="flex h-24 flex-col items-center justify-center space-y-1 text-center">
+    <footer className="flex flex-col items-center gap-1 py-8 text-center">
       <p className="text-lg font-medium">devn.</p>
       <p className="text-muted-foreground">
         Built by{" "}
@@ -21,7 +21,7 @@ const SiteFooter = () => {
         at{" "}
         <Link
           href="https://github.com/codixra"
-          className="transition-colors hover:text-amber-400 hover:underline underline-offset-2"
+          className="transition-colors hover:text-primary hover:underline underline-offset-2"
           title="Codixra Lab GitHub account"
           target="_blank"
           rel="noopener noreferrer"
