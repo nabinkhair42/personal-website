@@ -1,6 +1,6 @@
 import type { Bookmark, BookmarkCategory } from "@/types";
 
-export const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
+const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
   tools: { label: "Tools" },
   articles: { label: "Articles" },
   engineering: { label: "Engineering" },

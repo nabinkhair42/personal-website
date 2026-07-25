@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
+  --font-heading: var(--font-sans);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -26,7 +27,6 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --font-heading: var(--font-sans);
   --color-code: var(--code);
   --color-code-foreground: var(--code-foreground);
   --color-code-highlight: var(--code-highlight);
@@ -36,72 +36,82 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  --radius: 0.625rem;
-  --card: oklch(0.985 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(0.985 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.48 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --pattern-fg: oklch(0.922 0 0);
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Cursor-like stone neutrals — warm H ≈ 98, low C%, L-driven contrast
+     Inspired by cursor.com cream (#f2f1ed) + ink (#26251e) */
+  --neutral-hue: 98;
+  --radius: 0.5rem;
+
+  --background: oklch(0.958 0.005 var(--neutral-hue));
+  --foreground: oklch(0.263 0.013 var(--neutral-hue));
+
+  --card: oklch(0.985 0.003 var(--neutral-hue));
+  --card-foreground: oklch(0.263 0.013 var(--neutral-hue));
+
+  --popover: oklch(0.985 0.003 var(--neutral-hue));
+  --popover-foreground: oklch(0.263 0.013 var(--neutral-hue));
+
+  --primary: oklch(0.263 0.013 var(--neutral-hue));
+  --primary-foreground: oklch(0.985 0.003 var(--neutral-hue));
+
+  --secondary: oklch(0.921 0.007 var(--neutral-hue));
+  --secondary-foreground: oklch(0.263 0.013 var(--neutral-hue));
+
+  --muted: oklch(0.936 0.007 var(--neutral-hue));
+  --muted-foreground: oklch(0.5 0.012 var(--neutral-hue));
+
+  --accent: oklch(0.936 0.007 var(--neutral-hue));
+  --accent-foreground: oklch(0.263 0.013 var(--neutral-hue));
+
+  /* Warm crimson, C clamped for sRGB */
+  --destructive: oklch(0.55 0.18 12);
+
+  --border: oklch(0.263 0.013 var(--neutral-hue) / 0.12);
+  --input: oklch(0.263 0.013 var(--neutral-hue) / 0.14);
+  --ring: oklch(0.45 0.02 var(--neutral-hue));
+
   --code: var(--card);
   --code-foreground: var(--card-foreground);
-  --code-highlight: oklch(0.96 0 0);
-  --code-number: oklch(0.56 0 0);
+  --code-highlight: oklch(0.94 0.006 var(--neutral-hue));
+  --code-number: oklch(0.52 0.012 var(--neutral-hue));
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.92 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.92 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.92 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.72 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.92 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --pattern-fg: oklch(1 0 0 / 14%);
+  /* L-reversed stone mapping — warm near-black canvas */
+  --background: oklch(0.18 0.01 var(--neutral-hue));
+  --foreground: oklch(0.94 0.006 var(--neutral-hue));
+
+  --card: oklch(0.22 0.012 var(--neutral-hue));
+  --card-foreground: oklch(0.94 0.006 var(--neutral-hue));
+
+  --popover: oklch(0.22 0.012 var(--neutral-hue));
+  --popover-foreground: oklch(0.94 0.006 var(--neutral-hue));
+
+  --primary: oklch(0.94 0.006 var(--neutral-hue));
+  --primary-foreground: oklch(0.22 0.012 var(--neutral-hue));
+
+  --secondary: oklch(0.28 0.012 var(--neutral-hue));
+  --secondary-foreground: oklch(0.94 0.006 var(--neutral-hue));
+
+  --muted: oklch(0.28 0.012 var(--neutral-hue));
+  --muted-foreground: oklch(0.72 0.01 var(--neutral-hue));
+
+  --accent: oklch(0.28 0.012 var(--neutral-hue));
+  --accent-foreground: oklch(0.94 0.006 var(--neutral-hue));
+
+  --destructive: oklch(0.68 0.16 12);
+
+  --border: oklch(0.94 0.006 var(--neutral-hue) / 0.12);
+  --input: oklch(0.94 0.006 var(--neutral-hue) / 0.15);
+  --ring: oklch(0.65 0.015 var(--neutral-hue));
+
   --code: var(--card);
   --code-foreground: var(--card-foreground);
-  --code-highlight: oklch(0.24 0 0);
-  --code-number: oklch(0.56 0 0);
-}
-
-@utility pattern-hatch {
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--pattern-fg) 0,
-    var(--pattern-fg) 1px,
-    transparent 0,
-    transparent 50%
-  );
-  background-size: 10px 10px;
+  --code-highlight: oklch(0.26 0.012 var(--neutral-hue));
+  --code-number: oklch(0.65 0.01 var(--neutral-hue));
 }
 
 @utility no-scrollbar {
@@ -116,19 +126,38 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--foreground) 35%, transparent) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--foreground) 35%, transparent);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--foreground) 50%, transparent);
+    background-clip: padding-box;
   }
 
   html {
-    @apply min-h-full bg-background font-sans antialiased pattern-hatch;
+    @apply min-h-full bg-background font-sans antialiased;
     font-synthesis: none;
   }
 
   body {
-    @apply min-h-full bg-background text-foreground pattern-hatch;
+    @apply min-h-full bg-background text-foreground;
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--muted-foreground) 28%, transparent);
+    background-color: color-mix(in oklch, var(--muted-foreground) 28%, transparent);
     color: var(--foreground);
   }
 
@@ -149,8 +178,6 @@
     background-color: var(--color-code);
     color: var(--color-code-foreground);
     border-radius: var(--radius-xl);
-    border-width: 0;
-    border-color: var(--border);
     margin-top: calc(var(--spacing) * 6);
     overflow: hidden;
     font-size: var(--text-sm);
@@ -159,27 +186,12 @@
     margin-inline: calc(var(--spacing) * -1);
   }
 
-  [data-rehype-pretty-code-figure]:has([data-rehype-pretty-code-title]) [data-slot="copy-button"] {
-    top: calc(var(--spacing) * 1.5) !important;
-  }
-
   [data-rehype-pretty-code-figure] code,
   [data-rehype-pretty-code-figure] code span {
     font-variant-ligatures: none;
     font-feature-settings:
       "liga" 0,
       "calt" 0;
-  }
-
-  [data-rehype-pretty-code-title] {
-    border-bottom: color-mix(in oklab, var(--border) 30%, transparent);
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    padding-block: calc(var(--spacing) * 2.5);
-    padding-inline: calc(var(--spacing) * 4);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    color: var(--color-code-foreground);
   }
 
   [data-line-numbers] {
@@ -219,28 +231,6 @@
     display: inline-block;
   }
 
-  [data-rehype-pretty-code-figure] pre[data-language="text"] code,
-  [data-rehype-pretty-code-figure] pre[data-language="plaintext"] code {
-    display: block !important;
-    white-space: pre;
-    line-height: 0.95;
-    font-family:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-      monospace;
-    font-variant-ligatures: none;
-  }
-
-  [data-rehype-pretty-code-figure] pre[data-language="text"] [data-line],
-  [data-rehype-pretty-code-figure] pre[data-language="plaintext"] [data-line],
-  [data-rehype-pretty-code-figure] code[data-language="text"] [data-line],
-  [data-rehype-pretty-code-figure] code[data-language="plaintext"] [data-line] {
-    padding-top: 0;
-    padding-bottom: 0;
-    min-height: unset;
-    line-height: 0.95;
-    display: block;
-  }
-
   [data-rehype-pretty-code-figure] [data-line] span {
     color: var(--shiki-light);
   }
@@ -262,7 +252,7 @@
     width: 2px;
     height: 100%;
     content: "";
-    background-color: color-mix(in oklab, var(--muted-foreground) 50%, transparent);
+    background-color: color-mix(in oklch, var(--muted-foreground) 50%, transparent);
   }
 
   [data-highlighted-chars] {
@@ -272,39 +262,4 @@
     font-family: var(--font-mono);
     font-size: 0.8rem;
   }
-}
-
-/* Custom Scrollbar Styling */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--foreground) 35%, transparent) transparent;
-}
-
-/* WebKit browsers (Chrome, Safari, Edge) */
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--foreground) 35%, transparent);
-  border-radius: 10px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  transition: background-color 0.2s ease;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in oklab, var(--foreground) 50%, transparent);
-  background-clip: padding-box;
-}
-
-*::-webkit-scrollbar-thumb:active {
-  background: color-mix(in oklab, var(--foreground) 65%, transparent);
-  background-clip: padding-box;
 }

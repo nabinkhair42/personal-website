@@ -1,6 +1,7 @@
 import { FileCode2 } from "lucide-react";
+import type { SVGProps } from "react";
 
-type IconProps = React.SVGProps<SVGSVGElement>;
+type IconProps = SVGProps<SVGSVGElement>;
 
 const Icons = {
   json: (props: IconProps) => (

@@ -11,7 +11,8 @@ export function SoftLink({ className, underline = false, children, ...props }: S
     <Link
       className={cn(
         "inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground",
-        underline && "underline underline-offset-4",
+        underline &&
+          "underline decoration-from-font underline-offset-4 [text-underline-position:from-font] [text-decoration-skip-ink:auto]",
         className
       )}
       {...props}

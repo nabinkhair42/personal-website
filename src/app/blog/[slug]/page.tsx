@@ -14,15 +14,11 @@ interface BlogPostPageProps {
   }>;
 }
 
-// Generate static paths for all blog posts
 export async function generateStaticParams() {
   const slugs = getAllBlogSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
+  return slugs.map((slug) => ({ slug }));
 }
 
-// Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
@@ -43,7 +39,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   return {
     title: post.frontmatter.title,
     description: post.frontmatter.description,
-    keywords: post.frontmatter.tags || [],
+    keywords: post.frontmatter.tags,
     authors: [{ name: post.frontmatter.developer }],
     openGraph: {
       title: post.frontmatter.title,
@@ -92,7 +88,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
     datePublished: publishedDate,
     dateModified: modifiedDate,
     inLanguage: "en",
-    keywords: post.frontmatter.tags || [],
+    keywords: post.frontmatter.tags,
     author: {
       "@type": "Person",
       name: post.frontmatter.developer,
@@ -154,11 +150,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <TableOfContents content={post.content} />
         <ShellWrapper>
           <article className="typeset typeset-article p-2">
-            <MDXRemote
-              source={post.content}
-              components={components}
-              options={mdxOptions as Parameters<typeof MDXRemote>[0]["options"]}
-            />
+            <MDXRemote source={post.content} components={components} options={mdxOptions} />
           </article>
         </ShellWrapper>
       </PageShellWrapper>

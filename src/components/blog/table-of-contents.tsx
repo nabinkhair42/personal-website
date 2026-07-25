@@ -44,8 +44,7 @@ function extractSections(content: string): Section[] {
   return sections;
 }
 
-// Active heading = the last heading whose top has crossed ~25% of the viewport.
-// Predictable on both short and long sections, and never jumpy on long titles.
+// Last heading whose top has crossed ~25% of the viewport.
 function useActiveHeading(slugs: string[]) {
   const [active, setActive] = useState<string | null>(null);
   const key = slugs.join("|");
@@ -58,9 +57,7 @@ function useActiveHeading(slugs: string[]) {
     if (elements.length === 0) return;
 
     const update = () => {
-      // At the bottom of the document, the trailing sections may never cross
-      // the 25vh trigger because the page can't scroll any further. Force the
-      // last heading active so the indicator matches what the reader sees.
+      // Trailing sections may never cross 25vh when the page can't scroll further.
       const docEl = document.documentElement;
       const atBottom = window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
       if (atBottom) {
@@ -212,7 +209,6 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
-  // Always-on subscription so the percentage stays in sync regardless of sheet state.
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setPct(Math.round(v * 100));
   });
@@ -242,7 +238,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     };
   }, [isOpen]);
 
-  // After the morph completes, focus the active link (falls back to first).
+  // Focus after expand animation.
   useEffect(() => {
     if (!isOpen) return;
     const t = setTimeout(() => {

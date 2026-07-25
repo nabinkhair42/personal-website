@@ -1,12 +1,11 @@
 import type { ShikiTransformer } from "shiki";
 
-export const transformers = [
+export const transformers: ShikiTransformer[] = [
   {
     code(node) {
       if (node.tagName === "code") {
-        const raw = this.source;
-        node.properties.__raw__ = raw;
+        node.properties.__raw__ = this.source;
       }
     },
   },
-] as ShikiTransformer[];
+];

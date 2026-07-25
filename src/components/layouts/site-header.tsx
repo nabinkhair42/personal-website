@@ -104,7 +104,7 @@ const SiteHeader = () => {
           "flex items-center justify-between border backdrop-blur-md",
           isScrolled
             ? "mt-3 h-11 w-76 gap-2.5 border-border bg-background/85 px-5"
-            : "h-14 w-full max-w-200 gap-3 border-transparent px-4",
+            : "h-14 w-full gap-3 border-transparent",
         )}
       >
         <motion.div
@@ -127,7 +127,7 @@ const SiteHeader = () => {
         >
           <ButtonGroup>
             {NAV_LINKS.map(({ href, label, tooltip, shortcut, match }) => {
-              const isActive = pathname ? match(pathname) : false;
+              const isActive = match(pathname);
 
               return (
                 <Tooltip key={href}>

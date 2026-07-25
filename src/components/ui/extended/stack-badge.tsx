@@ -7,9 +7,12 @@ interface StackBadgeProps {
 
 const StackBadge = ({ name, icon: Icon }: StackBadgeProps) => {
   return (
-    <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors py-2 border border-border h-5.5 gap-1.5 bg-muted/70 p-1.5 text-xs">
-      <Icon className="size-4 rounded" />
-      <span className="text-sm font-medium">{name}</span>
+    <div
+      title={name}
+      className="inline-flex h-7 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-border bg-muted/70 px-2 text-xs font-medium"
+    >
+      <Icon className="size-3.5 rounded" aria-hidden />
+      <span>{name}</span>
     </div>
   );
 };

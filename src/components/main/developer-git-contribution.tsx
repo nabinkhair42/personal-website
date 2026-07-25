@@ -1,7 +1,7 @@
 "use client";
 
 import { format, parseISO } from "date-fns";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +47,7 @@ const DeveloperGitContribution = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const loadContributions = useCallback(async () => {
+  const loadContributions = async () => {
     setIsLoading(true);
     setHasError(false);
 
@@ -61,11 +61,11 @@ const DeveloperGitContribution = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    loadContributions();
-  }, [loadContributions]);
+    void loadContributions();
+  }, []);
 
   if (isLoading) {
     return (
@@ -84,7 +84,7 @@ const DeveloperGitContribution = () => {
     return (
       <ShellWrapper>
         <div className="flex flex-col items-start gap-3 border border-dashed p-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
             {hasError
               ? "Could not load GitHub contributions right now."
               : "No contribution data available yet."}
@@ -118,7 +118,7 @@ const DeveloperGitContribution = () => {
                   />
                 }
               />
-              <TooltipContent>
+              <TooltipContent className="tabular-nums">
                 {activity.count} contributions on {format(parseISO(activity.date), "MMM d, yyyy")}
               </TooltipContent>
             </Tooltip>

@@ -39,7 +39,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             fontSize: "16px",
             fontWeight: 500,
             letterSpacing: "0.15em",
-            textTransform: "",
             color: "#a1a1aa",
           }}
         >

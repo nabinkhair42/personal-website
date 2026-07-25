@@ -33,7 +33,7 @@ export type Activity = {
 
 type Week = Array<Activity | undefined>;
 
-export type Labels = {
+type Labels = {
   months?: string[];
   weekdays?: string[];
   totalCount?: string;
@@ -107,33 +107,17 @@ const fillHoles = (activities: Activity[]): Activity[] => {
     return [];
   }
 
-  // Sort activities by date to ensure correct date range
   const sortedActivities = [...activities].sort((a, b) => a.date.localeCompare(b.date));
-
-  const calendar = new Map<string, Activity>(activities.map((a) => [a.date, a]));
-
-  const firstActivity = sortedActivities[0] as Activity;
-  const lastActivity = sortedActivities.at(-1);
-
-  if (!lastActivity) {
-    return [];
-  }
+  const calendar = new Map(activities.map((a) => [a.date, a]));
+  const firstActivity = sortedActivities[0];
+  const lastActivity = sortedActivities[sortedActivities.length - 1];
 
   return eachDayOfInterval({
     start: parseISO(firstActivity.date),
     end: parseISO(lastActivity.date),
   }).map((day) => {
     const date = formatISO(day, { representation: "date" });
-
-    if (calendar.has(date)) {
-      return calendar.get(date) as Activity;
-    }
-
-    return {
-      date,
-      count: 0,
-      level: 0,
-    };
+    return calendar.get(date) ?? { date, count: 0, level: 0 };
   });
 };
 
@@ -143,23 +127,21 @@ const groupByWeeks = (activities: Activity[], weekStart: WeekDay = 0): Week[] =>
   }
 
   const normalizedActivities = fillHoles(activities);
-  const firstActivity = normalizedActivities[0] as Activity;
+  const firstActivity = normalizedActivities[0];
   const firstDate = parseISO(firstActivity.date);
   const firstCalendarDate =
     getDay(firstDate) === weekStart ? firstDate : subWeeks(nextDay(firstDate, weekStart), 1);
 
-  const paddedActivities = [
-    ...(new Array(differenceInCalendarDays(firstDate, firstCalendarDate)).fill(
-      undefined
-    ) as Activity[]),
+  const paddedActivities: Array<Activity | undefined> = [
+    ...Array(differenceInCalendarDays(firstDate, firstCalendarDate)).fill(undefined),
     ...normalizedActivities,
   ];
 
   const numberOfWeeks = Math.ceil(paddedActivities.length / 7);
 
-  return new Array(numberOfWeeks)
-    .fill(undefined)
-    .map((_, weekIndex) => paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7));
+  return Array.from({ length: numberOfWeeks }, (_, weekIndex) =>
+    paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7)
+  );
 };
 
 const getMonthLabels = (
@@ -193,17 +175,9 @@ const getMonthLabels = (
       return labels;
     }, [])
     .filter(({ weekIndex }, index, labels) => {
-      const minWeeks = 3;
-
       if (index === 0) {
-        return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks;
+        return Boolean(labels[1] && labels[1].weekIndex - weekIndex >= 3);
       }
-
-      // Always show the last label (current month) even if less than minWeeks
-      if (index === labels.length - 1) {
-        return true;
-      }
-
       return true;
     });
 };
@@ -229,10 +203,10 @@ export const ContributionGraph = ({
   blockRadius = 2,
   blockSize = 12,
   fontSize = 14,
-  labels: labelsProp = undefined,
+  labels: labelsProp,
   maxLevel: maxLevelProp = 4,
   style = {},
-  totalCount: totalCountProp = undefined,
+  totalCount: totalCountProp,
   weekStart = 0,
   className,
   ...props
@@ -244,12 +218,11 @@ export const ContributionGraph = ({
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const labelHeight = fontSize + LABEL_MARGIN;
 
-  const year = data.length > 0 ? getYear(parseISO(data[0].date)) : new Date().getFullYear();
+  const year =
+    data.length > 0 ? getYear(parseISO(data[0].date)) : new Date().getFullYear();
 
   const totalCount =
-    typeof totalCountProp === "number"
-      ? totalCountProp
-      : data.reduce((sum, activity) => sum + activity.count, 0);
+    totalCountProp ?? data.reduce((sum, activity) => sum + activity.count, 0);
 
   const width = weeks.length * (blockSize + blockMargin) - blockMargin;
   const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin;
@@ -446,8 +419,8 @@ export const ContributionGraphLegend = ({
 
   return (
     <div className={cn("ml-auto flex items-center gap-0.75", className)} {...props}>
-      <span className="mr-1 text-muted-foreground">{labels.legend?.less || "Less"}</span>
-      {new Array(maxLevel + 1).fill(undefined).map((_, level) =>
+      <span className="mr-1 text-muted-foreground">{labels.legend?.less ?? "Less"}</span>
+      {Array.from({ length: maxLevel + 1 }, (_, level) =>
         children ? (
           <Fragment key={level}>{children({ level })}</Fragment>
         ) : (
@@ -471,7 +444,7 @@ export const ContributionGraphLegend = ({
           </svg>
         )
       )}
-      <span className="ml-1 text-muted-foreground">{labels.legend?.more || "More"}</span>
+      <span className="ml-1 text-muted-foreground">{labels.legend?.more ?? "More"}</span>
     </div>
   );
 };

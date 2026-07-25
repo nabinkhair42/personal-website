@@ -6,11 +6,7 @@ const DeveloperStack = () => {
   return (
     <ShellWrapper>
       <section className="space-y-3 p-2">
-        <SectionHeader
-          label="My Skills"
-          title="The tools I reach for every day"
-          description="A curated mix of frameworks, runtimes, and services that help me craft reliable, performant user experiences across the stack."
-        />
+        <SectionHeader title="Stack" description="Tools I reach for most days." />
 
         <div
           className="grid border-l border-t"
@@ -19,10 +15,15 @@ const DeveloperStack = () => {
           {TechStacksList.map(({ name, icon: Icon }) => (
             <div
               key={name}
-              className="group flex aspect-square flex-col items-center justify-center gap-2 border-r border-b p-2"
+              className="group flex aspect-square flex-col items-center justify-center gap-2 border-r border-b p-2 transition-colors hover:bg-muted/40"
             >
-              <Icon className="size-6" />
-              <p className="w-full truncate text-center text-sm">{name}</p>
+              <Icon className="size-6 shrink-0" aria-hidden />
+              <p
+                title={name}
+                className="w-full min-w-0 truncate text-center text-sm leading-tight text-muted-foreground"
+              >
+                {name}
+              </p>
             </div>
           ))}
         </div>

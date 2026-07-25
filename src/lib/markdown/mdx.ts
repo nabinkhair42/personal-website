@@ -1,5 +1,6 @@
 import fs from "fs";
 import matter from "gray-matter";
+import type { MDXRemoteProps } from "next-mdx-remote/rsc";
 import path from "path";
 import readingTime from "reading-time";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -44,7 +45,7 @@ export const mdxOptions = {
       ],
     ],
   },
-};
+} satisfies NonNullable<MDXRemoteProps["options"]>;
 
 export function getAllBlogSlugs(): string[] {
   if (!fs.existsSync(contentDirectory)) {
@@ -74,8 +75,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
       content,
       readingTime: readingTimeResult.text,
     };
-  } catch (error) {
-    console.error(`Error reading blog post ${slug}:`, error);
+  } catch {
     return null;
   }
 }

@@ -2,7 +2,7 @@
 
 import { Workflow } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { CopyButton } from "@/lib/markdown/copy-button";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,6 @@ function extractTitle(meta?: string | null): string | null {
 
 export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
   const id = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
@@ -73,7 +72,6 @@ export function MermaidDiagram({ code, meta }: MermaidDiagramProps) {
         <div className="p-4 font-mono text-sm text-destructive">{error}</div>
       ) : svg ? (
         <div
-          ref={containerRef}
           className="flex items-center justify-center overflow-x-auto p-6 [&>svg]:h-auto [&>svg]:max-w-full"
           dangerouslySetInnerHTML={{ __html: svg }}
         />

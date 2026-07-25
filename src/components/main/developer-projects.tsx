@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { Button } from "@/components/ui/button";
 import {
   ExpandableSection,
   ExpandableSectionContent,
@@ -15,63 +14,62 @@ import {
 } from "@/components/ui/extended/expandable-section";
 import StackBadge from "@/components/ui/extended/stack-badge";
 import { TimelineLogo } from "@/components/ui/extended/timeline-logo";
-import { Separator } from "@/components/ui/separator";
 import { ProjectsData } from "@/dev-constants/projects";
 import { GithubIcon } from "@/icons/tech";
+import { cn } from "@/lib/utils";
 
-const INITIAL_VISIBLE = 6;
+const INITIAL_VISIBLE = 5;
 
 const DeveloperProjects = () => {
   const [expanded, setExpanded] = useState(false);
   const hasMore = ProjectsData.length > INITIAL_VISIBLE;
   const visibleProjects =
     expanded || !hasMore ? ProjectsData : ProjectsData.slice(0, INITIAL_VISIBLE);
-  const hiddenCount = ProjectsData.length - INITIAL_VISIBLE;
 
   return (
     <ShellWrapper>
       <ExpandableSection>
-        <SectionHeader
-          label="My Work"
-          title="Projects I'm proud of"
-          description="A snapshot of product-focused experiments and client work where I handled everything from UX flow to production deployment."
-        />
+        <SectionHeader title="Work" description="Product-focused experiments and client work." />
 
-        <ExpandableSectionList className="gap-6">
+        <ExpandableSectionList className="gap-0 divide-y divide-border/60">
           {visibleProjects.map((project) => (
-            <ExpandableSectionItem key={project.title}>
+            <ExpandableSectionItem key={project.title} className="py-4 first:pt-1 last:pb-1">
               <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
                 <TimelineLogo
                   src={project.icon}
                   alt={`${project.title} project icon`}
                   objectFit="cover"
                 />
-                <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <h3 className="text-base font-medium sm:text-lg md:text-xl">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground sm:text-base">{project.tagline}</p>
+                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <h3 className="text-balance text-base font-medium leading-snug">
+                    {project.title}
+                  </h3>
+                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+                    {project.tagline}
+                  </p>
                 </div>
               </ExpandableSectionTrigger>
 
               <ExpandableSectionContent>
-                <p className="text-sm text-muted-foreground sm:text-base">{project.description}</p>
-                {project.techStack && (
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
-                    ))}
-                  </div>
-                )}
+                <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <StackBadge key={tech.name} name={tech.name} icon={tech.icon} />
+                  ))}
+                </div>
                 {(project.liveLink || project.repo) && (
-                  <div className="flex flex-wrap gap-2 py-2">
+                  <div className="flex flex-wrap gap-2 py-1">
                     {project.liveLink && (
                       <Link
                         href={project.liveLink}
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open live site for ${project.title}`}
-                        className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
+                        className="inline-flex size-10 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
                       >
-                        <SquareMousePointer className="fill-current/20 h-auto w-6 text-muted-foreground" />
+                        <SquareMousePointer className="size-5 fill-current/20" />
                       </Link>
                     )}
                     {project.repo && (
@@ -80,9 +78,9 @@ const DeveloperProjects = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`View repository for ${project.title}`}
-                        className="rounded-md border p-1 text-muted-foreground transition-colors hover:text-foreground"
+                        className="inline-flex size-10 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
                       >
-                        <GithubIcon className="fill-current/20 h-auto w-6 text-muted-foreground" />
+                        <GithubIcon className="size-5 fill-current/20" />
                       </Link>
                     )}
                   </div>
@@ -91,23 +89,27 @@ const DeveloperProjects = () => {
             </ExpandableSectionItem>
           ))}
         </ExpandableSectionList>
-      </ExpandableSection>
-      {hasMore ? (
-        <div>
-          <Separator className="flex-1" />
-          <div className="flex items-center justify-center">
-            <Button
+
+        {hasMore ? (
+          <div className="flex justify-center pt-2">
+            <button
               type="button"
-              variant="secondary"
               aria-expanded={expanded}
               onClick={() => setExpanded((value) => !value)}
+              className="inline-flex min-h-9 items-center gap-1 text-sm tabular-nums text-muted-foreground transition-colors hover:text-foreground"
             >
-              {expanded ? "Show less" : `Show ${hiddenCount} more`}
-              <ChevronDown data-icon="inline-end" className={expanded ? "rotate-180" : undefined} />
-            </Button>
+              {expanded ? "Show less" : "View all"}
+              <ChevronDown
+                className={cn(
+                  "size-3.5 transition-transform duration-200",
+                  expanded && "rotate-180"
+                )}
+                aria-hidden
+              />
+            </button>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </ExpandableSection>
     </ShellWrapper>
   );
 };

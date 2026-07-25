@@ -39,7 +39,7 @@ export default function ErrorPage({
           <p className="text-base leading-relaxed text-muted-foreground">
             Don&apos;t worry, these things happen. Try again, or head back home to keep exploring.
           </p>
-          {error?.digest ? (
+          {error.digest ? (
             <p className="font-mono text-xs text-muted-foreground/80">Reference: {error.digest}</p>
           ) : null}
         </header>
@@ -48,7 +48,12 @@ export default function ErrorPage({
       <ShellWrapper>
         <div className="flex flex-wrap items-center gap-2 p-2">
           <Button size="sm" onClick={reset} render={<span>Try again</span>} />
-          <Button size="sm" variant="outline" render={<Link href="/">Return home</Link>} />
+          <Button
+            size="sm"
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/">Return home</Link>}
+          />
         </div>
       </ShellWrapper>
     </PageShellWrapper>

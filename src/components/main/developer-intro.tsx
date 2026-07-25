@@ -2,8 +2,6 @@ import { FileText, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
-import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
 import { DeveloperDetails } from "@/dev-constants/details";
 
@@ -20,46 +18,44 @@ const DeveloperIntro = () => {
             fill
             sizes="(min-width: 768px) 128px, 112px"
             priority
-            className="rounded-md border object-cover shadow-md"
+            className="rounded-md border object-cover shadow-md outline-1 outline-black/10 dark:outline-white/10"
           />
         </div>
 
-        <div className="space-y-2">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-medium tracking-tight md:text-4xl">{name}</h1>
-            <p className="text-muted-foreground">{designation}</p>
+        <div className="space-y-3">
+          <div className="space-y-1.5">
+            <h1 className="text-3xl font-medium tracking-tight text-balance leading-[1.1] md:text-4xl">
+              {name}
+            </h1>
+            <p className="text-sm text-muted-foreground">{designation}</p>
           </div>
 
-          <p className="text-muted-foreground">{bio}</p>
+          <p className="max-w-xl text-pretty leading-relaxed text-muted-foreground">{bio}</p>
 
-          <ButtonGroup>
-            {email && (
-              <Button
-                nativeButton={false}
-                variant="ghost"
-                render={
-                  <Link href={`mailto:${email}`}>
-                    <Mail className="size-4 fill-current/20 dark:text-accent-foreground" />
-                    Hire Me
-                    <Kbd>E</Kbd>
-                  </Link>
-                }
-              />
-            )}
-            {resume && (
-              <Button
-                nativeButton={false}
-                variant="ghost"
-                render={
-                  <Link href={resume} target="_blank" rel="noreferrer noopener">
-                    <FileText className="size-4 fill-current/20 dark:text-accent-foreground" />
-                    Resume
-                    <Kbd>R</Kbd>
-                  </Link>
-                }
-              />
-            )}
-          </ButtonGroup>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
+            {email ? (
+              <Link
+                href={`mailto:${email}`}
+                className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <Mail className="size-3.5" aria-hidden />
+                Email
+                <Kbd>E</Kbd>
+              </Link>
+            ) : null}
+            {resume ? (
+              <Link
+                href={resume}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <FileText className="size-3.5" aria-hidden />
+                CV
+                <Kbd>R</Kbd>
+              </Link>
+            ) : null}
+          </div>
         </div>
       </div>
     </ShellWrapper>

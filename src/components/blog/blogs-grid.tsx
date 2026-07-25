@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { BlogCard } from "@/components/blog/blogs-card";
 import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
@@ -17,7 +16,7 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
   return (
     <ShellWrapper>
       <div className="space-y-3 p-2">
-        <SectionHeader label="From the blog" title="Latest Posts" className="space-y-1" />
+        <SectionHeader title="Writing" />
 
         {posts.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 sm:auto-rows-fr">
@@ -26,17 +25,14 @@ export const BlogsGrid = ({ posts, maxPosts }: BlogsGridProps) => {
             ))}
           </div>
         ) : (
-          <p className="py-16 text-center text-sm text-muted-foreground">
+          <p className="py-16 text-center text-pretty text-sm text-muted-foreground">
             No posts yet — check back soon.
           </p>
         )}
 
         {hasMore && (
-          <div className="pt-1">
-            <SoftLink href="/blog">
-              View all posts
-              <ArrowUpRight className="size-3" />
-            </SoftLink>
+          <div className="flex justify-center pt-2">
+            <SoftLink href="/blog">View all</SoftLink>
           </div>
         )}
       </div>

@@ -18,7 +18,7 @@ export function TimelineLogo({
   fallback,
 }: TimelineLogoProps) {
   const frameClass = cn(
-    "size-10 shrink-0 rounded-md border bg-muted",
+    "size-10 shrink-0 rounded-md border bg-muted outline outline-1 outline-black/10 dark:outline-white/10",
     objectFit === "cover" ? "object-cover p-px" : "object-contain p-px",
     className
   );

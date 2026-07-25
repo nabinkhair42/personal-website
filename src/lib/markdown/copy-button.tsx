@@ -30,9 +30,7 @@ function legacyCopyToClipboard(value: string) {
 }
 
 async function copyToClipboard(value: string) {
-  if (typeof window === "undefined" || !value) {
-    return false;
-  }
+  if (!value) return false;
 
   if (navigator.clipboard?.writeText) {
     try {

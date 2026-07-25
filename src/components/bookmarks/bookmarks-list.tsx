@@ -7,7 +7,7 @@ function BookmarkGroupDivider({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-3">
       <span className="text-sm text-muted-foreground">{label}</span>
-      <div className="h-px flex-1 bg-linear-to-r from-(--pattern-fg) to-transparent" />
+      <div className="h-px flex-1 bg-linear-to-r from-border to-transparent" />
     </div>
   );
 }

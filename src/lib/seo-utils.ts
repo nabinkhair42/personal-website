@@ -45,7 +45,6 @@ export const generateRobots = (): MetadataRoute.Robots => {
         allow: "/",
       },
       {
-        // Block AI training crawlers but allow Google-Extended for Gemini AI Overviews
         userAgent: [
           "GPTBot",
           "ClaudeBot",

@@ -169,7 +169,7 @@ const baseMDXComponents = {
     <Image
       {...(props as ImageProps)}
       className={cn("mt-6 rounded-md border", className)}
-      src={(src as string) || ""}
+      src={typeof src === "string" ? src : ""}
       width={width ? Number(width) : 800}
       height={height ? Number(height) : 400}
       alt={alt || "Blog post image"}
@@ -179,7 +179,7 @@ const baseMDXComponents = {
   MermaidDiagram,
 } satisfies MDXComponents;
 
-export function makeMDXComponents(components: MDXComponents): MDXComponents {
+function makeMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...baseMDXComponents,
     ...components,
