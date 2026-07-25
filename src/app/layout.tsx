@@ -8,6 +8,7 @@ import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DeveloperDetails } from "@/dev-constants/details";
+import { Toaster } from "@/components/ui/pill-toaster";
 
 const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
 const ogImage = `${siteUrl}/og-image.png`;
@@ -132,11 +133,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <JsonLd data={structuredDataJsonLd} />
       </head>
@@ -147,12 +144,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <TooltipProvider>
             <HotKeyProvider>
               <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6">
@@ -162,6 +154,7 @@ export default function RootLayout({
                 </main>
                 <SiteFooter />
               </div>
+              <Toaster position="bottom-center"/>
             </HotKeyProvider>
           </TooltipProvider>
         </ThemeProvider>

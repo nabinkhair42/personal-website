@@ -4,11 +4,7 @@ import { BlogHeader } from "@/components/blog/blog-header";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import { DeveloperDetails } from "@/dev-constants/details";
-import {
-  getAllBlogSlugs,
-  getBlogPostBySlug,
-  mdxOptions,
-} from "@/lib/markdown/mdx";
+import { getAllBlogSlugs, getBlogPostBySlug, mdxOptions } from "@/lib/markdown/mdx";
 import { useMDXComponents } from "@/lib/markdown/mdx-components";
 
 interface BlogPostPageProps {
@@ -149,17 +145,10 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <PageShellWrapper>
-        <BlogHeader
-          frontmatter={post.frontmatter}
-          readingTime={post.readingTime}
-        />
+        <BlogHeader frontmatter={post.frontmatter} readingTime={post.readingTime} />
         <TableOfContents content={post.content} />
         <article className="typeset typeset-article text-pretty text-muted-foreground">
-          <MDXRemote
-            source={post.content}
-            components={components}
-            options={mdxOptions}
-          />
+          <MDXRemote source={post.content} components={components} options={mdxOptions} />
         </article>
       </PageShellWrapper>
     </>

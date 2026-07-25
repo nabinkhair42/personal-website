@@ -7,10 +7,7 @@ import { DeveloperDetails } from "@/dev-constants/details";
 const DeveloperConnect = () => {
   return (
     <ShellWrapper>
-      <SectionHeader
-        title="Connect"
-        description="Pick the channel that fits."
-      />
+      <SectionHeader title="Connect" description="Pick the channel that fits." />
 
       <div className="grid grid-cols-2 overflow-hidden rounded-xl border *:border-r *:border-b [&>*:nth-child(2n)]:border-r-0 [&>*:nth-last-child(-n+2)]:border-b-0">
         {DeveloperDetails.socialLinks.map((link) => {
@@ -33,9 +30,7 @@ const DeveloperConnect = () => {
                   />
                 </div>
                 <span className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-2 py-2">
-                  <span className="truncate font-medium leading-snug">
-                    {link.name}
-                  </span>
+                  <span className="truncate font-medium leading-snug">{link.name}</span>
                   <span className="truncate text-sm leading-relaxed text-muted-foreground">
                     {link.handle}
                   </span>

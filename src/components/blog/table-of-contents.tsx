@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import {
   AnimatePresence,
   MotionConfig,
@@ -10,14 +9,10 @@ import {
   useScroll,
 } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 function slugify(text: string): string {
-  return text
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/'/g, "")
-    .replace(/\?/g, "")
-    .toLowerCase();
+  return text.trim().replace(/\s+/g, "-").replace(/'/g, "").replace(/\?/g, "").toLowerCase();
 }
 
 type Heading = { text: string; slug: string };
@@ -62,8 +57,7 @@ function useActiveHeading(slugs: string[]) {
     const update = () => {
       // Trailing sections may never cross 25vh when the page can't scroll further.
       const docEl = document.documentElement;
-      const atBottom =
-        window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
+      const atBottom = window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
       if (atBottom) {
         setActive(elements[elements.length - 1].id);
         return;
@@ -154,7 +148,7 @@ type IndicatorRect = { top: number; height: number; left: number };
 function useIndicatorPosition(
   listRef: React.RefObject<HTMLOListElement | null>,
   activeSlug: string | null,
-  isOpen: boolean,
+  isOpen: boolean
 ) {
   const [rect, setRect] = useState<IndicatorRect | null>(null);
 
@@ -164,9 +158,7 @@ function useIndicatorPosition(
       setRect(null);
       return;
     }
-    const link = list.querySelector<HTMLElement>(
-      `a[data-slug="${activeSlug}"]`,
-    );
+    const link = list.querySelector<HTMLElement>(`a[data-slug="${activeSlug}"]`);
     if (!link) {
       setRect(null);
       return;
@@ -208,7 +200,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const sections = useMemo(() => extractSections(content), [content]);
   const allSlugs = useMemo(
     () => sections.flatMap((s) => [s.slug, ...s.children.map((c) => c.slug)]),
-    [sections],
+    [sections]
   );
   const activeSlug = useActiveHeading(allSlugs);
   const activeTitle = useMemo(() => {
@@ -242,10 +234,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
   useEffect(() => {
     if (!isOpen) return;
     const onClick = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -270,12 +259,12 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
       () => {
         const target = activeSlug
           ? (containerRef.current?.querySelector<HTMLAnchorElement>(
-              `a[data-slug="${activeSlug}"]`,
+              `a[data-slug="${activeSlug}"]`
             ) ?? firstLinkRef.current)
           : firstLinkRef.current;
         target?.focus({ preventScroll: true });
       },
-      reduceMotion ? 0 : 280,
+      reduceMotion ? 0 : 280
     );
     return () => clearTimeout(t);
   }, [isOpen, activeSlug, reduceMotion]);
@@ -291,7 +280,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
       window.history.replaceState(null, "", `#${slug}`);
       setIsOpen(false);
     },
-    [reduceMotion],
+    [reduceMotion]
   );
 
   if (allSlugs.length < 2) return null;
@@ -303,7 +292,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
         className={cn(
           "fixed z-50 flex items-end gap-2 pointer-events-none",
           "right-[max(1rem,env(safe-area-inset-right))]",
-          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]",
+          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
         )}
       >
         <AnimatePresence>
@@ -333,7 +322,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                 "pointer-events-auto inline-flex h-11 max-w-[min(50vw,18rem)] items-center gap-2",
                 "rounded-full border bg-background/95 px-4 shadow-lg backdrop-blur-xl",
                 "cursor-pointer transition-colors hover:bg-accent",
-                "outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "outline-none focus-visible:ring-2 focus-visible:ring-ring"
               )}
             >
               <span className="relative block min-w-0 overflow-hidden">
@@ -361,7 +350,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
           animate={{ borderRadius: isOpen ? 20 : 999 }}
           className={cn(
             "pointer-events-auto relative overflow-hidden",
-            "border bg-background/95 shadow-lg backdrop-blur-xl",
+            "border bg-background/95 shadow-lg backdrop-blur-xl"
           )}
           style={{ originX: 1, originY: 1 }}
         >
@@ -402,9 +391,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   >
                     On this page
                   </span>
-                  <span className="text-[11px] text-muted-foreground/70">
-                    {pct}%
-                  </span>
+                  <span className="text-[11px] text-muted-foreground/70">{pct}%</span>
                 </motion.header>
 
                 <motion.div
@@ -440,9 +427,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   </ol>
                 </motion.div>
               </motion.div>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </AnimatePresence>
         </motion.div>
       </nav>
@@ -491,9 +476,7 @@ function SectionItem({
 
 function NestedList({ children }: { children: React.ReactNode }) {
   const listRef = useRef<HTMLOListElement>(null);
-  const [guide, setGuide] = useState<{ top: number; height: number } | null>(
-    null,
-  );
+  const [guide, setGuide] = useState<{ top: number; height: number } | null>(null);
 
   const measure = useCallback(() => {
     const list = listRef.current;
@@ -564,9 +547,7 @@ function TocLink({
         "block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
         "focus-visible:bg-accent",
         nested ? "pl-5" : "pl-4",
-        isActive
-          ? "font-medium text-foreground"
-          : "text-muted-foreground hover:text-foreground",
+        isActive ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
       )}
     >
       {text}

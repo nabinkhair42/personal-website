@@ -30,7 +30,9 @@ const DeveloperIntro = () => {
             <p className="text-sm leading-relaxed text-muted-foreground">{designation}</p>
           </div>
 
-          <p className="max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">{bio}</p>
+          <p className="max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
+            {bio}
+          </p>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
             {email ? (

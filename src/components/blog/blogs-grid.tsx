@@ -11,21 +11,14 @@ interface BlogsGridProps {
   showHeader?: boolean;
 }
 
-export const BlogsGrid = ({
-  posts,
-  maxPosts,
-  showHeader = false,
-}: BlogsGridProps) => {
+export const BlogsGrid = ({ posts, maxPosts, showHeader = false }: BlogsGridProps) => {
   const displayPosts = maxPosts ? posts.slice(0, maxPosts) : posts;
   const hasMore = maxPosts !== undefined && posts.length > maxPosts;
 
   return (
     <ShellWrapper>
       {showHeader ? (
-        <SectionHeader
-          title="Writing"
-          description="Notes on building for the web."
-        />
+        <SectionHeader title="Writing" description="Notes on building for the web." />
       ) : null}
 
       {posts.length > 0 ? (

@@ -72,6 +72,18 @@ export const ProjectsData: Projects[] = [
     ],
   },
   {
+    icon: "/projects/pill-toaster.svg",
+    title: "Pill Toaster",
+    tagline: "An opinionated toast for react developers",
+    description:
+      "A succinct pill toast from Pill Toaster, built on Base UI and themed with shadcn/ui color tokens.",
+    liveLink: "https://toast.nabinkhair.com.np",
+    techStack: [
+      { name: "Tailwind CSS", icon: TailwindCssIcon },
+      { name: "shadcn/ui", icon: ShadcnUiIcon },
+    ],
+  },
+  {
     icon: "/projects/assets-man.svg",
     title: "Assets Man",
     tagline: "A self-hosted, open-source Google Drive alternative.",

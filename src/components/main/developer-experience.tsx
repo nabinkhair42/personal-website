@@ -15,14 +15,15 @@ const DeveloperExperience = () => {
   return (
     <ShellWrapper>
       <ExpandableSection>
-        <SectionHeader
-          title="Experience"
-          description="Roles and teams I've shipped with."
-        />
+        <SectionHeader title="Experience" description="Roles and teams I've shipped with." />
 
         <ExpandableSectionList className="gap-0 divide-y divide-border/60">
-          {ExperienceData.map((experience) => (
-            <ExpandableSectionItem key={experience.company} className="py-4 first:pt-1 last:pb-1">
+          {ExperienceData.map((experience, index) => (
+            <ExpandableSectionItem
+              key={experience.company}
+              defaultOpen={index === 0}
+              className="py-4 first:pt-1 last:pb-1"
+            >
               <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
                 <TimelineLogo src={experience.logo} alt={`${experience.company} logo`} />
                 <div className="min-w-0 flex-1 space-y-0.5">

@@ -10,9 +10,9 @@ import { TEMPLATES } from "@/dev-constants/templates";
 
 const buildMail = (name: string) =>
   `mailto:${DeveloperDetails.email}?subject=${encodeURIComponent(
-    `Template Purchase Inquiry — ${name}`,
+    `Template Purchase Inquiry — ${name}`
   )}&body=${encodeURIComponent(
-    `Hi Nabin,\n\nI'm interested in purchasing the ${name} template.\n\nPlease share the details.\n\nThanks!`,
+    `Hi Nabin,\n\nI'm interested in purchasing the ${name} template.\n\nPlease share the details.\n\nThanks!`
   )}`;
 
 const DeveloperTemplates = () => {
@@ -56,9 +56,7 @@ const DeveloperTemplates = () => {
 
               <div className="flex flex-1 flex-col px-4 pt-2 pb-4">
                 <div className="flex min-h-11 w-full items-center justify-between gap-1 font-medium">
-                  <h3 className="line-clamp-2 flex-1 text-balance leading-snug">
-                    {template.name}
-                  </h3>
+                  <h3 className="line-clamp-2 flex-1 text-balance leading-snug">{template.name}</h3>
                   <span className="flex shrink-0 -translate-x-0.5 scale-75 items-center justify-center text-foreground opacity-0 transition-[opacity,translate,scale] duration-300 ease-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100">
                     <ChevronRight className="size-4" aria-hidden />
                   </span>
@@ -88,11 +86,7 @@ const DeveloperTemplates = () => {
                     nativeButton={false}
                     variant="ghost"
                     render={
-                      <Link
-                        href={template.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href={template.link} target="_blank" rel="noopener noreferrer">
                         Live Demo
                         <ArrowUpRight className="size-4 text-muted-foreground" />
                       </Link>

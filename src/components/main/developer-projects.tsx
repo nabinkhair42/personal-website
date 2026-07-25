@@ -32,8 +32,12 @@ const DeveloperProjects = () => {
         <SectionHeader title="Work" description="Product-focused experiments and client work." />
 
         <ExpandableSectionList className="gap-0 divide-y divide-border/60">
-          {visibleProjects.map((project) => (
-            <ExpandableSectionItem key={project.title} className="py-4 first:pt-1 last:pb-1">
+          {visibleProjects.map((project, index) => (
+            <ExpandableSectionItem
+              key={project.title}
+              defaultOpen={index === 0}
+              className="py-4 first:pt-1 last:pb-1"
+            >
               <ExpandableSectionTrigger className="flex w-full items-start gap-3 text-left">
                 <TimelineLogo
                   src={project.icon}
@@ -67,9 +71,9 @@ const DeveloperProjects = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open live site for ${project.title}`}
-                        className="inline-flex size-10 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
+                        className="inline-flex size-8 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
                       >
-                        <SquareMousePointer className="size-5 fill-current/20" />
+                        <SquareMousePointer className="size-4 fill-current/20" />
                       </Link>
                     )}
                     {project.repo && (
@@ -78,9 +82,9 @@ const DeveloperProjects = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`View repository for ${project.title}`}
-                        className="inline-flex size-10 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
+                        className="inline-flex size-8 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-foreground"
                       >
-                        <GithubIcon className="size-5 fill-current/20" />
+                        <GithubIcon className="size-4 fill-current/20" />
                       </Link>
                     )}
                   </div>

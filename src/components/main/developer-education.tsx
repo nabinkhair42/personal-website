@@ -7,10 +7,7 @@ import { DeveloperDetails } from "@/dev-constants/details";
 const DeveloperEducation = () => {
   return (
     <ShellWrapper>
-      <SectionHeader
-        title="Education"
-        description="Where the foundation was built."
-      />
+      <SectionHeader title="Education" description="Where the foundation was built." />
 
       <div className="divide-y divide-border/60">
         {DeveloperDetails.education.map((education) => (
@@ -21,9 +18,7 @@ const DeveloperEducation = () => {
             <TimelineLogo
               src={education.logo}
               alt={`${education.institution} logo`}
-              fallback={
-                <GraduationCap className="size-5 text-muted-foreground" />
-              }
+              fallback={<GraduationCap className="size-5 text-muted-foreground" />}
             />
             <div className="min-w-0 flex-1 space-y-0.5">
               <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">

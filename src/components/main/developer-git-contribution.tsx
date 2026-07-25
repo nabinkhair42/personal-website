@@ -2,6 +2,7 @@
 
 import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
+import { SectionHeader } from "@/components/layouts/section-header";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,13 +14,8 @@ import {
   ContributionGraphLegend,
   ContributionGraphTotalCount,
 } from "@/components/ui/extended/contribution-graph";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { SectionHeader } from "@/components/layouts/section-header";
 
 const LEVEL_FILLS = [
   'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',
@@ -42,8 +38,7 @@ const fetchContributions = async (): Promise<{
   total: number;
 }> => {
   const response = await fetch("/api/github-contributions");
-  if (!response.ok)
-    throw new Error(`Failed to load contributions: ${response.status}`);
+  if (!response.ok) throw new Error(`Failed to load contributions: ${response.status}`);
   return response.json();
 };
 
@@ -128,8 +123,7 @@ const DeveloperGitContribution = () => {
                 }
               />
               <TooltipContent className="tabular-nums">
-                {activity.count} contributions on{" "}
-                {format(parseISO(activity.date), "MMM d, yyyy")}
+                {activity.count} contributions on {format(parseISO(activity.date), "MMM d, yyyy")}
               </TooltipContent>
             </Tooltip>
           )}
@@ -138,12 +132,7 @@ const DeveloperGitContribution = () => {
           <ContributionGraphTotalCount />
           <ContributionGraphLegend>
             {({ level }) => (
-              <div
-                className={cn(
-                  "h-3 w-3 rounded border",
-                  LEGEND_BG[level] ?? LEGEND_BG[0],
-                )}
-              />
+              <div className={cn("h-3 w-3 rounded border", LEGEND_BG[level] ?? LEGEND_BG[0])} />
             )}
           </ContributionGraphLegend>
         </ContributionGraphFooter>
