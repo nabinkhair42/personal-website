@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -8,19 +9,50 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Kbd } from "@/components/ui/kbd";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { GithubIcon } from "@/icons/social";
 import { githubUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const SCROLL_THRESHOLD = 32;
 
+const PILL_SPRING = {
+  type: "spring" as const,
+  stiffness: 420,
+  damping: 36,
+  mass: 0.85,
+};
+
+const NAV_LINKS = [
+  {
+    href: "/blog",
+    label: "blog",
+    tooltip: "Blog",
+    shortcut: "B",
+    match: (pathname: string) => pathname.startsWith("/blog"),
+  },
+  {
+    href: "/bookmarks",
+    label: "links",
+    tooltip: "Bookmarks",
+    shortcut: "K",
+    match: (pathname: string) => pathname.startsWith("/bookmarks"),
+  },
+] as const;
+
+const INSTANT = { duration: 0 } as const;
+
 const SiteHeader = () => {
   const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
-  const isBlog = pathname?.startsWith("/blog");
-  const isBookmarks = pathname?.startsWith("/bookmarks");
+  const shouldReduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
+  // Skip morph while Next.js jumps scroll to top on navigation.
+  const [suppressMotion, setSuppressMotion] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -29,94 +61,102 @@ const SiteHeader = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setSuppressMotion(true);
+    setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+
+    const timeout = window.setTimeout(() => {
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+      setSuppressMotion(false);
+    }, 120);
+
+    return () => window.clearTimeout(timeout);
+  }, [pathname]);
+
+  const animateShell = !shouldReduceMotion && !suppressMotion;
+  const shellTransition = animateShell ? PILL_SPRING : INSTANT;
+
   return (
     <header
       className={cn(
         "sticky top-0 z-50 flex justify-center",
-        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md"
+        animateShell && "transition-colors duration-300",
+        isScrolled ? "bg-transparent" : "bg-background/85 backdrop-blur-md",
       )}
     >
-      <div
+      <motion.div
+        layout={animateShell}
+        initial={false}
+        animate={{
+          borderRadius: isScrolled ? 999 : 0,
+          boxShadow: isScrolled
+            ? "0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1)"
+            : "0 0 0 0 rgb(0 0 0 / 0)",
+        }}
+        transition={{
+          layout: shellTransition,
+          borderRadius: shellTransition,
+          boxShadow: animateShell
+            ? { duration: 0.25, ease: [0.32, 0.72, 0, 1] }
+            : INSTANT,
+        }}
         className={cn(
-          "flex items-center",
+          "flex items-center justify-between border backdrop-blur-md",
           isScrolled
-            ? "mt-3 h-11 w-76 justify-between gap-2.5 rounded-full border bg-background/85 px-5 shadow-lg shadow-black/15 backdrop-blur-md"
-            : "h-14 w-full max-w-200 justify-between gap-3 border-transparent px-4"
+            ? "mt-3 h-11 w-76 gap-2.5 border-border bg-background/85 px-5"
+            : "h-14 w-full max-w-200 gap-3 border-transparent px-4",
         )}
       >
-        <div className="shrink-0">
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Link
-                  href="/"
-                  aria-label="Home (H)"
-                  className="flex items-center px-1 font-medium tracking-tight"
-                >
-                  devn.
-                </Link>
-              }
-            />
-            <TooltipContent className="flex items-center gap-2">
-              Home
-              <Kbd>H</Kbd>
-            </TooltipContent>
-          </Tooltip>
-        </div>
+        <motion.div
+          layout={animateShell ? "position" : false}
+          className="shrink-0"
+        >
+          <Link
+            href="/"
+            aria-label="Home (H)"
+            className="flex items-center px-1 font-medium tracking-tight"
+          >
+            devn.
+          </Link>
+        </motion.div>
 
-        <nav aria-label="Main navigation" className="shrink-0">
+        <motion.nav
+          layout={animateShell ? "position" : false}
+          aria-label="Main navigation"
+          className="shrink-0"
+        >
           <ButtonGroup>
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <Button
-                    nativeButton={false}
-                    variant={isScrolled ? "outline" : "ghost"}
-                    size="sm"
-                    className={cn(isBlog && "bg-muted text-foreground")}
-                    render={
-                      <Link
-                        href="/blog"
-                        aria-current={isBlog ? "page" : undefined}
-                        aria-label="Blog (B)"
-                      >
-                        blog
-                      </Link>
-                    }
-                  />
-                }
-              />
-              <TooltipContent className="flex items-center gap-2">
-                Blog
-                <Kbd>B</Kbd>
-              </TooltipContent>
-            </Tooltip>
+            {NAV_LINKS.map(({ href, label, tooltip, shortcut, match }) => {
+              const isActive = pathname ? match(pathname) : false;
 
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <Button
-                    nativeButton={false}
-                    variant={isScrolled ? "outline" : "ghost"}
-                    size="sm"
-                    className={cn(isBookmarks && "bg-muted text-foreground")}
+              return (
+                <Tooltip key={href}>
+                  <TooltipTrigger
                     render={
-                      <Link
-                        href="/bookmarks"
-                        aria-current={isBookmarks ? "page" : undefined}
-                        aria-label="Bookmarks (K)"
-                      >
-                        links
-                      </Link>
+                      <Button
+                        nativeButton={false}
+                        variant={isScrolled ? "outline" : "ghost"}
+                        size="sm"
+                        className={cn(isActive && "bg-muted text-foreground")}
+                        render={
+                          <Link
+                            href={href}
+                            aria-current={isActive ? "page" : undefined}
+                            aria-label={`${tooltip} (${shortcut})`}
+                          >
+                            {label}
+                          </Link>
+                        }
+                      />
                     }
                   />
-                }
-              />
-              <TooltipContent className="flex items-center gap-2">
-                Bookmarks
-                <Kbd>K</Kbd>
-              </TooltipContent>
-            </Tooltip>
+                  <TooltipContent className="flex items-center gap-2">
+                    {tooltip}
+                    <Kbd>{shortcut}</Kbd>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
 
             <Tooltip>
               <TooltipTrigger
@@ -150,7 +190,9 @@ const SiteHeader = () => {
                   <Button
                     variant={isScrolled ? "outline" : "ghost"}
                     size="icon-sm"
-                    onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+                    onClick={() =>
+                      setTheme(resolvedTheme === "light" ? "dark" : "light")
+                    }
                     aria-label="Toggle theme (D)"
                   >
                     <Sun className="dark:hidden" />
@@ -164,8 +206,8 @@ const SiteHeader = () => {
               </TooltipContent>
             </Tooltip>
           </ButtonGroup>
-        </nav>
-      </div>
+        </motion.nav>
+      </motion.div>
     </header>
   );
 };
