@@ -4,11 +4,7 @@ import { ArrowLeft, Check, Link2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function BlogPostActions() {
   const router = useRouter();
@@ -44,12 +40,7 @@ export function BlogPostActions() {
       <Tooltip>
         <TooltipTrigger
           render={
-            <Button
-              aria-label="Go back"
-              onClick={handleBack}
-              size="icon"
-              variant="ghost"
-            >
+            <Button aria-label="Go back" onClick={handleBack} size="icon" variant="ghost">
               <ArrowLeft />
             </Button>
           }
@@ -70,9 +61,7 @@ export function BlogPostActions() {
             </Button>
           }
         />
-        <TooltipContent>
-          {shared ? "Link copied" : "Share this post"}
-        </TooltipContent>
+        <TooltipContent>{shared ? "Link copied" : "Share this post"}</TooltipContent>
       </Tooltip>
     </div>
   );

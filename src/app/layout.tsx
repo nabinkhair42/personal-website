@@ -6,9 +6,9 @@ import { HotKeyProvider } from "@/components/hot-key-provider";
 import { JsonLd } from "@/components/json-ld";
 import SiteFooter from "@/components/layouts/site-footer";
 import SiteHeader from "@/components/layouts/site-header";
+import { Toaster } from "@/components/ui/pill-toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DeveloperDetails } from "@/dev-constants/details";
-import { Toaster } from "@/components/ui/pill-toaster";
 
 const siteUrl = DeveloperDetails.portfolio.replace(/\/$/, "");
 const ogImage = `${siteUrl}/og-image.png`;
@@ -154,7 +154,7 @@ export default function RootLayout({
                 </main>
                 <SiteFooter />
               </div>
-              <Toaster position="bottom-center"/>
+              <Toaster position="bottom-center" />
             </HotKeyProvider>
           </TooltipProvider>
         </ThemeProvider>

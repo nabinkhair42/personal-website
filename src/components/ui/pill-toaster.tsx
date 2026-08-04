@@ -27,8 +27,7 @@ const positionClassNames: Record<ToastPosition, string> = {
   "top-center": "top-(--toast-offset) left-1/2 -translate-x-1/2 items-center",
   "top-right": "top-(--toast-offset) right-(--toast-offset) items-end",
   "bottom-left": "bottom-(--toast-offset) left-(--toast-offset) items-start",
-  "bottom-center":
-    "bottom-(--toast-offset) left-1/2 -translate-x-1/2 items-center",
+  "bottom-center": "bottom-(--toast-offset) left-1/2 -translate-x-1/2 items-center",
   "bottom-right": "bottom-(--toast-offset) right-(--toast-offset) items-end",
 };
 
@@ -60,8 +59,7 @@ const toastTypeStyles = {
   },
   loading: {
     icon: LoaderCircle,
-    iconClassName:
-      "bg-primary-foreground/20 text-primary-foreground [&_svg]:animate-spin",
+    iconClassName: "bg-primary-foreground/20 text-primary-foreground [&_svg]:animate-spin",
   },
 } as const;
 
@@ -93,7 +91,7 @@ function ToastViewport({
         "pointer-events-none fixed z-99 flex w-max max-w-[min(100vw-2rem,20rem)] outline-none",
         isBottom ? "flex-col-reverse" : "flex-col",
         positionClassNames[position],
-        className,
+        className
       )}
       style={{ ["--toast-offset" as string]: offsetValue } as CSSProperties}
       {...props}
@@ -136,9 +134,7 @@ function ToastRoot({
       swipeDirection={swipeDirection}
       className={cn(
         "pointer-events-auto relative w-max max-w-[min(100%,20rem)] select-none will-change-[transform,opacity]",
-        isTop
-          ? "origin-top mb-1.5 last:mb-0"
-          : "origin-bottom mt-1.5 last:mt-0",
+        isTop ? "origin-top mb-1.5 last:mb-0" : "origin-bottom mt-1.5 last:mt-0",
         "rounded-full bg-primary text-primary-foreground",
         "shadow-sm shadow-foreground/10",
         // Track finger via Base UI swipe CSS vars
@@ -148,14 +144,10 @@ function ToastRoot({
         "data-ending-style:duration-200 data-ending-style:ease-in",
         "data-swiping:transition-none",
         // Enter from the edge
-        isTop
-          ? "data-starting-style:-translate-y-5"
-          : "data-starting-style:translate-y-5",
+        isTop ? "data-starting-style:-translate-y-5" : "data-starting-style:translate-y-5",
         "data-starting-style:scale-95 data-starting-style:opacity-0 data-starting-style:blur-[3px]",
         // Soft auto-dismiss exit
-        isTop
-          ? "data-ending-style:-translate-y-2"
-          : "data-ending-style:translate-y-2",
+        isTop ? "data-ending-style:-translate-y-2" : "data-ending-style:translate-y-2",
         "data-ending-style:scale-[0.97] data-ending-style:opacity-0 data-ending-style:blur-[2px]",
         // Swipe fling — continue past the finger release point
         "data-ending-style:data-[swipe-direction=up]:translate-y-[calc(var(--toast-swipe-movement-y,0px)-130%)] data-ending-style:data-[swipe-direction=up]:scale-95 data-ending-style:data-[swipe-direction=up]:opacity-0 data-ending-style:data-[swipe-direction=up]:blur-none",
@@ -168,7 +160,7 @@ function ToastRoot({
         "motion-reduce:transition-none motion-reduce:will-change-auto",
         "motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-starting-style:scale-100 motion-reduce:data-starting-style:opacity-100 motion-reduce:data-starting-style:blur-none",
         "motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-ending-style:scale-100",
-        className,
+        className
       )}
       {...props}
     >
@@ -178,7 +170,7 @@ function ToastRoot({
             "flex size-4 shrink-0 items-center justify-center rounded-full",
             "animate-in zoom-in-50 fade-in duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both",
             "motion-reduce:animate-none",
-            style.iconClassName,
+            style.iconClassName
           )}
           aria-hidden
         >
@@ -213,11 +205,7 @@ function Toaster({
     <ToastPrimitive.Provider toastManager={manager} limit={limit} {...props}>
       {children}
       <ToastPrimitive.Portal>
-        <ToastViewport
-          position={position}
-          offset={offset}
-          className={className}
-        >
+        <ToastViewport position={position} offset={offset} className={className}>
           <ToastList position={position} />
         </ToastViewport>
       </ToastPrimitive.Portal>
@@ -239,38 +227,21 @@ toast.update = toastManager.update.bind(toastManager);
 toast.promise = toastManager.promise.bind(toastManager);
 toast.close = toastManager.close.bind(toastManager);
 
-toast.success = (
-  title: ReactNode,
-  options?: Omit<ToastOptions, "title" | "type">,
-) => toastManager.add({ ...options, title, type: "success" });
+toast.success = (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
+  toastManager.add({ ...options, title, type: "success" });
 
-toast.error = (
-  title: ReactNode,
-  options?: Omit<ToastOptions, "title" | "type">,
-) => toastManager.add({ ...options, title, type: "error" });
+toast.error = (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
+  toastManager.add({ ...options, title, type: "error" });
 
-toast.info = (
-  title: ReactNode,
-  options?: Omit<ToastOptions, "title" | "type">,
-) => toastManager.add({ ...options, title, type: "info" });
+toast.info = (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
+  toastManager.add({ ...options, title, type: "info" });
 
-toast.warning = (
-  title: ReactNode,
-  options?: Omit<ToastOptions, "title" | "type">,
-) => toastManager.add({ ...options, title, type: "warning" });
+toast.warning = (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
+  toastManager.add({ ...options, title, type: "warning" });
 
-toast.loading = (
-  title: ReactNode,
-  options?: Omit<ToastOptions, "title" | "type">,
-) => toastManager.add({ ...options, title, type: "loading", timeout: 0 });
+toast.loading = (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
+  toastManager.add({ ...options, title, type: "loading", timeout: 0 });
 
 const createToastManager = ToastPrimitive.createToastManager;
 
-export {
-  Toaster,
-  createToastManager,
-  toast,
-  toastManager,
-  type ToastPosition,
-  type ToasterProps,
-};
+export { createToastManager, Toaster, type ToasterProps, type ToastPosition, toast, toastManager };

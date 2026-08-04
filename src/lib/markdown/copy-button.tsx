@@ -3,8 +3,8 @@
 import { Check, Copy } from "lucide-react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/pill-toaster";
+import { cn } from "@/lib/utils";
 
 function legacyCopyToClipboard(value: string) {
   const textArea = document.createElement("textarea");
@@ -70,7 +70,7 @@ export function CopyButton({
       variant={variant}
       className={cn(
         "absolute top-3 right-2 z-10 size-7 bg-code hover:opacity-100 focus-visible:opacity-100",
-        className,
+        className
       )}
       onClick={async () => {
         const copied = await copyToClipboard(value);
