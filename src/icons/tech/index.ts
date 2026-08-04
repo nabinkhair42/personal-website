@@ -4,7 +4,6 @@ export { default as AwsIcon } from "./aws";
 export { default as BashIcon } from "./bash";
 export { BetterAuth } from "./better-auth";
 export { default as BloggerIcon } from "./blogger";
-export { default as CppIcon } from "./c++";
 export { default as CanvaIcon } from "./canva";
 export { default as ClerkIcon } from "./clerk";
 export { default as CloudRunIcon } from "./cloud-run";

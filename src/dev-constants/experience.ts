@@ -32,13 +32,12 @@ export const ExperienceData: Experience[] = [
     designation: "Forward Deployed Engineer",
     type: "Full-time",
     startDate: "Nov 2025",
-    endDate: "Present",
-    isCurrent: true,
+    endDate: "Jul 2026",
+    isCurrent: false,
     description: [
       "Designed and shipped Mersel's GEO platform from scratch across 5 production subsystems: a Cloudflare edge worker, a Python FastAPI LLM service, a multi-tenant Payload CMS, a scheduled job worker, and a Next.js dashboard.",
       "Built citation monitoring across 6 AI search surfaces (ChatGPT, Gemini, Claude, Perplexity, Google AI Overview, AI Mode) with per-platform concurrency control.",
-      "Engineered an AI-traffic reconciliation system that surfaces 1.5 to 3 times more attributable AI traffic than GA4 alone reports.",
-      "Own deployments and live debugging across Cloudflare, AWS, GCP, Supabase, and Railway.",
+      "Own deployments and live debugging across Cloudflare, GCP, and Railway.",
     ],
     skills: [
       { name: "Next.js", icon: NextJsIcon },
@@ -112,7 +111,7 @@ export const ExperienceData: Experience[] = [
     isCurrent: false,
     description: [
       "Led the frontend and UI/UX design for a fintech SaaS platform.",
-      "Integrated REST APIs across the financial workflows in partnership with the backend team.",
+      "Build the frontend with Next.js, TypeScript, and Tailwind CSS.",
     ],
     skills: [
       { name: "Figma", icon: FigmaIcon },

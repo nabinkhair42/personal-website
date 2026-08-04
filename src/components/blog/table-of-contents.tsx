@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  AnimatePresence,
-  MotionConfig,
-  motion,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-} from "motion/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { useReducedMotion } from "motion/react";
+import { useEffect, useMemo, useState } from "react";
+import { PreviewRail, type PreviewRailItem } from "@/components/ui/extended/preview-rail";
 
 function slugify(text: string): string {
   return text.trim().replace(/\s+/g, "-").replace(/'/g, "").replace(/\?/g, "").toLowerCase();
@@ -27,22 +20,21 @@ function extractSections(content: string): Section[] {
     const depth = match[1].length;
     const text = match[2].replace(/[*_`[\]()]/g, "").trim();
     const slug = slugify(text);
+
     if (depth === 2) {
       current = { text, slug, children: [] };
       sections.push(current);
-    } else if (depth === 3) {
-      if (current) {
-        current.children.push({ text, slug });
-      } else {
-        current = { text, slug, children: [] };
-        sections.push(current);
-      }
+    } else if (current) {
+      current.children.push({ text, slug });
+    } else {
+      current = { text, slug, children: [] };
+      sections.push(current);
     }
   }
+
   return sections;
 }
 
-// Last heading whose top has crossed ~25% of the viewport.
 function useActiveHeading(slugs: string[]) {
   const [active, setActive] = useState<string | null>(null);
   const key = slugs.join("|");
@@ -51,46 +43,31 @@ function useActiveHeading(slugs: string[]) {
     if (slugs.length === 0) return;
     const elements = slugs
       .map((slug) => document.getElementById(slug))
-      .filter((el): el is HTMLElement => el !== null);
+      .filter((element): element is HTMLElement => element !== null);
     if (elements.length === 0) return;
 
     const update = () => {
-      // Trailing sections may never cross 25vh when the page can't scroll further.
-      const docEl = document.documentElement;
-      const atBottom = window.innerHeight + window.scrollY >= docEl.scrollHeight - 2;
-      if (atBottom) {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
         setActive(elements[elements.length - 1].id);
         return;
       }
-
       const trigger = window.innerHeight * 0.25;
-      let activeId: string | null = null;
-      for (const el of elements) {
-        const top = el.getBoundingClientRect().top;
-        if (top - trigger <= 0) {
-          activeId = el.id;
-        } else {
-          break;
-        }
+      let next: string | null = null;
+      for (const element of elements) {
+        if (element.getBoundingClientRect().top <= trigger) next = element.id;
+        else break;
       }
-      if (!activeId) {
-        for (const el of elements) {
-          const r = el.getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) {
-            activeId = el.id;
-            break;
-          }
-        }
-      }
-      if (activeId) setActive(activeId);
+      setActive(
+        next ?? elements.find((element) => element.getBoundingClientRect().bottom > 0)?.id ?? null
+      );
     };
 
     update();
-    let raf = 0;
+    let frame = 0;
     const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
         update();
       });
     };
@@ -99,97 +76,11 @@ function useActiveHeading(slugs: string[]) {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, [key]);
 
   return active;
-}
-
-/** Shared spring family — slightly underdamped for a physical settle. */
-const SPRING = {
-  /** Shell morph between pill ↔ panel */
-  island: { type: "spring" as const, stiffness: 340, damping: 32, mass: 0.85 },
-  /** Content fade/scale following the shell */
-  content: { type: "spring" as const, stiffness: 380, damping: 34, mass: 0.7 },
-  /** Active-row indicator track */
-  indicator: {
-    type: "spring" as const,
-    stiffness: 520,
-    damping: 42,
-    mass: 0.55,
-  },
-  /** Title crossfade in the reading pill */
-  title: { type: "spring" as const, stiffness: 440, damping: 36, mass: 0.6 },
-  /** Press feedback */
-  tap: { type: "spring" as const, stiffness: 520, damping: 28 },
-};
-
-const listVariants = {
-  hidden: {
-    transition: { staggerChildren: 0.012, staggerDirection: -1 },
-  },
-  visible: {
-    transition: { staggerChildren: 0.028, delayChildren: 0.04 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: SPRING.content,
-  },
-};
-
-type IndicatorRect = { top: number; height: number; left: number };
-
-function useIndicatorPosition(
-  listRef: React.RefObject<HTMLOListElement | null>,
-  activeSlug: string | null,
-  isOpen: boolean
-) {
-  const [rect, setRect] = useState<IndicatorRect | null>(null);
-
-  const measure = useCallback(() => {
-    const list = listRef.current;
-    if (!list || !activeSlug) {
-      setRect(null);
-      return;
-    }
-    const link = list.querySelector<HTMLElement>(`a[data-slug="${activeSlug}"]`);
-    if (!link) {
-      setRect(null);
-      return;
-    }
-    const nested = link.dataset.nested === "true";
-    const listRect = list.getBoundingClientRect();
-    const linkRect = link.getBoundingClientRect();
-    setRect({
-      top: linkRect.top - listRect.top + list.scrollTop,
-      height: linkRect.height,
-      left: nested ? 12 : 8,
-    });
-  }, [listRef, activeSlug]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    measure();
-    const list = listRef.current;
-    if (!list) return;
-    const ro = new ResizeObserver(measure);
-    ro.observe(list);
-    list.addEventListener("scroll", measure, { passive: true });
-    window.addEventListener("resize", measure);
-    return () => {
-      ro.disconnect();
-      list.removeEventListener("scroll", measure);
-      window.removeEventListener("resize", measure);
-    };
-  }, [isOpen, activeSlug, measure, listRef]);
-
-  return rect;
 }
 
 interface TableOfContentsProps {
@@ -198,359 +89,53 @@ interface TableOfContentsProps {
 
 export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const sections = useMemo(() => extractSections(content), [content]);
-  const allSlugs = useMemo(
-    () => sections.flatMap((s) => [s.slug, ...s.children.map((c) => c.slug)]),
+  const items = useMemo<PreviewRailItem[]>(
+    () =>
+      sections.flatMap((section) => [
+        {
+          id: section.slug,
+          label: section.text,
+          ariaLabel: `Jump to ${section.text}`,
+          description: "Article section",
+        },
+        ...section.children.map((child) => ({
+          id: child.slug,
+          label: child.text,
+          ariaLabel: `Jump to ${child.text}`,
+          description: `Subsection of ${section.text}`,
+        })),
+      ]),
     [sections]
   );
-  const activeSlug = useActiveHeading(allSlugs);
-  const activeTitle = useMemo(() => {
-    if (!activeSlug) return null;
-    for (const s of sections) {
-      if (s.slug === activeSlug) return s.text;
-      for (const c of s.children) {
-        if (c.slug === activeSlug) return c.text;
-      }
-    }
-    return null;
-  }, [sections, activeSlug]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [pct, setPct] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLOListElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const firstLinkRef = useRef<HTMLAnchorElement>(null);
-  const indicatorRect = useIndicatorPosition(listRef, activeSlug, isOpen);
+  const slugs = useMemo(() => items.map((item) => item.id), [items]);
+  const activeSlug = useActiveHeading(slugs);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
 
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setPct(Math.round(v * 100));
-  });
+  if (items.length < 2) return null;
 
-  useEffect(() => {
-    setPct(Math.round(scrollYProgress.get() * 100));
-  }, [scrollYProgress]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const onClick = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onClick);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [isOpen]);
-
-  // Focus after the island spring settles.
-  useEffect(() => {
-    if (!isOpen) return;
-    const t = setTimeout(
-      () => {
-        const target = activeSlug
-          ? (containerRef.current?.querySelector<HTMLAnchorElement>(
-              `a[data-slug="${activeSlug}"]`
-            ) ?? firstLinkRef.current)
-          : firstLinkRef.current;
-        target?.focus({ preventScroll: true });
-      },
-      reduceMotion ? 0 : 280
-    );
-    return () => clearTimeout(t);
-  }, [isOpen, activeSlug, reduceMotion]);
-
-  const handleNavigate = useCallback(
-    (slug: string) => {
-      const el = document.getElementById(slug);
-      if (!el) return;
-      el.scrollIntoView({
-        behavior: reduceMotion ? "auto" : "smooth",
-        block: "start",
-      });
-      window.history.replaceState(null, "", `#${slug}`);
-      setIsOpen(false);
-    },
-    [reduceMotion]
-  );
-
-  if (allSlugs.length < 2) return null;
+  const handleSelect = (item: PreviewRailItem) => {
+    const element = document.getElementById(item.id);
+    if (!element) return;
+    element.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    window.history.replaceState(null, "", `#${item.id}`);
+  };
 
   return (
-    <MotionConfig reducedMotion="user" transition={SPRING.island}>
-      <nav
-        aria-label="Table of contents"
-        className={cn(
-          "fixed z-50 flex items-end gap-2 pointer-events-none",
-          "right-[max(1rem,env(safe-area-inset-right))]",
-          "bottom-[max(1.25rem,env(safe-area-inset-bottom))]"
-        )}
-      >
-        <AnimatePresence>
-          {!isOpen && activeTitle && (
-            <motion.button
-              key="active-pill"
-              type="button"
-              layout
-              onClick={() => setIsOpen(true)}
-              whileTap={{ scale: 0.96 }}
-              transition={SPRING.tap}
-              initial={{ opacity: 0, x: 16, scale: 0.92 }}
-              animate={{
-                opacity: 1,
-                x: 0,
-                scale: 1,
-                transition: { ...SPRING.island, delay: 0.08 },
-              }}
-              exit={{
-                opacity: 0,
-                x: 12,
-                scale: 0.94,
-                transition: SPRING.content,
-              }}
-              aria-label={`Currently reading: ${activeTitle}. Open table of contents.`}
-              className={cn(
-                "pointer-events-auto inline-flex h-11 max-w-[min(50vw,18rem)] items-center gap-2",
-                "rounded-full border bg-background/95 px-4 shadow-lg backdrop-blur-xl",
-                "cursor-pointer transition-colors hover:bg-accent",
-                "outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              )}
-            >
-              <span className="relative block min-w-0 overflow-hidden">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <motion.span
-                    key={activeTitle}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={SPRING.title}
-                    className="block truncate text-sm font-medium text-foreground"
-                  >
-                    {activeTitle}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        <motion.div
-          ref={containerRef}
-          layout
-          transition={SPRING.island}
-          animate={{ borderRadius: isOpen ? 20 : 999 }}
-          className={cn(
-            "pointer-events-auto relative overflow-hidden",
-            "border bg-background/95 shadow-lg backdrop-blur-xl"
-          )}
-          style={{ originX: 1, originY: 1 }}
-        >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {isOpen ? (
-              <motion.div
-                key="expanded"
-                initial={{ opacity: 0, scale: 0.96, y: 8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  transition: SPRING.content,
-                }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.97,
-                  y: 6,
-                  transition: SPRING.content,
-                }}
-                role="region"
-                aria-labelledby="toc-heading"
-                className="flex w-[min(86vw,20rem)] origin-bottom-right flex-col"
-              >
-                <motion.header
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    transition: { ...SPRING.content, delay: 0.03 },
-                  }}
-                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  className="flex items-center justify-between px-4 pt-3 pb-2"
-                >
-                  <span
-                    id="toc-heading"
-                    className="text-[11px] font-medium tracking-[0.08em] text-muted-foreground"
-                  >
-                    On this page
-                  </span>
-                  <span className="text-[11px] text-muted-foreground/70">{pct}%</span>
-                </motion.header>
-
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={listVariants}
-                  className="max-h-[60vh] overflow-y-auto px-2 pb-2"
-                >
-                  <ol ref={listRef} className="relative flex flex-col gap-0.5">
-                    {indicatorRect && (
-                      <motion.span
-                        aria-hidden
-                        className="pointer-events-none absolute z-10 w-px rounded-full bg-foreground"
-                        initial={false}
-                        animate={{
-                          top: indicatorRect.top,
-                          height: indicatorRect.height,
-                          left: indicatorRect.left,
-                        }}
-                        transition={SPRING.indicator}
-                      />
-                    )}
-                    {sections.map((section, sIdx) => (
-                      <SectionItem
-                        key={section.slug}
-                        section={section}
-                        activeSlug={activeSlug}
-                        firstLinkRef={sIdx === 0 ? firstLinkRef : undefined}
-                        onNavigate={handleNavigate}
-                      />
-                    ))}
-                  </ol>
-                </motion.div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
-        </motion.div>
-      </nav>
-    </MotionConfig>
+    <PreviewRail
+      label="Table of contents"
+      items={items}
+      activeId={activeSlug ?? undefined}
+      highlightActive
+      onItemSelect={handleSelect}
+      renderPreview={(item) => (
+        <div className="rounded-lg border border-border bg-card/95 px-3 py-2 shadow-lg backdrop-blur-xl">
+          <p className="text-xs font-medium text-card-foreground">{item.label}</p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">{item.description}</p>
+        </div>
+      )}
+      previewSide="before"
+      className="pointer-events-none fixed top-1/2 right-0 z-40 w-[min(22rem,calc(100vw-1rem))] -translate-y-1/2 justify-end"
+      railClassName="pointer-events-auto"
+    />
   );
 };
-
-function SectionItem({
-  section,
-  activeSlug,
-  onNavigate,
-  firstLinkRef,
-}: {
-  section: Section;
-  activeSlug: string | null;
-  onNavigate: (slug: string) => void;
-  firstLinkRef?: React.Ref<HTMLAnchorElement>;
-}) {
-  return (
-    <motion.li variants={itemVariants}>
-      <TocLink
-        slug={section.slug}
-        text={section.text}
-        isActive={activeSlug === section.slug}
-        onNavigate={onNavigate}
-        linkRef={firstLinkRef}
-      />
-      {section.children.length > 0 && (
-        <NestedList>
-          {section.children.map((child) => (
-            <motion.li key={child.slug} variants={itemVariants}>
-              <TocLink
-                slug={child.slug}
-                text={child.text}
-                isActive={activeSlug === child.slug}
-                onNavigate={onNavigate}
-                nested
-              />
-            </motion.li>
-          ))}
-        </NestedList>
-      )}
-    </motion.li>
-  );
-}
-
-function NestedList({ children }: { children: React.ReactNode }) {
-  const listRef = useRef<HTMLOListElement>(null);
-  const [guide, setGuide] = useState<{ top: number; height: number } | null>(null);
-
-  const measure = useCallback(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const items = list.querySelectorAll<HTMLElement>(":scope > li");
-    if (items.length === 0) return;
-    const listRect = list.getBoundingClientRect();
-    const first = items[0].getBoundingClientRect();
-    const last = items[items.length - 1].getBoundingClientRect();
-    setGuide({
-      top: first.top - listRect.top + list.scrollTop + 6,
-      height: last.bottom - first.top - 12,
-    });
-  }, []);
-
-  useEffect(() => {
-    measure();
-    const list = listRef.current;
-    if (!list) return;
-    const ro = new ResizeObserver(measure);
-    ro.observe(list);
-    for (const li of list.querySelectorAll("li")) ro.observe(li);
-    return () => ro.disconnect();
-  }, [measure, children]);
-
-  return (
-    <ol ref={listRef} className="relative ml-3 flex flex-col gap-0.5">
-      {guide && guide.height > 0 && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-0 w-px bg-border"
-          style={{ top: guide.top, height: guide.height }}
-        />
-      )}
-      {children}
-    </ol>
-  );
-}
-
-function TocLink({
-  slug,
-  text,
-  isActive,
-  onNavigate,
-  nested = false,
-  linkRef,
-}: {
-  slug: string;
-  text: string;
-  isActive: boolean;
-  onNavigate: (slug: string) => void;
-  nested?: boolean;
-  linkRef?: React.Ref<HTMLAnchorElement>;
-}) {
-  return (
-    <a
-      ref={linkRef}
-      href={`#${slug}`}
-      data-slug={slug}
-      data-nested={nested || undefined}
-      data-active={isActive || undefined}
-      aria-current={isActive ? "location" : undefined}
-      onClick={(e) => {
-        e.preventDefault();
-        onNavigate(slug);
-      }}
-      className={cn(
-        "block rounded-md py-1.5 pr-2 text-sm leading-snug outline-none transition-colors duration-200",
-        "focus-visible:bg-accent",
-        nested ? "pl-5" : "pl-4",
-        isActive ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
-      )}
-    >
-      {text}
-    </a>
-  );
-}

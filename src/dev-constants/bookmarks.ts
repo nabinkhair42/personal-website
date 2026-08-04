@@ -11,16 +11,6 @@ const BOOKMARK_CATEGORIES: Record<BookmarkCategory, { label: string }> = {
 export const BOOKMARKS: Bookmark[] = [
   // Articles
   {
-    title: "Simon Willison's Blog",
-    url: "https://simonwillison.net",
-    category: "articles",
-  },
-  {
-    title: "Subtraction",
-    url: "https://www.subtraction.com",
-    category: "articles",
-  },
-  {
     title: "Things You're Allowed To Do",
     url: "https://milan.cvitkovic.net/writing/things_youre_allowed_to_do/",
     category: "articles",
@@ -64,11 +54,6 @@ export const BOOKMARKS: Bookmark[] = [
     category: "engineering",
   },
   {
-    title: "Awesome GEO",
-    url: "https://github.com/amplifying-ai/awesome-generative-engine-optimization",
-    category: "engineering",
-  },
-  {
     title: "Building Effective Agents",
     url: "https://www.anthropic.com/engineering/building-effective-agents",
     category: "engineering",
@@ -87,23 +72,6 @@ export const BOOKMARKS: Bookmark[] = [
     title: "Lilian Weng's Blog",
     url: "https://lilianweng.github.io",
     category: "engineering",
-  },
-
-  // Products
-  {
-    title: "Langfuse",
-    url: "https://langfuse.com",
-    category: "products",
-  },
-  {
-    title: "Peerlist",
-    url: "https://peerlist.io",
-    category: "products",
-  },
-  {
-    title: "VS Code",
-    url: "https://code.visualstudio.com",
-    category: "products",
   },
 
   // Tools

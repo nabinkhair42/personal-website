@@ -20,7 +20,7 @@ const NAV_LINKS = [
   },
   {
     href: "/bookmarks",
-    label: "links",
+    label: "bookmarks",
     tooltip: "Bookmarks",
     shortcut: "K",
     match: (pathname: string) => pathname.startsWith("/bookmarks"),

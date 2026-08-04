@@ -1,5 +1,6 @@
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
+import { BlogPostActions } from "@/components/blog/blog-post-actions";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeveloperDetails } from "@/dev-constants/details";
@@ -14,6 +15,7 @@ interface BlogHeaderProps {
 export function BlogHeader({ frontmatter, readingTime }: BlogHeaderProps) {
   return (
     <ShellWrapper>
+      <BlogPostActions />
       <header className="space-y-4">
         <div className="space-y-2">
           <h1 className="text-3xl font-medium md:text-4xl">{frontmatter.title}</h1>
