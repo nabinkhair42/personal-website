@@ -5,6 +5,7 @@ import DeveloperEducation from "@/components/main/developer-education";
 import DeveloperExperience from "@/components/main/developer-experience";
 import DeveloperGitContribution from "@/components/main/developer-git-contribution";
 import DeveloperIntro from "@/components/main/developer-intro";
+import DeveloperOverview from "@/components/main/developer-overview";
 import DeveloperProjects from "@/components/main/developer-projects";
 import DeveloperStack from "@/components/main/developer-stack";
 import DeveloperTemplates from "@/components/main/developer-templates";
@@ -134,6 +135,7 @@ const Page = () => {
       />
       <PageShellWrapper>
         <DeveloperIntro />
+        <DeveloperOverview />
         <DeveloperExperience />
         <DeveloperProjects />
         <DeveloperEducation />

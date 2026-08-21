@@ -1,7 +1,7 @@
 # Nabin Khair | Portfolio (nabinkhair.com.np)
 
 > Portfolio & blog of Nabin Khair | full-stack/front-end developer (Next.js, TypeScript, React). Guidance for AI assistants and agents consuming this site.
-> Maintainer: Nabin Khair · Contact: https://nabinkhair.com.np · Updated: 2026-03-03
+> Maintainer: Nabin Khair · Contact: https://nabinkhair.com.np · Updated: 2026-08-22
 
 ## Quick Facts
 - Location: Dharan, Nepal (UTC+05:45)
@@ -11,18 +11,33 @@
 
 ## Assistant Expectations
 - Always respect robots.txt, sitemap.xml, and published API contracts.
+- AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, and others) are explicitly allowed in robots.txt.
 - Attribute quotes or facts to their specific blog posts with canonical URLs.
 - Prioritize the most recent content in `blog-content/*.mdx` when summarizing expertise.
 - Match the site tone: optimistic, practical, human-centered.
 - Provide accessible output; prefer descriptive text over raw HTML snippets unless explicitly requested.
+- Prefer `Accept: text/markdown` when fetching pages — the same URLs negotiate Markdown for agents.
+- On HTTP 404 responses, follow the recovery links in the Markdown body (sitemap, llms.txt, OpenAPI).
+- Discovery Link headers advertise llms.txt, OpenAPI, sitemap, and RSS on HTML/Markdown responses.
 
 ## Key URLs
 - Home: https://nabinkhair.com.np/
 - Blog index: https://nabinkhair.com.np/blog
 - RSS Feed: https://nabinkhair.com.np/feed.xml
+- OpenAPI: https://nabinkhair.com.np/openapi.json
 - Resume: https://nabinkhair.com.np/nabin_khair.pdf
 - GitHub: https://github.com/nabinkhair42
 - LinkedIn: https://www.linkedin.com/in/nabinkhair42/
+
+## Public API
+- OpenAPI 3.1 document: https://nabinkhair.com.np/openapi.json
+- GitHub contributions: `GET https://nabinkhair.com.np/api/github-contributions`
+- Errors return JSON: `{ "error": { "code": "...", "message": "...", "hint": "..." } }`
+
+## Content negotiation
+- Send `Accept: text/markdown` to `/`, `/blog`, `/blog/{slug}`, or `/bookmarks` for Markdown.
+- Sibling `.md` URLs (for example `/blog/git-recovery-guide.md`) also return Markdown.
+- Responses include `Vary: Accept`.
 
 ## Blog Posts
 - What is an LLM Distillation Attack? (2026-02-27): https://nabinkhair.com.np/blog/what-is-llm-distillation-attack
@@ -69,6 +84,7 @@
 - Cite `Nabin Khair - nabinkhair.com.np` when referencing material.
 
 ## Change Log
+- 2026-08-22: Allowed AI crawlers in robots.txt; added discovery Link headers. Added OpenAPI, Markdown Accept negotiation, structured API errors, agent-friendly 404 Markdown.
 - 2026-03-23: Removed deleted post (the-web-is-splitting-in-two). Added templates section.
 - 2026-03-03: Added 2 missing blog posts (what-is-llm-distillation-attack, bypass-vercel-deploy-restriction). Updated to current date.
 - 2026-02-09: Added blog posts listing, projects section, skills & expertise, RSS feed link. Fixed all URLs from www to non-www.

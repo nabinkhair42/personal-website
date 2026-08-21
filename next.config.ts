@@ -3,6 +3,17 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 
+  async headers() {
+    return [
+      {
+        // Advertise Accept negotiation for caches; markdown responses also set this
+        // explicitly in the route handler (authoritative for text/markdown).
+        source: "/:path*",
+        headers: [{ key: "Vary", value: "Accept" }],
+      },
+    ];
+  },
+
   async redirects() {
     return [
       // Strip legacy Blogger ?m= parameter

@@ -2,8 +2,11 @@ import Link from "next/link";
 import PageShellWrapper from "@/components/layouts/page-shell";
 import ShellWrapper from "@/components/layouts/shell-wrapper";
 import { Button } from "@/components/ui/button";
+import { getNotFoundMarkdown } from "@/lib/agent/not-found-markdown";
 
 export default function NotFound() {
+  const recoveryMarkdown = getNotFoundMarkdown();
+
   return (
     <PageShellWrapper>
       <ShellWrapper>
@@ -24,7 +27,8 @@ export default function NotFound() {
             This page took a different route
           </h1>
           <p className="text-base leading-relaxed text-muted-foreground">
-            The link you followed is no longer available.
+            The link you followed is no longer available. Try the sitemap, llms.txt, or the links
+            below.
           </p>
         </header>
       </ShellWrapper>
@@ -38,7 +42,35 @@ export default function NotFound() {
             nativeButton={false}
             render={<Link href="/blog">Read the blog</Link>}
           />
+          <Button
+            size="sm"
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/sitemap.xml">Sitemap</Link>}
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/llms.txt">llms.txt</Link>}
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/openapi.json">OpenAPI</Link>}
+          />
         </div>
+      </ShellWrapper>
+
+      {/*
+        Agents that land on the HTML 404 still get a short markdown recovery
+        body in the document. Prefer Accept: text/markdown for a pure markdown 404.
+      */}
+      <ShellWrapper>
+        <pre className="overflow-x-auto whitespace-pre-wrap p-2 font-mono text-xs leading-relaxed text-muted-foreground">
+          {recoveryMarkdown}
+        </pre>
       </ShellWrapper>
     </PageShellWrapper>
   );

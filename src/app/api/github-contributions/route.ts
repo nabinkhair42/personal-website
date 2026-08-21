@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { DeveloperDetails } from "@/dev-constants/details";
+import { apiError, apiMethodNotAllowed } from "@/lib/api/errors";
 
 const GITHUB_GRAPHQL = "https://api.github.com/graphql";
 const USERNAME = DeveloperDetails.socialLinks.find((l) => l.name === "GitHub")?.handle ?? "";
@@ -16,8 +17,8 @@ type ContributionDay = {
 };
 
 type GraphQLResponse = {
-  data: {
-    user: {
+  data?: {
+    user?: {
       contributionsCollection: {
         contributionCalendar: {
           weeks: {
@@ -25,8 +26,9 @@ type GraphQLResponse = {
           }[];
         };
       };
-    };
+    } | null;
   };
+  errors?: { message: string }[];
 };
 
 const LEVEL_MAP: Record<string, number> = {
@@ -40,7 +42,21 @@ const LEVEL_MAP: Record<string, number> = {
 export async function GET() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    return NextResponse.json({ error: "GITHUB_TOKEN not configured" }, { status: 500 });
+    return apiError(
+      500,
+      "misconfigured",
+      "GITHUB_TOKEN is not configured on the server.",
+      "Set GITHUB_TOKEN in the deployment environment, then retry."
+    );
+  }
+
+  if (!USERNAME) {
+    return apiError(
+      500,
+      "misconfigured",
+      "GitHub username is not configured.",
+      "Check DeveloperDetails.socialLinks for a GitHub handle."
+    );
   }
 
   const now = new Date();
@@ -65,21 +81,54 @@ export async function GET() {
     }
   `;
 
-  const res = await fetch(GITHUB_GRAPHQL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(GITHUB_GRAPHQL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query }),
+    });
+  } catch {
+    return apiError(
+      502,
+      "upstream_error",
+      "Failed to reach the GitHub GraphQL API.",
+      "Retry shortly. If the problem persists, check GitHub status."
+    );
+  }
 
   if (!res.ok) {
-    return NextResponse.json({ error: `GitHub API error: ${res.status}` }, { status: 502 });
+    return apiError(
+      502,
+      "upstream_error",
+      `GitHub API returned HTTP ${res.status}.`,
+      "Verify GITHUB_TOKEN scopes include public repository read access."
+    );
   }
 
   const json = (await res.json()) as GraphQLResponse;
-  const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
+
+  if (json.errors?.length) {
+    return apiError(
+      502,
+      "upstream_error",
+      json.errors[0]?.message ?? "GitHub GraphQL returned errors.",
+      "Confirm the configured GitHub username exists and the token is valid."
+    );
+  }
+
+  const weeks = json.data?.user?.contributionsCollection.contributionCalendar.weeks;
+  if (!weeks) {
+    return apiError(
+      502,
+      "upstream_error",
+      "GitHub contribution calendar was missing from the response.",
+      "Confirm the GitHub username in DeveloperDetails matches a real account."
+    );
+  }
 
   let total = 0;
   const data: { date: string; count: number; level: number }[] = [];
@@ -103,4 +152,20 @@ export async function GET() {
       },
     }
   );
+}
+
+export function POST() {
+  return apiMethodNotAllowed("POST", ["GET"]);
+}
+
+export function PUT() {
+  return apiMethodNotAllowed("PUT", ["GET"]);
+}
+
+export function PATCH() {
+  return apiMethodNotAllowed("PATCH", ["GET"]);
+}
+
+export function DELETE() {
+  return apiMethodNotAllowed("DELETE", ["GET"]);
 }

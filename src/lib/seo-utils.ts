@@ -35,6 +35,29 @@ export const generateSitemap = (): MetadataRoute.Sitemap => {
   return [...staticEntries, ...postEntries];
 };
 
+/** AI / agent crawlers that should be explicitly welcomed (not blocked). */
+export const AI_CRAWLER_USER_AGENTS = [
+  "GPTBot",
+  "ChatGPT-User",
+  "OAI-SearchBot",
+  "ClaudeBot",
+  "Claude-User",
+  "Claude-SearchBot",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Google-Extended",
+  "Googlebot",
+  "Applebot",
+  "Applebot-Extended",
+  "Amazonbot",
+  "meta-externalagent",
+  "Bytespider",
+  "CCBot",
+  "Diffbot",
+  "FacebookBot",
+  "cohere-ai",
+] as const;
+
 export const generateRobots = (): MetadataRoute.Robots => {
   const siteUrl = normalizeSiteUrl(DeveloperDetails.portfolio);
 
@@ -44,17 +67,11 @@ export const generateRobots = (): MetadataRoute.Robots => {
         userAgent: "*",
         allow: "/",
       },
+      // Explicit allow for major AI crawlers (overrides any prior Disallow habits
+      // and makes agent-policy audits unambiguous).
       {
-        userAgent: [
-          "GPTBot",
-          "ClaudeBot",
-          "Bytespider",
-          "CCBot",
-          "Amazonbot",
-          "meta-externalagent",
-          "Applebot-Extended",
-        ],
-        disallow: "/",
+        userAgent: [...AI_CRAWLER_USER_AGENTS],
+        allow: "/",
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -117,61 +117,38 @@ const ExpandableSectionContent = React.forwardRef<HTMLDivElement, ExpandableSect
     const { isOpen } = useExpandableSectionItem();
     const shouldReduceMotion = useReducedMotion();
 
+    // Keep children in the DOM when collapsed so SSR / no-JS crawlers still see
+    // the full heading hierarchy and body text.
     return (
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
-            animate={{
-              height: "auto",
-              opacity: 1,
-              transition: shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    height: { duration: 0.38, ease: APPLE_EASE },
-                    opacity: { duration: 0.28, ease: APPLE_EASE },
-                  },
-            }}
-            exit={
-              shouldReduceMotion
-                ? { height: 0, opacity: 0, transition: { duration: 0 } }
-                : {
-                    height: 0,
-                    opacity: 0,
-                    transition: {
-                      height: { duration: 0.3, ease: APPLE_EASE },
-                      opacity: { duration: 0.18, ease: "easeIn" },
-                    },
-                  }
-            }
-            className="overflow-hidden"
-          >
-            <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.32, ease: APPLE_EASE, delay: 0.04 },
-              }}
-              exit={
-                shouldReduceMotion
-                  ? { opacity: 0, transition: { duration: 0 } }
-                  : { opacity: 0, y: -4, transition: { duration: 0.16, ease: "easeIn" } }
+      <motion.div
+        initial={false}
+        animate={{
+          height: isOpen ? "auto" : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                height: { duration: isOpen ? 0.38 : 0.3, ease: APPLE_EASE },
+                opacity: {
+                  duration: isOpen ? 0.28 : 0.18,
+                  ease: isOpen ? APPLE_EASE : "easeIn",
+                },
               }
-            >
-              <div
-                ref={ref}
-                className={cn("mt-3 flex flex-col gap-3 pl-[3.25rem]", className)}
-                {...props}
-              >
-                {children}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        }
+        className="overflow-hidden"
+        aria-hidden={!isOpen}
+        inert={!isOpen ? true : undefined}
+      >
+        <div
+          ref={ref}
+          className={cn("mt-3 flex flex-col gap-3 pl-[3.25rem]", className)}
+          {...props}
+        >
+          {children}
+        </div>
+      </motion.div>
     );
   }
 );
