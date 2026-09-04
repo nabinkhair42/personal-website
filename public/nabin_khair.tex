@@ -1,0 +1,163 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{12pt}
+
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\hypersetup{colorlinks=true, urlcolor=black}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+
+\titleformat{\section}{
+  \vspace{2pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+\setlist[itemize]{
+  leftmargin=*,
+  label={},
+  topsep=3pt,
+  partopsep=0pt,
+  parsep=0pt,
+  itemsep=3pt
+}
+
+\newcommand{\resumeItem}[2]{
+  \item\small{\textbf{#1}{: #2}}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabular*}{0.99\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small #3} & \textit{\small #4} \\
+    \end{tabular*}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[topsep=2pt, itemsep=2pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
+
+\newcommand{\resumeProjectListStart}{\begin{itemize}[itemsep=3pt, topsep=2pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeProjectListEnd}{\end{itemize}\vspace{-2pt}}
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{center}
+  {\LARGE \textbf{Nabin Khair}} \\
+  \vspace{2pt}
+  {AI Full-Stack Engineer $\cdot$ LLM Systems} \\
+  \vspace{2pt}
+  \small{
+  \href{mailto:nabinkhair12@gmail.com}{nabinkhair12@gmail.com} $|$
+  \href{https://github.com/nabinkhair42}{GitHub} $|$
+  \href{https://www.linkedin.com/in/nabinkhair42/}{LinkedIn} $|$
+  \href{https://nabinkhair.com.np/}{nabinkhair.com.np}
+  }
+\end{center}
+
+%-----------SUMMARY-----------------
+\section{Summary}
+\small{AI full-stack engineer who builds and ships production AI products end-to-end --- from React/Next.js interfaces to Python/FastAPI services, multi-LLM orchestration, and multi-cloud deployment. Specializes in LLM systems: autonomous agents, tool calling, and MCP, with a focus on deterministic, observable, reliable AI in production. A high-ownership builder who takes an ambiguous problem from concept to a deployed product people actually use.}
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+  {Mersel AI}{Remote}
+  {Forward Deployed Engineer (Full-time)}{Nov 2025 -- Present}
+  \resumeItemListStart
+    \item\small{Built and shipped Mersel's full AI platform end-to-end: a Python/FastAPI service orchestrating multi-LLM pipelines (OpenAI, Anthropic, Gemini, Perplexity), a Cloudflare edge worker, a multi-tenant CMS, a scheduled job worker, and the Next.js dashboard.}
+    \item\small{Designed autonomous, tool-calling agent workflows with structured, deterministic outputs and guardrails against hallucination.}
+    \item\small{Own deployment and operations across Cloudflare, AWS, GCP, Supabase, and Railway --- responsible for performance, reliability, and observability under real traffic.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Tulio Health}{Remote}
+  {Software Engineer (Contract)}{Aug 2025 -- Dec 2025}
+  \resumeItemListStart
+    \item\small{Improved the performance of an AI healthcare product --- the dashboard and LLM prompt playground used by doctors and patients.}
+    \item\small{Built React components, integrated REST APIs, and set up authentication and authorization with Clerk.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {FinFox}{Remote}
+  {Frontend Developer \& UI/UX Designer (Full-time)}{May 2025 -- Aug 2025}
+  \resumeItemListStart
+    \item\small{Led frontend and UI/UX for a fintech SaaS platform and integrated APIs across its financial workflows.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Truly Care}{Remote}
+  {Frontend Developer (Contract)}{Jun 2025 -- Aug 2025}
+  \resumeItemListStart
+    \item\small{Refactored the frontend codebase for maintainability and built onboarding forms wired to the REST API for a smoother user flow.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Uncle Sams Tech}{Remote}
+  {Web Developer (Part-time)}{Mar 2024 -- May 2025}
+  \resumeItemListStart
+    \item\small{Built backend services for a short-form video app and improved web performance and SEO across several products.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\section{Projects}
+\resumeProjectListStart
+
+\resumeSubItem{\href{https://git.nabinkhair.com.np/}{GitChat}}{An autonomous, chat-based GitHub agent. Uses LLM tool calls to browse repos, review PRs, and trigger CI workflows, with a confirmation step before anything destructive.}
+
+\resumeSubItem{\href{https://tallwatch.com/}{Tallwatch}}{A distributed uptime monitoring platform. Runs low-latency consensus checks across 6 global regions before alerting to cut false positives, with real-time dashboards and incident timelines. Node.js, PostgreSQL, Cloudflare, AWS.}
+
+\resumeSubItem{\href{https://flow.nabinkhair.com.np/}{FlowMint}}{Turns a natural-language prompt into an interactive, shareable diagram --- the LLM parses ambiguous intent into structured output, the renderer makes it shareable.}
+
+\resumeSubItem{\href{https://better-form.nabinkhair.com.np/}{Better Form}}{A type-safe dynamic form builder for React and Next.js, built for developer experience --- a reusable UI system with schema-driven validation.}
+
+\resumeSubItem{\href{https://github.com/nabinkhair42}{Pro MCP \& nk-skills}}{An MCP server registry plus a library of reusable agent skills --- infrastructure for connecting tools and data sources to LLMs and extending agent workflows.}
+
+\resumeProjectListEnd
+
+%-----------SKILLS-----------------
+\section{Technical Skills}
+\resumeSubHeadingListStart
+  \item\small{\textbf{Languages:} TypeScript, Python}
+  \item\small{\textbf{AI / LLM:} OpenAI, Anthropic Claude, Google Gemini, Perplexity, Vertex AI, LLM orchestration, autonomous agents, agent harness design, MCP, tool calling, prompt engineering}
+  \item\small{\textbf{Frontend:} React, Next.js, TanStack Query, Zod, Tailwind, shadcn/ui, Playwright, Better Auth}
+  \item\small{\textbf{Backend \& APIs:} Node.js, Express, FastAPI, REST APIs, PostgreSQL, Drizzle, MongoDB, Redis, Supabase}
+  \item\small{\textbf{Cloud \& DevOps:} Cloudflare (Workers, KV, R2), AWS (EC2, S3), GCP (Cloud Run, Vertex AI), Vercel, Railway, Docker, Git \& GitHub, GitHub Actions}
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------------
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {IOE Purwanchal Campus}{Dharan, Nepal}
+    {Bachelor of Computer Engineering}{2023 -- 2027}
+\resumeSubHeadingListEnd
+
+\end{document}
